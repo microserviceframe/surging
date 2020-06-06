@@ -11,12 +11,10 @@
         @Html.Partial("Partial/ManageNav")
         <section id="work" class="pc-content">
             @RenderBody()
-
         </section>
     </div>
     <div class="pc-tools-bar hidden-xs">
         <div class="row">
-
             <div class="col-sm-12 tool-box tool-invite">
                 <a href="/PersonalCenter/view/partial/invite.html">
                     <span>Powered by surging v0.14</span>
@@ -29,7 +27,6 @@
     <div id="app_wrap">
     </div>
 </section>
-
 @section FootJS
 {
 <script src="~/assets/lib/seajs/dist/sea.js?t=201787"></script>
@@ -40,7 +37,6 @@
     seajs.config({
         debug: true,
         base: '/'
-
     });
     seajs.use("common/view/main.guide.js", function(a) {
             a.init({
@@ -49,4 +45,4 @@
         });
 </script>
 @RenderSection("FootJS", false)
-    }
+}

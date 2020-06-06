@@ -3,20 +3,16 @@ using Surging.ApiGateway.Models;
 using Surging.Core.ApiGateWay.ServiceDiscovery;
 using Surging.Core.ApiGateWay.ServiceDiscovery.Implementation;
 using Surging.Core.ApiGateWay.Utilities;
-using Surging.Core.Caching.HashAlgorithms;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
 using Surging.Core.CPlatform.Support;
-using Surging.Core.CPlatform.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Surging.ApiGateway.Controllers
 {
-    public class ServiceManageController : Controller
+	public class ServiceManageController : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()

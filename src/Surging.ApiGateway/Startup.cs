@@ -1,18 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Surging.ApiGateway;
 using Surging.Apm.Skywalking;
 using Surging.Apm.Skywalking.Abstractions;
 using Surging.Core.ApiGateWay;
@@ -35,7 +31,7 @@ using ZookeeperConfigInfo = Surging.Core.Zookeeper.Configurations.ConfigInfo;
 
 namespace Surging.ApiGateway
 {
-    public class Startup
+	public class Startup
     {
         public IConfigurationRoot Configuration { get; }
 
@@ -44,14 +40,14 @@ namespace Surging.ApiGateway
         public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-              .SetBasePath(env.ContentRootPath)
-              .AddCacheFile("Configs/cacheSettings.json", optional: false)
-              .AddJsonFile("Configs/appsettings.json", optional: true, reloadOnChange: true)
-              .AddGatewayFile("Configs/gatewaySettings.json", optional: false)
-              .AddJsonFile($"Configs/appsettings.{env.EnvironmentName}.json", optional: true);
+                .SetBasePath(env.ContentRootPath)
+                .AddCacheFile("Configs/cacheSettings.json", optional: false)
+                .AddJsonFile("Configs/appsettings.json", optional: true, reloadOnChange: true)
+                .AddGatewayFile("Configs/gatewaySettings.json", optional: false)
+                .AddJsonFile($"Configs/appsettings.{env.EnvironmentName}.json", optional: true);
+            
             Configuration = builder.Build();
         }
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -63,6 +59,7 @@ namespace Surging.ApiGateway
         private IServiceProvider RegisterAutofac(IServiceCollection services)
         {
             var registerConfig = ApiGateWayConfig.Register;
+
             services.AddMvc(options => {
                 options.Filters.Add(typeof(CustomExceptionFilterAttribute));
                 options.EnableEndpointRouting = false;
@@ -71,12 +68,14 @@ namespace Surging.ApiGateway
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 options.JsonSerializerOptions.DictionaryKeyPolicy = null;
             });
-            services.AddLogging(opt =>
+            services.AddLogging(option =>
             {
-                opt.AddConsole();
+                option.AddConsole();
             });
             services.AddCors();
+
             var builder = new ContainerBuilder();
+
             builder.Populate(services);
             builder.AddMicroService(option =>
             {
@@ -84,9 +83,13 @@ namespace Surging.ApiGateway
                 option.AddCache();
                 //option.UseZooKeeperManager(new ConfigInfo("127.0.0.1:2181"));
                 if (registerConfig.Provider == RegisterProvider.Consul)
+				{
                     option.UseConsulManager(new ConfigInfo(registerConfig.Address, enableChildrenMonitor: false));
+                }
                 else if (registerConfig.Provider == RegisterProvider.Zookeeper)
+				{
                     option.UseZooKeeperManager(new ZookeeperConfigInfo(registerConfig.Address, enableChildrenMonitor: true));
+                }
                 option.UseDotNettyTransport();
                 option.AddApiGateWay();
                 option.AddRpcTransportDiagnostic();
@@ -96,7 +99,9 @@ namespace Surging.ApiGateway
                 option.UseMessagePackCodec();
                 builder.Register(m => new CPlatformContainer(ServiceLocator.Current));
             });
+
             ServiceLocator.Current = builder.Build();
+
             return new AutofacServiceProvider(ServiceLocator.Current);
 
         }
@@ -119,46 +124,50 @@ namespace Surging.ApiGateway
             ServiceLocator.Current.Resolve<IServiceProxyFactory>();
             ServiceLocator.Current.Resolve<IServiceCacheManager>().SetCachesAsync(addressDescriptors);
             ServiceLocator.Current.Resolve<IConfigurationWatchProvider>();
-            ServiceLocator.Current.Resolve<IInstrumentStartup>().StartAsync();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            ServiceLocator.Current.Resolve<IInstrumentStartup>().StartAsync();            
+
             app.UseCors(builder =>
             {
-                var policy = Surging.Core.ApiGateWay.AppConfig.Policy;
+                var policy = ApiGateWayConfig.Policy;
                 if (policy.Origins != null)
+				{
                     builder.WithOrigins(policy.Origins);
+                }
                 if (policy.AllowAnyHeader)
+				{
                     builder.AllowAnyHeader();
+                }
                 if (policy.AllowAnyMethod)
+				{
                     builder.AllowAnyMethod();
+                }
                 if (policy.AllowAnyOrigin)
+				{
                     builder.AllowAnyOrigin();
+                }
                 if (policy.AllowCredentials)
+				{
                     builder.AllowCredentials();
+                }
             });
+
             var myProvider = new FileExtensionContentTypeProvider();
             myProvider.Mappings.Add(".tpl", "text/plain");
             app.UseStaticFiles(new StaticFileOptions() { ContentTypeProvider = myProvider });
-            app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+            //app.UseStaticFiles();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute(
-                "Path",
-                "{*path}",
-                new { controller = "Services", action = "Path" });
-            });
+            //    routes.MapRoute(
+            //    "Path",
+            //    "{*path}",
+            //    new { controller = "Services", action = "Path" });
+            //});
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
             app.UseRouting();
 

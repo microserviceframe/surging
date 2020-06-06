@@ -2,36 +2,31 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Hosting;
 using Surging.Core.ApiGateWay;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Surging.ApiGateway
 {
-    public class CustomExceptionFilterAttribute : ExceptionFilterAttribute
+	public class CustomExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IModelMetadataProvider _modelMetadataProvider;
 
-        public CustomExceptionFilterAttribute(
-            IHostingEnvironment hostingEnvironment,
-            IModelMetadataProvider modelMetadataProvider)
+        public CustomExceptionFilterAttribute(IWebHostEnvironment webHostEnvironment, IModelMetadataProvider modelMetadataProvider)
         {
-            _hostingEnvironment = hostingEnvironment;
+            _webHostEnvironment = webHostEnvironment;
             _modelMetadataProvider = modelMetadataProvider;
         }
 
         public override void OnException(ExceptionContext context)
         {
-            if (!_hostingEnvironment.IsDevelopment())
+            if (!_webHostEnvironment.IsDevelopment())
             {
                 return;
             }
-            var result =  ServiceResult<object>.Create(false,errorMessage: context.Exception.Message);
+            var result =  ServiceResult.Create(false,errorMessage: context.Exception.Message);
             result.StatusCode = 400;
-            context.Result =new JsonResult(result);
+            context.Result = new JsonResult(result);
         }
     }
 }
