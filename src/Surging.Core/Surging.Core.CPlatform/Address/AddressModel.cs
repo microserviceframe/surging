@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Net;
 
 namespace Surging.Core.CPlatform.Address
 {
-    /// <summary>
-    /// 一个抽象的地址模型。
-    /// </summary>
-    public abstract class AddressModel
+	/// <summary>
+	/// 一个抽象的地址模型。
+	/// </summary>
+	public abstract class AddressModel
     {
         /// <summary>
         /// 创建终结点。

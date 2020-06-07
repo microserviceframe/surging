@@ -1,16 +1,14 @@
-﻿using Newtonsoft.Json;
-using Surging.Core.CPlatform.Filters.Implementation;
+﻿using Surging.Core.CPlatform.Filters.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Surging.Core.CPlatform
 {
-    /// <summary>
-    /// 服务描述符扩展方法。
-    /// </summary>
-    public static class ServiceDescriptorExtensions
+	/// <summary>
+	/// 服务描述符扩展方法。
+	/// </summary>
+	public static class ServiceDescriptorExtensions
     {
         /// <summary>
         /// 获取组名称。
@@ -47,7 +45,17 @@ namespace Surging.Core.CPlatform
         }
 
         /// <summary>
-        /// 获取负责人
+        /// 获取释放等待执行的设置。
+        /// </summary>
+        /// <param name="descriptor">服务描述符。</param>
+        /// <returns>如果需要等待执行则为true，否则为false，默认为true。</returns>
+        public static bool WaitExecution(this ServiceDescriptor descriptor)
+        {
+            return descriptor.GetMetadata("WaitExecution", true);
+        }
+
+        /// <summary>
+        /// 设置负责人
         /// </summary>
         /// <param name="descriptor">服务描述符。</param>
         /// <param name="waitExecution">负责人名字</param>
@@ -56,6 +64,16 @@ namespace Surging.Core.CPlatform
         {
             descriptor.Metadatas["Director"] = director;
             return descriptor;
+        }
+
+        /// <summary>
+        /// 获取负责人
+        /// </summary>
+        /// <param name="descriptor">服务描述符。</param>
+        /// <returns></returns>
+        public static string Director(this ServiceDescriptor descriptor)
+        {
+            return descriptor.GetMetadata<string>("Director");
         }
 
         /// <summary>
@@ -80,12 +98,23 @@ namespace Surging.Core.CPlatform
             return descriptor.GetMetadata("EnableAuthorization", false);
         }
 
+        /// <summary>
+        /// 设置HTTP方法
+        /// </summary>
+        /// <param name="descriptor">服务描述符。</param>
+        /// <param name="httpMethod">HTTP方法</param>
+        /// <returns>服务描述符。</returns>
         public static ServiceDescriptor HttpMethod(this ServiceDescriptor descriptor, string httpMethod)
         {
             descriptor.Metadatas["HttpMethod"] = httpMethod;
             return descriptor;
         }
          
+        /// <summary>
+        /// 获取HTTP方法
+        /// </summary>
+        /// <param name="descriptor"></param>
+        /// <returns></returns>
         public static string HttpMethod(this ServiceDescriptor descriptor)
         {
             return descriptor.GetMetadata("httpMethod", "");
@@ -121,8 +150,7 @@ namespace Surging.Core.CPlatform
         public static string AuthType(this ServiceDescriptor descriptor)
         {
             return descriptor.GetMetadata("AuthType", "");
-        }
-        
+        }        
 
         /// <summary>
         /// 设置授权类型
@@ -135,19 +163,9 @@ namespace Surging.Core.CPlatform
             descriptor.Metadatas["AuthType"] = authType.ToString();
             return descriptor;
         }
-
-        /// <summary>
-        /// 获取负责人
-        /// </summary>
-        /// <param name="descriptor">服务描述符。</param>
-        /// <returns></returns>
-        public static string Director(this ServiceDescriptor descriptor)
-        {
-            return descriptor.GetMetadata<string>("Director");
-        }
         
         /// <summary>
-        /// 获取日期
+        /// 设置日期
         /// </summary>
         /// <param name="descriptor">服务描述符。</param>
         /// <param name="date">日期</param>
@@ -166,16 +184,6 @@ namespace Surging.Core.CPlatform
         public static string Date(this ServiceDescriptor descriptor)
         {
             return descriptor.GetMetadata<string>("Date");
-        }
-
-        /// <summary>
-        /// 获取释放等待执行的设置。
-        /// </summary>
-        /// <param name="descriptor">服务描述符。</param>
-        /// <returns>如果需要等待执行则为true，否则为false，默认为true。</returns>
-        public static bool WaitExecution(this ServiceDescriptor descriptor)
-        {
-            return descriptor.GetMetadata("WaitExecution", true);
         }
     }
 
@@ -220,7 +228,7 @@ namespace Surging.Core.CPlatform
         /// <param name="name">元数据名称。</param>
         /// <param name="def">如果指定名称的元数据不存在则返回这个参数。</param>
         /// <returns>元数据值。</returns>
-        public T GetMetadata<T>(string name, T def = default(T))
+        public T GetMetadata<T>(string name, T def = default)
         {
             if (!Metadatas.ContainsKey(name))
                 return def;

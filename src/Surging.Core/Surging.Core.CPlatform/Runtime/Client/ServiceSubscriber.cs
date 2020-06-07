@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Runtime.Client
 {
-    /// <summary>
-    /// 服务订阅者
-    /// </summary>
-    public class ServiceSubscriber
+	/// <summary>
+	/// 服务订阅者
+	/// </summary>
+	public class ServiceSubscriber
     {
         /// <summary>
         /// 订阅者服务地址。

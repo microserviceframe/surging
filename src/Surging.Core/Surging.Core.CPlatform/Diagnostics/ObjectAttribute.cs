@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-    public class ObjectAttribute: ParameterBinder
+	public class ObjectAttribute: ParameterBinder
     {
         public Type TargetType { get; set; }
 

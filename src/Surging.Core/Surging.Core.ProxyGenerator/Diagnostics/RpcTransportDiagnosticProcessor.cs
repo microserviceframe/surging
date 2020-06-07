@@ -1,5 +1,4 @@
-﻿
-using Surging.Core.CPlatform.Diagnostics;
+﻿using Surging.Core.CPlatform.Diagnostics;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Utilities;

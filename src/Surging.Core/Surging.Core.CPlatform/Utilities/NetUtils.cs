@@ -1,12 +1,10 @@
 ﻿using Surging.Core.CPlatform.Address;
 using System;
-using System.Collections.Generic;
 using System.Net.NetworkInformation;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-    public class NetUtils
+	public class NetUtils
     {
         public const string LOCALHOST = "127.0.0.1";
         public const string ANYHOST = "0.0.0.0";
@@ -28,7 +26,7 @@ namespace Surging.Core.CPlatform.Utilities
                     || host.Equals("localhost", StringComparison.OrdinalIgnoreCase));
         }
 
-        public static bool IsAnyHost(String host)
+        public static bool IsAnyHost(string host)
         {
             return "0.0.0.0".Equals(host);
         }
@@ -40,7 +38,7 @@ namespace Surging.Core.CPlatform.Utilities
                     && address.IsMatch(IP_PATTERN));
         }
 
-        public static bool IsInvalidLocalHost(String host)
+        public static bool IsInvalidLocalHost(string host)
         {
             return host == null
                     || host.Length == 0

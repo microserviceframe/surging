@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache.Implementation
 {
-    public class ServiceCacheEventArgs
+	public class ServiceCacheEventArgs
     {
         public ServiceCacheEventArgs(ServiceCache cache)
         {
@@ -58,6 +57,7 @@ namespace Surging.Core.CPlatform.Cache.Implementation
         }
 
         public abstract Task ClearAsync();
+
         public abstract Task<IEnumerable<ServiceCache>> GetCachesAsync();
          
         public abstract Task RemveAddressAsync(IEnumerable<CacheEndpoint> endpoints);

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Routing;
-using Surging.Core.CPlatform.Routing.Implementation;
 using Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors;
 using Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation;
 using Surging.Core.CPlatform.Runtime.Client.HealthChecks;
@@ -14,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
 {
-    /// <summary>
-    /// 默认的服务地址解析器。
-    /// </summary>
-    public class DefaultAddressResolver : IAddressResolver
+	/// <summary>
+	/// 默认的服务地址解析器。
+	/// </summary>
+	public class DefaultAddressResolver : IAddressResolver
     {
         #region Field
 
-        private readonly IServiceRouteManager _serviceRouteManager;
+        //private readonly IServiceRouteManager _serviceRouteManager;
         private readonly ILogger<DefaultAddressResolver> _logger;
         private readonly IHealthCheckService _healthCheckService;
         private readonly CPlatformContainer _container;
@@ -114,8 +113,6 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
             });
             return vt.IsCompletedSuccessfully ? vt.Result : await vt;
         }
-
-
 
         private void LoadAddressSelectors()
         {

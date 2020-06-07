@@ -1,14 +1,12 @@
 using Newtonsoft.Json;
-using System;
 using System.Net;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Address
 {
-    /// <summary>
-    /// ip地址模型。
-    /// </summary>
-    public sealed class IpAddressModel : AddressModel
+	/// <summary>
+	/// ip地址模型。
+	/// </summary>
+	public sealed class IpAddressModel : AddressModel
     {
         #region Constructor
 

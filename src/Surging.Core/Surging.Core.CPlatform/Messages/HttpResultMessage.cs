@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.CPlatform.Messages
+﻿namespace Surging.Core.CPlatform.Messages
 {
-    public class HttpResultMessage<T> : HttpResultMessage
+	public class HttpResultMessage<T> : HttpResultMessage
     {
         /// <summary>
         /// 数据集

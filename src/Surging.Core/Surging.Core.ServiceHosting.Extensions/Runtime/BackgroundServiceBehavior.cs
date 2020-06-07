@@ -5,14 +5,12 @@ using Surging.Core.CPlatform.Ioc;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.ProxyGenerator;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime
 {
-    public abstract class BackgroundServiceBehavior : IServiceBehavior, IDisposable
+	public abstract class BackgroundServiceBehavior : IServiceBehavior, IDisposable
     {
         private Task _executingTask;
         private  CancellationTokenSource _stoppingCts = new CancellationTokenSource();

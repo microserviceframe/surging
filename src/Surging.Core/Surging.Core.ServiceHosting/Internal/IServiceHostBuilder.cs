@@ -3,12 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ServiceHosting.Internal
 {
-    public  interface IServiceHostBuilder
+	public  interface IServiceHostBuilder
     {
         IServiceHost Build();
 

@@ -1,11 +1,9 @@
 ﻿using Surging.Core.CPlatform.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Ioc
 {
-    public abstract class ServiceBase: IServiceBehavior
+	public abstract class ServiceBase: IServiceBehavior
     {
         public virtual T GetService<T>() where T : class
         {

@@ -25,6 +25,7 @@ namespace Surging.Services.Client
     public class Startup
     {
         private ContainerBuilder _builder;
+
         public Startup(IConfigurationBuilder config)
         {
             ConfigureEventBus(config);
@@ -58,8 +59,7 @@ namespace Surging.Services.Client
 
         private static void ConfigureEventBus(IConfigurationBuilder build)
         {
-            build
-            .AddEventBusFile("eventBusSettings.json", optional: false);
+            build.AddEventBusFile("eventBusSettings.json", optional: false);
         }
 
         /// <summary>
@@ -67,8 +67,7 @@ namespace Surging.Services.Client
         /// </summary>
         private void ConfigureCache(IConfigurationBuilder build)
         {
-            build
-              .AddCacheFile("cacheSettings.json", optional: false);
+            build.AddCacheFile("cacheSettings.json", optional: false);
         }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace Surging.Services.Client
         /// <param name="serviceProxyFactory"></param>
         public static void Test(IServiceProxyFactory serviceProxyFactory)
         {
-            var  tracingContext =  ServiceLocator.GetService<ITracingContext>();
+            var tracingContext =  ServiceLocator.GetService<ITracingContext>();
             Task.Run(async () =>
             {
                 RpcContext.GetContext().SetAttachment("xid",124);
@@ -86,11 +85,12 @@ namespace Surging.Services.Client
 
                 var asyncProxy = serviceProxyFactory.CreateProxy<IAsyncService>();
                 var result= await  asyncProxy.AddAsync(1, 2);
-                var user = userProxy.GetUser(new UserModel {
+                var user = userProxy.GetUser(new UserModel
+                {
                     UserId = 1,
                     Name = "fanly",
-                    Age=120,
-                     Sex=0
+                    Age = 120,
+                    Sex = 0
                 }).GetAwaiter().GetResult();
                 var e = userProxy.SetSex(Sex.Woman).GetAwaiter().GetResult();
                 var v = userProxy.GetUserId("fanly").GetAwaiter().GetResult();

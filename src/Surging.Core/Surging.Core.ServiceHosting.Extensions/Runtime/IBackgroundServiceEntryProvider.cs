@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime
 {
-   public interface IBackgroundServiceEntryProvider
+	public interface IBackgroundServiceEntryProvider
     {
         IEnumerable<BackgroundServiceEntry> GetEntries(); 
     }

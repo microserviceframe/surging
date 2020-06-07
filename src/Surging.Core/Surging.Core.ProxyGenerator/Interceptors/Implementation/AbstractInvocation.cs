@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 {
-    public abstract class AbstractInvocation : IInvocation,ICacheInvocation
+	public abstract class AbstractInvocation : IInvocation,ICacheInvocation
     {
         private readonly IDictionary<string, object> _arguments;
         private readonly string _serviceId;
@@ -46,7 +45,6 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
         public Type ReturnType => _returnType;
 
         public abstract Task Proceed();
-
 
         public void SetArgumentValue(int index, object value)
         {

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace Surging.Core.CPlatform.Module
 {
-    #region 组件生命周期枚举类
-    
-    public enum LifetimeScope
+	#region 组件生命周期枚举类
+
+	public enum LifetimeScope
     {
         InstancePerDependency,
         

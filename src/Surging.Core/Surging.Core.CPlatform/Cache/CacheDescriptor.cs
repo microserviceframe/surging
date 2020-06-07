@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Cache
 {
 
-    /// <summary>
-    /// 服务描述符扩展方法。
-    /// </summary>
-    public static class CacheDescriptorExtensions
+	/// <summary>
+	/// 服务描述符扩展方法。
+	/// </summary>
+	public static class CacheDescriptorExtensions
     {
 
         /// <summary>
@@ -19,7 +18,7 @@ namespace Surging.Core.CPlatform.Cache
         /// <returns>失效时间。</returns>
         public static int DefaultExpireTime(this CacheDescriptor descriptor)
         {
-            return descriptor.GetMetadata<int>("DefaultExpireTime", 60);
+            return descriptor.GetMetadata("DefaultExpireTime", 60);
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace Surging.Core.CPlatform.Cache
         /// <returns>缓存描述符。</returns>
         public static int ConnectTimeout(this CacheDescriptor descriptor)
         {
-            return descriptor.GetMetadata<int>("ConnectTimeout", 60);
+            return descriptor.GetMetadata("ConnectTimeout", 60);
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace Surging.Core.CPlatform.Cache
         /// <param name="name">元数据名称。</param>
         /// <param name="def">如果指定名称的元数据不存在则返回这个参数。</param>
         /// <returns>元数据值。</returns>
-        public T GetMetadata<T>(string name, T def = default(T))
+        public T GetMetadata<T>(string name, T def = default)
         {
             if (!Metadatas.ContainsKey(name))
                 return def;

@@ -1,14 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Surging.Core.CPlatform.Utilities;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Configurations
 {
-    public static class CacheConfigurationExtensionsstatic
+	public static class CacheConfigurationExtensionsstatic
     {
         public static IConfigurationBuilder AddCPlatformFile(this IConfigurationBuilder builder, string path)
         {

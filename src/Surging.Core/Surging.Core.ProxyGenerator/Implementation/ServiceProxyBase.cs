@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Surging.Core.CPlatform;
+﻿using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Convertibles;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Runtime.Client;

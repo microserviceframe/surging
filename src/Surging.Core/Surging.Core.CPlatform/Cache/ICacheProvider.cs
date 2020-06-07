@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache
 {
-    public interface ICacheProvider
+	public interface ICacheProvider
     {
         Task<bool> ConnectionAsync(CacheEndpoint endpoint);
         void Add(string key, object value);

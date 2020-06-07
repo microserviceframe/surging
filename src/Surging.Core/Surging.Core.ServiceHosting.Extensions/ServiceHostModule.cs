@@ -6,13 +6,12 @@ using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.ServiceHosting.Extensions.Runtime;
 using Surging.Core.ServiceHosting.Extensions.Runtime.Implementation;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ServiceHosting.Extensions
 {
-    public class ServiceHostModule : EnginePartModule
+	public class ServiceHostModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -25,15 +24,15 @@ namespace Surging.Core.ServiceHosting.Extensions
                 foreach(var entry in entries)
                 {
                      var cts = new CancellationTokenSource();
-                    Task.Run(() =>
+                    Task.Run(async () =>
                     {
                         try
                         {
-                            entry.Behavior.StartAsync(cts.Token);
+							await entry.Behavior.StartAsync(cts.Token);
                         }
                         catch
                         {
-                            entry.Behavior.StopAsync(cts.Token);
+							await entry.Behavior.StopAsync(cts.Token);
                         }
                     });
                 }

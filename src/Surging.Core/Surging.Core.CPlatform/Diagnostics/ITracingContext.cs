@@ -25,7 +25,7 @@ namespace Surging.Core.CPlatform.Diagnostics
         SegmentContext CreateLocalSegmentContext(string operationName);
 
         SegmentContext CreateExitSegmentContext(string operationName, string networkAddress,
-            ICarrierHeaderCollection carrierHeader = default(ICarrierHeaderCollection));
+            ICarrierHeaderCollection carrierHeader = default);
 
         void Release(SegmentContext segmentContext);
     }

@@ -1,8 +1,6 @@
-﻿using Surging.Core.CPlatform.Runtime.Server;
-
-namespace Surging.Core.CPlatform.Transport.Codec.Implementation
+﻿namespace Surging.Core.CPlatform.Transport.Codec.Implementation
 {
-    public class JsonTransportMessageCodecFactory : ITransportMessageCodecFactory
+	public class JsonTransportMessageCodecFactory : ITransportMessageCodecFactory
     {
         #region Field
         private readonly ITransportMessageEncoder _transportMessageEncoder = new JsonTransportMessageEncoder();
@@ -10,6 +8,7 @@ namespace Surging.Core.CPlatform.Transport.Codec.Implementation
         #endregion Field
 
         #region Implementation of ITransportMessageCodecFactory
+
         /// <summary>
         /// 获取编码器。
         /// </summary>

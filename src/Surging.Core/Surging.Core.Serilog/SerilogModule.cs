@@ -1,14 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Events;
-using Serilog.Formatting.Elasticsearch;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.ServiceHosting.Internal;
 
 namespace Surging.Core.Serilog
 {
-    public class SerilogModule: EnginePartModule
+	public class SerilogModule: EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {

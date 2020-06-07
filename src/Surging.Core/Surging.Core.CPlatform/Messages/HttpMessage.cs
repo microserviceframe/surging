@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Messages
 {
-    public  class HttpMessage
+	public  class HttpMessage
     { 
-        public string RoutePath { get; set; }
-
-        
+        public string RoutePath { get; set; }        
 
         public string ServiceKey { get; set; } 
 

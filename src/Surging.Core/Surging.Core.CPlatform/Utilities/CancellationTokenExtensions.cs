@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-    public static class CancellationTokenExtensions
+	public static class CancellationTokenExtensions
     {
         public static Task WhenCanceled(this CancellationToken cancellationToken)
         {

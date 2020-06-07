@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-    public class TracingHeaders : IEnumerable<KeyValuePair<string, string>>
+	public class TracingHeaders : IEnumerable<KeyValuePair<string, string>>
     {
         private List<KeyValuePair<string, string>> _dataStore = new List<KeyValuePair<string, string>>();
 

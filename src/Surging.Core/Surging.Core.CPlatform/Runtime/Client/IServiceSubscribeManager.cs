@@ -1,16 +1,13 @@
 ﻿using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client
 {
-   public interface IServiceSubscribeManager
+	public interface IServiceSubscribeManager
     {
-
         /// <summary>
         /// 获取所有可用的服务订阅者信息。
         /// </summary>
@@ -23,7 +20,6 @@ namespace Surging.Core.CPlatform.Runtime.Client
         /// <param name="routes">服务路由集合。</param>
         /// <returns>一个任务。</returns>
         Task SetSubscribersAsync(IEnumerable<ServiceSubscriber> subscibers);
-
 
         /// <summary>
         /// 清空所有的服务订阅者。

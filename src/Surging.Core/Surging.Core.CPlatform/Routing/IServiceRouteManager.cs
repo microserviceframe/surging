@@ -69,9 +69,7 @@ namespace Surging.Core.CPlatform.Routing
         public static async Task<ServiceRoute> GetAsync(this IServiceRouteManager serviceRouteManager, string serviceId)
         {
             return (await serviceRouteManager.GetRoutesAsync()).SingleOrDefault(i => i.ServiceDescriptor.Id == serviceId);
-        }
-
-       
+        }       
 
         /// <summary>
         /// 获取地址

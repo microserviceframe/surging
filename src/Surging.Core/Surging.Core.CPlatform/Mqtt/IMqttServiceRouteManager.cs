@@ -2,12 +2,11 @@
 using Surging.Core.CPlatform.Mqtt.Implementation;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Mqtt
 {
-   public interface IMqttServiceRouteManager
+	public interface IMqttServiceRouteManager
     {
         event EventHandler<MqttServiceRouteEventArgs> Created;
 
@@ -25,7 +24,6 @@ namespace Surging.Core.CPlatform.Mqtt
         Task SetRoutesAsync(IEnumerable<MqttServiceRoute> routes);
 
         Task RemoveByTopicAsync(string topic, IEnumerable<AddressModel> endpoint);
-
 
         Task RemveAddressAsync(IEnumerable<AddressModel> addresses);
         /// <summary>

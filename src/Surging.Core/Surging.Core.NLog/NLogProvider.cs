@@ -1,12 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Nlog
 {
-    public class NLogProvider : ILoggerProvider
+	public class NLogProvider : ILoggerProvider
     {
         private readonly ConcurrentDictionary<string, NLogger> _loggers =
             new ConcurrentDictionary<string, NLogger>();

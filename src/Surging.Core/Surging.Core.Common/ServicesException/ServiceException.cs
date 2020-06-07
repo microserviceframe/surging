@@ -16,8 +16,7 @@ namespace Surging.Core.Common.ServicesException
             /// 使用指定的错误信息初始化 System.Exception 类的新实例。
             /// </summary>
             /// <param name="message">错误信息</param>
-            public ServiceException(string message)
-                : base(message)
+            public ServiceException(string message) : base(message)
             {
                 Message = message;
             }
@@ -29,11 +28,10 @@ namespace Surging.Core.Common.ServicesException
             /// </summary>
             /// <param name="message"> 解释异常原因的错误信息。</param>
             /// <param name="e">导致当前异常的异常；如果未指定内部异常，则是一个 null 引用</param>
-            public ServiceException(string message, Exception e)
-                : base(message, e)
+            public ServiceException(string message, Exception e) : base(message, e)
             {
                 Message = string.IsNullOrEmpty(message) ? e.Message : message;
-                this.Source = e.Source;
+                Source = e.Source;
             }
 
             /// <summary>
@@ -58,18 +56,17 @@ namespace Surging.Core.Common.ServicesException
             /// 使用指定的枚举初始化 System.Exception 类的新实例
             /// </summary>
             /// <param name="sysCode">错误号</param>
-            public ServiceException(Enum sysCode)
-                : base(sysCode.GetDisplay())
+            public ServiceException(Enum sysCode) : base(sysCode.GetDisplay())
             {
-                this.Code = (int)Enum.Parse(sysCode.GetType(), sysCode.ToString());
-                this.Message = sysCode.GetDisplay();
+                Code = (int)Enum.Parse(sysCode.GetType(), sysCode.ToString());
+                Message = sysCode.GetDisplay();
         
             }
 
             public ServiceException(Enum sysCode, string message)
             {
-                this.Code = (int)Enum.Parse(sysCode.GetType(), sysCode.ToString());
-                this.Message = string.Format(message, sysCode.GetDisplay());
+                Code = (int)Enum.Parse(sysCode.GetType(), sysCode.ToString());
+                Message = string.Format(message, sysCode.GetDisplay());
   
             }
 
@@ -80,9 +77,9 @@ namespace Surging.Core.Common.ServicesException
             /// <returns>返回ServiceException</returns>
             public ServiceException GetServiceException<T>()
             {
-                var code = Message.Substring(Message.LastIndexOf("错误号", System.StringComparison.Ordinal) + 3);
+                var code = Message.Substring(Message.LastIndexOf("错误号", StringComparison.Ordinal) + 3);
                 var sysCode = Enum.Parse(typeof(T), code);
-                this.Code = (int)Enum.Parse(sysCode.GetType(), sysCode.ToString());
+                Code = (int)Enum.Parse(sysCode.GetType(), sysCode.ToString());
   
                 return this;
             }

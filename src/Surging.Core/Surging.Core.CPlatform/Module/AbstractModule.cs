@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using Autofac.Core.Lifetime;
 using Surging.Core.CPlatform.Exceptions;
-using Surging.Core.CPlatform.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -10,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Surging.Core.CPlatform.Module
 {
-    public abstract class AbstractModule : Autofac.Module,IDisposable
+	public abstract class AbstractModule : Autofac.Module,IDisposable
     {
         #region 实例属性
         /// <summary>
@@ -58,8 +56,8 @@ namespace Surging.Core.CPlatform.Module
         #region 构造函数
         public AbstractModule()
         {
-            ModuleName = this.GetType().Name;
-            TypeName = this.GetType().BaseType.Name;
+            ModuleName = GetType().Name;
+            TypeName = GetType().BaseType.Name;
         }
         #endregion
 
@@ -157,14 +155,14 @@ namespace Surging.Core.CPlatform.Module
         /// </summary>
         public virtual void ValidateModule()
         {
-            if (this.Identifier == Guid.Empty || string.IsNullOrEmpty(this.ModuleName) || string.IsNullOrEmpty(this.TypeName)
-                || string.IsNullOrEmpty(this.Title))
+            if (Identifier == Guid.Empty || string.IsNullOrEmpty(ModuleName) || string.IsNullOrEmpty(TypeName)
+                || string.IsNullOrEmpty(Title))
             {
                 throw new CPlatformException("模块属性：Identifier，ModuleName，TypeName，Title 是必须的不能为空！");
             }
 
             Regex regex = new Regex(@"^[a-zA-Z][a-zA-Z0-9_]*$");
-            if (!regex.IsMatch(this.ModuleName))
+            if (!regex.IsMatch(ModuleName))
             {
                 throw new CPlatformException("模块属性：ModuleName 必须为字母开头数字或下划线的组合！");
             }

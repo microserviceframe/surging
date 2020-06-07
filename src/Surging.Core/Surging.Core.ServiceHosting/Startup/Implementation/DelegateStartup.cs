@@ -1,12 +1,9 @@
 ﻿using Autofac;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ServiceHosting.Startup.Implementation
 {
-    public  class DelegateStartup : StartupBase<ContainerBuilder>
+	public  class DelegateStartup : StartupBase<ContainerBuilder>
     {
         private Action<IContainer> _configureApp;
 

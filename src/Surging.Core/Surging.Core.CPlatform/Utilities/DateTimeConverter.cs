@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-   public class DateTimeConverter
+	public class DateTimeConverter
     {
         public static long DateTimeToUnixTimestamp( DateTime dateTime)
         {

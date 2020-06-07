@@ -2,12 +2,10 @@
 using Surging.Core.ProxyGenerator.Interceptors;
 using Surging.Core.ProxyGenerator.Interceptors.Implementation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ProxyGenerator
 {
-    public static class  RegistrationExtensions
+	public static class  RegistrationExtensions
     {
         public static void AddClientIntercepted(this ContainerBuilderWrapper builder,  Type interceptorServiceType)
         { 

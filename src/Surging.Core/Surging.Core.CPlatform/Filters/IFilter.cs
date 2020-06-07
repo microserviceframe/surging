@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.CPlatform.Filters
+﻿namespace Surging.Core.CPlatform.Filters
 {
-   public interface IFilter
+	public interface IFilter
     {
-
         bool AllowMultiple { get; }  
     }
 }

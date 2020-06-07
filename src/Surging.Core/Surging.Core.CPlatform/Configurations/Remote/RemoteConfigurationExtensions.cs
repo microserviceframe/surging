@@ -1,14 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Configurations.Remote
 {
-    /// <summary>
-    /// Extension methods for adding <see cref="RemoteConfigurationProvider"/>.
-    /// </summary>
-    public static class RemoteConfigurationExtensions
+	/// <summary>
+	/// Extension methods for adding <see cref="RemoteConfigurationProvider"/>.
+	/// </summary>
+	public static class RemoteConfigurationExtensions
     {
         /// <summary>
         /// Adds a remote configuration source to <paramref name="builder"/>.

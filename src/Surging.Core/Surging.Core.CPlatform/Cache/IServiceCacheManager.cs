@@ -1,14 +1,12 @@
 ﻿using Surging.Core.CPlatform.Cache.Implementation;
-using Surging.Core.CPlatform.Routing.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache
 {
-    public interface IServiceCacheManager
+	public interface IServiceCacheManager
     {
         event EventHandler<ServiceCacheEventArgs> Created;
 
@@ -50,7 +48,7 @@ namespace Surging.Core.CPlatform.Cache
         }
 
 
-        public static async Task<CacheEndpoint> GetCacheEndpointAsync(this IServiceCacheManager serviceCacheManager, string cacheId,string endpoint)
+        public static async Task<CacheEndpoint> GetCacheEndpointAsync(this IServiceCacheManager serviceCacheManager, string cacheId, string endpoint)
         {
             var caches = await serviceCacheManager.GetCachesAsync();
             var cache= caches.Where(p => p.CacheDescriptor.Id == cacheId).Select(p => p.CacheEndpoint).FirstOrDefault();

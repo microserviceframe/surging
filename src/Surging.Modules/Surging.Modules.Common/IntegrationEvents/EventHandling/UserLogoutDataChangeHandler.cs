@@ -13,6 +13,7 @@ namespace Surging.Modules.Common.IntegrationEvents.EventHandling
     public class UserLogoutDataChangeHandler : IIntegrationEventHandler<LogoutEvent>
     {
         private readonly IUserService _userService;
+
         public UserLogoutDataChangeHandler()
         {
             _userService = ServiceLocator.GetService<IUserService>("User");

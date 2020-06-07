@@ -17,18 +17,15 @@ using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.DotNetty.Adapter;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DotNetty
 {
-    /// <summary>
-    /// 基于DotNetty的传输客户端工厂。
-    /// </summary>
-    public class DotNettyTransportClientFactory : ITransportClientFactory, IDisposable
+	/// <summary>
+	/// 基于DotNetty的传输客户端工厂。
+	/// </summary>
+	public class DotNettyTransportClientFactory : ITransportClientFactory, IDisposable
     {
         #region Field
 
@@ -165,7 +162,7 @@ namespace Surging.Core.DotNetty
 
             public DefaultChannelHandler(DotNettyTransportClientFactory factory)
             {
-                this._factory = factory;
+                _factory = factory;
             }
 
             #region Overrides of ChannelHandlerAdapter

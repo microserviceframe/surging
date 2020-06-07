@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-    internal static class TaskHelpers
+	internal static class TaskHelpers
     {
-        private static readonly Task _defaultCompleted = Task.FromResult<AsyncVoid>(default(AsyncVoid));
+        private static readonly Task _defaultCompleted = Task.FromResult(default(AsyncVoid));
 
         private static readonly Task<object> _completedTaskReturningNull = Task.FromResult<object>(null);
         

@@ -12,6 +12,7 @@ namespace Surging.Core.CPlatform.Messages
         public TransportMessage()
         {
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TransportMessage(object content)
         {

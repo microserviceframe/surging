@@ -2,13 +2,11 @@
 using Surging.Core.ProxyGenerator.Interceptors.Implementation.Metadatas;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 {
-   public static class ServiceDescriptorExtensions
+	public static class ServiceDescriptorExtensions
     {
         public static ServiceDescriptor CacheTime(this ServiceDescriptor descriptor,int time, string metadataId)
         {
@@ -142,7 +140,7 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 
         public static ServiceCacheIntercept GetCacheIntercept(this ServiceDescriptor descriptor,string metadataId)
         {
-          var metadata=  descriptor.GetMetadata<JObject>("Intercept",new JObject());
+          var metadata=  descriptor.GetMetadata("Intercept",new JObject());
            if( metadata.ContainsKey(metadataId))
             {
                 return new ServiceCacheIntercept(metadata[metadataId].ToString().Split("|"));
@@ -152,7 +150,7 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 
         public static string GetIntercept(this ServiceDescriptor descriptor, string metadataId)
         {
-            var metadata = descriptor.GetMetadata<JObject>("Intercept", new JObject());
+            var metadata = descriptor.GetMetadata("Intercept", new JObject());
             if (metadata.ContainsKey(metadataId))
             {
                 return metadata[metadataId].ToString();
@@ -170,7 +168,7 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
         private static (string,Dictionary<string, object>) GetInterceptMetadata( ServiceDescriptor descriptor, string metadataId)
         {
             var result = "";
-            var metadata = descriptor.GetMetadata<Dictionary<string, object>>("Intercept", new Dictionary<string, object>());
+            var metadata = descriptor.GetMetadata("Intercept", new Dictionary<string, object>());
             if (metadata.ContainsKey(metadataId))
             {
                 result= metadata[metadataId].ToString();

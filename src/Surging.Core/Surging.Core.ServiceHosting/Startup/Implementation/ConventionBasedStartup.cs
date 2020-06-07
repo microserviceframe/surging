@@ -1,14 +1,11 @@
 ﻿using Autofac;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
-using System.Text;
 
 namespace Surging.Core.ServiceHosting.Startup.Implementation
 {
-    public class ConventionBasedStartup : IStartup
+	public class ConventionBasedStartup : IStartup
     {
         private readonly StartupMethods _methods;
 

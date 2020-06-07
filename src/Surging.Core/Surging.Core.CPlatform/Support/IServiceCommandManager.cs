@@ -39,6 +39,7 @@ namespace Surging.Core.CPlatform.Support
 
 
         Task SetServiceCommandsAsync();
+
         /// <summary>
         /// 清空所有的服务命令。
         /// </summary>
@@ -59,7 +60,7 @@ public static class ServiceCommandManagerExtensions
     public static async Task<IEnumerable<ServiceCommandDescriptor>> GetServiceCommandsAsync
         (this IServiceCommandManager serviceCommandManager, params string[] serviceIds)
     {
-        var result = (await serviceCommandManager.GetServiceCommandsAsync());
+        var result = await serviceCommandManager.GetServiceCommandsAsync();
         return result.Where(p => serviceIds.Contains(p.ServiceId));
     }
 }

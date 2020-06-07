@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.ProxyGenerator.FastReflection
 {
-    public interface IConstructorInvoker
+	public interface IConstructorInvoker
     {
         object Invoke(params object[] parameters);
     }
@@ -19,8 +18,8 @@ namespace Surging.Core.ProxyGenerator.FastReflection
 
         public ConstructorInvoker(ConstructorInfo constructorInfo)
         {
-            this.ConstructorInfo = constructorInfo;
-            this.m_invoker = InitializeInvoker(constructorInfo);
+            ConstructorInfo = constructorInfo;
+            m_invoker = InitializeInvoker(constructorInfo);
         }
 
         private Func<object[], object> InitializeInvoker(ConstructorInfo constructorInfo)
@@ -55,14 +54,14 @@ namespace Surging.Core.ProxyGenerator.FastReflection
 
         public object Invoke(params object[] parameters)
         {
-            return this.m_invoker(parameters);
+            return m_invoker(parameters);
         }
 
         #region IConstructorInvoker Members
 
         object IConstructorInvoker.Invoke(params object[] parameters)
         {
-            return this.Invoke(parameters);
+            return Invoke(parameters);
         }
 
         #endregion

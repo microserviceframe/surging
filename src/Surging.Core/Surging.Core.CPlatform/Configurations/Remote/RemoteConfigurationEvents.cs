@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Configurations.Remote
 {
-    public  class RemoteConfigurationEvents
+	public  class RemoteConfigurationEvents
     {
         public Action<HttpRequestMessage> OnSendingRequest { get; set; } = msg => { };
 

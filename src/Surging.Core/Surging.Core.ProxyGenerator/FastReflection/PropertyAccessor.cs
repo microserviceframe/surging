@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.ProxyGenerator.FastReflection
 {
@@ -21,9 +20,9 @@ namespace Surging.Core.ProxyGenerator.FastReflection
 
         public PropertyAccessor(PropertyInfo propertyInfo)
         {
-            this.PropertyInfo = propertyInfo;
-            this.InitializeGet(propertyInfo);
-            this.InitializeSet(propertyInfo);
+            PropertyInfo = propertyInfo;
+            InitializeGet(propertyInfo);
+            InitializeSet(propertyInfo);
         }
 
         private void InitializeGet(PropertyInfo propertyInfo)
@@ -48,45 +47,45 @@ namespace Surging.Core.ProxyGenerator.FastReflection
             // Lambda expression
             var lambda = Expression.Lambda<Func<object, object>>(castPropertyValue, instance);
 
-            this.m_getter = lambda.Compile();
+            m_getter = lambda.Compile();
         }
 
         private void InitializeSet(PropertyInfo propertyInfo)
         {
             if (!propertyInfo.CanWrite) return;
-            this.m_setMethodInvoker = new MethodInvoker(propertyInfo.GetSetMethod(true));
+            m_setMethodInvoker = new MethodInvoker(propertyInfo.GetSetMethod(true));
         }
 
         public object GetValue(object o)
         {
-            if (this.m_getter == null)
+            if (m_getter == null)
             {
                 throw new NotSupportedException("Get method is not defined for this property.");
             }
 
-            return this.m_getter(o);
+            return m_getter(o);
         }
 
         public void SetValue(object o, object value)
         {
-            if (this.m_setMethodInvoker == null)
+            if (m_setMethodInvoker == null)
             {
                 throw new NotSupportedException("Set method is not defined for this property.");
             }
 
-            this.m_setMethodInvoker.Invoke(o, new object[] { value });
+            m_setMethodInvoker.Invoke(o, new object[] { value });
         }
 
         #region IPropertyAccessor Members
 
         object IPropertyAccessor.GetValue(object instance)
         {
-            return this.GetValue(instance);
+            return GetValue(instance);
         }
 
         void IPropertyAccessor.SetValue(object instance, object value)
         {
-            this.SetValue(instance, value);
+            SetValue(instance, value);
         }
 
         #endregion

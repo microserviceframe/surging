@@ -1,11 +1,6 @@
-﻿using Surging.Core.CPlatform.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.CPlatform.Module
+﻿namespace Surging.Core.CPlatform.Module
 {
-    public class EnginePartModule : AbstractModule
+	public class EnginePartModule : AbstractModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -17,18 +12,14 @@ namespace Surging.Core.CPlatform.Module
             base.Dispose();
         }
 
-
         protected virtual void RegisterServiceBuilder(IServiceBuilder builder)
         {
         }
-
 
         internal override void RegisterComponents(ContainerBuilderWrapper builder)
         {
             base.RegisterComponents(builder);
           
-        }
-        
+        }        
     }
-
 }

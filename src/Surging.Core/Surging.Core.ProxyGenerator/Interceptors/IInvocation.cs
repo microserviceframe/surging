@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ProxyGenerator.Interceptors
 {
-   public  interface IInvocation
+	public  interface IInvocation
     {
         object Proxy { get; }
          

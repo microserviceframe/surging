@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ServiceHosting
 {
-    internal static class ServiceCollectionExtensions
+	internal static class ServiceCollectionExtensions
     {
         public static IServiceCollection Clone(this IServiceCollection serviceCollection)
         {

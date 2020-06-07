@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ServiceHosting.Internal.Implementation
 {
-    /// <summary>
-    /// 服务端用来阻止Host主线程退出，直到按下Ctrl+C
-    /// </summary>
-    public class ConsoleLifetime : IHostLifetime
+	/// <summary>
+	/// 服务端用来阻止Host主线程退出，直到按下Ctrl+C
+	/// </summary>
+	public class ConsoleLifetime : IHostLifetime
     {
         private readonly ManualResetEvent _shutdownBlock = new ManualResetEvent(false);
         public ConsoleLifetime(IApplicationLifetime applicationLifetime)

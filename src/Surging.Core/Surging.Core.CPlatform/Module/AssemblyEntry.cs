@@ -156,7 +156,7 @@ namespace Surging.Core.CPlatform.Module
         /// </summary>
         public BusinessModule GetBusinessModuleByControllerType(Type controllerType)
         {
-            BusinessModule businessModule = this.AbstractModules.Find(m => controllerType.Namespace.Contains(m.GetType().Namespace) == true) as BusinessModule;
+            BusinessModule businessModule = AbstractModules.Find(m => controllerType.Namespace.Contains(m.GetType().Namespace) == true) as BusinessModule;
 
             if (businessModule == null)
             {
@@ -172,7 +172,7 @@ namespace Surging.Core.CPlatform.Module
         /// <returns>返回程序集视图目录名称</returns>
         public string GetAssemblyViewDirectoryName()
         {
-            return this.Name.Substring(this.Name.LastIndexOf('.') + 1);
+            return Name.Substring(Name.LastIndexOf('.') + 1);
         }
 
         /// <summary>
@@ -283,33 +283,33 @@ namespace Surging.Core.CPlatform.Module
 
             while (reader.NodeType != XmlNodeType.EndElement)
             {
-                this.FileName = reader.ReadElementContentAsString();
-                this.FullName = reader.ReadElementContentAsString();
-                this.Name = reader.ReadElementContentAsString();
-                this.Title = reader.ReadElementContentAsString();
-                this.Description = reader.ReadElementContentAsString();
+                FileName = reader.ReadElementContentAsString();
+                FullName = reader.ReadElementContentAsString();
+                Name = reader.ReadElementContentAsString();
+                Title = reader.ReadElementContentAsString();
+                Description = reader.ReadElementContentAsString();
 
-                System.Version version;
-                System.Version.TryParse(reader.ReadElementContentAsString(), out version);
-                this.Version = version;
+                Version version;
+                Version.TryParse(reader.ReadElementContentAsString(), out version);
+                Version = version;
 
                 bool isExtend;
                 bool.TryParse(reader.ReadElementContentAsString(), out isExtend);
-                this.IsExtend = isExtend;
+                IsExtend = isExtend;
 
                 bool disableStopAndUninstalled;
                 bool.TryParse(reader.ReadElementContentAsString(), out disableStopAndUninstalled);
-                this.DisableStopAndUninstalled = disableStopAndUninstalled;
+                DisableStopAndUninstalled = disableStopAndUninstalled;
 
                 int listOrder;
                 int.TryParse(reader.ReadElementContentAsString(), out listOrder);
-                this.ListOrder = listOrder;
+                ListOrder = listOrder;
 
                 ModuleState state;
-                Enum.TryParse<ModuleState>(reader.ReadElementContentAsString(), out state);
-                this.State = state;
+                Enum.TryParse(reader.ReadElementContentAsString(), out state);
+                State = state;
 
-                this.Reference = new List<string>();
+                Reference = new List<string>();
                 if (reader.Name == "Reference")
                 {
                     if (!reader.IsEmptyElement)
@@ -317,7 +317,7 @@ namespace Surging.Core.CPlatform.Module
                         reader.ReadStartElement("Reference");
                         while (reader.Name == "Assembly")
                         {
-                            this.Reference.Add(reader.ReadElementContentAsString());
+                            Reference.Add(reader.ReadElementContentAsString());
                         }
                         reader.ReadEndElement();
                     }
@@ -327,7 +327,7 @@ namespace Surging.Core.CPlatform.Module
                     }
                 }
 
-                this.AbstractModules = new List<AbstractModule>();
+                AbstractModules = new List<AbstractModule>();
                 if (reader.Name == "AbstractModules")
                 {
                     if (!reader.IsEmptyElement)
@@ -337,7 +337,7 @@ namespace Surging.Core.CPlatform.Module
                         {
                             Type type = Type.GetType(reader.GetAttribute("TypeName"), true);
                             XmlSerializer xmlSerializer = new XmlSerializer(type);
-                            this.AbstractModules.Add((AbstractModule)xmlSerializer.Deserialize(reader));
+                            AbstractModules.Add((AbstractModule)xmlSerializer.Deserialize(reader));
                         }
                         reader.ReadEndElement();
                     }
@@ -355,21 +355,21 @@ namespace Surging.Core.CPlatform.Module
         /// <param name="writer">对象要序列化为的 <see cref="T:System.Xml.XmlWriter"/> 流。</param>
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteElementString("FileName", this.FileName);
-            writer.WriteElementString("FullName", this.FullName);
-            writer.WriteElementString("Name", this.Name);
-            writer.WriteElementString("Title", this.Title);
-            writer.WriteElementString("Description", this.Description);
-            writer.WriteElementString("Version", this.Version == null ? string.Empty : this.Version.ToString());
-            writer.WriteElementString("IsExtend", this.IsExtend.ToString().ToLower());
-            writer.WriteElementString("DisableStopAndUninstalled", this.DisableStopAndUninstalled.ToString().ToLower());
-            writer.WriteElementString("ListOrder", this.ListOrder.ToString());
-            writer.WriteElementString("State", this.State.ToString());
+            writer.WriteElementString("FileName", FileName);
+            writer.WriteElementString("FullName", FullName);
+            writer.WriteElementString("Name", Name);
+            writer.WriteElementString("Title", Title);
+            writer.WriteElementString("Description", Description);
+            writer.WriteElementString("Version", Version == null ? string.Empty : Version.ToString());
+            writer.WriteElementString("IsExtend", IsExtend.ToString().ToLower());
+            writer.WriteElementString("DisableStopAndUninstalled", DisableStopAndUninstalled.ToString().ToLower());
+            writer.WriteElementString("ListOrder", ListOrder.ToString());
+            writer.WriteElementString("State", State.ToString());
 
             writer.WriteStartElement("Reference");
-            if (this.Reference != null)
+            if (Reference != null)
             {
-                this.Reference.ForEach(reference =>
+                Reference.ForEach(reference =>
                 {
                     writer.WriteElementString("Assembly", reference);
                 });
@@ -377,9 +377,9 @@ namespace Surging.Core.CPlatform.Module
             writer.WriteEndElement();
 
             writer.WriteStartElement("AbstractModules");
-            if (this.AbstractModules != null)
+            if (AbstractModules != null)
             {
-                this.AbstractModules.ForEach(module =>
+                AbstractModules.ForEach(module =>
                 {
                     XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
                     namespaces.Add(string.Empty, string.Empty);

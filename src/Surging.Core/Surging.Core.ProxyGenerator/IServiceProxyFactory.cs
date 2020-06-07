@@ -18,7 +18,6 @@ namespace Surging.Core.ProxyGenerator
 
         void RegisterProxType(string[] namespaces, params Type[] types);
 
-
         T CreateProxy<T>() where T : class;
 
         T CreateProxy<T>(string key) where T : class;

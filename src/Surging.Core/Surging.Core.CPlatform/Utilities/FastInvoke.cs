@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-    public class FastInvoke
+	public class FastInvoke
     {
         public delegate object FastInvokeHandler(object target, object[] paramters);
 

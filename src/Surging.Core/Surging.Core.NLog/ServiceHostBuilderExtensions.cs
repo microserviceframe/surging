@@ -4,12 +4,10 @@ using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.ServiceHosting.Internal;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Nlog
 {
-   public static class ServiceHostBuilderExtensions
+	public static class ServiceHostBuilderExtensions
     {
         public static IServiceHostBuilder UseNLog(this IServiceHostBuilder hostBuilder, string nlogConfigFile = "nLog.config")
         {

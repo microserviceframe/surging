@@ -10,7 +10,6 @@ using Surging.Core.Consul.Internal.Cluster.Implementation.Selectors.Implementati
 using Surging.Core.Consul.Internal.Implementation;
 using Surging.Core.Consul.WatcherProvider;
 using Surging.Core.Consul.WatcherProvider.Implementation;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Mqtt;
@@ -42,12 +41,12 @@ namespace Surging.Core.Consul
             UseConsulAddressSelector(builder)
                 .UseHealthCheck(builder)
                 .UseCounlClientProvider(builder, configInfo)
-               .UseConsulRouteManager(builder, configInfo)
-               .UseConsulServiceSubscribeManager(builder, configInfo)
-              .UseConsulCommandManager(builder, configInfo)
-              .UseConsulCacheManager(builder, configInfo)
-              .UseConsulWatch(builder, configInfo)
-              .UseConsulMqttRouteManager(builder, configInfo);
+                .UseConsulRouteManager(builder, configInfo)
+                .UseConsulServiceSubscribeManager(builder, configInfo)
+                .UseConsulCommandManager(builder, configInfo)
+                .UseConsulCacheManager(builder, configInfo)
+                .UseConsulWatch(builder, configInfo)
+                .UseConsulMqttRouteManager(builder, configInfo);
         }
 
         public ConsulModule UseConsulRouteManager(ContainerBuilderWrapper builder, ConfigInfo configInfo)
@@ -60,7 +59,7 @@ namespace Surging.Core.Consul
               provider.GetRequiredService<IClientWatchManager>(),
               provider.GetRequiredService<IServiceRouteFactory>(),
               provider.GetRequiredService<ILogger<ConsulServiceRouteManager>>(),
-               provider.GetRequiredService<IServiceHeartbeatManager>(), 
+               provider.GetRequiredService<IServiceHeartbeatManager>(),
                provider.GetRequiredService<IConsulClientProvider>()));
             return this;
         }

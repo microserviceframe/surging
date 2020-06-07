@@ -1,14 +1,12 @@
 ﻿using Surging.Core.CPlatform.Serialization;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Cache
 {
-    /// <summary>
-    /// 服务地址描述符。
-    /// </summary>
-    public class CacheEndpointDescriptor
+	/// <summary>
+	/// 服务地址描述符。
+	/// </summary>
+	public class CacheEndpointDescriptor
     {
         /// <summary>
         /// 地址类型。

@@ -2,13 +2,10 @@
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Nlog
 {
-    public class NLogModule : EnginePartModule
+	public class NLogModule : EnginePartModule
     {
         private string nlogConfigFile = "${LogPath}|NLog.config";
         public override void Initialize(AppModuleContext context)

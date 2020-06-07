@@ -1,12 +1,10 @@
 ﻿using Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Support.Attributes
 {
 
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class CommandAttribute : Attribute
     {
         public CommandAttribute()

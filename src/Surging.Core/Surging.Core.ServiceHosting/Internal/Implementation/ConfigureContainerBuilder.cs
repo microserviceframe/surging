@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.ServiceHosting.Internal.Implementation
 {
-    public class ConfigureContainerBuilder
+	public class ConfigureContainerBuilder
     {
         public ConfigureContainerBuilder(MethodInfo configureContainerMethod)
         {

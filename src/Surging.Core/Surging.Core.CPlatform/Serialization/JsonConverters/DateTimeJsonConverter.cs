@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Surging.Core.CPlatform.Serialization.JsonConverters
 {
-   public class DateTimeJsonConverter : JsonConverter<DateTime>
+	public class DateTimeJsonConverter : JsonConverter<DateTime>
     {
         private readonly string _dateFormatString;
         public  DateTimeJsonConverter()

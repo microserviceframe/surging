@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-    public class EventData
+	public class EventData
     {
         public EventData(Guid operationId)
         {

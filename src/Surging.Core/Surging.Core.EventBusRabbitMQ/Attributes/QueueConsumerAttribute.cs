@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.EventBusRabbitMQ.Attributes
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
     public class QueueConsumerAttribute : Attribute
     {
         public string QueueName
@@ -25,8 +23,7 @@ namespace Surging.Core.EventBusRabbitMQ.Attributes
         public QueueConsumerAttribute(string queueName, params QueueConsumerMode[] modes)
         {
             _queueName = queueName;
-            _modes = modes.Any() ? modes :
-                new QueueConsumerMode[] { QueueConsumerMode.Normal };
+            _modes = modes.Any() ? modes : new QueueConsumerMode[] { QueueConsumerMode.Normal };
         }
 
     }

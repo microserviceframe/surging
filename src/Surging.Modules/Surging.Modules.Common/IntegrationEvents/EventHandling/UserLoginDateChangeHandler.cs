@@ -10,14 +10,16 @@ using System.Threading.Tasks;
 
 namespace Surging.Modules.Common.IntegrationEvents.EventHandling
 {
-    [QueueConsumer("UserLoginDateChangeHandler",QueueConsumerMode.Normal,QueueConsumerMode.Fail)]
+    [QueueConsumer("UserLoginDateChangeHandler", QueueConsumerMode.Normal, QueueConsumerMode.Fail)]
     public  class UserLoginDateChangeHandler : BaseIntegrationEventHandler<UserEvent>
     {
         private readonly IUserService _userService;
+
         public UserLoginDateChangeHandler()
         {
             _userService = ServiceLocator.GetService<IUserService>("User");
          }
+
         public override async Task Handle(UserEvent @event)
         {
             Console.WriteLine($"消费1。");

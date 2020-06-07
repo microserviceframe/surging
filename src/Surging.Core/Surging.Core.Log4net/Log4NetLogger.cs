@@ -1,18 +1,15 @@
 ﻿using log4net;
-using log4net.Core;
 using log4net.Repository;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Xml;
 
 namespace Surging.Core.Log4net
 {
-    public class Log4NetLogger : Microsoft.Extensions.Logging.ILogger
-    {
+	public class Log4NetLogger : ILogger
+	{
         private readonly string _name;
         private readonly XmlElement _xmlElement;
         private readonly ILog _log;

@@ -1,11 +1,10 @@
-﻿using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.Module;
+﻿using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Utilities;
 using Microsoft.Extensions.Logging;
 
 namespace Surging.Core.Log4net
 {
-   public class Log4netModule : EnginePartModule
+	public class Log4netModule : EnginePartModule
     {
         private string log4NetConfigFile = "${LogPath}|log4net.config";
         public override void Initialize(AppModuleContext context)

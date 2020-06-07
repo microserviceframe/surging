@@ -26,8 +26,7 @@ namespace Surging.Core.CPlatform.HashAlgorithms
             _hashAlgorithm = hashAlgorithm;
         }
 
-        public ConsistentHash(IHashAlgorithm hashAlgorithm, int virtualNodeReplicationFactor)
-            : this(hashAlgorithm)
+        public ConsistentHash(IHashAlgorithm hashAlgorithm, int virtualNodeReplicationFactor) : this(hashAlgorithm)
         {
             _virtualNodeReplicationFactor = virtualNodeReplicationFactor;
         }
@@ -144,11 +143,11 @@ namespace Surging.Core.CPlatform.HashAlgorithms
             {
                 return 0;
             }
-            var mid = begin;
-            while ((end - begin) > 1)
+
+			while ((end - begin) > 1)
             {
-                mid = (end + begin) / 2;
-                if (keys[mid] >= hashOfItem) end = mid;
+				int mid = (end + begin) / 2;
+				if (keys[mid] >= hashOfItem) end = mid;
                 else begin = mid;
             }
             return end;

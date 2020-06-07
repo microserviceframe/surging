@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.CPlatform.Configurations
+﻿namespace Surging.Core.CPlatform.Configurations
 {
-    /// <summary>
-    /// Docker容器部署模式
-    /// </summary>
-    public enum DockerDeployMode
+	/// <summary>
+	/// Docker容器部署模式
+	/// </summary>
+	public enum DockerDeployMode
     {
         /// <summary>
         /// 正常模式

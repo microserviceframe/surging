@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Surging.Core.CPlatform.Engines;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Surging.Core.CPlatform.Module
 {
-    public class ModuleProvider: IModuleProvider
+	public class ModuleProvider: IModuleProvider
     {
         private readonly List<AbstractModule> _modules;
         private readonly string[] _virtualPaths;

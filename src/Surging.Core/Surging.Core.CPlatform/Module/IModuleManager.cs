@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace Surging.Core.CPlatform.Module
 {
-   public  interface IModuleManager
+	public  interface IModuleManager
     {
         bool Install(string modulePackageFileName, TextWriter textWriter);
 

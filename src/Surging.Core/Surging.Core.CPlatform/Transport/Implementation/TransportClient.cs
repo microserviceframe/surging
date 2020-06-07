@@ -2,7 +2,6 @@
 using Surging.Core.CPlatform.Diagnostics;
 using Surging.Core.CPlatform.Exceptions;
 using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Runtime.Client;
 using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Utilities;
 using System;
@@ -14,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Transport.Implementation
 {
-    /// <summary>
-    /// 一个默认的传输客户端实现。
-    /// </summary>
-    public class TransportClient : ITransportClient, IDisposable
+	/// <summary>
+	/// 一个默认的传输客户端实现。
+	/// </summary>
+	public class TransportClient : ITransportClient, IDisposable
     {
         #region Field
 

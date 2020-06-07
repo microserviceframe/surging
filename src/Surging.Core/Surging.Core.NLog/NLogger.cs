@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-
 using System;
 using System.Runtime.CompilerServices;
 
 namespace Surging.Core.Nlog
 {
-    public class NLogger : Microsoft.Extensions.Logging.ILogger
-    {
+    public class NLogger : ILogger
+	{
         private readonly NLog.Logger _log;
         public NLogger(string name)
         { 
@@ -19,7 +18,7 @@ namespace Surging.Core.Nlog
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool IsEnabled(Microsoft.Extensions.Logging.LogLevel logLevel)
+        public bool IsEnabled(LogLevel logLevel)
         {
             switch (logLevel)
             {
@@ -40,7 +39,7 @@ namespace Surging.Core.Nlog
             }
         }
 
-        public void Log<TState>(Microsoft.Extensions.Logging.LogLevel logLevel, EventId eventId, TState state,
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state,
             Exception exception, Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel))

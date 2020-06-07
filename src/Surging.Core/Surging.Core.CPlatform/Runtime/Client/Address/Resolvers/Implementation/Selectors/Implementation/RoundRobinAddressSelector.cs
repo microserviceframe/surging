@@ -7,13 +7,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation
 {
-    public class RoundRobinAddressSelector : AddressSelectorBase
+	public class RoundRobinAddressSelector : AddressSelectorBase
     {
         private const int RECYCLE_PERIOD = 60000;
         private readonly IHealthCheckService _healthCheckService;
@@ -83,6 +81,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
         }
 
         #endregion Private Method
+
         protected class WeightedRoundRobin
         {
             private int _weight;
@@ -96,7 +95,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
 
             public void SetWeight(int weight)
             {
-                this._weight = weight;
+                _weight = weight;
                 current.Set(0);
             }
 

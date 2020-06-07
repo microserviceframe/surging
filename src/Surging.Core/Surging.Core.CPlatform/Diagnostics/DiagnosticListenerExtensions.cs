@@ -1,13 +1,8 @@
-﻿using Surging.Core.CPlatform.Messages;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-    public static class DiagnosticListenerExtensions
+	public static class DiagnosticListenerExtensions
     {
         public const string DiagnosticListenerName = "SurgingDiagnosticListener";
         public const string Prefix = "Surging.Core.";

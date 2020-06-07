@@ -3,18 +3,17 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.CPlatform.DependencyResolution
 {
-    /// <summary>
-    /// IOC容器对象
-    /// </summary>
-    /// <remarks>
-    /// 	<para>创建：范亮</para>
-    /// 	<para>日期：2016/4/2</para>
-    /// </remarks>
-    public class ServiceResolver : IDependencyResolver
+	/// <summary>
+	/// IOC容器对象
+	/// </summary>
+	/// <remarks>
+	/// 	<para>创建：范亮</para>
+	/// 	<para>日期：2016/4/2</para>
+	/// </remarks>
+	public class ServiceResolver : IDependencyResolver
     {
         #region 字段
         private static readonly ServiceResolver _defaultInstance = new ServiceResolver();
@@ -45,7 +44,7 @@ namespace Surging.Core.CPlatform.DependencyResolution
             }
         }
         
-        public virtual void Register(string key, object value,Type type)
+        public virtual void Register(string key, object value, Type type)
         {
             DebugCheck.NotNull(value);
             _initializers.GetOrAdd(ValueTuple.Create(type, key), value);

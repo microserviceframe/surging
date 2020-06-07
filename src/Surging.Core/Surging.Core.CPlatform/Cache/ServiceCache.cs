@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Cache
 {
-    public class ServiceCache
+	public class ServiceCache
     {
         /// <summary>
         /// 服务可用地址。
         /// </summary>
         public IEnumerable<CacheEndpoint> CacheEndpoint { get; set; }
+
         /// <summary>
         /// 服务描述符。
         /// </summary>

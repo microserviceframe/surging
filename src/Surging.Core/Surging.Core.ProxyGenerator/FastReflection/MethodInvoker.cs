@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.ProxyGenerator.FastReflection
 {
@@ -19,13 +18,13 @@ namespace Surging.Core.ProxyGenerator.FastReflection
 
         public MethodInvoker(MethodInfo methodInfo)
         {
-            this.MethodInfo = methodInfo;
-            this.m_invoker = CreateInvokeDelegate(methodInfo);
+            MethodInfo = methodInfo;
+            m_invoker = CreateInvokeDelegate(methodInfo);
         }
 
         public object Invoke(object instance, params object[] parameters)
         {
-            return this.m_invoker(instance, parameters);
+            return m_invoker(instance, parameters);
         }
 
         private static Func<object, object[], object> CreateInvokeDelegate(MethodInfo methodInfo)
@@ -84,7 +83,7 @@ namespace Surging.Core.ProxyGenerator.FastReflection
 
         object IMethodInvoker.Invoke(object instance, params object[] parameters)
         {
-            return this.Invoke(instance, parameters);
+            return Invoke(instance, parameters);
         }
 
         #endregion

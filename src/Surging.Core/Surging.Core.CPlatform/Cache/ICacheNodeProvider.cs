@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Cache
 {
-   public  interface ICacheNodeProvider
+	public interface ICacheNodeProvider
     {
         IEnumerable<ServiceCache> GetServiceCaches();
     }

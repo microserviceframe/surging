@@ -1,6 +1,4 @@
-﻿
-
-using Surging.Core.CPlatform.Ioc;
+﻿using Surging.Core.CPlatform.Ioc;
 using Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation;
 using Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.Attributes;
 using Surging.Core.CPlatform.Support;

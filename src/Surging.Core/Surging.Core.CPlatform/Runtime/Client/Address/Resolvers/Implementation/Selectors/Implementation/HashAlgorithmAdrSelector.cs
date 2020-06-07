@@ -8,13 +8,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation
 {
-   public class HashAlgorithmAdrSelector : AddressSelectorBase
+	public class HashAlgorithmAdrSelector : AddressSelectorBase
     {
         private readonly IHealthCheckService _healthCheckService;
         private readonly ConcurrentDictionary<string, ConsistentHash<AddressModel>> _concurrent =

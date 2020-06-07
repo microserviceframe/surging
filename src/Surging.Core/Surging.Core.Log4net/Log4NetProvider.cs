@@ -1,15 +1,12 @@
 ﻿
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml;
 
 namespace Surging.Core.Log4net
 {
-    public class Log4NetProvider : ILoggerProvider
+	public class Log4NetProvider : ILoggerProvider
     {
         private readonly string _log4NetConfigFile;
         private readonly ConcurrentDictionary<string, Log4NetLogger> _loggers =

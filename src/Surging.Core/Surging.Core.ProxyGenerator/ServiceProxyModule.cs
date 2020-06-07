@@ -1,22 +1,12 @@
 ﻿using Autofac;
 using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.Convertibles;
-using Surging.Core.CPlatform.Engines;
 using Surging.Core.CPlatform.Module;
-using Surging.Core.CPlatform.Routing;
-using Surging.Core.CPlatform.Runtime.Client;
-using Surging.Core.ProxyGenerator.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.ProxyGenerator.Diagnostics;
 using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Core.ProxyGenerator
 {
-   public class ServiceProxyModule: EnginePartModule
+	public class ServiceProxyModule: EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {

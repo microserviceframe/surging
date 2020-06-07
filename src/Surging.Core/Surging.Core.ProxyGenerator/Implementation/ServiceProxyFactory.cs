@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.Support;
 using System.Collections.Generic;
 using Surging.Core.CPlatform.DependencyResolution;
 using System.Runtime.CompilerServices;

@@ -39,10 +39,10 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
             weight = addressModel.Weight;
             if (weight > 0)
             {
-                long timestamp = addressModel.Timestamp;
+                var timestamp = addressModel.Timestamp;
                 if (timestamp > 0L)
                 {
-                    var uptime = (System.DateTime.Now -  DateTimeConverter.UnixTimestampToDateTime(timestamp)).TotalMilliseconds;
+                    var uptime = (DateTime.Now -  DateTimeConverter.UnixTimestampToDateTime(timestamp)).TotalMilliseconds;
                     if (uptime < 0)
                     {
                         return 1;

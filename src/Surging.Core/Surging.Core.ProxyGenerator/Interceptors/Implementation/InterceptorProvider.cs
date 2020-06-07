@@ -1,17 +1,14 @@
 ﻿using Surging.Core.CPlatform.Runtime.Server;
 using System.Collections.Generic;
 using System.Linq;
-using Surging.Core.CPlatform;
 using System.Reflection;
 using System.Collections;
-using Surging.Core.ProxyGenerator.Utilitys;
 using System.Collections.Concurrent;
 using System;
-using Microsoft.Extensions.Logging;
 
 namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 {
-    public class InterceptorProvider : IInterceptorProvider
+	public class InterceptorProvider : IInterceptorProvider
     {
         private readonly IServiceEntryManager _serviceEntryManager;
         ConcurrentDictionary<Tuple<Type, Type>,bool> _derivedTypes = new ConcurrentDictionary<Tuple<Type, Type>, bool>();
@@ -53,7 +50,7 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 
         public string[] GetCacheKeyVaule(IDictionary<string, object> parameterValue)
         {
-            return this.GetKey(parameterValue);
+            return GetKey(parameterValue);
         }
 
         private string[] GetKey(IDictionary<string, object> parameterValue)
@@ -69,7 +66,7 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
                     var properties = (from q in runtimeProperties
                                       let k = q.GetCustomAttribute<KeyAttribute>()
                                       where k != null
-                                      orderby (k as KeyAttribute).SortIndex
+                                      orderby k.SortIndex
                                       select q).ToList();
 
                     reuslt = properties.Count() > 0 ?

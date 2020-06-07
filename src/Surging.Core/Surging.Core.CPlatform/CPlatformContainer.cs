@@ -9,7 +9,7 @@ namespace Surging.Core.CPlatform
     /// </summary>
     public class CPlatformContainer
     {
-        private  IComponentContext _container;
+		private IComponentContext _container;
 
         public IComponentContext Current
         {
@@ -25,7 +25,7 @@ namespace Surging.Core.CPlatform
 
         public CPlatformContainer(IComponentContext container)
         {
-            this._container = container;
+            _container = container;
         }
 
         public bool IsRegistered<T>()
@@ -33,12 +33,16 @@ namespace Surging.Core.CPlatform
             return _container.IsRegistered<T>();
         }
 
-        public bool IsRegisteredWithKey(string serviceKey,Type serviceType)
+        public bool IsRegisteredWithKey(string serviceKey, Type serviceType)
         {
             if(!string.IsNullOrEmpty(serviceKey))
-            return _container.IsRegisteredWithKey(serviceKey, serviceType);
+			{
+                return _container.IsRegisteredWithKey(serviceKey, serviceType);
+            }
             else
+			{
                 return _container.IsRegistered(serviceType);
+            }
         }
         
         public bool IsRegistered<T>(object serviceKey)
@@ -72,7 +76,7 @@ namespace Surging.Core.CPlatform
            return string.IsNullOrEmpty(name) ? GetInstances(type) : _container.ResolveKeyed(name, type);
         }
 
-        public object GetInstances(string name,Type type)  
+        public object GetInstances(string name, Type type)  
         {
             // var appConfig = AppConfig.DefaultInstance;
             var objInstance = ServiceResolver.Current.GetService(type, name);

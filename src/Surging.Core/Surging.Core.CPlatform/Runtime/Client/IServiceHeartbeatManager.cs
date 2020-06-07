@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Surging.Core.CPlatform.Runtime.Client
+﻿namespace Surging.Core.CPlatform.Runtime.Client
 {
-    public interface IServiceHeartbeatManager
+	public interface IServiceHeartbeatManager
     {
         void AddWhitelist(string serviceId);
 

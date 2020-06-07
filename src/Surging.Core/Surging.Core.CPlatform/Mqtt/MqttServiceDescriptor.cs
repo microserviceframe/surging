@@ -1,16 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Serialization;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Mqtt
 {
-    /// <summary>
-    /// Mqtt地址描述符。
-    /// </summary>
-    public class MqttEndpointDescriptor
+	/// <summary>
+	/// Mqtt地址描述符。
+	/// </summary>
+	public class MqttEndpointDescriptor
     {
         /// <summary>
         /// 地址类型。

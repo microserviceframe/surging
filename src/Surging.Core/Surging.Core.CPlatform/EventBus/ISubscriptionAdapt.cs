@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.CPlatform.EventBus
+﻿namespace Surging.Core.CPlatform.EventBus
 {
-   public interface ISubscriptionAdapt
+	public interface ISubscriptionAdapt
     {
         void SubscribeAt();
 

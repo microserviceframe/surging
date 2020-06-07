@@ -103,6 +103,7 @@ namespace Surging.Core.CPlatform
             services.RegisterType(typeof(StringObjectSerializer)).As(typeof(ISerializer<object>)).SingleInstance();
             return builder;
         }
+
         #region RouteManager
 
         /// <summary>
@@ -225,8 +226,7 @@ namespace Surging.Core.CPlatform
         /// <returns>服务构建者。</returns>
         public static IServiceBuilder UsePollingAddressSelector(this IServiceBuilder builder)
         {
-            builder.Services.RegisterType(typeof(PollingAddressSelector))
-                .Named(AddressSelectorMode.Polling.ToString(), typeof(IAddressSelector)).SingleInstance();
+            builder.Services.RegisterType(typeof(PollingAddressSelector)).Named(AddressSelectorMode.Polling.ToString(), typeof(IAddressSelector)).SingleInstance();
             return builder;
         }
 

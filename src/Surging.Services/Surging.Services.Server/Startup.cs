@@ -41,8 +41,7 @@ namespace Surging.Services.Server
 
         private static void ConfigureEventBus(IConfigurationBuilder build)
         {
-          //  build
-           // .AddEventBusFile("eventBusSettings.json", optional: false);
+          //  build.AddEventBusFile("eventBusSettings.json", optional: false);
         }
 
         /// <summary>
@@ -50,8 +49,7 @@ namespace Surging.Services.Server
         /// </summary>
         private void ConfigureCache(IConfigurationBuilder build)
         {
-            build
-              .AddCacheFile("cacheSettings.json", optional: false);
+            build.AddCacheFile("cacheSettings.json", optional: false);
         }
         #endregion
 
