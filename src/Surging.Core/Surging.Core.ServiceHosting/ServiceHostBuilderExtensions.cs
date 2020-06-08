@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Surging.Core.ServiceHosting
 {
-	public static   class ServiceHostBuilderExtensions
+    public static class ServiceHostBuilderExtensions
     {
         public static IServiceHostBuilder UseStartup(this IServiceHostBuilder hostBuilder, Type startupType)
         {
@@ -24,10 +24,10 @@ namespace Surging.Core.ServiceHosting
                     {
                         services.AddSingleton(typeof(IStartup), sp =>
                         {
-                            var config= sp.GetService<IConfigurationBuilder>();
+                            var config = sp.GetService<IConfigurationBuilder>();
                             return new ConventionBasedStartup(StartupLoader.LoadMethods(sp, config, startupType, ""));
                         });
-                       
+
                     }
                 });
         }

@@ -11,6 +11,7 @@ namespace Surging.Core.Configuration.Apollo.Configurations
     public class SurgingApolloConfigurationProvider : ApolloConfigurationProvider
     {
         internal string SectionKey { get; }
+
         internal IConfigRepository ConfigRepository { get; }
 
         public SurgingApolloConfigurationProvider(string sectionKey, IConfigRepository configRepository) : base(sectionKey, configRepository)
@@ -33,6 +34,5 @@ namespace Surging.Core.Configuration.Apollo.Configurations
 
             Data = data;
         }
-
     }
 }

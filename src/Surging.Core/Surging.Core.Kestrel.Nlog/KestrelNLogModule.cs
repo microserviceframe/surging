@@ -6,20 +6,17 @@ using Surging.Core.CPlatform.Utilities;
 using Surging.Core.KestrelHttpServer;
 using Surging.Core.Nlog;
 
-
-
 namespace Surging.Core.Kestrel.Nlog
 {
-   public class KestrelNLogModule : KestrelHttpModule
+    public class KestrelNLogModule : KestrelHttpModule
     {
         private string nlogConfigFile = "${LogPath}|NLog.config";
         public override void Initialize(AppModuleContext context)
         {
-  
         }
 
         public override void RegisterBuilder(WebHostContext context)
-        { 
+        {
         }
 
         public override void Initialize(ApplicationInitializationContext context)
@@ -35,12 +32,12 @@ namespace Surging.Core.Kestrel.Nlog
 
         public override void RegisterBuilder(ConfigurationContext context)
         {
-             context.Services.AddLogging();
+            context.Services.AddLogging();
         }
 
         protected override void RegisterBuilder(ContainerBuilderWrapper builder)
         {
-           
+
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Xml;
 
 namespace Surging.Core.Log4net
 {
-	public class Log4NetProvider : ILoggerProvider
+    public class Log4NetProvider : ILoggerProvider
     {
         private readonly string _log4NetConfigFile;
         private readonly ConcurrentDictionary<string, Log4NetLogger> _loggers =
@@ -25,6 +24,7 @@ namespace Surging.Core.Log4net
         {
             _loggers.Clear();
         }
+
         private Log4NetLogger CreateLoggerImplementation(string name)
         {
             return new Log4NetLogger(name, Parselog4NetConfigFile(_log4NetConfigFile));
@@ -33,7 +33,7 @@ namespace Surging.Core.Log4net
         private static XmlElement Parselog4NetConfigFile(string filename)
         {
             XmlDocument log4netConfig = new XmlDocument();
-            var stream= File.OpenRead(filename);
+            var stream = File.OpenRead(filename);
             log4netConfig.Load(stream);
             stream.Close();
             return log4netConfig["log4net"];

@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Surging.Core.ApiGateWay;
+﻿using Surging.Core.ApiGateWay;
 using Surging.Core.ApiGateWay.OAuth;
 using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.DependencyResolution;
 using Surging.Core.CPlatform.Filters.Implementation;
 using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.KestrelHttpServer.Filters;
 using Surging.Core.KestrelHttpServer.Filters.Implementation;
 using System.Threading.Tasks;
 using Autofac;
-using System;
 using Surging.Core.KestrelHttpServer.Internal;
 
 namespace Surging.Core.Stage.Filters
 {
-    public class AuthorizationFilterAttribute : IAuthorizationFilter
+	public class AuthorizationFilterAttribute : IAuthorizationFilter
     {
         private readonly IAuthorizationServerProvider _authorizationServerProvider;
         public AuthorizationFilterAttribute()
@@ -54,10 +50,9 @@ namespace Surging.Core.Stage.Filters
                     }
                 }
             }
-          
-            if (String.Compare(filterContext.Path.ToLower(), gatewayAppConfig.TokenEndpointPath, true) == 0)
-                filterContext.Context.Items.Add("path", gatewayAppConfig.AuthorizationRoutePath);
 
+            if (string.Compare(filterContext.Path.ToLower(), gatewayAppConfig.TokenEndpointPath, true) == 0)
+                filterContext.Context.Items.Add("path", gatewayAppConfig.AuthorizationRoutePath);
         }
     }
 }

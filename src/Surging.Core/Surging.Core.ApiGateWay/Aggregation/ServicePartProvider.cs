@@ -1,19 +1,17 @@
 ﻿using Surging.Core.ProxyGenerator;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Concurrent;
 using Newtonsoft.Json.Linq;
-using Surging.Core.ApiGateWay.Configurations;
 
 namespace Surging.Core.ApiGateWay.Aggregation
 {
-    /// <summary>
-    /// 服务部件提供者
-    /// </summary>
-    public class ServicePartProvider : IServicePartProvider
+	/// <summary>
+	/// 服务部件提供者
+	/// </summary>
+	public class ServicePartProvider : IServicePartProvider
     {
         private readonly IServiceProxyProvider _serviceProxyProvider;
         private readonly ConcurrentDictionary<string, ServicePartType> _servicePartTypes =
@@ -39,8 +37,6 @@ namespace Surging.Core.ApiGateWay.Aggregation
                 }
             }
             return partType != ServicePartType.None;
-
-
         }
 
         public async Task<object> Merge(string routhPath, Dictionary<string, object> param)

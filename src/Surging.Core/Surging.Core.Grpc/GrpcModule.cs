@@ -9,13 +9,13 @@ using Surging.Core.Grpc.Runtime.Implementation;
 
 namespace Surging.Core.Grpc
 {
-    public  class GrpcModule : EnginePartModule
-    { 
+    public class GrpcModule : EnginePartModule
+    {
         public override void Initialize(AppModuleContext context)
         {
             base.Initialize(context);
         }
- 
+
         protected override void RegisterBuilder(ContainerBuilderWrapper builder)
         {
             builder.Register(provider =>
@@ -38,7 +38,6 @@ namespace Surging.Core.Grpc
 
         private static void RegisterDefaultProtocol(ContainerBuilderWrapper builder)
         {
-
             builder.Register(provider =>
             {
                 return new GrpcServerMessageListener(

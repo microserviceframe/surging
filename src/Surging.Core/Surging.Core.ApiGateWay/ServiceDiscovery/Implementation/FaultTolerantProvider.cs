@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.Support;
 using System.Linq;
@@ -15,13 +13,13 @@ namespace Surging.Core.ApiGateWay.ServiceDiscovery.Implementation
     {
         public async Task<IEnumerable<ServiceCommandDescriptor>> GetCommandDescriptor(params string[] serviceIds)
         {
-             return await ServiceLocator.GetService<IServiceCommandManager>().GetServiceCommandsAsync(serviceIds);
+            return await ServiceLocator.GetService<IServiceCommandManager>().GetServiceCommandsAsync(serviceIds);
         }
 
         public async Task<IEnumerable<ServiceCommandDescriptor>> GetCommandDescriptorByAddress(string address)
         {
             var services = await ServiceLocator.GetService<IServiceDiscoveryProvider>().GetServiceDescriptorAsync(address);
-            return await ServiceLocator.GetService<IServiceCommandManager>().GetServiceCommandsAsync(services.Select(p=>p.Id).ToArray());
+            return await ServiceLocator.GetService<IServiceCommandManager>().GetServiceCommandsAsync(services.Select(p => p.Id).ToArray());
         }
 
         public async Task SetCommandDescriptorByAddress(ServiceCommandDescriptor model)

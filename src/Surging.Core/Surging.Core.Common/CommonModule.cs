@@ -2,7 +2,7 @@
 
 namespace Surging.Core.Common
 {
-	public class CommonModule : SystemModule
+    public class CommonModule : SystemModule
     {
     }
 }

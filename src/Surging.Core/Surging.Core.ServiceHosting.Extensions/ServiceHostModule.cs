@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.ServiceHosting.Extensions
 {
-	public class ServiceHostModule : EnginePartModule
+    public class ServiceHostModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -20,19 +20,19 @@ namespace Surging.Core.ServiceHosting.Extensions
             serviceProvider.GetInstances<IServiceEngineLifetime>().ServiceEngineStarted.Register(() =>
             {
                 var provider = serviceProvider.GetInstances<IBackgroundServiceEntryProvider>();
-                var entries =  provider.GetEntries();
-                foreach(var entry in entries)
+                var entries = provider.GetEntries();
+                foreach (var entry in entries)
                 {
-                     var cts = new CancellationTokenSource();
+                    var cts = new CancellationTokenSource();
                     Task.Run(async () =>
                     {
                         try
                         {
-							await entry.Behavior.StartAsync(cts.Token);
+                            await entry.Behavior.StartAsync(cts.Token);
                         }
                         catch
                         {
-							await entry.Behavior.StopAsync(cts.Token);
+                            await entry.Behavior.StopAsync(cts.Token);
                         }
                     });
                 }

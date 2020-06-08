@@ -15,7 +15,6 @@ namespace Surging.Core.AutoMapper
 {
     public class AppConfig
     {
-
         public static IEnumerable<Assembly> Assemblies
         {
             get

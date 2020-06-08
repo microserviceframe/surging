@@ -23,7 +23,7 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
             object instance = null;
             if (!configureMethod.MethodInfo.IsStatic || (servicesMethod != null && !servicesMethod.MethodInfo.IsStatic))
             {
-                instance = ActivatorUtilities.CreateInstance(hostingServiceProvider, startupType,config);
+                instance = ActivatorUtilities.CreateInstance(hostingServiceProvider, startupType, config);
             }
 
             var configureServicesCallback = servicesMethod.Build(instance);

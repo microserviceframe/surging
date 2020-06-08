@@ -14,7 +14,7 @@ using System.Text;
 
 namespace Surging.Core.ApiGateWay
 {
-   public static  class ContainerBuilderExtensions
+    public static class ContainerBuilderExtensions
     {
         /// <summary>
         /// 添加网关中间件
@@ -22,7 +22,7 @@ namespace Surging.Core.ApiGateWay
         /// <param name="builder">服务构建者</param>
         /// <param name="config"></param>
         /// <returns>服务构建者</returns>
-        public static IServiceBuilder AddApiGateWay(this IServiceBuilder builder, ConfigInfo config=null)
+        public static IServiceBuilder AddApiGateWay(this IServiceBuilder builder, ConfigInfo config = null)
         {
             var services = builder.Services;
             services.RegisterType<FaultTolerantProvider>().As<IFaultTolerantProvider>().SingleInstance();

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Surging.Core.ServiceHosting.Internal.Implementation
 {
-	public class ConfigureBuilder
+    public class ConfigureBuilder
     {
         public ConfigureBuilder(MethodInfo configure)
         {
@@ -18,7 +18,7 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
         private void Invoke(object instance, IContainer builder)
         {
             using (var scope = builder.BeginLifetimeScope())
-            { 
+            {
                 var parameterInfos = MethodInfo.GetParameters();
                 var parameters = new object[parameterInfos.Length];
                 for (var index = 0; index < parameterInfos.Length; index++)

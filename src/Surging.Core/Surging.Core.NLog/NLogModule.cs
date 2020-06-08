@@ -5,7 +5,7 @@ using Surging.Core.CPlatform.Utilities;
 
 namespace Surging.Core.Nlog
 {
-	public class NLogModule : EnginePartModule
+    public class NLogModule : EnginePartModule
     {
         private string nlogConfigFile = "${LogPath}|NLog.config";
         public override void Initialize(AppModuleContext context)
@@ -25,7 +25,6 @@ namespace Surging.Core.Nlog
         protected override void RegisterBuilder(ContainerBuilderWrapper builder)
         {
             base.RegisterBuilder(builder);
-           
         }
     }
 }

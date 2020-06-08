@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.ApiGateWay
+﻿namespace Surging.Core.ApiGateWay
 {
     /// <summary>
     /// 自定义结果对象
     /// </summary>
     /// <typeparam name="T">需要返回的类型</typeparam>
-
     public class ServiceResult<T> : ServiceResult
     {
         /// <summary>

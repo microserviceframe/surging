@@ -5,7 +5,7 @@ using System.Runtime.ExceptionServices;
 
 namespace Surging.Core.ServiceHosting.Startup.Implementation
 {
-	public class ConventionBasedStartup : IStartup
+    public class ConventionBasedStartup : IStartup
     {
         private readonly StartupMethods _methods;
 

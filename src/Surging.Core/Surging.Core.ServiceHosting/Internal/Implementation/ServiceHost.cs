@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -17,7 +16,7 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
         private readonly IHostLifetime _hostLifetime;
         private readonly IServiceProvider _hostingServiceProvider;
         private readonly List<Action<IContainer>> _mapServicesDelegates;
-        private IApplicationLifetime _applicationLifetime; 
+        private IApplicationLifetime _applicationLifetime;
 
         public ServiceHost(ContainerBuilder builder,
             IServiceProvider hostingServiceProvider,
@@ -27,7 +26,7 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
             _builder = builder;
             _hostingServiceProvider = hostingServiceProvider;
             _hostLifetime = hostLifetime;
-            _mapServicesDelegates = mapServicesDelegate; 
+            _mapServicesDelegates = mapServicesDelegate;
         }
 
         public void Dispose()
@@ -44,7 +43,7 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
         public async Task RunAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (_applicationServices != null)
-                MapperServices(_applicationServices); 
+                MapperServices(_applicationServices);
 
             if (_hostLifetime != null)
             {
@@ -56,15 +55,15 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
         }
 
         public async Task StopAsync(CancellationToken cancellationToken = default(CancellationToken))
-        { 
+        {
 
             using (var cts = new CancellationTokenSource(2000))
             using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cts.Token, cancellationToken))
             {
-                var token = linkedCts.Token; 
-                _applicationLifetime?.StopApplication(); 
+                var token = linkedCts.Token;
+                _applicationLifetime?.StopApplication();
                 token.ThrowIfCancellationRequested();
-                await _hostLifetime.StopAsync(token); 
+                await _hostLifetime.StopAsync(token);
                 _applicationLifetime?.NotifyStopped();
             }
         }
@@ -114,13 +113,13 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
                 throw;
             }
         }
-        
+
         private void MapperServices(IContainer mapper)
         {
             foreach (var mapServices in _mapServicesDelegates)
             {
                 mapServices(mapper);
             }
-        }   
+        }
     }
 }

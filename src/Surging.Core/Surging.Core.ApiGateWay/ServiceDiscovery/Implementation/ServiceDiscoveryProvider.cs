@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Surging.Core.CPlatform.Routing;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.Runtime.Client.HealthChecks;
@@ -19,6 +18,7 @@ namespace Surging.Core.ApiGateWay.ServiceDiscovery.Implementation
         {
 
         }
+
         public async Task<IEnumerable<ServiceAddressModel>> GetAddressAsync(string condition = null)
         {
             var result = new List<ServiceAddressModel>();

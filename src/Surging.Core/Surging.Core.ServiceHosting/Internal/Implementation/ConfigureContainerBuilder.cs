@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Surging.Core.ServiceHosting.Internal.Implementation
 {
-	public class ConfigureContainerBuilder
+    public class ConfigureContainerBuilder
     {
         public ConfigureContainerBuilder(MethodInfo configureContainerMethod)
         {

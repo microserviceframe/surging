@@ -31,7 +31,6 @@ namespace Surging.Core.Common.Extensions
         {
             FieldInfo field = value.GetType().GetField(value.ToString());
             return field.GetCustomAttribute(typeof(T)) as T;
-
         }
 
         /// <summary>

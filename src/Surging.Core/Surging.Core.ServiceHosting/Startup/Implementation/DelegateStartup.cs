@@ -3,7 +3,7 @@ using System;
 
 namespace Surging.Core.ServiceHosting.Startup.Implementation
 {
-	public  class DelegateStartup : StartupBase<ContainerBuilder>
+    public class DelegateStartup : StartupBase<ContainerBuilder>
     {
         private Action<IContainer> _configureApp;
 

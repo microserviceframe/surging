@@ -2,17 +2,14 @@
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Ioc;
 using Surging.Core.CPlatform.Runtime.Server;
-using Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.Grpc.Runtime.Implementation
 {
-    public class DefaultGrpcServiceEntryProvider: IGrpcServiceEntryProvider
-    { 
+	public class DefaultGrpcServiceEntryProvider : IGrpcServiceEntryProvider
+    {
         #region Field
 
         private readonly IEnumerable<Type> _types;
@@ -46,13 +43,13 @@ namespace Surging.Core.Grpc.Runtime.Implementation
             var services = _types.ToArray();
             if (_grpcServiceEntries == null)
             {
-                _grpcServiceEntries = new List<GrpcServiceEntry>(); 
+                _grpcServiceEntries = new List<GrpcServiceEntry>();
                 foreach (var service in services)
                 {
                     var entry = CreateServiceEntry(service);
                     if (entry != null)
                     {
-                        _grpcServiceEntries.Add(entry); 
+                        _grpcServiceEntries.Add(entry);
                     }
                 }
                 if (_logger.IsEnabled(LogLevel.Debug))
@@ -65,9 +62,9 @@ namespace Surging.Core.Grpc.Runtime.Implementation
 
         public GrpcServiceEntry CreateServiceEntry(Type service)
         {
-            GrpcServiceEntry result = null; 
+            GrpcServiceEntry result = null;
             var objInstance = _serviceProvider.GetInstances(service);
-            var behavior = objInstance as IServiceBehavior;  
+            var behavior = objInstance as IServiceBehavior;
             if (behavior != null)
                 result = new GrpcServiceEntry
                 {

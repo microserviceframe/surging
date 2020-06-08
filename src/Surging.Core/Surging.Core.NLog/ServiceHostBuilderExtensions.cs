@@ -7,7 +7,7 @@ using System;
 
 namespace Surging.Core.Nlog
 {
-	public static class ServiceHostBuilderExtensions
+    public static class ServiceHostBuilderExtensions
     {
         public static IServiceHostBuilder UseNLog(this IServiceHostBuilder hostBuilder, string nlogConfigFile = "nLog.config")
         {
@@ -32,7 +32,7 @@ namespace Surging.Core.Nlog
             });
             return hostBuilder.MapServices(mapper =>
             {
-                nlogConfigFile =EnvironmentHelper.GetEnvironmentVariable(nlogConfigFile);
+                nlogConfigFile = EnvironmentHelper.GetEnvironmentVariable(nlogConfigFile);
                 NLog.LogManager.LoadConfiguration(nlogConfigFile);
                 mapper.Resolve<ILoggerFactory>().AddProvider(new NLogProvider());
             });

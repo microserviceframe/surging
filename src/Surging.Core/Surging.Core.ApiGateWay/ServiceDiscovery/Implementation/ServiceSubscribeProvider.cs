@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.Runtime.Client;
 using Surging.Core.CPlatform;
@@ -12,7 +9,7 @@ namespace Surging.Core.ApiGateWay.ServiceDiscovery.Implementation
     /// <summary>
     /// 服务订阅提供者
     /// </summary>
-    public class ServiceSubscribeProvider :IServiceSubscribeProvider
+    public class ServiceSubscribeProvider : IServiceSubscribeProvider
     {
         public async Task<IEnumerable<ServiceAddressModel>> GetAddressAsync(string condition = null)
         {

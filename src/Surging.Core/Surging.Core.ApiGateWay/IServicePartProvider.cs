@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ApiGateWay
 {
-   public interface IServicePartProvider
+    public interface IServicePartProvider
     {
         bool IsPart(string routhPath);
 

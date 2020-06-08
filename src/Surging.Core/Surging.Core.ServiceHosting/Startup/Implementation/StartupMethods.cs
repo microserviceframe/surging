@@ -19,6 +19,5 @@ namespace Surging.Core.ServiceHosting.Startup.Implementation
         public object StartupInstance { get; }
         public Func<ContainerBuilder, IContainer> ConfigureServicesDelegate { get; }
         public Action<IContainer> ConfigureDelegate { get; }
-
     }
 }

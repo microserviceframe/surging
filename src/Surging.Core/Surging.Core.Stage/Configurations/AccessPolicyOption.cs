@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.Stage.Configurations
+﻿namespace Surging.Core.Stage.Configurations
 {
-   public class AccessPolicyOption
+	public class AccessPolicyOption
     {
         public string[] Origins { get; set; }
 

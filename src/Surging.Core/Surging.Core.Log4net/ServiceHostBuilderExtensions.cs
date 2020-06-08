@@ -7,9 +7,9 @@ using System;
 
 namespace Surging.Core.Log4net
 {
-   public static class ServiceHostBuilderExtensions
+    public static class ServiceHostBuilderExtensions
     {
-        public static IServiceHostBuilder UseLog4net(this IServiceHostBuilder hostBuilder,string log4NetConfigFile= "log4net.config")
+        public static IServiceHostBuilder UseLog4net(this IServiceHostBuilder hostBuilder, string log4NetConfigFile = "log4net.config")
         {
             hostBuilder.ConfigureLogging(logger =>
             {
@@ -17,7 +17,6 @@ namespace Surging.Core.Log4net
             });
             return hostBuilder.MapServices(mapper =>
             {
-             
                 var section = CPlatform.AppConfig.GetSection("Logging");
                 log4NetConfigFile = EnvironmentHelper.GetEnvironmentVariable(log4NetConfigFile);
                 mapper.Resolve<ILoggerFactory>().AddProvider(new Log4NetProvider(log4NetConfigFile));

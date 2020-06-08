@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.Grpc.Runtime
 {
-    public interface IGrpcServiceEntryProvider
+	public interface IGrpcServiceEntryProvider
     {
         List<GrpcServiceEntry> GetEntries();
     }

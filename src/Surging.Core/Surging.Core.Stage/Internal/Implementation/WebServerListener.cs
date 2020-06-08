@@ -76,7 +76,7 @@ namespace Surging.Core.Stage.Internal.Implementation
         {
             var result = new List<string>();
             string rootPath = string.IsNullOrEmpty(CPlatform.AppConfig.ServerOptions.RootPath) ?
-                AppContext.BaseDirectory : CPlatform.AppConfig.ServerOptions.RootPath; 
+                AppContext.BaseDirectory : CPlatform.AppConfig.ServerOptions.RootPath;
             foreach (var virtualPath in virtualPaths)
             {
                 var path = Path.Combine(rootPath, virtualPath);
@@ -85,7 +85,7 @@ namespace Surging.Core.Stage.Internal.Implementation
                 if (Directory.Exists(path))
                 {
                     var dirs = Directory.GetDirectories(path);
-                    result.AddRange(dirs.Select(dir => Path.Combine(rootPath,virtualPath, new DirectoryInfo(dir).Name)));
+                    result.AddRange(dirs.Select(dir => Path.Combine(rootPath, virtualPath, new DirectoryInfo(dir).Name)));
                 }
                 else
                 {

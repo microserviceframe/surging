@@ -9,7 +9,6 @@ namespace Surging.Core.Serilog
         {
             return logEvent.Level == LogEventLevel.Verbose;
         }
-
     }
 
     public class SerilogDebugFilter : ILogEventFilter
@@ -18,7 +17,6 @@ namespace Surging.Core.Serilog
         {
             return logEvent.Level == LogEventLevel.Debug;
         }
-
     }
 
     public class SerilogErrorFilter : ILogEventFilter

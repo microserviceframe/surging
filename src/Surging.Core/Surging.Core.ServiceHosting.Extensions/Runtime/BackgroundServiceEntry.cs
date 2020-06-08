@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime
 {
-	public class BackgroundServiceEntry
+    public class BackgroundServiceEntry
     {
         public string Path { get; set; }
 

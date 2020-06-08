@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -9,19 +6,15 @@ using Newtonsoft.Json.Serialization;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.KestrelHttpServer;
 using Surging.Core.KestrelHttpServer.Extensions;
-using Surging.Core.KestrelHttpServer.Filters;
 using Surging.Core.Stage.Configurations;
 using Surging.Core.Stage.Filters;
 using Surging.Core.Stage.Internal;
 using Surging.Core.Stage.Internal.Implementation;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 
 namespace Surging.Core.Stage
 {
-    public class StageModule : KestrelHttpModule
+	public class StageModule : KestrelHttpModule
     {
         private IWebServerListener _listener;
         public override void Initialize(AppModuleContext context)
@@ -30,7 +23,7 @@ namespace Surging.Core.Stage
         }
 
         public override void RegisterBuilder(WebHostContext context)
-        {  
+        {
             _listener.Listen(context);
         }
 
@@ -41,8 +34,8 @@ namespace Surging.Core.Stage
             {
                 context.Builder.UseCors(builder =>
                 {
-                    if(policy.Origins!=null)
-                    builder.WithOrigins(policy.Origins);
+                    if (policy.Origins != null)
+                        builder.WithOrigins(policy.Origins);
                     if (policy.AllowAnyHeader)
                         builder.AllowAnyHeader();
                     if (policy.AllowAnyMethod)
@@ -62,21 +55,22 @@ namespace Surging.Core.Stage
             {
                 ApiGateWay.AppConfig.CacheMode = apiConfig.CacheMode;
                 ApiGateWay.AppConfig.AuthorizationServiceKey = apiConfig.AuthorizationServiceKey;
-                ApiGateWay.AppConfig.AccessTokenExpireTimeSpan =TimeSpan.FromMinutes(apiConfig.AccessTokenExpireTimeSpan);
+                ApiGateWay.AppConfig.AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(apiConfig.AccessTokenExpireTimeSpan);
                 ApiGateWay.AppConfig.AuthorizationRoutePath = apiConfig.AuthorizationRoutePath;
                 ApiGateWay.AppConfig.TokenEndpointPath = apiConfig.TokenEndpointPath;
             }
-            context.Services.AddMvc().AddJsonOptions(options => {
+            context.Services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 if (AppConfig.Options.IsCamelCaseResolver)
                 {
-                    JsonConvert.DefaultSettings= new Func<JsonSerializerSettings>(() =>
-                    {
-                       JsonSerializerSettings setting = new Newtonsoft.Json.JsonSerializerSettings();
-                        setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                        setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                        return setting;
-                    });
+                    JsonConvert.DefaultSettings = new Func<JsonSerializerSettings>(() =>
+                     {
+                         JsonSerializerSettings setting = new Newtonsoft.Json.JsonSerializerSettings();
+                         setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                         setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                         return setting;
+                     });
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 }
                 else
@@ -85,14 +79,14 @@ namespace Surging.Core.Stage
                     {
                         JsonSerializerSettings setting = new JsonSerializerSettings();
                         setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                        setting.ContractResolver= new DefaultContractResolver();
+                        setting.ContractResolver = new DefaultContractResolver();
                         return setting;
                     });
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 }
             });
-          
-            context.Services.AddSingleton<IIPChecker,IPAddressChecker>();
+
+            context.Services.AddSingleton<IIPChecker, IPAddressChecker>();
             context.Services.AddFilters(typeof(AuthorizationFilterAttribute));
             context.Services.AddFilters(typeof(ActionFilterAttribute));
             context.Services.AddFilters(typeof(IPFilterAttribute));
@@ -106,8 +100,8 @@ namespace Surging.Core.Stage
             {
                 AppConfig.Options = section.Get<StageOption>();
             }
-            
-            builder.RegisterType<WebServerListener>().As<IWebServerListener>().SingleInstance(); 
+
+            builder.RegisterType<WebServerListener>().As<IWebServerListener>().SingleInstance();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Surging.Core.ServiceHosting.Internal.Implementation
 {
-	public  class ConfigureServicesBuilder
+    public class ConfigureServicesBuilder
     {
         public ConfigureServicesBuilder(MethodInfo configureServices)
         {

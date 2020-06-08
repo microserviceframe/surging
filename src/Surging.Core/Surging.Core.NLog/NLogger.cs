@@ -5,10 +5,10 @@ using System.Runtime.CompilerServices;
 namespace Surging.Core.Nlog
 {
     public class NLogger : ILogger
-	{
+    {
         private readonly NLog.Logger _log;
         public NLogger(string name)
-        { 
+        {
             _log = NLog.LogManager.GetLogger(name);
         }
 
@@ -70,7 +70,7 @@ namespace Surging.Core.Nlog
                         _log.Trace(message);
                         break;
                     case LogLevel.Error:
-                        _log.Error(message, exception,null);
+                        _log.Error(message, exception, null);
                         break;
                     case LogLevel.Information:
                         _log.Info(message);
@@ -80,7 +80,7 @@ namespace Surging.Core.Nlog
                         break;
                     default:
                         _log.Warn($"遇到未知日志级别{logLevel}");
-                        _log.Info(message, exception,null);
+                        _log.Info(message, exception, null);
                         break;
                 }
             }
@@ -92,7 +92,7 @@ namespace Surging.Core.Nlog
 
             public void Dispose()
             {
-               
+
             }
         }
     }

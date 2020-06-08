@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime.Implementation
 {
-    public class DefaultBackgroundServiceEntryProvider: IBackgroundServiceEntryProvider
+    public class DefaultBackgroundServiceEntryProvider : IBackgroundServiceEntryProvider
     {
         #region Field
         private readonly IEnumerable<Type> _types;
@@ -57,7 +57,6 @@ namespace Surging.Core.ServiceHosting.Extensions.Runtime.Implementation
             }
             return _backgroundServiceEntries;
         }
-
 
         public BackgroundServiceEntry CreateServiceEntry(Type service)
         {

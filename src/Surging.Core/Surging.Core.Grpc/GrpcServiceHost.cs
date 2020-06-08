@@ -2,14 +2,12 @@
 using Surging.Core.CPlatform.Runtime.Server.Implementation;
 using Surging.Core.CPlatform.Transport;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Grpc
 {
-   public  class GrpcServiceHost : ServiceHostAbstract
+    public class GrpcServiceHost : ServiceHostAbstract
     {
         #region Field
 
@@ -41,7 +39,6 @@ namespace Surging.Core.Grpc
             if (_serverMessageListener != null)
                 return;
             _serverMessageListener = await _messageListenerFactory(endPoint);
-
         }
 
         public override async Task StartAsync(string ip, int port)

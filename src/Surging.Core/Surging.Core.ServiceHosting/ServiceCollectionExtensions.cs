@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ServiceHosting
 {
-	internal static class ServiceCollectionExtensions
+    internal static class ServiceCollectionExtensions
     {
         public static IServiceCollection Clone(this IServiceCollection serviceCollection)
         {

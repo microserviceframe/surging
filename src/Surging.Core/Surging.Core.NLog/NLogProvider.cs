@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace Surging.Core.Nlog
 {
-	public class NLogProvider : ILoggerProvider
+    public class NLogProvider : ILoggerProvider
     {
         private readonly ConcurrentDictionary<string, NLogger> _loggers =
             new ConcurrentDictionary<string, NLogger>();

@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ServiceHosting.Startup
 {
-	public  interface IStartup
+    public interface IStartup
     {
         IContainer ConfigureServices(ContainerBuilder services);
 

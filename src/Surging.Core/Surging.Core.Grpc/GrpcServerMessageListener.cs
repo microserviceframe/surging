@@ -6,13 +6,12 @@ using Surging.Core.Grpc.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Grpc
 {
-   public  class GrpcServerMessageListener: IMessageListener, IDisposable
-    { 
+    public class GrpcServerMessageListener : IMessageListener, IDisposable
+    {
         private Server _server;
         private readonly ILogger<GrpcServerMessageListener> _logger;
         private readonly IGrpcServiceEntryProvider _grpcServiceEntryProvider;
@@ -21,21 +20,19 @@ namespace Surging.Core.Grpc
             IGrpcServiceEntryProvider grpcServiceEntryProvider)
         {
             _logger = logger;
-            _grpcServiceEntryProvider = grpcServiceEntryProvider; 
+            _grpcServiceEntryProvider = grpcServiceEntryProvider;
         }
-        public  Task StartAsync(EndPoint endPoint)
+        public Task StartAsync(EndPoint endPoint)
         {
             var ipEndPoint = endPoint as IPEndPoint;
             _server = new Server() { Ports = { new ServerPort(ipEndPoint.Address.ToString(), ipEndPoint.Port, ServerCredentials.Insecure) } };
- 
+
             try
             {
                 var entries = _grpcServiceEntryProvider.GetEntries();
-
                 var serverServiceDefinitions = new List<ServerServiceDefinition>();
                 foreach (var entry in entries)
                 {
-
                     var baseType = entry.Type.BaseType.BaseType;
                     var definitionType = baseType?.DeclaringType;
 
@@ -49,7 +46,7 @@ namespace Surging.Core.Grpc
                             continue;
                         }
                     }
-                } 
+                }
                 _server.Start();
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug($"Grpc服务主机启动成功，监听地址：{endPoint}。");
@@ -61,7 +58,7 @@ namespace Surging.Core.Grpc
             return Task.CompletedTask;
         }
 
-        public Server  Server
+        public Server Server
         {
             get
             {

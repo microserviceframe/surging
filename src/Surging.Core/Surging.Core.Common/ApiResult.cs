@@ -2,10 +2,9 @@
 
 namespace Surging.Core.Common
 {
-	[DataContract]
+    [DataContract]
     public class ApiResult<T>
     {
-
         [DataMember]
         public int StatusCode { get; set; }
 

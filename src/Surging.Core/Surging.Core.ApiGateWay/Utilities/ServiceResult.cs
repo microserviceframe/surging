@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.ApiGateWay.Utilities
+﻿namespace Surging.Core.ApiGateWay.Utilities
 {
     /// <summary>
     /// 自定义错误结果对象
     /// </summary>
     /// <typeparam name="T">需要返回的类型</typeparam>
-
     public class ServiceResult<T> : ServiceResult
     {
         /// <summary>
@@ -85,7 +80,6 @@ namespace Surging.Core.ApiGateWay.Utilities
         /// <summary>
         /// 状态值
         /// </summary>
-
         public bool IsSucceed { get; set; }
 
         /// <summary>

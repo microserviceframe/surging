@@ -6,7 +6,7 @@ using Surging.Core.ServiceHosting.Internal;
 
 namespace Surging.Core.Serilog
 {
-	public class SerilogModule: EnginePartModule
+    public class SerilogModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -20,7 +20,7 @@ namespace Surging.Core.Serilog
                 //    //config.Filter.ByIncludingOnly(evt => evt.Level == LogEventLevel.Information).ReadFrom.Configuration(AppConfig.Configuration.GetSection("Information"))
                 //})
                 .CreateLogger();
-            
+
             serviceProvider.GetInstances<ILoggerFactory>().AddSerilog(logger);
             serviceProvider.GetInstances<IApplicationLifetime>().ApplicationStopped.Register(Log.CloseAndFlush);
         }

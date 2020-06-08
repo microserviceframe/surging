@@ -1,11 +1,8 @@
 ﻿using Surging.Core.ApiGateWay.Configurations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ApiGateWay
 {
-   public  class Register
+	public class Register
     {
         public RegisterProvider Provider { get; set; } = RegisterProvider.Consul;
 

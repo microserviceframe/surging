@@ -8,17 +8,17 @@ using System.Xml;
 
 namespace Surging.Core.Log4net
 {
-	public class Log4NetLogger : ILogger
-	{
+    public class Log4NetLogger : ILogger
+    {
         private readonly string _name;
         private readonly XmlElement _xmlElement;
         private readonly ILog _log;
-        private ILoggerRepository _loggerRepository; 
+        private ILoggerRepository _loggerRepository;
         public Log4NetLogger(string name, XmlElement xmlElement)
         {
             _name = name;
             _xmlElement = xmlElement;
-            _loggerRepository = log4net.LogManager.CreateRepository(
+            _loggerRepository = LogManager.CreateRepository(
                 Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
             _log = LogManager.GetLogger(_loggerRepository.Name, name);
             log4net.Config.XmlConfigurator.Configure(_loggerRepository, xmlElement);
@@ -105,4 +105,3 @@ namespace Surging.Core.Log4net
         }
     }
 }
-

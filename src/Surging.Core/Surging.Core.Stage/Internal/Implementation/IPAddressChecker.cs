@@ -15,22 +15,22 @@ namespace Surging.Core.Stage.Internal.Implementation
             Init();
         }
 
-        public bool IsBlackIp(IPAddress ip,string routePath)
+        public bool IsBlackIp(IPAddress ip, string routePath)
         {
-            var result =false;
+            var result = false;
             if (AppConfig.Options.AccessSetting != null)
             {
                 var longIpAddress = IPToLong(ip);
                 var ipNetworkSegments = GetIPNetworkSegments(routePath);
                 var ipAddresses = GetIPAddresses(routePath);
                 result = ipNetworkSegments.Item1.Count > 0 && ipAddresses.Item1.Count > 0;
-                if (ipNetworkSegments.Item2.Count > 0|| ipAddresses.Item2.Count>0)
+                if (ipNetworkSegments.Item2.Count > 0 || ipAddresses.Item2.Count > 0)
                 {
                     result = ipNetworkSegments.Item2.Any(p => p.LongFirstUsable >= longIpAddress && p.LongLastUsable <= longIpAddress);
                     if (!result)
                         result = ipAddresses.Item2.Any(p => p == ip.ToString());
                 }
-                if (ipNetworkSegments.Item1.Count > 0  || ipAddresses.Item1.Count > 0)
+                if (ipNetworkSegments.Item1.Count > 0 || ipAddresses.Item1.Count > 0)
                 {
                     result = !ipNetworkSegments.Item1.Any(p => p.LongFirstUsable >= longIpAddress && p.LongLastUsable <= longIpAddress);
                     if (result)
@@ -84,7 +84,7 @@ namespace Surging.Core.Stage.Internal.Implementation
             return ipNetworkSegments;
         }
 
-        private (List<IPNetworkSegment>,List<IPNetworkSegment>) GetIPNetworkSegments(string routePath)
+        private (List<IPNetworkSegment>, List<IPNetworkSegment>) GetIPNetworkSegments(string routePath)
         {
             var whiteIPNetworkSegments = new List<IPNetworkSegment>();
             var blackIPNetworkSegments = new List<IPNetworkSegment>();
@@ -110,7 +110,7 @@ namespace Surging.Core.Stage.Internal.Implementation
             return (whiteIPNetworkSegments, blackIPNetworkSegments);
         }
 
-        private (List<string>,List<string>) GetIPAddresses(string routePath)
+        private (List<string>, List<string>) GetIPAddresses(string routePath)
         {
             var whiteIPAddresses = new List<string>();
             var blackIPAddresses = new List<string>();
@@ -150,8 +150,8 @@ namespace Surging.Core.Stage.Internal.Implementation
             byte[] ipAdds = ip.GetAddressBytes();
             foreach (byte b in ipAdds)
             {
-                result <<= 8; 
-                result |= b & (uint)0xff; 
+                result <<= 8;
+                result |= b & (uint)0xff;
             }
             return result;
         }

@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime
 {
-	public abstract class BackgroundServiceBehavior : IServiceBehavior, IDisposable
+    public abstract class BackgroundServiceBehavior : IServiceBehavior, IDisposable
     {
         private Task _executingTask;
-        private  CancellationTokenSource _stoppingCts = new CancellationTokenSource();
+        private CancellationTokenSource _stoppingCts = new CancellationTokenSource();
 
         public T CreateProxy<T>(string key) where T : class
         {
@@ -75,33 +75,33 @@ namespace Surging.Core.ServiceHosting.Extensions.Runtime
         }
 
         protected abstract Task ExecuteAsync(CancellationToken stoppingToken);
-         
+
         public virtual Task StartAsync(CancellationToken cancellationToken)
-        {     
+        {
             _stoppingCts = new CancellationTokenSource();
             _executingTask = ExecutingAsync(_stoppingCts.Token);
-        
+
             if (_executingTask.IsCompleted)
             {
                 return _executingTask;
             }
-             
+
             return Task.CompletedTask;
         }
-         
+
         public virtual async Task StopAsync(CancellationToken cancellationToken)
-        { 
+        {
             if (_executingTask == null)
             {
                 return;
             }
 
             try
-            { 
+            {
                 _stoppingCts.Cancel();
             }
             finally
-            { 
+            {
                 await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
             }
 

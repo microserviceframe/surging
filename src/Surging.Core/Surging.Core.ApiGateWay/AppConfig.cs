@@ -1,17 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Surging.Core.ApiGateWay.Configurations;
-using Surging.Core.CPlatform.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ApiGateWay
 {
     public static class AppConfig
     {
         public static IConfigurationRoot Configuration { get; set; }
-
 
         private static string _authorizationServiceKey;
         public static string AuthorizationServiceKey
@@ -22,9 +17,8 @@ namespace Surging.Core.ApiGateWay
                     return _authorizationServiceKey;
                 return Configuration["AuthorizationServiceKey"] ?? _authorizationServiceKey;
             }
-             set
+            set
             {
-
                 _authorizationServiceKey = value;
             }
         }
@@ -40,7 +34,6 @@ namespace Surging.Core.ApiGateWay
             }
             set
             {
-
                 _authorizationRoutePath = value;
             }
         }
@@ -67,7 +60,7 @@ namespace Surging.Core.ApiGateWay
 
         private static string _tokenEndpointPath = "oauth2/token";
 
-        public static string  TokenEndpointPath
+        public static string TokenEndpointPath
         {
             get
             {
@@ -86,9 +79,9 @@ namespace Surging.Core.ApiGateWay
             get
             {
                 var result = new Register();
-                var section= Configuration.GetSection("Register");
+                var section = Configuration.GetSection("Register");
                 if (section != null)
-                    result=  section.Get<Register>();
+                    result = section.Get<Register>();
                 return result;
             }
 
@@ -112,7 +105,7 @@ namespace Surging.Core.ApiGateWay
             {
                 var result = new AccessPolicy();
                 var section = Configuration.GetSection("AccessPolicy");
-                if (section.Exists() )
+                if (section.Exists())
                     result = section.Get<AccessPolicy>();
                 return result;
             }
@@ -129,11 +122,10 @@ namespace Surging.Core.ApiGateWay
 
                 return Configuration["CacheMode"] ?? _cacheMode;
             }
-           set
+            set
             {
                 _cacheMode = value;
             }
-           
         }
     }
 }

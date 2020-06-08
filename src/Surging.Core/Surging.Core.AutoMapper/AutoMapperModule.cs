@@ -1,13 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Module;
 using CPlatformAppConfig = Surging.Core.CPlatform.AppConfig;
 
 namespace Surging.Core.AutoMapper
 {
-    public class AutoMapperModule : EnginePartModule
+	public class AutoMapperModule : EnginePartModule
     {
-
         public override void Initialize(AppModuleContext context)
         {
             base.Initialize(context);
@@ -23,7 +21,5 @@ namespace Surging.Core.AutoMapper
             }
             builder.RegisterType<AutoMapperBootstrap>().As<IAutoMapperBootstrap>();
         }
-
-
     }
 }

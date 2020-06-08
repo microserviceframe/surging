@@ -6,7 +6,7 @@ using System;
 
 namespace Surging.Core.ServiceHosting.Internal
 {
-	public  interface IServiceHostBuilder
+    public interface IServiceHostBuilder
     {
         IServiceHost Build();
 
@@ -19,6 +19,5 @@ namespace Surging.Core.ServiceHosting.Internal
         IServiceHostBuilder Configure(Action<IConfigurationBuilder> builder);
 
         IServiceHostBuilder MapServices(Action<IContainer> mapper);
-         
     }
 }

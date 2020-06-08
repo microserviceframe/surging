@@ -2,8 +2,8 @@
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime
 {
-	public interface IBackgroundServiceEntryProvider
+    public interface IBackgroundServiceEntryProvider
     {
-        IEnumerable<BackgroundServiceEntry> GetEntries(); 
+        IEnumerable<BackgroundServiceEntry> GetEntries();
     }
 }

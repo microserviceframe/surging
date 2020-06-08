@@ -1,26 +1,21 @@
 ﻿using Autofac;
-using Microsoft.AspNetCore.Http;
 using Surging.Core.ApiGateWay;
 using Surging.Core.ApiGateWay.OAuth;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Filters.Implementation;
 using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.KestrelHttpServer.Filters;
 using Surging.Core.KestrelHttpServer.Filters.Implementation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Stage.Filters
 {
-    public class ActionFilterAttribute : IActionFilter
+	public class ActionFilterAttribute : IActionFilter
     {
         private readonly IAuthorizationServerProvider _authorizationServerProvider;
         public ActionFilterAttribute()
@@ -120,4 +115,4 @@ namespace Surging.Core.Stage.Filters
             }
         }
     }
-}
+}}

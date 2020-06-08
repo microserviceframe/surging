@@ -2,14 +2,14 @@
 
 namespace Surging.Core.ServiceHosting.Internal
 {
-	public  interface IApplicationLifetime
+    public interface IApplicationLifetime
     {
         CancellationToken ApplicationStarted { get; }
- 
+
         CancellationToken ApplicationStopping { get; }
-         
+
         CancellationToken ApplicationStopped { get; }
- 
+
         void StopApplication();
 
         void NotifyStopped();

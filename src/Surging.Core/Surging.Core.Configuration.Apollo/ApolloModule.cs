@@ -1,11 +1,10 @@
 ﻿using Surging.Core.Configuration.Apollo.Configurations;
 using Surging.Core.CPlatform.Module;
-using System;
 
 namespace Surging.Core.Configuration.Apollo
 {
     public class ApolloModule : EnginePartModule
-    { 
+    {
         public override void Initialize(AppModuleContext context)
         {
             var serviceProvider = context.ServiceProvoider;

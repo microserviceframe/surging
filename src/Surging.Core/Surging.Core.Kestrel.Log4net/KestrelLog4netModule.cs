@@ -4,19 +4,15 @@ using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.KestrelHttpServer;
 using Surging.Core.Log4net;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Kestrel.Log4net
 {
-    
-    public class KestrelLog4netModule : KestrelHttpModule
+
+	public class KestrelLog4netModule : KestrelHttpModule
     {
         private string log4NetConfigFile = "${LogPath}|log4net.config";
         public override void Initialize(AppModuleContext context)
         {
-
         }
 
         public override void RegisterBuilder(WebHostContext context)

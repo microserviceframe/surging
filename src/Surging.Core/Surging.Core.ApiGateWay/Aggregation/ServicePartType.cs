@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.ApiGateWay.Aggregation
+﻿namespace Surging.Core.ApiGateWay.Aggregation
 {
-   public enum ServicePartType
+    public enum ServicePartType
     {
         None,
         Main,

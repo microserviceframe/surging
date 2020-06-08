@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.ApiGateWay.Configurations
 {
-   public class ServiceAggregation
+    public class ServiceAggregation
     {
         public string RoutePath { get; set; }
 

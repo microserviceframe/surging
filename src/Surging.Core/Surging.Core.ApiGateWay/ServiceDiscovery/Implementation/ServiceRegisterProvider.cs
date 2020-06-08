@@ -1,20 +1,17 @@
 ﻿using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Runtime.Client.HealthChecks;
-using Surging.Core.CPlatform.Utilities; 
-using System;
+using Surging.Core.CPlatform.Utilities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.ApiGateWay.ServiceDiscovery.Implementation
 {
-    /// <summary>
-    /// 服务注册
-    /// </summary>
-    public class ServiceRegisterProvider : IServiceRegisterProvider
+	/// <summary>
+	/// 服务注册
+	/// </summary>
+	public class ServiceRegisterProvider : IServiceRegisterProvider
     {
-        public async  Task<IEnumerable<ServiceAddressModel>> GetAddressAsync(string condition = null)
+        public async Task<IEnumerable<ServiceAddressModel>> GetAddressAsync(string condition = null)
         {
             var result = new List<ServiceAddressModel>();
             var registerConfig = AppConfig.Register;

@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Surging.Core.ServiceHosting.Internal.Implementation
 {
-	public class ApplicationLifetime : IApplicationLifetime
+    public class ApplicationLifetime : IApplicationLifetime
     {
         private readonly CancellationTokenSource _startedSource = new CancellationTokenSource();
         private readonly CancellationTokenSource _stoppingSource = new CancellationTokenSource();
@@ -30,11 +30,9 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
             }
             catch (Exception ex)
             {
-                _logger.LogError( "An error occurred starting the application",
-                                         ex);
+                _logger.LogError("An error occurred starting the application", ex);
             }
         }
-
 
         public void NotifyStopped()
         {
@@ -44,8 +42,7 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred stopping the application",
-                                         ex);
+                _logger.LogError("An error occurred stopping the application", ex);
             }
         }
 
@@ -59,18 +56,17 @@ namespace Surging.Core.ServiceHosting.Internal.Implementation
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("An error occurred stopping the application",
-                                             ex);
+                    _logger.LogError("An error occurred stopping the application", ex);
                 }
             }
         }
 
         private void ExecuteHandlers(CancellationTokenSource cancel)
-        { 
+        {
             if (cancel.IsCancellationRequested)
             {
                 return;
-            } 
+            }
             cancel.Cancel(throwOnFirstException: false);
         }
     }

@@ -9,13 +9,10 @@ using Surging.Core.CPlatform.Routing;
 using Surging.Core.CPlatform.Runtime.Client.HealthChecks;
 using Surging.Core.CPlatform.Runtime.Client.HealthChecks.Implementation;
 using Surging.Core.ProxyGenerator;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.ApiGateWay
 {
-    public class ApiGeteWayModule : EnginePartModule
+	public class ApiGeteWayModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
