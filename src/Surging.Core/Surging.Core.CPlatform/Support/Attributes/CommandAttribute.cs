@@ -31,6 +31,9 @@ namespace Surging.Core.CPlatform.Support.Attributes
         /// </summary>
         public int FailoverCluster { get; set; } = 3;
 
+        /// <summary>
+        /// 断路器强制断开
+        /// </summary>
         public bool CircuitBreakerForceOpen { get; set; }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace Surging.Core.CPlatform.Support.Attributes
         public int BreakeSleepWindowInMilliseconds { get; set; } = 60000;
 
         /// <summary>
-        ///  	是否强制关闭熔断
+        /// 是否强制关闭熔断
         /// </summary>
         public bool BreakerForceClosed { get; set; }
 
@@ -82,10 +85,9 @@ namespace Surging.Core.CPlatform.Support.Attributes
         /// IFallbackInvoker 实例名称
         /// </summary>
         public string FallBackName { get; set; }
-        /// <summary>
 
         /// <summary>
-        ///    10秒钟内至少多少请求失败，熔断器才发挥起作用
+        /// 10秒钟内至少多少请求失败，熔断器才发挥起作用
         /// </summary>
         public int BreakerRequestVolumeThreshold { get; set; } = 20;
 

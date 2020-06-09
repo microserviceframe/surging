@@ -6,7 +6,6 @@ using Surging.IModuleServices.Common;
 using Surging.IModuleServices.Common.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace Surging.Modules.Common.Domain
     public class WorkService : BackgroundServiceBehavior, IWorkService, ISingleInstance
     {
         private readonly ILogger<WorkService> _logger;
-        private   readonly Queue<Message> _queue = new Queue<Message>();
+        private readonly Queue<Message> _queue = new Queue<Message>();
         private readonly IServiceProxyProvider _serviceProxyProvider;
         private CancellationToken _token;
 
@@ -25,13 +24,13 @@ namespace Surging.Modules.Common.Domain
             _serviceProxyProvider = serviceProxyProvider;
         }
 
-        public  Task<bool> AddWork(Message message)
+        public Task<bool> AddWork(Message message)
         {
             _queue.Enqueue(message);
             return Task.FromResult(true);
         }
 
-        protected override async  Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
             {
@@ -46,7 +45,8 @@ namespace Surging.Modules.Common.Domain
                 if (!_token.IsCancellationRequested)
                     await Task.Delay(1000, stoppingToken);
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError("WorkService execute error, message：{message} ,trace info:{trace} ", ex.Message, ex.StackTrace);
             }
         }
@@ -54,7 +54,7 @@ namespace Surging.Modules.Common.Domain
         public async Task StartAsync()
         {
             if (_token.IsCancellationRequested)
-            { 
+            {
                 await base.StartAsync(_token);
             }
         }
@@ -63,7 +63,7 @@ namespace Surging.Modules.Common.Domain
         {
             if (!_token.IsCancellationRequested)
             {
-               await  base.StopAsync(_token);
+                await base.StopAsync(_token);
             }
         }
     }

@@ -1,10 +1,7 @@
-﻿using Org.BouncyCastle.Asn1.Ocsp;
-using Surging.Core.CPlatform.Ioc;
+﻿using Surging.Core.CPlatform.Ioc;
 using Surging.Core.ProxyGenerator;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using Surging.Core.CPlatform.Utilities;
 using ServiceLocator = Surging.Core.CPlatform.Utilities.ServiceLocator;
 using Autofac;
 using Surging.Core.CPlatform.EventBus.Implementation;
@@ -50,7 +47,6 @@ namespace Surging.Core.DNS.Runtime
                 return ServiceLocator.GetService<T>();
             else
                 return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
-
         }
 
         public object GetService(Type type)
@@ -67,7 +63,6 @@ namespace Surging.Core.DNS.Runtime
                 return ServiceLocator.GetService(key, type);
             else
                 return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
-
         }
 
         public void Publish(IntegrationEvent @event)
@@ -77,16 +72,15 @@ namespace Surging.Core.DNS.Runtime
 
         public abstract Task<IPAddress> Resolve(string domainName);
 
-
         internal async Task<IPAddress> DomainResolve(string domainName)
         {
             domainName = domainName.TrimEnd('.');
             var prefixLen = domainName.IndexOf(".");
             IPAddress result = null;
             if (prefixLen > 0)
-            { 
+            {
                 var prefixName = domainName.Substring(0, prefixLen).ToString();
-                var  pathLen= domainName.LastIndexOf(".") - prefixLen - 1;
+                var pathLen = domainName.LastIndexOf(".") - prefixLen - 1;
                 if (pathLen > 0)
                 {
                     var routePath = domainName.Substring(prefixLen + 1, pathLen).Replace(".", "/").ToString();

@@ -1,13 +1,9 @@
 ﻿using Surging.Core.CPlatform.Utilities;
 using Surging.Core.Protocol.WS;
-using Surging.Core.Protocol.WS.Runtime;
 using Surging.Core.ProxyGenerator;
 using Surging.IModuleServices.Common;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using WebSocketCore;
 
@@ -19,7 +15,6 @@ namespace Surging.Modules.Common.Domain
         private static readonly ConcurrentDictionary<string, string> _clients = new ConcurrentDictionary<string, string>();
         private string _name;
         private string _to;
-       
 
         protected override void OnMessage(MessageEventArgs e)
         {
@@ -30,7 +25,6 @@ namespace Surging.Modules.Common.Domain
                 model.Add("data", e.Data);
                 var result = ServiceLocator.GetService<IServiceProxyProvider>()
                      .Invoke<object>(model, "api/chat/SendMessage").Result;
-
             }
         }
 
@@ -44,11 +38,12 @@ namespace Surging.Modules.Common.Domain
                 _users[_name] = ID;
             }
         }
+
         public Task SendMessage(string name, string data)
         {
             if (_users.ContainsKey(name))
-            { 
-                this.GetClient().SendTo($"hello,{name},{data}", _users[name]);
+            {
+                GetClient().SendTo($"hello,{name},{data}", _users[name]);
             }
             return Task.CompletedTask;
         }

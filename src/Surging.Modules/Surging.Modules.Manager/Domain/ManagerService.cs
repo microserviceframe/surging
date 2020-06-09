@@ -8,7 +8,7 @@ namespace Surging.Modules.Manager.Domain
     {
         public Task<string> SayHello(string name)
         {
-              return Task.FromResult($"{name} say:hello");
+            return Task.FromResult($"{name} say:hello");
         }
     }
 }

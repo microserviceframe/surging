@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Modules.Common.Domain
 {
-	[ModuleName("User")]  
+    [ModuleName("User")]
     public class UserService : ProxyServiceBase, IUserService
     {
         #region Implementation of IUserService
@@ -29,7 +29,7 @@ namespace Surging.Modules.Common.Domain
 
         public async Task<string> GetUserName(int id)
         {
-            var text = await GetService<IManagerService>().SayHello("fanly"); 
+            var text = await GetService<IManagerService>().SayHello("fanly");
             return await Task.FromResult(text);
         }
 
@@ -169,6 +169,7 @@ namespace Surging.Modules.Common.Domain
         {
             return Task.FromResult(true);
         }
+
         #endregion Implementation of IUserService
     }
 }

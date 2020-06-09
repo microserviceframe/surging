@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.IModuleServices.Common.Models
 {
-   public class Message
+    public class Message
     {
         public string RoutePath { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace Surging.Modules.Common.Repositories
 {
-	public class UserRepository: BaseRepository
+    public class UserRepository : BaseRepository
     {
     }
 }

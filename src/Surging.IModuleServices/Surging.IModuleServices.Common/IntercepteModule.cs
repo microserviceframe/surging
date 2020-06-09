@@ -1,14 +1,10 @@
-﻿using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.Module;
+﻿using Surging.Core.CPlatform.Module;
 using Surging.Core.ProxyGenerator;
 using Surging.Core.System.Intercept;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.IModuleServices.Common
 {
-    public class IntercepteModule : SystemModule
+	public class IntercepteModule : SystemModule
     {
         public override void Initialize(AppModuleContext context)
         {

@@ -8,18 +8,17 @@ using Surging.Core.CPlatform.DependencyResolution;
 
 namespace Surging.Core.ProxyGenerator
 {
-    public abstract class ProxyServiceBase:  ServiceBase
+    public abstract class ProxyServiceBase : ServiceBase
     {
         [Obsolete("This method is Obsolete, use GetService")]
         public T CreateProxy<T>(string key) where T : class
         {
-           // return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
+            // return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
             var result = ServiceResolver.Current.GetService<T>(key);
             if (result == null)
             {
                 result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
                 ServiceResolver.Current.Register(key, result);
-
             }
             return result;
         }
@@ -32,7 +31,6 @@ namespace Surging.Core.ProxyGenerator
             {
                 result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
                 ServiceResolver.Current.Register(null, result);
-
             }
             return result;
         }
@@ -40,10 +38,10 @@ namespace Surging.Core.ProxyGenerator
         [Obsolete("This method is Obsolete, use GetService")]
         public object CreateProxy(string key, Type type)
         {
-            var result = ServiceResolver.Current.GetService(type,key);
+            var result = ServiceResolver.Current.GetService(type, key);
             if (result == null)
             {
-                result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key,type);
+                result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
                 ServiceResolver.Current.Register(key, result);
             }
             return result;
@@ -56,12 +54,12 @@ namespace Surging.Core.ProxyGenerator
             if (result == null)
             {
                 result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
-                ServiceResolver.Current.Register(null,result);
+                ServiceResolver.Current.Register(null, result);
             }
             return result;
         }
 
-        public override T GetService<T>(string key) 
+        public override T GetService<T>(string key)
         {
             if (ServiceLocator.Current.IsRegisteredWithKey<T>(key))
                 return base.GetService<T>(key);
@@ -91,7 +89,6 @@ namespace Surging.Core.ProxyGenerator
                 }
                 return result;
             }
-
         }
 
         public override object GetService(Type type)
@@ -104,7 +101,7 @@ namespace Surging.Core.ProxyGenerator
                 if (result == null)
                 {
                     result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
-                    ServiceResolver.Current.Register(null, result); 
+                    ServiceResolver.Current.Register(null, result);
                 }
                 return result;
             }
@@ -124,7 +121,7 @@ namespace Surging.Core.ProxyGenerator
                 }
                 return result;
             }
-           
+
         }
 
         public void Publish(IntegrationEvent @event)

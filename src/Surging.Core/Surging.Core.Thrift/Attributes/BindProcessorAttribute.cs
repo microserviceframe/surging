@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text; 
 
 namespace Surging.Core.Thrift.Attributes
 {
-    public class BindProcessorAttribute: Attribute
+    public class BindProcessorAttribute : Attribute
     {
-        public BindProcessorAttribute(Type processorType) 
+        public BindProcessorAttribute(Type processorType)
         {
             ProcessorType = processorType;
         }

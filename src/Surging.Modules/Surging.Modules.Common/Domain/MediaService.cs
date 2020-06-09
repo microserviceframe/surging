@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Modules.Common.Domain
 {
-	public class MediaService : WSBehavior, IMediaService
+    public class MediaService : WSBehavior, IMediaService
     {
         public Task Push(IEnumerable<byte> data)
         {

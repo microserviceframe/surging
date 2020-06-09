@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Surging.IModuleServices.User
 {
-
     [ServiceBundle("api/{Service}")]
     public interface IManagerService : IServiceKey
     {

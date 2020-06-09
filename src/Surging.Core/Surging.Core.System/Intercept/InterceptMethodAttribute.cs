@@ -1,7 +1,5 @@
 ﻿using Surging.Core.Caching;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.System.Intercept
 {
@@ -12,6 +10,7 @@ namespace Surging.Core.System.Intercept
     public class InterceptMethodAttribute : Attribute
     {
         #region 字段
+
         int _time = 60;
         CacheTargetType _mode = CacheTargetType.MemoryCache;
         CachingMethod _method;
@@ -20,27 +19,29 @@ namespace Surging.Core.System.Intercept
         #endregion
 
         #region 构造函数
+
         /// <summary>
         /// 初始化一个新的<c>InterceptMethodAttribute</c>类型。
         /// </summary>
         /// <param name="method">缓存方式。</param>
         public InterceptMethodAttribute(CachingMethod method)
         {
-            this._method = method;
+            _method = method;
         }
         /// <summary>
         /// 初始化一个新的<c>InterceptMethodAttribute</c>类型。
         /// </summary>
         /// <param name="method">缓存方式。</param>
         /// <param name="correspondingMethodNames">与当前缓存方式相关的方法名称。注：此参数仅在缓存方式为Remove时起作用。</param>
-        public InterceptMethodAttribute(CachingMethod method, params string[] correspondingMethodNames)
-            : this(method)
+        public InterceptMethodAttribute(CachingMethod method, params string[] correspondingMethodNames) : this(method)
         {
-            this._correspondingKeys = correspondingMethodNames;
+            _correspondingKeys = correspondingMethodNames;
         }
+
         #endregion
 
         #region 公共属性
+
         /// <summary>
         /// 有效时间
         /// </summary>
@@ -74,10 +75,11 @@ namespace Surging.Core.System.Intercept
 
         public bool EnableL2Cache
         {
-            get;set;
+            get; set;
         }
 
         public string Key { get; set; }
+
         /// <summary>
         /// 获取或设置缓存方式。
         /// </summary>
@@ -94,6 +96,7 @@ namespace Surging.Core.System.Intercept
         /// 获取或设置一个<see cref="Boolean"/>值，该值表示当缓存方式为Put时，是否强制将值写入缓存中。
         /// </summary>
         public bool Force { get; set; }
+
         /// <summary>
         /// 获取或设置与当前缓存方式相关的方法名称。注：此参数仅在缓存方式为Remove时起作用。
         /// </summary>

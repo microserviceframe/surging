@@ -3,30 +3,26 @@ using Surging.IModuleServices.Common.Models;
 using Surging.Modules.Common.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.EventBus.Events;
-using Newtonsoft.Json.Linq;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Ioc;
 using Surging.Core.ProxyGenerator;
 using Surging.Core.KestrelHttpServer.Internal;
 using System.IO;
 using Surging.Core.KestrelHttpServer;
 using Surging.Core.Common;
-using Surging.Core.Thrift.Attributes;
-using static ThriftCore.Calculator;
 
 namespace Surging.Modules.Common.Domain
 {
-    [ModuleName("Person")] 
+    [ModuleName("Person")]
     public class PersonService : ProxyServiceBase, IUserService
     {
         #region Implementation of IUserService
+
         private readonly UserRepository _repository;
         public PersonService(UserRepository repository)
         {
-            this._repository = repository;
+            _repository = repository;
         }
 
         public Task<string> GetUserName(int id)
@@ -68,7 +64,6 @@ namespace Surging.Modules.Common.Domain
             return Task.FromResult(true);
         }
 
-
         public Task<UserModel> GetUserById(Guid id)
         {
             return Task.FromResult(new UserModel
@@ -81,7 +76,6 @@ namespace Surging.Modules.Common.Domain
         {
             return Task.FromResult<bool>(true);
         }
-
 
         public async Task Try()
         {
@@ -116,10 +110,10 @@ namespace Surging.Modules.Common.Domain
 
         public Task<ApiResult<UserModel>> GetApiResult()
         {
-            return Task.FromResult(new ApiResult<UserModel>() { Value = new UserModel { Name = "fanly" }, StatusCode=200 });
+            return Task.FromResult(new ApiResult<UserModel>() { Value = new UserModel { Name = "fanly" }, StatusCode = 200 });
         }
 
-        public   Task<string> GetUser(List<int> idList)
+        public Task<string> GetUser(List<int> idList)
         {
             return Task.FromResult("type is List<int>");
         }
@@ -144,7 +138,6 @@ namespace Surging.Modules.Common.Domain
             {
                 using (var stream = new FileStream(uploadPath, FileMode.Open))
                 {
-
                     var bytes = new Byte[stream.Length];
                     await stream.WriteAsync(bytes, 0, bytes.Length);
                     return new FileContentResult(bytes, contentType, fileName);
@@ -154,7 +147,6 @@ namespace Surging.Modules.Common.Domain
             {
                 throw new FileNotFoundException(fileName);
             }
-
         }
 
         public async Task<Sex> SetSex(Sex sex)

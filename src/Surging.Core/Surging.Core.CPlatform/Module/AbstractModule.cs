@@ -92,7 +92,6 @@ namespace Surging.Core.CPlatform.Module
             }
         }
 
-
         protected virtual void RegisterBuilder(ContainerBuilderWrapper builder)
         {
         }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MessagePack;
 using ProtoBuf;
 using Surging.Core.System.Intercept;
 
@@ -8,7 +7,6 @@ namespace Surging.IModuleServices.Common.Models
     [ProtoContract]
     public class UserModel
     {
-
         [ProtoMember(1)]
         [CacheKey(1)]
         public int UserId { get; set; }
@@ -25,6 +23,5 @@ namespace Surging.IModuleServices.Common.Models
         [ProtoMember(4)]
         [Range(0, 1, ErrorMessage = "性别只能选男或女")]
         public Sex Sex { get; set; }
-
     }
 }
