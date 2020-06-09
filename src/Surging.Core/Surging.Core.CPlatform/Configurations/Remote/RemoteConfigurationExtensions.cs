@@ -3,10 +3,10 @@ using System;
 
 namespace Surging.Core.CPlatform.Configurations.Remote
 {
-	/// <summary>
-	/// Extension methods for adding <see cref="RemoteConfigurationProvider"/>.
-	/// </summary>
-	public static class RemoteConfigurationExtensions
+    /// <summary>
+    /// Extension methods for adding <see cref="RemoteConfigurationProvider"/>.
+    /// </summary>
+    public static class RemoteConfigurationExtensions
     {
         /// <summary>
         /// Adds a remote configuration source to <paramref name="builder"/>.
@@ -81,7 +81,7 @@ namespace Surging.Core.CPlatform.Configurations.Remote
 
             return builder.AddRemoteSource(source);
         }
-        
+
         public static IConfigurationBuilder AddRemoteSource(this IConfigurationBuilder builder, RemoteConfigurationSource source)
         {
             if (builder == null)

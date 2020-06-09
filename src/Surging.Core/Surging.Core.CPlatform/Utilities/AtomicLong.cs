@@ -2,13 +2,12 @@
 
 namespace Surging.Core.CPlatform.Utilities
 {
-	public class AtomicLong
+    public class AtomicLong
     {
 
         private long _value;
 
-        public AtomicLong()
-            : this(0)
+        public AtomicLong() : this(0)
         {
 
         }
@@ -63,7 +62,6 @@ namespace Surging.Core.CPlatform.Utilities
             return GetAndAdd(-1);
         }
 
-      
         public long PreIncrement()
         {
             return Interlocked.Increment(ref _value);
@@ -78,6 +76,5 @@ namespace Surging.Core.CPlatform.Utilities
         {
             return value.Get();
         }
-
-    } 
+    }
 }

@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Surging.Core.CPlatform.Engines.Implementation
 {
-   public  class ServiceEngineLifetime: IServiceEngineLifetime
+	public  class ServiceEngineLifetime: IServiceEngineLifetime
     {
         private readonly CancellationTokenSource _startedSource = new CancellationTokenSource();
         private readonly CancellationTokenSource _stoppingSource = new CancellationTokenSource();

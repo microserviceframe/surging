@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Engines
 {
-	public interface IServiceEngineBuilder
+    public interface IServiceEngineBuilder
     {
         void Build(ContainerBuilder serviceContainer);
 

@@ -2,10 +2,10 @@
 
 namespace Surging.Core.CPlatform.Routing
 {
-	/// <summary>
-	/// 服务路由接口
-	/// </summary>
-	public interface IServiceRouteProvider
+    /// <summary>
+    /// 服务路由接口
+    /// </summary>
+    public interface IServiceRouteProvider
     {
         /// <summary>
         /// 根据服务id找到相关服务信息

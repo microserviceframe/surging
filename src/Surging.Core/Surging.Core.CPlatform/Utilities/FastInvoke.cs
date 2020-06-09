@@ -4,16 +4,13 @@ using System.Reflection.Emit;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-	public class FastInvoke
+    public class FastInvoke
     {
         public delegate object FastInvokeHandler(object target, object[] paramters);
 
-
         static object InvokeMethod(FastInvokeHandler invoke, object target, params object[] paramters)
         {
-
             return invoke(null, paramters);
-
         }
 
         public static FastInvokeHandler GetMethodInvoker(MethodInfo methodInfo)
@@ -81,7 +78,7 @@ namespace Surging.Core.CPlatform.Utilities
             return invoder;
         }
 
-        private static void EmitCastToReference(ILGenerator il, System.Type type)
+        private static void EmitCastToReference(ILGenerator il, Type type)
         {
             if (type.IsValueType)
             {
@@ -93,7 +90,7 @@ namespace Surging.Core.CPlatform.Utilities
             }
         }
 
-        private static void EmitBoxIfNeeded(ILGenerator il, System.Type type)
+        private static void EmitBoxIfNeeded(ILGenerator il, Type type)
         {
             if (type.IsValueType)
             {
@@ -139,7 +136,7 @@ namespace Surging.Core.CPlatform.Utilities
 
             if (value > -129 && value < 128)
             {
-                il.Emit(OpCodes.Ldc_I4_S, (SByte)value);
+                il.Emit(OpCodes.Ldc_I4_S, (sbyte)value);
             }
             else
             {

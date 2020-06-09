@@ -2,9 +2,9 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-	public class TransportEventData : EventData
+    public class TransportEventData : EventData
     {
-        public TransportEventData(DiagnosticMessage message, string  method, string traceId, string address)
+        public TransportEventData(DiagnosticMessage message, string method, string traceId, string address)
             : base(Guid.Parse(message.Id))
         {
             Message = message;
@@ -24,4 +24,4 @@ namespace Surging.Core.CPlatform.Diagnostics
         public DiagnosticMessage Message { get; set; }
 
     }
-} 
+}

@@ -2,18 +2,17 @@
 using Surging.Core.CPlatform.EventBus.Events;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.EventBusKafka.Implementation
 {
-    public  class KafkaSubscriptionAdapt : ISubscriptionAdapt
+    public class KafkaSubscriptionAdapt : ISubscriptionAdapt
     {
         private readonly IConsumeConfigurator _consumeConfigurator;
         private readonly IEnumerable<IIntegrationEventHandler> _integrationEventHandler;
         public KafkaSubscriptionAdapt(IConsumeConfigurator consumeConfigurator, IEnumerable<IIntegrationEventHandler> integrationEventHandler)
         {
-            this._consumeConfigurator = consumeConfigurator;
-            this._integrationEventHandler = integrationEventHandler;
+            _consumeConfigurator = consumeConfigurator;
+            _integrationEventHandler = integrationEventHandler;
         }
 
         public void SubscribeAt()

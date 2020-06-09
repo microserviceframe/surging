@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-	public class DiagnosticMessage: TransportMessage
+    public class DiagnosticMessage : TransportMessage
     {
         public string MessageName { get; set; }
     }

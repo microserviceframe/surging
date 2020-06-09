@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.EventBus
 {
-	public interface ISubscriptionAdapt
+    public interface ISubscriptionAdapt
     {
         void SubscribeAt();
 

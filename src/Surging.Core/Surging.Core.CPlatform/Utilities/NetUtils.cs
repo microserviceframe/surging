@@ -4,7 +4,7 @@ using System.Net.NetworkInformation;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-	public class NetUtils
+    public class NetUtils
     {
         public const string LOCALHOST = "127.0.0.1";
         public const string ANYHOST = "0.0.0.0";

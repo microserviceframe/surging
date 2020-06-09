@@ -479,7 +479,6 @@ namespace Surging.Core.CPlatform
             return new ServiceBuilder(services)
                 .AddJsonSerialization()
                 .UseJsonCodec();
-
         }
 
         public static IServiceBuilder RegisterInstanceByConstraint(this IServiceBuilder builder, params string[] virtualPaths)
@@ -496,7 +495,6 @@ namespace Surging.Core.CPlatform
                 .Where(t => typeof(ITransientDependency).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().AsSelf().InstancePerDependency();
             }
             return builder;
-
         }
 
         private static IServiceBuilder AddRuntime(this IServiceBuilder builder)
@@ -523,11 +521,11 @@ namespace Surging.Core.CPlatform
             return builder;
         }
 
-       /// <summary>
-       /// 添加微服务
-       /// </summary>
-       /// <param name="builder"></param>
-       /// <param name="option"></param>
+        /// <summary>
+        /// 添加微服务
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="option"></param>
         public static void AddMicroService(this ContainerBuilder builder, Action<IServiceBuilder> option)
         {
             option.Invoke(builder.AddCoreService());
@@ -547,7 +545,7 @@ namespace Surging.Core.CPlatform
                 foreach (var assembly in referenceAssemblies)
                 {
                     services.RegisterAssemblyTypes(assembly)
-                        //注入继承IServiceKey接口的所有接口
+                       //注入继承IServiceKey接口的所有接口
                        .Where(t => typeof(IServiceKey).GetTypeInfo().IsAssignableFrom(t) && t.IsInterface)
                        .AsImplementedInterfaces();
                     services.RegisterAssemblyTypes(assembly)
@@ -630,7 +628,7 @@ namespace Surging.Core.CPlatform
             return builder;
         }
 
-		/// <summary>
+        /// <summary>
         /// 依赖注入组件模块程序集
         /// </summary>
         /// <param name="builder"></param>

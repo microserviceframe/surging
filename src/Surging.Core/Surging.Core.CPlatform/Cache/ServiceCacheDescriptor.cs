@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Cache
 {
-	/// <summary>
-	/// 服务地址描述符。
-	/// </summary>
-	public class CacheEndpointDescriptor
+    /// <summary>
+    /// 服务地址描述符。
+    /// </summary>
+    public class CacheEndpointDescriptor
     {
         /// <summary>
         /// 地址类型。

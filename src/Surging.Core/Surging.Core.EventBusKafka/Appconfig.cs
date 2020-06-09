@@ -1,21 +1,16 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Surging.Core.EventBusKafka.Configurations;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Surging.Core.EventBusKafka
 {
-    public  class AppConfig
+    public class AppConfig
     {
-
         public static IConfigurationRoot Configuration { get; set; }
 
-        public static KafkaOptions  Options { get; internal set; }
+        public static KafkaOptions Options { get; internal set; }
 
         private static IEnumerable<KeyValuePair<string, object>> _kafkaConsumerConfig;
-
 
         private static IEnumerable<KeyValuePair<string, object>> _kafkaProducerConfig;
 

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Support.Implementation
 {
-    public abstract class ServiceCommandBase: IServiceCommandProvider
-    { 
+    public abstract class ServiceCommandBase : IServiceCommandProvider
+    {
         public abstract ValueTask<ServiceCommand> GetCommand(string serviceId);
-        ConcurrentDictionary<string,  object> scripts = new ConcurrentDictionary<string,  object>();
+        ConcurrentDictionary<string, object> scripts = new ConcurrentDictionary<string, object>();
 
         public async Task<object> Run(string text, params string[] InjectionNamespaces)
         {

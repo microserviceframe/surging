@@ -3,8 +3,8 @@ using System.Threading;
 
 namespace Surging.Core.CPlatform.Filters
 {
-	public interface IAuthorizationFilter: IFilter
+    public interface IAuthorizationFilter : IFilter
     {
-        void ExecuteAuthorizationFilterAsync(ServiceRouteContext serviceRouteContext,CancellationToken cancellationToken);
+        void ExecuteAuthorizationFilterAsync(ServiceRouteContext serviceRouteContext, CancellationToken cancellationToken);
     }
 }

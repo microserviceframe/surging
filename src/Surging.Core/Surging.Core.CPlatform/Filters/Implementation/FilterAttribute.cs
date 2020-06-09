@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Filters.Implementation
 {
-	public abstract class FilterAttribute : Attribute, IFilter
+    public abstract class FilterAttribute : Attribute, IFilter
     {
         private readonly bool _filterAttribute;
 

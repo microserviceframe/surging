@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Module
 {
-	public class EnginePartModule : AbstractModule
+    public class EnginePartModule : AbstractModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -19,7 +19,7 @@
         internal override void RegisterComponents(ContainerBuilderWrapper builder)
         {
             base.RegisterComponents(builder);
-          
-        }        
+
+        }
     }
 }

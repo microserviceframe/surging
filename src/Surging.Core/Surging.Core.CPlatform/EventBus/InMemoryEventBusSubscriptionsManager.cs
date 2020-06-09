@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform.EventBus
 {
-   public class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
+    public class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {
         private readonly Dictionary<string, List<Delegate>> _handlers;
         private readonly Dictionary<Delegate, string> _consumers;
@@ -23,7 +23,7 @@ namespace Surging.Core.CPlatform.EventBus
         public bool IsEmpty => !_handlers.Keys.Any();
         public void Clear() => _handlers.Clear();
 
-        public void AddSubscription<T, TH>(Func<TH> handler,string consumerName)
+        public void AddSubscription<T, TH>(Func<TH> handler, string consumerName)
             where TH : IIntegrationEventHandler<T>
         {
             var key = GetEventKey<T>();
@@ -53,7 +53,7 @@ namespace Surging.Core.CPlatform.EventBus
                     {
                         _eventTypes.Remove(eventType);
                         _consumers.Remove(handlerToRemove);
-                        RaiseOnEventRemoved(eventType.Name,consumerName);
+                        RaiseOnEventRemoved(eventType.Name, consumerName);
                     }
                 }
 
@@ -67,12 +67,12 @@ namespace Surging.Core.CPlatform.EventBus
         }
         public IEnumerable<Delegate> GetHandlersForEvent(string eventName) => _handlers[eventName];
 
-        private void RaiseOnEventRemoved(string eventName,string consumerName)
+        private void RaiseOnEventRemoved(string eventName, string consumerName)
         {
             var handler = OnEventRemoved;
             if (handler != null)
             {
-                handler(this,new ValueTuple<string,string>(consumerName, eventName));
+                handler(this, new ValueTuple<string, string>(consumerName, eventName));
             }
         }
 

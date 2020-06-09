@@ -28,7 +28,7 @@ namespace Surging.Core.CPlatform.Support.Implementation
             }
         }
 
-        public override async  ValueTask<ServiceCommand> GetCommand(string serviceId)
+        public override async ValueTask<ServiceCommand> GetCommand(string serviceId)
         {
             var result = _serviceCommand.GetValueOrDefault(serviceId);
             if (result == null)
@@ -70,7 +70,7 @@ namespace Surging.Core.CPlatform.Support.Implementation
         }
 
         public void ServiceCommandManager_Add(object sender, ServiceCommandEventArgs e)
-        { 
+        {
             _serviceCommand.GetOrAdd(e.Command.ServiceId, e.Command);
         }
 

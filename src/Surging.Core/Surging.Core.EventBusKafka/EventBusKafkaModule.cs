@@ -1,16 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.EventBus;
 using Surging.Core.CPlatform.EventBus.Events;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.EventBusKafka.Configurations;
 using Surging.Core.EventBusKafka.Implementation;
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Surging.Core.CPlatform.EventBus.Implementation;
 using Surging.Core.CPlatform.Engines;
-using System.Threading.Tasks;
 
 namespace Surging.Core.EventBusKafka
 {
@@ -22,9 +20,9 @@ namespace Surging.Core.EventBusKafka
             base.Initialize(context);
             serviceProvider.GetInstances<ISubscriptionAdapt>().SubscribeAt();
             serviceProvider.GetInstances<IServiceEngineLifetime>().ServiceEngineStarted.Register(() =>
-             {
-                 KafkaConsumerPersistentConnection connection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Consumer.ToString()) as KafkaConsumerPersistentConnection;
-                 connection.Listening(TimeSpan.FromMilliseconds(AppConfig.Options.Timeout));
+            {
+                KafkaConsumerPersistentConnection connection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Consumer.ToString()) as KafkaConsumerPersistentConnection;
+                connection.Listening(TimeSpan.FromMilliseconds(AppConfig.Options.Timeout));
             });
         }
 
@@ -38,7 +36,7 @@ namespace Surging.Core.EventBusKafka
             UseKafkaMQTransport(builder).AddKafkaMQAdapt(builder);
         }
 
-        public  EventBusKafkaModule UseKafkaMQTransport(ContainerBuilderWrapper builder)
+        public EventBusKafkaModule UseKafkaMQTransport(ContainerBuilderWrapper builder)
         {
             AppConfig.Options = new KafkaOptions();
             var section = CPlatform.AppConfig.GetSection("EventBus_Kafka");
@@ -58,20 +56,20 @@ namespace Surging.Core.EventBusKafka
             return this;
         }
 
-        public  ContainerBuilderWrapper UseKafkaMQEventAdapt(ContainerBuilderWrapper builder, Func<IServiceProvider, ISubscriptionAdapt> adapt)
+        public ContainerBuilderWrapper UseKafkaMQEventAdapt(ContainerBuilderWrapper builder, Func<IServiceProvider, ISubscriptionAdapt> adapt)
         {
             builder.RegisterAdapter(adapt);
             return builder;
         }
 
-        public  EventBusKafkaModule AddKafkaMQAdapt(ContainerBuilderWrapper builder)
+        public EventBusKafkaModule AddKafkaMQAdapt(ContainerBuilderWrapper builder)
         {
-              UseKafkaMQEventAdapt(builder,provider =>
-             new KafkaSubscriptionAdapt(
-                 provider.GetService<IConsumeConfigurator>(),
-                 provider.GetService<IEnumerable<IIntegrationEventHandler>>()
-                 )
-            );
+            UseKafkaMQEventAdapt(builder, provider =>
+            new KafkaSubscriptionAdapt(
+                provider.GetService<IConsumeConfigurator>(),
+                provider.GetService<IEnumerable<IIntegrationEventHandler>>()
+                )
+          );
             return this;
         }
     }

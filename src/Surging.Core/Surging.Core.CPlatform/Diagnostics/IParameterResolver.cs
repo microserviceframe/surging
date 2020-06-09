@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Diagnostics
 {
-	public interface IParameterResolver
+    public interface IParameterResolver
     {
         object Resolve(object value);
     }

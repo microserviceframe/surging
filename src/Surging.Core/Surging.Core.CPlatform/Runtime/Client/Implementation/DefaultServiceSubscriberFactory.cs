@@ -4,7 +4,6 @@ using Surging.Core.CPlatform.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Implementation
@@ -17,7 +16,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Implementation
         {
             _serializer = serializer;
         }
-        
+
         public Task<IEnumerable<ServiceSubscriber>> CreateServiceSubscribersAsync(IEnumerable<ServiceSubscriberDescriptor> descriptors)
         {
             if (descriptors == null)

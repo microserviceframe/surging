@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.EventBusKafka.Implementation
 {
-   public class DefaultConsumeConfigurator : IConsumeConfigurator
+    public class DefaultConsumeConfigurator : IConsumeConfigurator
     {
         private readonly IEventBus _eventBus;
         private readonly CPlatformContainer _container;
@@ -92,4 +91,4 @@ namespace Surging.Core.EventBusKafka.Implementation
         }
     }
 }
-    
+

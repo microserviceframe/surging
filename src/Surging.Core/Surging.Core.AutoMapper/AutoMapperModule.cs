@@ -4,7 +4,7 @@ using CPlatformAppConfig = Surging.Core.CPlatform.AppConfig;
 
 namespace Surging.Core.AutoMapper
 {
-	public class AutoMapperModule : EnginePartModule
+    public class AutoMapperModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {

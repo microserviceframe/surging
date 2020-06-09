@@ -1,13 +1,12 @@
 ﻿using Surging.Core.CPlatform.Convertibles;
 using Surging.Core.CPlatform.Runtime.Server;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Support.Implementation
 {
-    public class FailoverInjectionInvoker : IClusterInvoker
+	public class FailoverInjectionInvoker : IClusterInvoker
     {
         public readonly IServiceCommandProvider _serviceCommandProvider;
         public readonly IServiceEntryManager _serviceEntryManager;
@@ -25,7 +24,7 @@ namespace Surging.Core.CPlatform.Support.Implementation
             var vt = _serviceCommandProvider.GetCommand(serviceId);
             var command = vt.IsCompletedSuccessfully ? vt.Result : await vt;
             var result = await _serviceCommandProvider.Run(command.Injection, command.InjectionNamespaces);
-            if (result is Boolean)
+            if (result is bool)
             {
                 if ((bool)result)
                 {
@@ -41,7 +40,7 @@ namespace Surging.Core.CPlatform.Support.Implementation
             var vt = _serviceCommandProvider.GetCommand(serviceId);
             var command = vt.IsCompletedSuccessfully ? vt.Result : await vt;
             var injectionResult = await _serviceCommandProvider.Run(command.Injection, command.InjectionNamespaces);
-            if (injectionResult is Boolean)
+            if (injectionResult is bool)
             {
                 if ((bool)injectionResult)
                 {
@@ -65,7 +64,7 @@ namespace Surging.Core.CPlatform.Support.Implementation
                 }
                 return (T)result;
             }
-            return default(T);
+            return default;
         }
     }
 }

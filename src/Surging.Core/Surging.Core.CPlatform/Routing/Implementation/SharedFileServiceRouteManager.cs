@@ -155,7 +155,7 @@ namespace Surging.Core.CPlatform.Routing.Implementation
                 catch (Exception exception)
                 {
                     if (_logger.IsEnabled(LogLevel.Error))
-                        _logger.LogError(exception,"获取路由信息时发生了错误。");
+                        _logger.LogError(exception, "获取路由信息时发生了错误。");
                     routes = new ServiceRoute[0];
                 }
             }

@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.EventBus.Events
 {
-	public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
+    public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
     {
         Task Handle(TIntegrationEvent @event);
     }
@@ -11,7 +11,7 @@ namespace Surging.Core.CPlatform.EventBus.Events
     {
         public abstract Task Handle(TIntegrationEvent @event);
 
-        public virtual  async  Task Handled(EventContext context)
+        public virtual async Task Handled(EventContext context)
         {
             await Task.CompletedTask;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client
 {
-	public interface IServiceSubscribeManager
+    public interface IServiceSubscribeManager
     {
         /// <summary>
         /// 获取所有可用的服务订阅者信息。
@@ -39,7 +39,7 @@ namespace Surging.Core.CPlatform.Runtime.Client
         /// <param name="serviceRouteManager">服务订阅管理者。</param>
         /// <param name="serviceId">服务Id。</param>
         /// <returns>服务路由。</returns>
-        public static async Task<ServiceSubscriber> GetAsync(this IServiceSubscribeManager  serviceSubscribeManager, string serviceId)
+        public static async Task<ServiceSubscriber> GetAsync(this IServiceSubscribeManager serviceSubscribeManager, string serviceId)
         {
             return (await serviceSubscribeManager.GetSubscribersAsync()).SingleOrDefault(i => i.ServiceDescriptor.Id == serviceId);
         }

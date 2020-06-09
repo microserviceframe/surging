@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform
 {
-	/// <summary>
-	/// 服务描述符扩展方法。
-	/// </summary>
-	public static class ServiceDescriptorExtensions
+    /// <summary>
+    /// 服务描述符扩展方法。
+    /// </summary>
+    public static class ServiceDescriptorExtensions
     {
         /// <summary>
         /// 获取组名称。
@@ -19,7 +19,7 @@ namespace Surging.Core.CPlatform
         {
             return descriptor.GetMetadata<string>("GroupName");
         }
-        
+
         /// <summary>
         /// 设置组名称。
         /// </summary>
@@ -109,7 +109,7 @@ namespace Surging.Core.CPlatform
             descriptor.Metadatas["HttpMethod"] = httpMethod;
             return descriptor;
         }
-         
+
         /// <summary>
         /// 获取HTTP方法
         /// </summary>
@@ -150,7 +150,7 @@ namespace Surging.Core.CPlatform
         public static string AuthType(this ServiceDescriptor descriptor)
         {
             return descriptor.GetMetadata("AuthType", "");
-        }        
+        }
 
         /// <summary>
         /// 设置授权类型
@@ -163,7 +163,7 @@ namespace Surging.Core.CPlatform
             descriptor.Metadatas["AuthType"] = authType.ToString();
             return descriptor;
         }
-        
+
         /// <summary>
         /// 设置日期
         /// </summary>
@@ -175,7 +175,7 @@ namespace Surging.Core.CPlatform
             descriptor.Metadatas["Date"] = date;
             return descriptor;
         }
-        
+
         /// <summary>
         /// 获取日期
         /// </summary>

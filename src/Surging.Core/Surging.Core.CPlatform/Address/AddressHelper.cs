@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Surging.Core.CPlatform.Address
 {
-	public class AddressHelper
+    public class AddressHelper
     {
         public static string GetIpFromAddress(string address)
         {

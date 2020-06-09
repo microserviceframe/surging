@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ApiGateWay.OAuth.Implementation.Configurations
 {
-	public class GatewayConfigurationSource : FileConfigurationSource
+    public class GatewayConfigurationSource : FileConfigurationSource
     {
         public string ConfigurationKeyPrefix { get; set; }
 

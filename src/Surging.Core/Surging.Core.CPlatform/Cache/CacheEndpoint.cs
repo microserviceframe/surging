@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Cache
 {
-	public abstract class CacheEndpoint
+    public abstract class CacheEndpoint
     {
         /// <summary>
         /// 主机

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Mqtt
 {
-	/// <summary>
-	/// Mqtt地址描述符。
-	/// </summary>
-	public class MqttEndpointDescriptor
+    /// <summary>
+    /// Mqtt地址描述符。
+    /// </summary>
+    public class MqttEndpointDescriptor
     {
         /// <summary>
         /// 地址类型。
         /// </summary>
         [JsonIgnore]
-        public string Type { get; set; } 
+        public string Type { get; set; }
 
         /// <summary>
         /// 地址值。

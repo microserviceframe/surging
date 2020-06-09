@@ -12,7 +12,7 @@ using Surging.Core.ProxyGenerator;
 
 namespace Surging.Core.ApiGateWay
 {
-	public class ApiGeteWayModule : EnginePartModule
+    public class ApiGeteWayModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -28,7 +28,7 @@ namespace Surging.Core.ApiGateWay
             builder.RegisterType<ServiceSubscribeProvider>().As<IServiceSubscribeProvider>().SingleInstance();
             builder.RegisterType<ServiceCacheProvider>().As<IServiceCacheProvider>().SingleInstance();
             builder.RegisterType<ServicePartProvider>().As<IServicePartProvider>().SingleInstance();
-   
+
             builder.Register(provider =>
             {
                 var serviceProxyProvider = provider.Resolve<IServiceProxyProvider>();

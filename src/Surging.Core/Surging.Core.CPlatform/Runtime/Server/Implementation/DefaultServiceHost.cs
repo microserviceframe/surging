@@ -49,7 +49,7 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
             };
         }
 
-        public override async Task StartAsync(string ip,int port)
+        public override async Task StartAsync(string ip, int port)
         {
             if (_serverMessageListener != null)
                 return;

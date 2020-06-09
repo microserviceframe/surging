@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 
 namespace Surging.Core.CPlatform.Configurations.Remote
 {
-	class RemoteConfigurationProvider : ConfigurationProvider
+    class RemoteConfigurationProvider : ConfigurationProvider
     {
         public RemoteConfigurationProvider(RemoteConfigurationSource source)
         {
@@ -14,13 +14,13 @@ namespace Surging.Core.CPlatform.Configurations.Remote
             if (!string.IsNullOrEmpty(source.ConfigurationKeyPrefix))
             {
                 Check.CheckCondition(() => source.ConfigurationKeyPrefix.Trim().StartsWith(":"), CPlatformResource.InvalidStartCharacter, "source.ConfigurationKeyPrefix", ":");
-                Check.CheckCondition(() => source.ConfigurationKeyPrefix.Trim().EndsWith(":"), CPlatformResource.InvalidEndCharacter, "source.ConfigurationKeyPrefix",":");
+                Check.CheckCondition(() => source.ConfigurationKeyPrefix.Trim().EndsWith(":"), CPlatformResource.InvalidEndCharacter, "source.ConfigurationKeyPrefix", ":");
             }
             Source = source;
             Backchannel = new HttpClient(source.BackchannelHttpHandler ?? new HttpClientHandler());
             Backchannel.DefaultRequestHeaders.UserAgent.ParseAdd("获取CacheConfiugration信息");
             Backchannel.Timeout = source.BackchannelTimeout;
-            Backchannel.MaxResponseContentBufferSize = 1024 * 1024 * 10; 
+            Backchannel.MaxResponseContentBufferSize = 1024 * 1024 * 10;
             Parser = source.Parser ?? new JsonConfigurationParser();
         }
 
@@ -29,7 +29,7 @@ namespace Surging.Core.CPlatform.Configurations.Remote
         public IConfigurationParser Parser { get; }
 
         public HttpClient Backchannel { get; }
-        
+
         public override void Load()
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, Source.ConfigurationUri);

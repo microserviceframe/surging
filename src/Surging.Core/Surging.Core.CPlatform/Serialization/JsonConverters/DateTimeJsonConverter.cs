@@ -4,10 +4,10 @@ using System.Text.Json.Serialization;
 
 namespace Surging.Core.CPlatform.Serialization.JsonConverters
 {
-	public class DateTimeJsonConverter : JsonConverter<DateTime>
+    public class DateTimeJsonConverter : JsonConverter<DateTime>
     {
         private readonly string _dateFormatString;
-        public  DateTimeJsonConverter()
+        public DateTimeJsonConverter()
         {
             _dateFormatString = "yyyy-MM-dd HH:mm:ss";
         }
@@ -18,7 +18,7 @@ namespace Surging.Core.CPlatform.Serialization.JsonConverters
         }
 
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {  
+        {
             return DateTime.Parse(reader.GetString());
         }
 

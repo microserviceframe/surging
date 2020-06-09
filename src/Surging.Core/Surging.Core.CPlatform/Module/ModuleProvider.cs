@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform.Module
 {
-	public class ModuleProvider: IModuleProvider
+    public class ModuleProvider : IModuleProvider
     {
         private readonly List<AbstractModule> _modules;
         private readonly string[] _virtualPaths;
@@ -39,14 +39,14 @@ namespace Surging.Core.CPlatform.Module
             {
                 try
                 {
-                    Type[] types = { typeof(SystemModule), typeof(BusinessModule), typeof(EnginePartModule), typeof(AbstractModule) }; 
+                    Type[] types = { typeof(SystemModule), typeof(BusinessModule), typeof(EnginePartModule), typeof(AbstractModule) };
                     if (p.Enable)
-                            p.Initialize(new AppModuleContext(_modules, _virtualPaths, _serviceProvoider));
+                        p.Initialize(new AppModuleContext(_modules, _virtualPaths, _serviceProvoider));
                     var type = p.GetType().BaseType;
                     if (types.Any(ty => ty == type))
                         p.Dispose();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }

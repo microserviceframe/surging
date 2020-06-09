@@ -1,18 +1,15 @@
 ﻿using Surging.Core.CPlatform.Address;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.CPlatform.Runtime.Client.HealthChecks.Implementation
 {
-   public class HealthCheckEventArgs
+	public class HealthCheckEventArgs
     {
         public HealthCheckEventArgs(AddressModel address)
         {
             Address = address;
         }
 
-        public HealthCheckEventArgs(AddressModel address,bool health)
+        public HealthCheckEventArgs(AddressModel address, bool health)
         {
             Address = address;
             Health = health;

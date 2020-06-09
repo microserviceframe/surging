@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
 {
-	/// <summary>
-	/// 默认的服务地址解析器。
-	/// </summary>
-	public class DefaultAddressResolver : IAddressResolver
+    /// <summary>
+    /// 默认的服务地址解析器。
+    /// </summary>
+    public class DefaultAddressResolver : IAddressResolver
     {
         #region Field
 
@@ -25,7 +25,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
         private readonly IHealthCheckService _healthCheckService;
         private readonly CPlatformContainer _container;
         private readonly IServiceRouteProvider _serviceRouteProvider;
-        private readonly ConcurrentDictionary<string, IAddressSelector> _addressSelectors=new
+        private readonly ConcurrentDictionary<string, IAddressSelector> _addressSelectors = new
             ConcurrentDictionary<string, IAddressSelector>();
         private readonly IServiceCommandProvider _commandProvider;
         private readonly ConcurrentDictionary<string, ServiceRoute> _concurrent =
@@ -71,7 +71,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
             if (_logger.IsEnabled(LogLevel.Debug))
                 _logger.LogDebug($"准备为服务id：{serviceId}，解析可用地址。");
 
-           var serviceRouteTask=   _serviceRouteProvider.Locate(serviceId);
+            var serviceRouteTask = _serviceRouteProvider.Locate(serviceId);
             var serviceRoute = serviceRouteTask.IsCompletedSuccessfully ? serviceRouteTask.Result : await serviceRouteTask;
             if (serviceRoute == null)
             {
@@ -118,7 +118,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
         {
             foreach (AddressSelectorMode item in Enum.GetValues(typeof(AddressSelectorMode)))
             {
-               _addressSelectors.TryAdd( item.ToString(), _container.GetInstances<IAddressSelector>(item.ToString()));
+                _addressSelectors.TryAdd(item.ToString(), _container.GetInstances<IAddressSelector>(item.ToString()));
             }
         }
 

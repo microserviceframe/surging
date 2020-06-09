@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-	public class EnvironmentHelper
+    public class EnvironmentHelper
     {
         public static string GetEnvironmentVariable(string value)
         {

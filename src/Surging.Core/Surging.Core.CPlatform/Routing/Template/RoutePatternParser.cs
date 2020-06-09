@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,7 +11,7 @@ namespace Surging.Core.CPlatform.Routing.Template
         {
             StringBuilder result = new StringBuilder();
             var parameters = routeTemplet.Split(@"/");
-            bool isAppendMethod=false;
+            bool isAppendMethod = false;
             foreach (var parameter in parameters)
             {
                 var param = GetParameters(parameter).FirstOrDefault();

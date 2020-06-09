@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Surging.Core.CPlatform.Configurations
 {
-    public  partial class SurgingServerOptions: ServiceCommand
+    public partial class SurgingServerOptions : ServiceCommand
     {
         public string Ip { get; set; }
 
@@ -48,7 +48,7 @@ namespace Surging.Core.CPlatform.Configurations
 
         public bool ReloadOnChange { get; set; } = false;
 
-        public ProtocolPortOptions Ports { get; set; } = new  ProtocolPortOptions();
+        public ProtocolPortOptions Ports { get; set; } = new ProtocolPortOptions();
 
         public string Token { get; set; } = "True";
 

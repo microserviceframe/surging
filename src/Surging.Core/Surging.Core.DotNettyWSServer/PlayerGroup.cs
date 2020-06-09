@@ -2,9 +2,6 @@
 using DotNetty.Codecs.Http.WebSockets;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Groups;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DotNettyWSServer
@@ -13,7 +10,7 @@ namespace Surging.Core.DotNettyWSServer
     {
         public static IChannelGroup ChannelGroup { get; set; }
 
-         public static void AddChannel(IChannel channel)
+        public static void AddChannel(IChannel channel)
         {
             ChannelGroup.Add(channel);
         }

@@ -18,7 +18,7 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-   public interface ITracingContext
+    public interface ITracingContext
     {
         SegmentContext CreateEntrySegmentContext(string operationName, ICarrierHeaderCollection carrierHeader);
 

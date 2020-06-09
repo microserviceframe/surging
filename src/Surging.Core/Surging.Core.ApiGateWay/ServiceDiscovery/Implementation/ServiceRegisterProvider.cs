@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.ApiGateWay.ServiceDiscovery.Implementation
 {
-	/// <summary>
-	/// 服务注册
-	/// </summary>
-	public class ServiceRegisterProvider : IServiceRegisterProvider
+    /// <summary>
+    /// 服务注册
+    /// </summary>
+    public class ServiceRegisterProvider : IServiceRegisterProvider
     {
         public async Task<IEnumerable<ServiceAddressModel>> GetAddressAsync(string condition = null)
         {

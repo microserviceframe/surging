@@ -8,7 +8,7 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.
     [AttributeUsage(AttributeTargets.Interface)]
     public class ServiceBundleAttribute : Attribute
     {
-        public ServiceBundleAttribute(string routeTemplate,bool isPrefix=true)
+        public ServiceBundleAttribute(string routeTemplate, bool isPrefix = true)
         {
             RouteTemplate = routeTemplate;
             IsPrefix = isPrefix;

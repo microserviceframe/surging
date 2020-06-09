@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Surging.Core.CPlatform.Module
 {
     [ServiceBundle("")]
-    public interface IEchoService: IServiceKey
+    public interface IEchoService : IServiceKey
     {
         [Command(ShuntStrategy = AddressSelectorMode.HashAlgorithm)]
-        Task<IpAddressModel> Locate(string key,string routePath);
+        Task<IpAddressModel> Locate(string key, string routePath);
     }
 }

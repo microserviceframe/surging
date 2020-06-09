@@ -3,7 +3,7 @@ using System;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-	public static class UtilityType
+    public static class UtilityType
     {
         public static Type JObjectType = typeof(JObject);
 

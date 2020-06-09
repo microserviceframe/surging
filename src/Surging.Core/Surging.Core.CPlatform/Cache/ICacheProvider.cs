@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache
 {
-	public interface ICacheProvider
+    public interface ICacheProvider
     {
         Task<bool> ConnectionAsync(CacheEndpoint endpoint);
         void Add(string key, object value);
@@ -15,7 +15,6 @@ namespace Surging.Core.CPlatform.Cache
         void AddAsync(string key, object value, long numOfMinutes);
         void Add(string key, object value, TimeSpan timeSpan);
         void AddAsync(string key, object value, TimeSpan timeSpan);
-
         IDictionary<string, T> Get<T>(IEnumerable<string> keys);
         Task<IDictionary<string, T>> GetAsync<T>(IEnumerable<string> keys);
         object Get(string key);
@@ -29,5 +28,3 @@ namespace Surging.Core.CPlatform.Cache
         string KeySuffix { get; set; }
     }
 }
-
-

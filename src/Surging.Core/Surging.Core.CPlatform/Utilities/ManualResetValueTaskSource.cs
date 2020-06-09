@@ -76,7 +76,6 @@ namespace Surging.Core.CPlatform.Utilities
 
         ref ManualResetValueTaskSourceLogic<T> IStrongBox<ManualResetValueTaskSourceLogic<T>>.Value => ref _logic;
 
-
         public ValueTask<T> AwaitValue(CancellationToken cancellation)
         {
             CancellationTokenRegistration? registration = cancellation == CancellationToken.None
@@ -191,7 +190,6 @@ namespace Surging.Core.CPlatform.Utilities
 
             ValidateToken(token);
 
-
             if ((flags & ValueTaskSourceOnCompletedFlags.FlowExecutionContext) != 0)
             {
                 _executionContext = ExecutionContext.Capture();
@@ -302,7 +300,7 @@ namespace Surging.Core.CPlatform.Utilities
                         }
                         else
                         {
-                            ThreadPool.UnsafeQueueUserWorkItem(s => c(s),  _continuationState);
+                            ThreadPool.UnsafeQueueUserWorkItem(s => c(s), _continuationState);
                         }
                     }
                     else

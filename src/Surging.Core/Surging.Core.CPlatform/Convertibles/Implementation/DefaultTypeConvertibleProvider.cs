@@ -28,10 +28,13 @@ namespace Surging.Core.CPlatform.Convertibles.Implementation
         {
             //枚举转换器
             yield return EnumTypeConvert;
+
             //简单类型
             yield return SimpleTypeConvert;
+
             //guid转换器
             yield return GuidTypeConvert;
+
             //复杂类型
             yield return ComplexTypeConvert;
         }

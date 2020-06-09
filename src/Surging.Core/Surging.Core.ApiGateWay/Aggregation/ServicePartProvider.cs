@@ -8,10 +8,10 @@ using Newtonsoft.Json.Linq;
 
 namespace Surging.Core.ApiGateWay.Aggregation
 {
-	/// <summary>
-	/// 服务部件提供者
-	/// </summary>
-	public class ServicePartProvider : IServicePartProvider
+    /// <summary>
+    /// 服务部件提供者
+    /// </summary>
+    public class ServicePartProvider : IServicePartProvider
     {
         private readonly IServiceProxyProvider _serviceProxyProvider;
         private readonly ConcurrentDictionary<string, ServicePartType> _servicePartTypes =

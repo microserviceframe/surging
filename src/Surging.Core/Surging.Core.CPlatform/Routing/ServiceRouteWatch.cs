@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Routing
 {
-	public class ServiceRouteWatch : ConfigurationWatch
+    public class ServiceRouteWatch : ConfigurationWatch
     {
         private readonly Action _action;
-        public ServiceRouteWatch(CPlatformContainer serviceProvider,  Action action)
+        public ServiceRouteWatch(CPlatformContainer serviceProvider, Action action)
         {
             _action = action;
             if (serviceProvider.IsRegistered<IConfigurationWatchManager>())
@@ -20,6 +20,5 @@ namespace Surging.Core.CPlatform.Routing
         {
             await Task.Run(_action);
         }
-
     }
 }

@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client
 {
-	/// <summary>
-	/// 服务订阅者工厂接口
-	/// </summary>
-	public interface IServiceSubscriberFactory
+    /// <summary>
+    /// 服务订阅者工厂接口
+    /// </summary>
+    public interface IServiceSubscriberFactory
     {
         /// <summary>
         /// 根据服务描述创建服务订阅者

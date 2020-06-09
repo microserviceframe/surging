@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Messages
 {
-	public class HttpResultMessage<T> : HttpResultMessage
+    public class HttpResultMessage<T> : HttpResultMessage
     {
         /// <summary>
         /// 数据集

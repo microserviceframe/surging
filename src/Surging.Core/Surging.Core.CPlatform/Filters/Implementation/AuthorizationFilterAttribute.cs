@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Surging.Core.CPlatform.Filters.Implementation
 {
-	public abstract class AuthorizationFilterAttribute : FilterAttribute, IAuthorizationFilter, IFilter
+    public abstract class AuthorizationFilterAttribute : FilterAttribute, IAuthorizationFilter, IFilter
     {
         public virtual bool OnAuthorization(ServiceRouteContext context)
         {

@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
-  
+
 namespace Surging.Core.CPlatform.Diagnostics
 {
     public static class Components
@@ -26,5 +26,5 @@ namespace Surging.Core.CPlatform.Diagnostics
 
         public static readonly StringOrIntValue Intercept = new StringOrIntValue("Intercept");
     }
-        
+
 }

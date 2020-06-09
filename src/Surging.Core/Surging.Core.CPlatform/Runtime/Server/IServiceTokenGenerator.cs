@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.CPlatform.Runtime.Server
+﻿namespace Surging.Core.CPlatform.Runtime.Server
 {
-    public interface IServiceTokenGenerator
+	public interface IServiceTokenGenerator
     {
         string GeneratorToken(string code);
 

@@ -2,14 +2,13 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-	public class TransportErrorEventData : EventData
+    public class TransportErrorEventData : EventData
     {
-        public TransportErrorEventData(DiagnosticMessage message,Exception ex) : base(Guid.Parse(message.Id))
+        public TransportErrorEventData(DiagnosticMessage message, Exception ex) : base(Guid.Parse(message.Id))
         {
             Message = message;
             Exception = ex;
         }
-
 
         public Exception Exception { get; set; }
 

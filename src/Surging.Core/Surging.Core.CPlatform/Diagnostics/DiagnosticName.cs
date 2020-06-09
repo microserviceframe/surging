@@ -30,9 +30,9 @@ namespace Surging.Core.CPlatform.Diagnostics
             Name = name;
         }
 
-        public DiagnosticName(string name,TransportType type)
+        public DiagnosticName(string name, TransportType type)
         {
-            Name = string.Format(name,type);
+            Name = string.Format(name, type);
         }
     }
 }

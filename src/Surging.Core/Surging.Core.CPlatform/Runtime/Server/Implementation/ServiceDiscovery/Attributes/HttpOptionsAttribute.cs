@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.Attributes
 {
@@ -8,13 +6,11 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.
     {
         private static readonly IEnumerable<string> _supportedMethods = new[] { "OPTIONS" };
 
-        public HttpOptionsAttribute()
-            : base(_supportedMethods)
+        public HttpOptionsAttribute() : base(_supportedMethods)
         {
         }
 
-        public HttpOptionsAttribute(bool isRegisterMetadata)
-            : base(_supportedMethods, isRegisterMetadata)
+        public HttpOptionsAttribute(bool isRegisterMetadata) : base(_supportedMethods, isRegisterMetadata)
         {
         }
     }

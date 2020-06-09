@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform.Cache
 {
-	public class ServiceCache
+    public class ServiceCache
     {
         /// <summary>
         /// 服务可用地址。

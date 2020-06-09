@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace Surging.Core.CPlatform.Module
 {
-   public static class RegistrationExtensions
+    public static class RegistrationExtensions
     {
         public static IRegistrationBuilder<T, SimpleActivatorData, SingleRegistrationStyle> Register<T>(this ContainerBuilderWrapper builder, Func<IComponentContext, T> @delegate)
         {
@@ -22,7 +22,7 @@ namespace Surging.Core.CPlatform.Module
         {
             return builder.ContainerBuilder.Register<T>(@delegate);
         }
-        
+
         public static void RegisterModule(this ContainerBuilderWrapper builder, IModule module)
         {
             builder.ContainerBuilder.RegisterModule(module);
@@ -50,7 +50,7 @@ namespace Surging.Core.CPlatform.Module
             return builder.ContainerBuilder.RegisterType(implementationType);
         }
 
-        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterTypes(this ContainerBuilderWrapper builder, params Type [] implementationTypes)
+        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterTypes(this ContainerBuilderWrapper builder, params Type[] implementationTypes)
         {
             return builder.ContainerBuilder.RegisterTypes(implementationTypes);
         }

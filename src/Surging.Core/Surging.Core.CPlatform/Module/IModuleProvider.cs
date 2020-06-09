@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Module
 {
-	public interface IModuleProvider
+    public interface IModuleProvider
     {
         List<AbstractModule> Modules { get; }
 

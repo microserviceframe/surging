@@ -146,7 +146,7 @@ namespace Surging.Core.CPlatform.Module
         {
             AbstractModules.ForEach(module =>
             {
-             //   module.Initialize();
+                //   module.Initialize();
                 builder.RegisterModule(module);
             });
         }
@@ -165,7 +165,7 @@ namespace Surging.Core.CPlatform.Module
 
             return businessModule;
         }
-       
+
         /// <summary>
         /// 获取程序集视图目录名称：公司.产品.程序集模块(程序集视图目录名称)。
         /// </summary>

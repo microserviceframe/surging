@@ -9,7 +9,7 @@ namespace Surging.Core.CPlatform
     /// </summary>
     public class CPlatformContainer
     {
-		private IComponentContext _container;
+        private IComponentContext _container;
 
         public IComponentContext Current
         {
@@ -17,7 +17,7 @@ namespace Surging.Core.CPlatform
             {
                 return _container;
             }
-           internal set
+            internal set
             {
                 _container = value;
             }
@@ -35,33 +35,33 @@ namespace Surging.Core.CPlatform
 
         public bool IsRegisteredWithKey(string serviceKey, Type serviceType)
         {
-            if(!string.IsNullOrEmpty(serviceKey))
-			{
+            if (!string.IsNullOrEmpty(serviceKey))
+            {
                 return _container.IsRegisteredWithKey(serviceKey, serviceType);
             }
             else
-			{
+            {
                 return _container.IsRegistered(serviceType);
             }
         }
-        
+
         public bool IsRegistered<T>(object serviceKey)
         {
             return _container.IsRegisteredWithKey<T>(serviceKey);
         }
 
-        public  T GetInstances<T>(string name) where T : class
+        public T GetInstances<T>(string name) where T : class
         {
-     
+
             return _container.ResolveKeyed<T>(name);
         }
 
-        public  T GetInstances<T>() where T : class
+        public T GetInstances<T>() where T : class
         {
             return _container.Resolve<T>();
         }
 
-        public object GetInstances(Type type)  
+        public object GetInstances(Type type)
         {
             return _container.Resolve(type);
         }
@@ -73,10 +73,10 @@ namespace Surging.Core.CPlatform
 
         public object GetInstancePerLifetimeScope(string name, Type type)
         {
-           return string.IsNullOrEmpty(name) ? GetInstances(type) : _container.ResolveKeyed(name, type);
+            return string.IsNullOrEmpty(name) ? GetInstances(type) : _container.ResolveKeyed(name, type);
         }
 
-        public object GetInstances(string name, Type type)  
+        public object GetInstances(string name, Type type)
         {
             // var appConfig = AppConfig.DefaultInstance;
             var objInstance = ServiceResolver.Current.GetService(type, name);

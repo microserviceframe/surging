@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace Surging.Core.CPlatform.Configurations.Remote
 {
-   public class RemoteConfigurationSource : IConfigurationSource
+    public class RemoteConfigurationSource : IConfigurationSource
     {
         /// <summary>
         /// The uri to call to fetch 

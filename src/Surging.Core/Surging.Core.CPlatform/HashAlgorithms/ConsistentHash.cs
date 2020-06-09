@@ -15,10 +15,12 @@ namespace Surging.Core.CPlatform.HashAlgorithms
     public class ConsistentHash<T>
     {
         #region 字段
+
         private readonly SortedDictionary<int, T> _ring = new SortedDictionary<int, T>();
         private int[] _nodeKeysInRing = null;
         private readonly IHashAlgorithm _hashAlgorithm;
         private readonly int _virtualNodeReplicationFactor = 1000;
+
         #endregion
 
         public ConsistentHash(IHashAlgorithm hashAlgorithm)
@@ -32,6 +34,7 @@ namespace Surging.Core.CPlatform.HashAlgorithms
         }
 
         #region 属性
+
         /// <summary>
         /// 复制哈希节点数
         /// </summary>
@@ -43,8 +46,8 @@ namespace Surging.Core.CPlatform.HashAlgorithms
         {
             get { return _virtualNodeReplicationFactor; }
         }
-        #endregion
-        
+
+        #endregion        
 
         /// <summary>
         /// 添加节点
@@ -54,9 +57,9 @@ namespace Surging.Core.CPlatform.HashAlgorithms
         /// 	<para>创建：范亮</para>
         /// 	<para>日期：2016/4/2</para>
         /// </remarks>
-        public void Add(T node,string value)
+        public void Add(T node, string value)
         {
-            AddNode(node,value);
+            AddNode(node, value);
             _nodeKeysInRing = _ring.Keys.ToArray();
         }
 
@@ -98,7 +101,7 @@ namespace Surging.Core.CPlatform.HashAlgorithms
         /// 	<para>创建：范亮</para>
         /// 	<para>日期：2016/4/2</para>
         /// </remarks>
-        private void AddNode(T node,string value)
+        private void AddNode(T node, string value)
         {
             for (var i = 0; i < _virtualNodeReplicationFactor; i++)
             {
@@ -124,7 +127,6 @@ namespace Surging.Core.CPlatform.HashAlgorithms
             }
         }
 
-
         /// <summary>
         /// 顺时针查找对应哈希的位置
         /// </summary>
@@ -144,10 +146,10 @@ namespace Surging.Core.CPlatform.HashAlgorithms
                 return 0;
             }
 
-			while ((end - begin) > 1)
+            while ((end - begin) > 1)
             {
-				int mid = (end + begin) / 2;
-				if (keys[mid] >= hashOfItem) end = mid;
+                int mid = (end + begin) / 2;
+                if (keys[mid] >= hashOfItem) end = mid;
                 else begin = mid;
             }
             return end;

@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Configurations
 {
-    public  interface IConfigurationWatchManager
+    public interface IConfigurationWatchManager
     {
         void Register(ConfigurationWatch watch);
     }

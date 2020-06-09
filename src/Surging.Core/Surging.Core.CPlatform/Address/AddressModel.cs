@@ -3,10 +3,10 @@ using System.Net;
 
 namespace Surging.Core.CPlatform.Address
 {
-	/// <summary>
-	/// 一个抽象的地址模型。
-	/// </summary>
-	public abstract class AddressModel
+    /// <summary>
+    /// 一个抽象的地址模型。
+    /// </summary>
+    public abstract class AddressModel
     {
         /// <summary>
         /// 创建终结点。
@@ -17,7 +17,7 @@ namespace Surging.Core.CPlatform.Address
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public decimal ProcessorTime { get; set; }
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, PropertyName="Wt")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, PropertyName = "Wt")]
         public int Weight { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, PropertyName = "Tp")]

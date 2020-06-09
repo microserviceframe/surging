@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-	public class ObjectAttribute: ParameterBinder
+    public class ObjectAttribute : ParameterBinder
     {
         public Type TargetType { get; set; }
 

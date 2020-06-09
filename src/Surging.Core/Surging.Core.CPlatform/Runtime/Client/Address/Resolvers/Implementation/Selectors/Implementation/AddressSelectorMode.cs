@@ -1,9 +1,9 @@
 ﻿namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation
 {
-	/// <summary>
-	/// 负载均衡模式
-	/// </summary>
-	public enum AddressSelectorMode
+    /// <summary>
+    /// 负载均衡模式
+    /// </summary>
+    public enum AddressSelectorMode
     {
         /// <summary>
         /// Hash算法

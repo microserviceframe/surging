@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Transport.Implementation
 {
-	/// <summary>
-	/// 一个默认的传输客户端实现。
-	/// </summary>
-	public class TransportClient : ITransportClient, IDisposable
+    /// <summary>
+    /// 一个默认的传输客户端实现。
+    /// </summary>
+    public class TransportClient : ITransportClient, IDisposable
     {
         #region Field
 
@@ -37,7 +37,7 @@ namespace Surging.Core.CPlatform.Transport.Implementation
             IServiceExecutor serviceExecutor)
         {
 
-           _diagnosticListener =new DiagnosticListener(DiagnosticListenerExtensions.DiagnosticListenerName); 
+            _diagnosticListener = new DiagnosticListener(DiagnosticListenerExtensions.DiagnosticListenerName);
             _messageSender = messageSender;
             _messageListener = messageListener;
             _logger = logger;
@@ -65,7 +65,7 @@ namespace Surging.Core.CPlatform.Transport.Implementation
                 var transportMessage = TransportMessage.CreateInvokeMessage(message);
                 WirteDiagnosticBefore(transportMessage);
                 //注册结果回调
-                var callbackTask = RegisterResultCallbackAsync(transportMessage.Id,cancellationToken);
+                var callbackTask = RegisterResultCallbackAsync(transportMessage.Id, cancellationToken);
 
                 try
                 {
@@ -151,7 +151,7 @@ namespace Surging.Core.CPlatform.Transport.Implementation
                 if (!string.IsNullOrEmpty(content.ExceptionMessage))
                 {
                     WirteDiagnosticError(message);
-                    task.SetException(new CPlatformCommunicationException(content.ExceptionMessage,content.StatusCode));
+                    task.SetException(new CPlatformCommunicationException(content.ExceptionMessage, content.StatusCode));
                 }
                 else
                 {

@@ -22,10 +22,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.DotNetty
 {
-	/// <summary>
-	/// 基于DotNetty的传输客户端工厂。
-	/// </summary>
-	public class DotNettyTransportClientFactory : ITransportClientFactory, IDisposable
+    /// <summary>
+    /// 基于DotNetty的传输客户端工厂。
+    /// </summary>
+    public class DotNettyTransportClientFactory : ITransportClientFactory, IDisposable
     {
         #region Field
 
@@ -135,7 +135,7 @@ namespace Surging.Core.DotNetty
         private static Bootstrap GetBootstrap()
         {
             IEventLoopGroup group;
-            
+
             var bootstrap = new Bootstrap();
             if (AppConfig.ServerOptions.Libuv)
             {

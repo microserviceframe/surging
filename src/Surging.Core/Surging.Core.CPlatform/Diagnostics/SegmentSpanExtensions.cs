@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-	public static class SegmentSpanExtensions
+    public static class SegmentSpanExtensions
     {
         public static void ErrorOccurred(this SegmentSpan span, Exception exception = null)
         {

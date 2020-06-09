@@ -3,14 +3,13 @@ using Surging.Core.CPlatform.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Implementation
 {
-    public abstract  class ServiceSubscribeManagerBase : IServiceSubscribeManager
-    { 
-        private readonly ISerializer<string> _serializer; 
+    public abstract class ServiceSubscribeManagerBase : IServiceSubscribeManager
+    {
+        private readonly ISerializer<string> _serializer;
 
         protected ServiceSubscribeManagerBase(ISerializer<string> serializer)
         {
@@ -63,7 +62,5 @@ namespace Surging.Core.CPlatform.Runtime.Client.Implementation
         /// <param name="routes">服务订阅者集合。</param>
         /// <returns>一个任务。</returns>
         protected abstract Task SetSubscribersAsync(IEnumerable<ServiceSubscriberDescriptor> subscribers);
-
-     
     }
 }

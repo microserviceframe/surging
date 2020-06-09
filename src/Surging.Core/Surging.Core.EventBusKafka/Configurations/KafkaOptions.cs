@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.EventBusKafka.Configurations
 {
@@ -27,7 +24,7 @@ namespace Surging.Core.EventBusKafka.Configurations
 
         public string Acks { get; set; } = "all";
 
-        public int Retries { get; set; } 
+        public int Retries { get; set; }
 
         public int Linger { get; set; } = 1;
 
@@ -55,8 +52,8 @@ namespace Surging.Core.EventBusKafka.Configurations
             var configs = new List<KeyValuePair<string, object>>();
             configs.Add(new KeyValuePair<string, object>("bootstrap.servers", Servers));
             configs.Add(new KeyValuePair<string, object>("acks", Acks));
-            configs.Add(new KeyValuePair<string, object>("retries", Retries)); 
-            configs.Add(new KeyValuePair<string, object>("linger.ms", Linger)); 
+            configs.Add(new KeyValuePair<string, object>("retries", Retries));
+            configs.Add(new KeyValuePair<string, object>("linger.ms", Linger));
             return configs;
         }
     }

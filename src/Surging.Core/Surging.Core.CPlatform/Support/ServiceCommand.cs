@@ -56,7 +56,7 @@ namespace Surging.Core.CPlatform.Support
         /// 注入
         /// </summary>
         public string Injection { get; set; } = "return null";
-        
+
         /// <summary>
         /// IFallbackInvoker 实例名称
         /// </summary>

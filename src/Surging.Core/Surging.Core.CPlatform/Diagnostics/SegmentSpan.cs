@@ -24,7 +24,7 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-   public class SegmentSpan
+    public class SegmentSpan
     {
         public int SpanId { get; } = 0;
 
@@ -138,7 +138,7 @@ namespace Surging.Core.CPlatform.Diagnostics
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _logs.GetEnumerator();
-        } 
+        }
     }
 
     public class SpanLog

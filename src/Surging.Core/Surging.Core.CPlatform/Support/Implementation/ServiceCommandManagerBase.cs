@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Support.Implementation
 {
-
     /// <summary>
     /// 服务命令事件参数。
     /// </summary>
@@ -161,7 +160,7 @@ namespace Surging.Core.CPlatform.Support.Implementation
                     Injection = command.Injection,
                     RequestCacheEnabled = command.RequestCacheEnabled,
                     Strategy = command.Strategy,
-                    ShuntStrategy=command.ShuntStrategy,
+                    ShuntStrategy = command.ShuntStrategy,
                     InjectionNamespaces = command.InjectionNamespaces,
                     BreakeErrorThresholdPercentage = command.BreakeErrorThresholdPercentage,
                     BreakerForceClosed = command.BreakerForceClosed,

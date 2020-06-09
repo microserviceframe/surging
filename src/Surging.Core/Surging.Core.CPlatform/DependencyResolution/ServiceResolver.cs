@@ -6,14 +6,14 @@ using System.Reflection;
 
 namespace Surging.Core.CPlatform.DependencyResolution
 {
-	/// <summary>
-	/// IOC容器对象
-	/// </summary>
-	/// <remarks>
-	/// 	<para>创建：范亮</para>
-	/// 	<para>日期：2016/4/2</para>
-	/// </remarks>
-	public class ServiceResolver : IDependencyResolver
+    /// <summary>
+    /// IOC容器对象
+    /// </summary>
+    /// <remarks>
+    /// 	<para>创建：范亮</para>
+    /// 	<para>日期：2016/4/2</para>
+    /// </remarks>
+    public class ServiceResolver : IDependencyResolver
     {
         #region 字段
         private static readonly ServiceResolver _defaultInstance = new ServiceResolver();
@@ -43,7 +43,7 @@ namespace Surging.Core.CPlatform.DependencyResolution
                 _initializers.GetOrAdd(ValueTuple.Create(interFace, key), value);
             }
         }
-        
+
         public virtual void Register(string key, object value, Type type)
         {
             DebugCheck.NotNull(value);

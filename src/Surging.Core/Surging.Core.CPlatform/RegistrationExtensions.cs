@@ -4,11 +4,11 @@ using System;
 
 namespace Surging.Core.CPlatform
 {
-	public static class RegistrationExtensions
-    { 
+    public static class RegistrationExtensions
+    {
         public static void AddFilter(this ContainerBuilderWrapper builder, Type filter)
         {
-           
+
             if (typeof(IExceptionFilter).IsAssignableFrom(filter))
             {
                 builder.RegisterType(filter).As<IExceptionFilter>().SingleInstance();
@@ -18,7 +18,5 @@ namespace Surging.Core.CPlatform
                 builder.RegisterType(filter).As<IAuthorizationFilter>().SingleInstance();
             }
         }
-
-       
     }
 }

@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache.Implementation
 {
-	public class ServiceCacheEventArgs
+    public class ServiceCacheEventArgs
     {
         public ServiceCacheEventArgs(ServiceCache cache)
         {
             Cache = cache;
         }
-         
+
         public ServiceCache Cache { get; private set; }
     }
-     
+
     public class ServiceCacheChangedEventArgs : ServiceCacheEventArgs
     {
         public ServiceCacheChangedEventArgs(ServiceCache cache, ServiceCache oldCache) : base(cache)
         {
             OldCache = oldCache;
         }
- 
+
         public ServiceCache OldCache { get; set; }
     }
 
     public abstract class ServiceCacheManagerBase : IServiceCacheManager
     {
         private readonly ISerializer<string> _serializer;
-        private  EventHandler<ServiceCacheEventArgs> _created;
+        private EventHandler<ServiceCacheEventArgs> _created;
         private EventHandler<ServiceCacheEventArgs> _removed;
         private EventHandler<ServiceCacheChangedEventArgs> _changed;
 
@@ -37,19 +37,19 @@ namespace Surging.Core.CPlatform.Cache.Implementation
         {
             _serializer = serializer;
         }
-        
+
         public event EventHandler<ServiceCacheEventArgs> Created
         {
             add { _created += value; }
             remove { _created -= value; }
         }
-        
+
         public event EventHandler<ServiceCacheEventArgs> Removed
         {
             add { _removed += value; }
             remove { _removed -= value; }
         }
-        
+
         public event EventHandler<ServiceCacheChangedEventArgs> Changed
         {
             add { _changed += value; }
@@ -59,7 +59,7 @@ namespace Surging.Core.CPlatform.Cache.Implementation
         public abstract Task ClearAsync();
 
         public abstract Task<IEnumerable<ServiceCache>> GetCachesAsync();
-         
+
         public abstract Task RemveAddressAsync(IEnumerable<CacheEndpoint> endpoints);
 
 
@@ -75,7 +75,7 @@ namespace Surging.Core.CPlatform.Cache.Implementation
                     Type = address.GetType().FullName,
                     Value = _serializer.Serialize(address)
                 }) ?? Enumerable.Empty<CacheEndpointDescriptor>(),
-                 CacheDescriptor = cache.CacheDescriptor
+                CacheDescriptor = cache.CacheDescriptor
             });
             return SetCachesAsync(descriptors);
         }

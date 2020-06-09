@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform.Mqtt
 {
-   public  class MqttServiceRoute
+    public class MqttServiceRoute
     {
         /// <summary>
         /// Mqtt服务可用地址。
@@ -48,7 +48,7 @@ namespace Surging.Core.CPlatform.Mqtt
             return Equals(model1, model2);
         }
 
-        public static bool operator != (MqttServiceRoute model1, MqttServiceRoute model2)
+        public static bool operator !=(MqttServiceRoute model1, MqttServiceRoute model2)
         {
             return !Equals(model1, model2);
         }

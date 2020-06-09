@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache
 {
-	public interface IServiceCacheFactory
+    public interface IServiceCacheFactory
     {
-
         /// <summary>
         /// 根据服务路由描述符创建服务路由。
         /// </summary>

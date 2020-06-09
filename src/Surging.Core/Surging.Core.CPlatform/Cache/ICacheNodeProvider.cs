@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Cache
 {
-	public interface ICacheNodeProvider
+    public interface ICacheNodeProvider
     {
         IEnumerable<ServiceCache> GetServiceCaches();
     }

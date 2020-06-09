@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Filters
 {
-	public interface IExceptionFilter: IFilter
+    public interface IExceptionFilter : IFilter
     {
         Task ExecuteExceptionFilterAsync(RpcActionExecutedContext actionExecutedContext, CancellationToken cancellationToken);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Cache
 {
-	public interface IServiceCacheManager
+    public interface IServiceCacheManager
     {
         event EventHandler<ServiceCacheEventArgs> Created;
 
@@ -47,11 +47,10 @@ namespace Surging.Core.CPlatform.Cache
             return caches.Where(p => p.CacheDescriptor.Id == cacheId).Select(p => p.CacheEndpoint).FirstOrDefault();
         }
 
-
         public static async Task<CacheEndpoint> GetCacheEndpointAsync(this IServiceCacheManager serviceCacheManager, string cacheId, string endpoint)
         {
             var caches = await serviceCacheManager.GetCachesAsync();
-            var cache= caches.Where(p => p.CacheDescriptor.Id == cacheId).Select(p => p.CacheEndpoint).FirstOrDefault();
+            var cache = caches.Where(p => p.CacheDescriptor.Id == cacheId).Select(p => p.CacheEndpoint).FirstOrDefault();
             return cache.Where(p => p.ToString() == endpoint).FirstOrDefault();
         }
     }

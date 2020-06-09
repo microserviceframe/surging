@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Diagnostics
 {
-	public  enum TransportType
+    public enum TransportType
     {
         Rpc,
         Rest,

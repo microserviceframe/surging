@@ -6,13 +6,11 @@ using Surging.Core.CPlatform.Ioc;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.ProxyGenerator;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DotNettyWSServer.Runtime
 {
-   public class WSBehavior : IServiceBehavior
+    public class WSBehavior : IServiceBehavior
     {
         public T CreateProxy<T>(string key) where T : class
         {
@@ -48,10 +46,9 @@ namespace Surging.Core.DotNettyWSServer.Runtime
                 return ServiceLocator.GetService<T>();
             else
                 return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
-
         }
 
-        public  string Protocol { get; set; }
+        public string Protocol { get; set; }
 
         public async Task BroadCast(byte[] bytes)
         {
@@ -74,14 +71,11 @@ namespace Surging.Core.DotNettyWSServer.Runtime
                 return ServiceLocator.GetService(key, type);
             else
                 return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
-
         }
-         
 
         public void Publish(IntegrationEvent @event)
         {
             GetService<IEventBus>().Publish(@event);
         }
-
     }
 }

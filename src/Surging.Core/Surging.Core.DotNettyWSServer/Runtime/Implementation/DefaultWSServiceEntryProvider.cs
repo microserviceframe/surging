@@ -8,11 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.DotNettyWSServer.Runtime.Implementation
 {
-   public class DefaultWSServiceEntryProvider : IWSServiceEntryProvider
+    public class DefaultWSServiceEntryProvider : IWSServiceEntryProvider
     {
         #region Field
 
@@ -66,7 +65,7 @@ namespace Surging.Core.DotNettyWSServer.Runtime.Implementation
         public WSServiceEntry CreateServiceEntry(Type service)
         {
             WSServiceEntry result = null;
-            var routeTemplate = service.GetCustomAttribute<ServiceBundleAttribute>(); 
+            var routeTemplate = service.GetCustomAttribute<ServiceBundleAttribute>();
             var behaviorContract = service.GetCustomAttribute<BehaviorContractAttribute>();
             var objInstance = _serviceProvider.GetInstances(service);
             var behavior = objInstance as WSBehavior;

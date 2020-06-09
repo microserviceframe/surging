@@ -5,12 +5,11 @@ using System.Linq;
 namespace Surging.Core.CPlatform.Cache
 {
 
-	/// <summary>
-	/// 服务描述符扩展方法。
-	/// </summary>
-	public static class CacheDescriptorExtensions
+    /// <summary>
+    /// 服务描述符扩展方法。
+    /// </summary>
+    public static class CacheDescriptorExtensions
     {
-
         /// <summary>
         /// 获取默认失效时间 。
         /// </summary>
@@ -32,7 +31,6 @@ namespace Surging.Core.CPlatform.Cache
             descriptor.Metadatas["DefaultExpireTime"] = defaultExpireTime;
             return descriptor;
         }
-
 
         /// <summary>
         /// 获取连接超时时间。

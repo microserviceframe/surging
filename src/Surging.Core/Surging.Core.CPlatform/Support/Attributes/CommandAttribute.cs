@@ -3,8 +3,7 @@ using System;
 
 namespace Surging.Core.CPlatform.Support.Attributes
 {
-
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class CommandAttribute : Attribute
     {
         public CommandAttribute()
@@ -26,23 +25,29 @@ namespace Surging.Core.CPlatform.Support.Attributes
                 FallBackName = AppConfig.ServerOptions.FallBackName;
             }
         }
+
         /// <summary>
         /// 故障转移次数
         /// </summary>
         public int FailoverCluster { get; set; } = 3;
+
         public bool CircuitBreakerForceOpen { get; set; }
+
         /// <summary>
         /// 容错策略
         /// </summary>
         public StrategyType Strategy { get; set; }
+
         /// <summary>
         /// 执行超时时间
         /// </summary>
         public int ExecutionTimeoutInMilliseconds { get; set; } = 1000;
+
         /// <summary>
         /// 是否开启缓存
         /// </summary>
         public bool RequestCacheEnabled { get; set; }
+
         /// <summary>
         /// 注入
         /// </summary>
@@ -57,10 +62,12 @@ namespace Surging.Core.CPlatform.Support.Attributes
         /// 错误率达到多少开启熔断保护
         /// </summary>
         public int BreakeErrorThresholdPercentage { get; set; } = 50;
+
         /// <summary>
         /// 熔断多少秒后去尝试请求
         /// </summary>
         public int BreakeSleepWindowInMilliseconds { get; set; } = 60000;
+
         /// <summary>
         ///  	是否强制关闭熔断
         /// </summary>
@@ -70,7 +77,7 @@ namespace Surging.Core.CPlatform.Support.Attributes
         /// 负载分流策略
         /// </summary>
         public AddressSelectorMode ShuntStrategy { get; set; } = AddressSelectorMode.Polling;
-        
+
         /// <summary>
         /// IFallbackInvoker 实例名称
         /// </summary>

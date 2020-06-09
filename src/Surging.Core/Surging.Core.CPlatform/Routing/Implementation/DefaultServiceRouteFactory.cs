@@ -14,8 +14,8 @@ namespace Surging.Core.CPlatform.Routing.Implementation
     public class DefaultServiceRouteFactory : IServiceRouteFactory
     {
         private readonly ISerializer<string> _serializer;
-         private readonly ConcurrentDictionary<string, AddressModel> _addressModel =
-                new ConcurrentDictionary<string, AddressModel>();
+        private readonly ConcurrentDictionary<string, AddressModel> _addressModel =
+               new ConcurrentDictionary<string, AddressModel>();
 
         public DefaultServiceRouteFactory(ISerializer<string> serializer)
         {
@@ -39,7 +39,7 @@ namespace Surging.Core.CPlatform.Routing.Implementation
 
             routes.AddRange(descriptors.Select(descriptor => new ServiceRoute
             {
-               
+
                 Address = CreateAddress(descriptor.AddressDescriptors),
                 ServiceDescriptor = descriptor.ServiceDescriptor
             }));

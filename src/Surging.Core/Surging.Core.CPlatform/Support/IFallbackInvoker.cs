@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Support
 {
-    public interface IFallbackInvoker
+	public interface IFallbackInvoker
     {
         Task Invoke(IDictionary<string, object> parameters, string serviceId, string _serviceKey);
 

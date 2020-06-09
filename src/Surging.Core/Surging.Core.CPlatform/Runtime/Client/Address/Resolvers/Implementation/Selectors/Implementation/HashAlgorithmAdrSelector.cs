@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors.Implementation
 {
-	public class HashAlgorithmAdrSelector : AddressSelectorBase
+    public class HashAlgorithmAdrSelector : AddressSelectorBase
     {
         private readonly IHealthCheckService _healthCheckService;
         private readonly ConcurrentDictionary<string, ConsistentHash<AddressModel>> _concurrent =
@@ -45,11 +45,11 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
                 var hash = new ConsistentHash<AddressModel>(_hashAlgorithm, len);
                 foreach (var address in context.Address)
                 {
-                    hash.Add(address,address.ToString());
+                    hash.Add(address, address.ToString());
                 }
                 return hash;
             });
-            AddressModel addressModel; 
+            AddressModel addressModel;
             var IsHealth = false;
             var index = 0;
             var count = context.Address.Count();
@@ -63,13 +63,13 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
                 }
                 index++;
                 IsHealth = await _healthCheckService.IsHealth(addressModel);
-                if(!IsHealth)
+                if (!IsHealth)
                 {
-                    addressEntry.Remove(addressModel.ToString()); 
-                    _unHealths.Add(new ValueTuple<string, AddressModel>(key,addressModel));
+                    addressEntry.Remove(addressModel.ToString());
+                    _unHealths.Add(new ValueTuple<string, AddressModel>(key, addressModel));
                     _healthCheckService.Changed += ItemNode_Changed;
                 }
-            } while (!IsHealth); 
+            } while (!IsHealth);
             return addressModel;
         }
         #endregion Overrides of AddressSelectorBase
@@ -77,8 +77,8 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
         #region Private Method
 
         private void ItemNode_Changed(object sender, HealthCheckEventArgs e)
-        { 
-            var list= _unHealths.Where(p=>p.Item2.ToString()==e.Address.ToString()).ToList();
+        {
+            var list = _unHealths.Where(p => p.Item2.ToString() == e.Address.ToString()).ToList();
             foreach (var item in list)
             {
                 if (item.Item1 != null && e.Health)
@@ -88,7 +88,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
                     _unHealths.Remove(item);
                 }
             }
-            if(_unHealths.Count==0)
+            if (_unHealths.Count == 0)
                 _healthCheckService.Changed -= ItemNode_Changed;
         }
 
@@ -100,7 +100,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
         private void ServiceRouteManager_Removed(object sender, ServiceRouteEventArgs e)
         {
             var key = GetCacheKey(e.Route.ServiceDescriptor);
-            var item = _unHealths.Where(p =>  e.Route.Address.Select(addr=> addr.ToString()).Contains(p.Item2.ToString())).ToList();
+            var item = _unHealths.Where(p => e.Route.Address.Select(addr => addr.ToString()).Contains(p.Item2.ToString())).ToList();
             item.ForEach(p => _unHealths.Remove(p));
             _concurrent.TryRemove(key, out ConsistentHash<AddressModel> value);
         }

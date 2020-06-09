@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Diagnostics
 {
-	public interface ILocalSegmentContextAccessor
+    public interface ILocalSegmentContextAccessor
     {
         SegmentContext Context { get; set; }
     }

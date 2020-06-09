@@ -3,10 +3,10 @@ using System;
 
 namespace Surging.Core.CPlatform.Filters.Implementation
 {
-	public class RpcActionExecutedContext
+    public class RpcActionExecutedContext
     {
         public RemoteInvokeMessage InvokeMessage { get; set; }
-         
+
         public Exception Exception { get; set; }
     }
 }

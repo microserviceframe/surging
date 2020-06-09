@@ -1,16 +1,13 @@
-﻿using Confluent.Kafka;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Surging.Core.EventBusKafka
 {
-   public interface IKafkaPersisterConnection : IDisposable
+    public interface IKafkaPersisterConnection : IDisposable
     {
         bool IsConnected { get; }
 
         bool TryConnect();
 
-        Object CreateConnect();
+        object CreateConnect();
     }
 }

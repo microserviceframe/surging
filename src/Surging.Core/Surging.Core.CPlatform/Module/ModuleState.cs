@@ -1,9 +1,9 @@
 ﻿namespace Surging.Core.CPlatform.Module
 {
-	/// <summary>
-	/// 模块状态枚举。
-	/// </summary>
-	public enum ModuleState
+    /// <summary>
+    /// 模块状态枚举。
+    /// </summary>
+    public enum ModuleState
     {
         /// <summary>
         /// 已安装。

@@ -3,10 +3,10 @@ using System.Net;
 
 namespace Surging.Core.CPlatform.Address
 {
-	/// <summary>
-	/// ip地址模型。
-	/// </summary>
-	public sealed class IpAddressModel : AddressModel
+    /// <summary>
+    /// ip地址模型。
+    /// </summary>
+    public sealed class IpAddressModel : AddressModel
     {
         #region Constructor
 
@@ -66,7 +66,6 @@ namespace Surging.Core.CPlatform.Address
         {
             return new IPEndPoint(IPAddress.Parse(Ip), Port);
         }
-
 
         public override string ToString()
         {

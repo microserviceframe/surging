@@ -2,26 +2,30 @@
 
 namespace Surging.Core.CPlatform.HashAlgorithms
 {
-	/// <summary>
-	/// 一致性哈希算法
-	/// </summary>
-	/// <remarks>
-	/// 	<para>创建：范亮</para>
-	/// 	<para>日期：2016/4/2</para>
-	/// </remarks>
-	public class HashAlgorithm : IHashAlgorithm
+    /// <summary>
+    /// 一致性哈希算法
+    /// </summary>
+    /// <remarks>
+    /// 	<para>创建：范亮</para>
+    /// 	<para>日期：2016/4/2</para>
+    /// </remarks>
+    public class HashAlgorithm : IHashAlgorithm
     {
         #region 构造函数
+
         public int Hash(string item)
         {
             var hash = Hash(Encoding.ASCII.GetBytes(item ?? ""));
             return (int)hash;
         }
+
         #endregion
 
         #region 常量
+
         private const uint m = 0x5bd1e995;
         private const int r = 24;
+
         #endregion
 
         #region 公共方法

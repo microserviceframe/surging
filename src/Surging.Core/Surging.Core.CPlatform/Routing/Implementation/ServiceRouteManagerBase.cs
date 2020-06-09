@@ -126,7 +126,7 @@ namespace Surging.Core.CPlatform.Routing.Implementation
         /// <param name="routes">服务路由集合。</param>
         /// <returns>一个任务。</returns>
         protected abstract Task SetRoutesAsync(IEnumerable<ServiceRouteDescriptor> routes);
-        
+
         protected void OnCreated(params ServiceRouteEventArgs[] args)
         {
             if (_created == null)

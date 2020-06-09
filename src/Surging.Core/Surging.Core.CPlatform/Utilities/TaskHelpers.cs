@@ -3,32 +3,32 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Utilities
 {
-	internal static class TaskHelpers
+    internal static class TaskHelpers
     {
         private static readonly Task _defaultCompleted = Task.FromResult(default(AsyncVoid));
 
         private static readonly Task<object> _completedTaskReturningNull = Task.FromResult<object>(null);
-        
+
         internal static Task Canceled()
         {
             return CancelCache<AsyncVoid>.Canceled;
         }
-        
+
         internal static Task<TResult> Canceled<TResult>()
         {
             return CancelCache<TResult>.Canceled;
         }
-       
+
         internal static Task Completed()
         {
             return _defaultCompleted;
         }
-        
+
         internal static Task FromError(Exception exception)
         {
             return FromError<AsyncVoid>(exception);
         }
-        
+
         internal static Task<TResult> FromError<TResult>(Exception exception)
         {
             TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
@@ -40,11 +40,11 @@ namespace Surging.Core.CPlatform.Utilities
         {
             return _completedTaskReturningNull;
         }
-        
+
         private struct AsyncVoid
         {
         }
-        
+
         private static class CancelCache<TResult>
         {
             public static readonly Task<TResult> Canceled = GetCancelledTask();

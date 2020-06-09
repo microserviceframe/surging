@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
@@ -13,18 +12,17 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Volo.Abp.Configuration;
 using VoloAbpModule = Volo.Abp.Modularity;
-using Microsoft.Extensions.Configuration;
 using Volo.Abp.DependencyInjection;
-using  VoloAbp= Volo.Abp;
+using VoloAbp = Volo.Abp;
 
 
 namespace Surging.Core.Abp
 {
-    [ExposeServices]
+	[ExposeServices]
     public class AbpModule : KestrelHttpModule
     {
         private ILogger<AbpModule> _logger;
-        private List<VoloAbp.IAbpApplicationWithExternalServiceProvider> _providers=new List<VoloAbp.IAbpApplicationWithExternalServiceProvider>();
+        private List<VoloAbp.IAbpApplicationWithExternalServiceProvider> _providers = new List<VoloAbp.IAbpApplicationWithExternalServiceProvider>();
         public override void Initialize(AppModuleContext context)
         {
             _logger = context.ServiceProvoider.GetInstances<ILogger<AbpModule>>();

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.EventBusKafka.Configurations
+﻿namespace Surging.Core.EventBusKafka.Configurations
 {
-   public enum OffsetResetMode
+    public enum OffsetResetMode
     {
         Earliest,
         Latest,

@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Mqtt
 {
-	public interface IMqttServiceFactory
+    public interface IMqttServiceFactory
     {
-
         /// <summary>
         /// 根据Mqtt服务路由描述符创建Mqtt服务路由。
         /// </summary>

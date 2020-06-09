@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.Routing
 {
-	/// <summary>
-	/// 服务地址描述符。
-	/// </summary>
-	public class ServiceAddressDescriptor
+    /// <summary>
+    /// 服务地址描述符。
+    /// </summary>
+    public class ServiceAddressDescriptor
     {
         /// <summary>
         /// 地址类型。
@@ -17,7 +17,7 @@ namespace Surging.Core.CPlatform.Routing
         /// <summary>
         /// 地址值。
         /// </summary>
-        public string Value { get; set; }        
+        public string Value { get; set; }
     }
 
     /// <summary>

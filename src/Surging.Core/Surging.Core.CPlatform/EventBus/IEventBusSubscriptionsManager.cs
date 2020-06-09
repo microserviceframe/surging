@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Surging.Core.CPlatform.EventBus
 {
-   public interface IEventBusSubscriptionsManager
+    public interface IEventBusSubscriptionsManager
     {
         bool IsEmpty { get; }
-        event EventHandler<ValueTuple<string,string>> OnEventRemoved;
+        event EventHandler<ValueTuple<string, string>> OnEventRemoved;
         void AddSubscription<T, TH>(Func<TH> handler, string consumerName) where TH : IIntegrationEventHandler<T>;
         void RemoveSubscription<T, TH>() where TH : IIntegrationEventHandler<T>;
         bool HasSubscriptionsForEvent<T>();

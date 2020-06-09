@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Ioc
 {
-	public interface IServiceKey
+    public interface IServiceKey
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Runtime.Client
 {
-	public interface IServiceHeartbeatManager
+    public interface IServiceHeartbeatManager
     {
         void AddWhitelist(string serviceId);
 

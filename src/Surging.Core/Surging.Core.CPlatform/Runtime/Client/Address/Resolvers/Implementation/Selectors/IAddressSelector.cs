@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors
 {
-	/// <summary>
-	/// 地址选择上下文。
-	/// </summary>
-	public class AddressSelectContext
+    /// <summary>
+    /// 地址选择上下文。
+    /// </summary>
+    public class AddressSelectContext
     {
         /// <summary>
         /// 服务描述符。
@@ -24,7 +24,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
         /// </summary>
         public IEnumerable<AddressModel> Address { get; set; }
     }
-      
+
     /// <summary>
     /// 一个抽象的地址选择器。
     /// </summary>

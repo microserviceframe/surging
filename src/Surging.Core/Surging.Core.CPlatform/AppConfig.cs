@@ -5,15 +5,15 @@ using System;
 
 namespace Surging.Core.CPlatform
 {
-	public class AppConfig
+    public class AppConfig
     {
         #region 字段
 
         private static AddressSelectorMode _loadBalanceMode = AddressSelectorMode.Polling;
 
-		#endregion
+        #endregion
 
-		public static IConfigurationRoot Configuration { get; internal set; }
+        public static IConfigurationRoot Configuration { get; internal set; }
 
         /// <summary>
         /// 负载均衡模式
@@ -40,6 +40,6 @@ namespace Surging.Core.CPlatform
             return Configuration?.GetSection(name);
         }
 
-		public static SurgingServerOptions ServerOptions { get; internal set; } = new SurgingServerOptions();
-	}
+        public static SurgingServerOptions ServerOptions { get; internal set; } = new SurgingServerOptions();
+    }
 }

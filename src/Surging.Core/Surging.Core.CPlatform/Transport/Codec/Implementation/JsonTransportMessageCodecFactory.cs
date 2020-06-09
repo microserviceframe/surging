@@ -1,10 +1,12 @@
 ﻿namespace Surging.Core.CPlatform.Transport.Codec.Implementation
 {
-	public class JsonTransportMessageCodecFactory : ITransportMessageCodecFactory
+    public class JsonTransportMessageCodecFactory : ITransportMessageCodecFactory
     {
         #region Field
+
         private readonly ITransportMessageEncoder _transportMessageEncoder = new JsonTransportMessageEncoder();
         private readonly ITransportMessageDecoder _transportMessageDecoder = new JsonTransportMessageDecoder();
+
         #endregion Field
 
         #region Implementation of ITransportMessageCodecFactory

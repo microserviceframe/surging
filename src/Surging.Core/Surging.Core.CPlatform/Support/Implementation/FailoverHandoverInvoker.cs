@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Support.Implementation
 {
-    public class FailoverHandoverInvoker: IClusterInvoker
+    public class FailoverHandoverInvoker : IClusterInvoker
     {
         #region Field
+
         private readonly IRemoteInvokeService _remoteInvokeService;
         private readonly ITypeConvertibleService _typeConvertibleService;
         private readonly IBreakeRemoteInvokeService _breakeRemoteInvokeService;
         private readonly IServiceCommandProvider _commandProvider;
+
         #endregion Field
 
         #region Constructor
@@ -52,5 +54,4 @@ namespace Surging.Core.CPlatform.Support.Implementation
             while (await _breakeRemoteInvokeService.InvokeAsync(parameters, serviceId, _serviceKey, decodeJOject) == null && ++time < command.FailoverCluster) ;
         }
     }
-
 }

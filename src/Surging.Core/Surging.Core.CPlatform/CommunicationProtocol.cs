@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform
 {
-	public enum CommunicationProtocol
+    public enum CommunicationProtocol
     {
         None,
         Tcp,

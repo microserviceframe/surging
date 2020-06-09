@@ -13,22 +13,20 @@ using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Transport;
-using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.DotNettyWSServer.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DotNettyWSServer
 {
-   public class DotNettyWSMessageListener : IMessageListener, IDisposable
+	public class DotNettyWSMessageListener : IMessageListener, IDisposable
     {
         #region Field
 
-        private readonly ILogger<DotNettyWSMessageListener> _logger; 
+        private readonly ILogger<DotNettyWSMessageListener> _logger;
         private IChannel _channel;
         private List<WSServiceEntry> _wSServiceEntries;
         public event ReceivedDelegate Received;
@@ -37,9 +35,9 @@ namespace Surging.Core.DotNettyWSServer
 
         #region Constructor
         public DotNettyWSMessageListener(ILogger<DotNettyWSMessageListener> logger
-            ,  IWSServiceEntryProvider wsServiceEntryProvider)
+            , IWSServiceEntryProvider wsServiceEntryProvider)
         {
-            _logger = logger; 
+            _logger = logger;
             _wSServiceEntries = wsServiceEntryProvider.GetEntries().ToList();
         }
 
@@ -47,7 +45,6 @@ namespace Surging.Core.DotNettyWSServer
         {
             if (_logger.IsEnabled(LogLevel.Debug))
                 _logger.LogDebug($"准备启动服务主机，监听地址：{endPoint}。");
-
 
             IEventLoopGroup bossGroup = new MultithreadEventLoopGroup(1);
             IEventLoopGroup workerGroup = new MultithreadEventLoopGroup();//Default eventLoopCount is Environment.ProcessorCount * 2
@@ -69,7 +66,7 @@ namespace Surging.Core.DotNettyWSServer
             bootstrap
             .Option(ChannelOption.SoBacklog, AppConfig.ServerOptions.SoBacklog)
             .ChildOption(ChannelOption.Allocator, PooledByteBufferAllocator.Default)
-            .ChildOption(ChannelOption.WriteBufferHighWaterMark,1024*1024*8)
+            .ChildOption(ChannelOption.WriteBufferHighWaterMark, 1024 * 1024 * 8)
             .Group(bossGroup, workerGroup)
             .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
             {
@@ -83,14 +80,13 @@ namespace Surging.Core.DotNettyWSServer
                     pipeline.AddLast("WsProtocolHandler",
                     new WebSocketServerProtocolHandler(p.Path, p.Behavior.Protocol, true));
                 });
-            
+
                 pipeline.AddLast("WSBinaryDecoder", new WebSocketFrameDecoder());
-                pipeline.AddLast("WSEncoder", new WebSocketFramePrepender()); 
-                pipeline.AddLast(new ServerHandler( _logger));
+                pipeline.AddLast("WSEncoder", new WebSocketFramePrepender());
+                pipeline.AddLast(new ServerHandler(_logger));
             })).Option(ChannelOption.SoBroadcast, true);
             try
             {
-
                 _channel = await bootstrap.BindAsync(endPoint);
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug($"WS服务主机启动成功，监听地址：{endPoint}。");
@@ -108,7 +104,6 @@ namespace Surging.Core.DotNettyWSServer
                 return;
             await Received(sender, message);
         }
-
 
         public void CloseAsync()
         {
@@ -129,14 +124,15 @@ namespace Surging.Core.DotNettyWSServer
 
         #endregion
 
-        public class WebSocketFrameDecoder : MessageToMessageDecoder<WebSocketFrame> {
+        public class WebSocketFrameDecoder : MessageToMessageDecoder<WebSocketFrame>
+        {
 
             protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<Object> output)
             {
                 var buff = msg.Content;
                 byte[] messageBytes = new byte[buff.ReadableBytes];
                 buff.ReadBytes(messageBytes);
-                var bytebuf = PooledByteBufferAllocator.Default.Buffer(); 
+                var bytebuf = PooledByteBufferAllocator.Default.Buffer();
                 bytebuf.WriteBytes(messageBytes);
                 output.Add(bytebuf.Retain());
             }
@@ -144,22 +140,20 @@ namespace Surging.Core.DotNettyWSServer
 
         public class WebSocketFramePrepender : MessageToMessageDecoder<IByteBuffer>
         {
-
             protected override void Decode(IChannelHandlerContext ctx, IByteBuffer msg, List<Object> output)
             {
                 WebSocketFrame webSocketFrame = new BinaryWebSocketFrame(msg);
                 output.Add(webSocketFrame);
             }
         }
- 
 
         private class ServerHandler : SimpleChannelInboundHandler<TextWebSocketFrame>
         {
-            private readonly ILogger _logger; 
+            private readonly ILogger _logger;
 
             public ServerHandler(ILogger logger)
             {
-                _logger = logger; 
+                _logger = logger;
             }
 
             public override void ChannelActive(IChannelHandlerContext ctx)
@@ -180,7 +174,7 @@ namespace Surging.Core.DotNettyWSServer
 
             protected override void ChannelRead0(IChannelHandlerContext ctx, TextWebSocketFrame msg)
             {
-               
+
             }
         }
     }

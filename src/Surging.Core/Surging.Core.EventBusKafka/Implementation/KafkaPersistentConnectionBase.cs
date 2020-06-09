@@ -4,9 +4,6 @@ using Polly;
 using Polly.Retry;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Sockets;
-using System.Text;
 
 namespace Surging.Core.EventBusKafka.Implementation
 {
@@ -19,12 +16,12 @@ namespace Surging.Core.EventBusKafka.Implementation
         public KafkaPersistentConnectionBase(ILogger<KafkaPersistentConnectionBase> logger,
             IEnumerable<KeyValuePair<string, object>> config)
         {
-            this._logger = logger;
+            _logger = logger;
             _config = config;
         }
-        
 
-         public abstract bool IsConnected { get; }
+
+        public abstract bool IsConnected { get; }
 
         public bool TryConnect()
         {
@@ -57,7 +54,6 @@ namespace Surging.Core.EventBusKafka.Implementation
         }
 
         public abstract Action Connection(IEnumerable<KeyValuePair<string, object>> options);
-        
         public abstract object CreateConnect();
         public abstract void Dispose();
     }

@@ -16,9 +16,9 @@ namespace Surging.Core.CPlatform.Transport.Implementation
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetAttachment(string key,object value)
+        public void SetAttachment(string key, object value)
         {
-            contextParameters.AddOrUpdate(key, value,(k,v)=>value);
+            contextParameters.AddOrUpdate(key, value, (k, v) => value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -34,7 +34,7 @@ namespace Surging.Core.CPlatform.Transport.Implementation
             this.contextParameters = contextParameters;
         }
 
-        private static AsyncLocal<RpcContext> rpcContextThreadLocal=new AsyncLocal<RpcContext>();
+        private static AsyncLocal<RpcContext> rpcContextThreadLocal = new AsyncLocal<RpcContext>();
 
         public static RpcContext GetContext()
         {

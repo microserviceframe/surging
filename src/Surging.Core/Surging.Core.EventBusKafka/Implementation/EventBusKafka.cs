@@ -8,9 +8,6 @@ using Surging.Core.CPlatform.EventBus;
 using Surging.Core.CPlatform.EventBus.Events;
 using Surging.Core.CPlatform.EventBus.Implementation;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.EventBusKafka.Implementation
@@ -24,18 +21,18 @@ namespace Surging.Core.EventBusKafka.Implementation
 
         public event EventHandler OnShutdown;
 
-        public EventBusKafka( ILogger<EventBusKafka> logger,
+        public EventBusKafka(ILogger<EventBusKafka> logger,
             IEventBusSubscriptionsManager subsManager,
             CPlatformContainer serviceProvider)
-        { 
-            this._logger = logger;
-            this._producerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Producer.ToString());
-            this._consumerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Consumer.ToString());
+        {
+            _logger = logger;
+            _producerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Producer.ToString());
+            _consumerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Consumer.ToString());
             _subsManager = subsManager;
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
-        private void SubsManager_OnEventRemoved(object sender, ValueTuple<string,string> tuple)
+        private void SubsManager_OnEventRemoved(object sender, ValueTuple<string, string> tuple)
         {
             if (!_consumerConnection.IsConnected)
             {
@@ -46,7 +43,7 @@ namespace Surging.Core.EventBusKafka.Implementation
             {
                 channel.Unsubscribe();
                 if (_subsManager.IsEmpty)
-                { 
+                {
                     _consumerConnection.Dispose();
                 }
             }
@@ -75,9 +72,9 @@ namespace Surging.Core.EventBusKafka.Implementation
 
             var conn = _producerConnection.CreateConnect() as Producer<Null, string>;
             policy.Execute(() =>
-           {
-               conn.ProduceAsync(eventName, null, body).GetAwaiter().GetResult();
-           });
+            {
+                conn.ProduceAsync(eventName, null, body).GetAwaiter().GetResult();
+            });
         }
 
         public void Subscribe<T, TH>(Func<TH> handler) where TH : IIntegrationEventHandler<T>
@@ -92,17 +89,17 @@ namespace Surging.Core.EventBusKafka.Implementation
             }
             _subsManager.AddSubscription<T, TH>(handler, null);
         }
-        
+
         public void Unsubscribe<T, TH>() where TH : IIntegrationEventHandler<T>
         {
             _subsManager.RemoveSubscription<T, TH>();
         }
-        
+
         private void ConsumerClient_OnMessage(object sender, Message<Null, string> e)
         {
             ProcessEvent(e.Topic, e.Value).Wait();
         }
-        
+
         private async Task ProcessEvent(string eventName, string message)
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))

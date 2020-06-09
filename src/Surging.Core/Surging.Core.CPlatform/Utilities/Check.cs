@@ -2,7 +2,6 @@
 
 namespace Surging.Core.CPlatform.Utilities
 {
-
     public sealed class Check
     {
         public static T NotNull<T>(T value, string parameterName) where T : class

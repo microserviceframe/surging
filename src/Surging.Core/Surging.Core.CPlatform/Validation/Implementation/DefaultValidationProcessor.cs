@@ -24,11 +24,11 @@ namespace Surging.Core.CPlatform.Validation.Implementation
             {
                 var parameterType = parameterInfo.ParameterType;
                 var parameter = _typeConvertibleService.Convert(value, parameterType);
-                var customAttributes = parameterInfo.GetCustomAttributes(true); 
+                var customAttributes = parameterInfo.GetCustomAttributes(true);
                 var customValidAttributes = customAttributes
                     .Where(ca => ca.GetType() != typeof(ValidateAttribute))
                     .OfType<ValidationAttribute>()
-                    .ToList(); 
+                    .ToList();
                 var validationContext = new ValidationContext(parameter);
                 var validationResults = new List<ValidationResult>();
                 var isObjValid = Validator.TryValidateObject(parameter, validationContext,

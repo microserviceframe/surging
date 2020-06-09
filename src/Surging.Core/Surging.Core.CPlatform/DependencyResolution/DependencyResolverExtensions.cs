@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace Surging.Core.CPlatform.DependencyResolution
 {
-	/// <summary>
-	/// 扩展依赖注入IOC容器
-	/// </summary>
-	/// <remarks>
-	/// 	<para>创建：范亮</para>
-	/// 	<para>日期：2016/4/2</para>
-	/// </remarks>
-	public static class DependencyResolverExtensions
+    /// <summary>
+    /// 扩展依赖注入IOC容器
+    /// </summary>
+    /// <remarks>
+    /// 	<para>创建：范亮</para>
+    /// 	<para>日期：2016/4/2</para>
+    /// </remarks>
+    public static class DependencyResolverExtensions
     {
         #region 公共方法
 

@@ -19,9 +19,9 @@
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-   public class SegmentContext
+    public class SegmentContext
     {
-        public UniqueId SegmentId { get;}
+        public UniqueId SegmentId { get; }
 
         public UniqueId TraceId { get; set; }
 

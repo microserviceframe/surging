@@ -8,7 +8,6 @@ namespace Surging.Core.CPlatform.Messages
     /// </summary>
     public class TransportMessage
     {
-
         public TransportMessage()
         {
         }
@@ -29,7 +28,7 @@ namespace Surging.Core.CPlatform.Messages
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
-            Id = id; 
+            Id = id;
             Content = content;
             ContentType = content.GetType().FullName;
         }

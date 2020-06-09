@@ -21,7 +21,7 @@ using System;
 
 namespace Surging.Core.CPlatform.Diagnostics
 {
-   public struct UniqueId : IEquatable<UniqueId>
+    public struct UniqueId : IEquatable<UniqueId>
     {
         public long Part1 { get; }
 

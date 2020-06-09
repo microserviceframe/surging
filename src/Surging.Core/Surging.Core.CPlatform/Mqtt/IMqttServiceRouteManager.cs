@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Mqtt
 {
-	public interface IMqttServiceRouteManager
+    public interface IMqttServiceRouteManager
     {
         event EventHandler<MqttServiceRouteEventArgs> Created;
 
         event EventHandler<MqttServiceRouteEventArgs> Removed;
 
         event EventHandler<MqttServiceRouteChangedEventArgs> Changed;
-         
+
         Task<IEnumerable<MqttServiceRoute>> GetRoutesAsync();
 
         /// <summary>

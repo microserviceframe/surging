@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Configurations.Watch
 {
-	public class ConfigurationWatchManager: IConfigurationWatchManager
+    public class ConfigurationWatchManager : IConfigurationWatchManager
     {
-        internal HashSet<ConfigurationWatch> dataWatches =
-            new  HashSet<ConfigurationWatch>();
+        internal HashSet<ConfigurationWatch> dataWatches = new HashSet<ConfigurationWatch>();
         private readonly Timer _timer;
         private readonly ILogger<ConfigurationWatchManager> _logger;
 
@@ -39,25 +38,25 @@ namespace Surging.Core.CPlatform.Configurations.Watch
         {
             lock (dataWatches)
             {
-               if( !dataWatches.Contains(watch))
-                dataWatches.Add(watch);
+                if (!dataWatches.Contains(watch))
+                    dataWatches.Add(watch);
             }
         }
 
         private async Task Watching()
-        { 
+        {
             foreach (var watch in dataWatches)
             {
                 try
                 {
-                    var task= watch.Process();
+                    var task = watch.Process();
                     if (!task.IsCompletedSuccessfully)
                         await task;
                     else
                         task.GetAwaiter().GetResult();
                 }
-                catch(Exception ex)
-                { 
+                catch (Exception ex)
+                {
                     if (_logger.IsEnabled(LogLevel.Error))
                         _logger.LogError($"message:{ex.Message},Source:{ex.Source},Trace:{ex.StackTrace}");
                 }

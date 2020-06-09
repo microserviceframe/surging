@@ -2,9 +2,9 @@
 
 namespace Surging.Core.CPlatform.Routing
 {
-	public class ServiceRouteContext 
-    { 
-        public ServiceRoute  Route { get; set; }
+    public class ServiceRouteContext
+    {
+        public ServiceRoute Route { get; set; }
 
         public RemoteInvokeResultMessage ResultMessage { get; set; }
 

@@ -8,14 +8,14 @@ using System.Text.RegularExpressions;
 
 namespace Surging.Core.CPlatform.Module
 {
-	public abstract class AbstractModule : Autofac.Module,IDisposable
+    public abstract class AbstractModule : Autofac.Module, IDisposable
     {
         #region 实例属性
         /// <summary>
         /// 容器创建包装属性
         /// </summary>
         public ContainerBuilderWrapper Builder { get; set; }
-   
+
         /// <summary>
         /// 唯一标识guid
         /// </summary>
@@ -31,7 +31,6 @@ namespace Surging.Core.CPlatform.Module
         /// </summary>
         public string TypeName { get; set; }
 
-    
         /// <summary>
         /// 标题
         /// </summary>
@@ -45,7 +44,7 @@ namespace Surging.Core.CPlatform.Module
         /// 描述
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// 组件
         /// </summary>
@@ -72,7 +71,7 @@ namespace Surging.Core.CPlatform.Module
         /// 判断组件是否可用，并注册模块组件
         /// </summary>
         /// <param name="builder"></param>
-        protected override  void Load(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             try
             {
@@ -84,7 +83,7 @@ namespace Surging.Core.CPlatform.Module
                     RegisterBuilder(Builder);
                     //注册组件
                     RegisterComponents(Builder);
-                    
+
                 }
             }
             catch (Exception ex)
@@ -93,11 +92,10 @@ namespace Surging.Core.CPlatform.Module
             }
         }
 
-       
+
         protected virtual void RegisterBuilder(ContainerBuilderWrapper builder)
         {
         }
-         
 
         internal virtual void RegisterComponents(ContainerBuilderWrapper builder)
         {
@@ -150,6 +148,7 @@ namespace Surging.Core.CPlatform.Module
                 });
             }
         }
+
         /// <summary>
         /// 验证模块
         /// </summary>

@@ -2,7 +2,7 @@
 
 namespace Surging.Core.CPlatform.Engines
 {
-	public interface IServiceEngineLifetime
+    public interface IServiceEngineLifetime
     {
         CancellationToken ServiceEngineStarted { get; }
 

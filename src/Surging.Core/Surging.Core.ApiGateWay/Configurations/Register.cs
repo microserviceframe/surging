@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ApiGateWay
 {
-	public class Register
+    public class Register
     {
         public RegisterProvider Provider { get; set; } = RegisterProvider.Consul;
 

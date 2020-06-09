@@ -34,7 +34,7 @@ namespace Surging.Core.CPlatform.Utilities
 
         public static T GetService<T>(string key)
         {
-       
+
             return Current.ResolveKeyed<T>(key);
         }
 

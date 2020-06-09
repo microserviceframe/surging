@@ -4,7 +4,6 @@ namespace Surging.Core.CPlatform.Support
 {
     public class ServiceInvokeListenInfo
     {
-
         /// <summary>
         /// 远程调用请求数
         /// </summary>
@@ -19,10 +18,12 @@ namespace Surging.Core.CPlatform.Support
         /// 首次调用时间
         /// </summary>
         public DateTime FirstInvokeTime { get; set; }
+
         /// <summary>
         /// 最后一次远程调用时间
         /// </summary>
-        public DateTime FinalRemoteInvokeTime { get; set; } 
+        public DateTime FinalRemoteInvokeTime { get; set; }
+
         /// <summary>
         /// 失败调用请求数
         /// </summary>

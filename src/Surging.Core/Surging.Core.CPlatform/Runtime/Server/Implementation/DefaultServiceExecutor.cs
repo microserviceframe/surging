@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.CPlatform.Runtime.Server.Implementation
 {
-	public class DefaultServiceExecutor : IServiceExecutor
+    public class DefaultServiceExecutor : IServiceExecutor
     {
         #region Field
 
@@ -52,7 +52,7 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
 
             if (!message.IsInvokeMessage())
                 return;
-          
+
             RemoteInvokeMessage remoteInvokeMessage;
             try
             {
@@ -60,12 +60,12 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception,"将接收到的消息反序列化成 TransportMessage<RemoteInvokeMessage> 时发送了错误。");
+                _logger.LogError(exception, "将接收到的消息反序列化成 TransportMessage<RemoteInvokeMessage> 时发送了错误。");
                 return;
             }
-             
+
             var entry = _serviceEntryLocate.Locate(remoteInvokeMessage);
-             
+
             if (entry == null)
             {
                 if (_logger.IsEnabled(LogLevel.Error))
@@ -73,10 +73,10 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
                 return;
             }
 
-            if(remoteInvokeMessage.Attachments !=null)
+            if (remoteInvokeMessage.Attachments != null)
             {
-                foreach(var attachment in remoteInvokeMessage.Attachments)
-                RpcContext.GetContext().SetAttachment(attachment.Key,attachment.Value);
+                foreach (var attachment in remoteInvokeMessage.Attachments)
+                    RpcContext.GetContext().SetAttachment(attachment.Key, attachment.Value);
             }
 
             if (_logger.IsEnabled(LogLevel.Debug))
@@ -88,7 +88,7 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
             if (entry.Descriptor.WaitExecution())
             {
                 //执行本地代码。
-                await  LocalExecuteAsync(entry, remoteInvokeMessage, resultMessage);
+                await LocalExecuteAsync(entry, remoteInvokeMessage, resultMessage);
                 //向客户端发送调用结果。
                 await SendRemoteInvokeResult(sender, message.Id, resultMessage);
             }
@@ -100,9 +100,9 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
                 await Task.Factory.StartNew(async () =>
                 {
                     //执行本地代码。
-                  await   LocalExecuteAsync(entry, remoteInvokeMessage, resultMessage);
-            }, TaskCreationOptions.LongRunning);
-        }
+                    await LocalExecuteAsync(entry, remoteInvokeMessage, resultMessage);
+                }, TaskCreationOptions.LongRunning);
+            }
         }
 
         #endregion Implementation of IServiceExecutor
@@ -142,7 +142,7 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
                 resultMessage.StatusCode = exception.HResult;
             }
         }
-         
+
         private async Task SendRemoteInvokeResult(IMessageSender sender, string messageId, RemoteInvokeResultMessage resultMessage)
         {
             try
@@ -157,9 +157,9 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation
             catch (Exception exception)
             {
                 if (_logger.IsEnabled(LogLevel.Error))
-                    _logger.LogError(exception,"发送响应消息时候发生了异常。" );
+                    _logger.LogError(exception, "发送响应消息时候发生了异常。");
             }
-        } 
+        }
 
         private static string GetExceptionMessage(Exception exception)
         {

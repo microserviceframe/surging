@@ -2,25 +2,25 @@
 
 namespace Surging.Core.CPlatform.Module
 {
-	#region 组件生命周期枚举类
+    #region 组件生命周期枚举类
 
-	public enum LifetimeScope
+    public enum LifetimeScope
     {
         InstancePerDependency,
-        
+
         InstancePerHttpRequest,
-        
+
         SingleInstance
     }
 
     #endregion
 
     #region 组件类
-    
+
     public class Component
     {
         #region 实例属性
-        
+
         public string ServiceType { get; set; }
 
         public string ImplementType { get; set; }
@@ -30,7 +30,7 @@ namespace Surging.Core.CPlatform.Module
         #endregion
 
         #region 实例方法
-        
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

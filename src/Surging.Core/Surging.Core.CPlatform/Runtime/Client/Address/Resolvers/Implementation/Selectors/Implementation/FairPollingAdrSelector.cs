@@ -76,10 +76,10 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
 
             public AddressEntry(IEnumerable<AddressModel> address)
             {
-                _address = address.OrderBy(p=>p.ProcessorTime).ToArray();
+                _address = address.OrderBy(p => p.ProcessorTime).ToArray();
                 _maxIndex = _address.Length - 1;
             }
-            
+
             #endregion Constructor
 
             #region Public Method

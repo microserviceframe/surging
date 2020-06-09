@@ -35,14 +35,17 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.
         /// 是否授权
         /// </summary>
         public bool EnableAuthorization { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// 日期
         /// </summary>
         public string Date { get; set; }
+
         #region Overrides of DescriptorAttribute
 
         /// <summary>

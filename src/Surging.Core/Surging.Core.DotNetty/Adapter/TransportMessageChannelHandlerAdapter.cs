@@ -5,7 +5,7 @@ using Surging.Core.CPlatform.Transport.Codec;
 
 namespace Surging.Core.DotNetty.Adapter
 {
-	class TransportMessageChannelHandlerAdapter : ChannelHandlerAdapter
+    class TransportMessageChannelHandlerAdapter : ChannelHandlerAdapter
     {
         private readonly ITransportMessageDecoder _transportMessageDecoder;
 

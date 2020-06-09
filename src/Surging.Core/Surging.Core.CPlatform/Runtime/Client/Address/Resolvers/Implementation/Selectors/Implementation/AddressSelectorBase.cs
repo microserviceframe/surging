@@ -42,7 +42,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
                 var timestamp = addressModel.Timestamp;
                 if (timestamp > 0L)
                 {
-                    var uptime = (DateTime.Now -  DateTimeConverter.UnixTimestampToDateTime(timestamp)).TotalMilliseconds;
+                    var uptime = (DateTime.Now - DateTimeConverter.UnixTimestampToDateTime(timestamp)).TotalMilliseconds;
                     if (uptime < 0)
                     {
                         return 1;
@@ -74,7 +74,7 @@ namespace Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation
             //  var address = context.Address.ToArray();
             if (context.Address.Count() == 0)
                 throw new ArgumentException("没有任何地址信息。", nameof(context.Address));
-             
+
             if (context.Address.Count() == 1)
             {
                 return context.Address.First();

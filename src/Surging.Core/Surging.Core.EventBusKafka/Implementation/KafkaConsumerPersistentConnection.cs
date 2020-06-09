@@ -6,7 +6,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading;
 
 namespace Surging.Core.EventBusKafka.Implementation
 {
@@ -36,7 +35,6 @@ namespace Surging.Core.EventBusKafka.Implementation
                 _consumerClient.OnConsumeError += OnConsumeError;
                 _consumerClient.OnError += OnConnectionException;
                 _consumerClients.Add(_consumerClient);
-
             };
         }
 
@@ -50,7 +48,6 @@ namespace Surging.Core.EventBusKafka.Implementation
             {
                 foreach (var client in _consumerClients)
                 {
-
                     client.Poll(timeout);
 
                     if (!client.Consume(out Message<Null, string> msg, (int)timeout.TotalMilliseconds))

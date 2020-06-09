@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.CPlatform.Configurations
 {
-	public enum RuntimeEnvironment
+    public enum RuntimeEnvironment
     {
         Development = 0,
 

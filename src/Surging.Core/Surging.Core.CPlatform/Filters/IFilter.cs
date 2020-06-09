@@ -1,7 +1,7 @@
 ﻿namespace Surging.Core.CPlatform.Filters
 {
-	public interface IFilter
+    public interface IFilter
     {
-        bool AllowMultiple { get; }  
+        bool AllowMultiple { get; }
     }
 }
