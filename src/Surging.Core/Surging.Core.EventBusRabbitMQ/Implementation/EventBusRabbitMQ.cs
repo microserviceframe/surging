@@ -233,7 +233,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             consumer.Received += async (model, ea) =>
             {
                 var eventName = ea.RoutingKey;
-                await ProcessEvent(eventName, ea.Body, mode, ea.BasicProperties);
+                await ProcessEvent(eventName, ea.Body.ToArray(), mode, ea.BasicProperties);
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             if (bindConsumer)
@@ -274,7 +274,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             consumer.Received += async (model, ea) =>
             {
                 var eventName = ea.RoutingKey;
-                await ProcessEvent(eventName, ea.Body, mode, ea.BasicProperties);
+                await ProcessEvent(eventName, ea.Body.ToArray(), mode, ea.BasicProperties);
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             if (bindConsumer)
@@ -313,7 +313,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             consumer.Received += async (model, ea) =>
             {
                 var eventName = ea.RoutingKey;
-                await ProcessEvent(eventName, ea.Body, mode, ea.BasicProperties);
+                await ProcessEvent(eventName, ea.Body.ToArray(), mode, ea.BasicProperties);
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             if (bindConsumer)

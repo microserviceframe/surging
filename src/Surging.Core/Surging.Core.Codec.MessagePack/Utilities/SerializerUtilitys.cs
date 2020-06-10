@@ -8,7 +8,7 @@ namespace Surging.Core.Codec.MessagePack.Utilities
     {
         static SerializerUtilitys()
         {
-            CompositeResolver.RegisterAndSetAsDefault(NativeDateTimeResolver.Instance, ContractlessStandardResolverAllowPrivate.Instance);
+            CompositeResolver.Create(NativeDateTimeResolver.Instance, ContractlessStandardResolverAllowPrivate.Instance);
         }
 
         public static byte[] Serialize<T>(T instance)
@@ -23,12 +23,12 @@ namespace Surging.Core.Codec.MessagePack.Utilities
 
         public static object Deserialize(byte[] data, Type type)
         {
-            return data == null ? null : MessagePackSerializer.NonGeneric.Deserialize(type, data);
+            return data == null ? null : MessagePackSerializer.Deserialize(type, data);
         }
 
         public static T Deserialize<T>(byte[] data)
         {
-            return data == null ? default(T) : MessagePackSerializer.Deserialize<T>(data);
+            return data == null ? default : MessagePackSerializer.Deserialize<T>(data);
         }
     }
 }

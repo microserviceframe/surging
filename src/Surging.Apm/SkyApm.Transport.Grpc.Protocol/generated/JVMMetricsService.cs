@@ -34,8 +34,8 @@ namespace SkyWalking.NetworkProtocol {
             "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::SkyWalking.NetworkProtocol.DownstreamReflection.Descriptor, global::SkyWalking.NetworkProtocol.JVMReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SkyWalking.NetworkProtocol.JVMMetrics), global::SkyWalking.NetworkProtocol.JVMMetrics.Parser, new[]{ "Metrics", "ApplicationInstanceId" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::SkyWalking.NetworkProtocol.JVMMetrics), global::SkyWalking.NetworkProtocol.JVMMetrics.Parser, new[]{ "Metrics", "ApplicationInstanceId" }, null, null, null, null)
           }));
     }
     #endregion

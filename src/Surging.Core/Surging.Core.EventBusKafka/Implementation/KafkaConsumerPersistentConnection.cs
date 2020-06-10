@@ -1,5 +1,4 @@
 ﻿using Confluent.Kafka;
-using Confluent.Kafka.Serialization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;

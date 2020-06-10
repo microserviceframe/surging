@@ -79,13 +79,12 @@ namespace Surging.Core.KestrelHttpServer
                   .ConfigureServices(ConfigureServices)
                   .ConfigureLogging((logger) =>
                   {
-                      logger.AddConfiguration(
-                             CPlatform.AppConfig.GetSection("Logging"));
+                      logger.AddConfiguration(AppConfig.GetSection("Logging"));
                   })
                   .Configure(AppResolve);
 
-                if (Directory.Exists(CPlatform.AppConfig.ServerOptions.WebRootPath))
-                    hostBuilder = hostBuilder.UseWebRoot(CPlatform.AppConfig.ServerOptions.WebRootPath);
+                if (Directory.Exists(AppConfig.ServerOptions.WebRootPath))
+                    hostBuilder = hostBuilder.UseWebRoot(AppConfig.ServerOptions.WebRootPath);
                 _host = hostBuilder.Build();
                 _lifetime.ServiceEngineStarted.Register(async () =>
                 {
@@ -114,7 +113,8 @@ namespace Surging.Core.KestrelHttpServer
                 _moduleProvider.VirtualPaths,
                 AppConfig.Configuration));
             builder.Populate(services);
-            builder.Update(_container.Current.ComponentRegistry);
+            builder.Build();
+            //builder.Update(_container.Current.ComponentRegistry);
         }
 
         private void AppResolve(IApplicationBuilder app)
