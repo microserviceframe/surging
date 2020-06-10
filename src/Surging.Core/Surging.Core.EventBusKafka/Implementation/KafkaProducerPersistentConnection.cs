@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Confluent.Kafka;
-using Confluent.Kafka.Serialization;
+
 using Microsoft.Extensions.Logging;
 
 namespace Surging.Core.EventBusKafka.Implementation
 {
     public class KafkaProducerPersistentConnection : KafkaPersistentConnectionBase
     {
-        private Producer<Null, string> _connection;
+        private IProducer<string, string> _connection;
         private readonly ILogger<KafkaProducerPersistentConnection> _logger;
         private readonly ISerializer<string> _stringSerializer;
         bool _disposed;
@@ -18,17 +17,20 @@ namespace Surging.Core.EventBusKafka.Implementation
         public KafkaProducerPersistentConnection(ILogger<KafkaProducerPersistentConnection> logger) : base(logger, AppConfig.KafkaProducerConfig)
         {
             _logger = logger;
-            _stringSerializer = new StringSerializer(Encoding.UTF8);
+            _stringSerializer = Serializers.Utf8;
         }
 
         public override bool IsConnected => _connection != null && !_disposed;
 
-        public override Action Connection(IEnumerable<KeyValuePair<string, object>> options)
+        public override Action Connection(IEnumerable<KeyValuePair<string, string>> options)
         {
             return () =>
             {
-                _connection = new Producer<Null, string>(options, null, _stringSerializer);
-                _connection.OnError += OnConnectionException;
+                var producerBuilder = new ProducerBuilder<string, string>(options);
+                producerBuilder.SetErrorHandler(OnConnectionException);
+                _connection = producerBuilder.Build();
+                //_connection = new ProducerBuilder<Null, string>(options);
+                //_connection.OnError += OnConnectionException;
             };
         }
 
@@ -38,23 +40,23 @@ namespace Surging.Core.EventBusKafka.Implementation
             return _connection;
         }
 
-        public override void Dispose()
-        {
-            if (_disposed) return;
+		public override void Dispose()
+		{
+			if (_disposed) return;
 
-            _disposed = true;
+			_disposed = true;
 
-            try
-            {
-                _connection.Dispose();
-            }
-            catch (IOException ex)
-            {
-                _logger.LogCritical(ex.ToString());
-            }
-        }
+			try
+			{
+				_connection.Dispose();
+			}
+			catch (IOException ex)
+			{
+				_logger.LogCritical(ex.ToString());
+			}
+		}
 
-        private void OnConnectionException(object sender, Error error)
+		private void OnConnectionException(object sender, Error error)
         {
             if (_disposed) return;
 

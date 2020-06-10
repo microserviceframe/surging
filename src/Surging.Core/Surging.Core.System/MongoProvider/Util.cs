@@ -7,7 +7,7 @@ namespace Surging.Core.System.MongoProvider
 {
     internal static class Util
     {
-        private static IConfigurationRoot _config;
+        //private static IConfigurationRoot _config;
         private static IMongoDatabase GetDatabase(string connectString)
         {
             var mongoUrl = new MongoUrl(connectString);

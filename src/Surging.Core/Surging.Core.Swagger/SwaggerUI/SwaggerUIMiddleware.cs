@@ -27,7 +27,7 @@ namespace Surging.Core.Swagger.SwaggerUI
 
         public SwaggerUIMiddleware(
             RequestDelegate next,
-            IHostingEnvironment hostingEnv,
+            IWebHostEnvironment hostingEnv,
             ILoggerFactory loggerFactory,
             IOptions<SwaggerUIOptions> optionsAccessor)
             : this(next, hostingEnv, loggerFactory, optionsAccessor.Value)
@@ -35,7 +35,7 @@ namespace Surging.Core.Swagger.SwaggerUI
 
         public SwaggerUIMiddleware(
             RequestDelegate next,
-            IHostingEnvironment hostingEnv,
+            IWebHostEnvironment hostingEnv,
             ILoggerFactory loggerFactory,
             SwaggerUIOptions options)
         {
@@ -109,7 +109,8 @@ namespace Surging.Core.Swagger.SwaggerUI
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new[] { new StringEnumConverter(true) },
+                Converters = new[] { new StringEnumConverter(new CamelCaseNamingStrategy(), true) },
+                //Converters = new[] { new StringEnumConverter(true) },
                 NullValueHandling = NullValueHandling.Ignore,
                 Formatting = Formatting.None,
                 StringEscapeHandling = StringEscapeHandling.EscapeHtml
@@ -118,7 +119,7 @@ namespace Surging.Core.Swagger.SwaggerUI
 
         private StaticFileMiddleware CreateStaticFileMiddleware(
             RequestDelegate next,
-            IHostingEnvironment hostingEnv,
+            IWebHostEnvironment hostingEnv,
             ILoggerFactory loggerFactory,
             SwaggerUIOptions options)
         {

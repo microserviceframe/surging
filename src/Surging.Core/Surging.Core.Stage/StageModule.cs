@@ -59,14 +59,14 @@ namespace Surging.Core.Stage
                 ApiGateWay.AppConfig.AuthorizationRoutePath = apiConfig.AuthorizationRoutePath;
                 ApiGateWay.AppConfig.TokenEndpointPath = apiConfig.TokenEndpointPath;
             }
-            context.Services.AddMvc().AddJsonOptions(options =>
+            context.Services.AddMvc().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 if (AppConfig.Options.IsCamelCaseResolver)
                 {
                     JsonConvert.DefaultSettings = new Func<JsonSerializerSettings>(() =>
                     {
-                        JsonSerializerSettings setting = new Newtonsoft.Json.JsonSerializerSettings();
+                        JsonSerializerSettings setting = new JsonSerializerSettings();
                         setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                         setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
                         return setting;

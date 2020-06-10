@@ -39,6 +39,8 @@ namespace Surging.Core.Protocol.WS
                 //允许转发请求
                 _wssv.AllowForwardedRequest = true;
                 _wssv.Start();
+                //新增方法
+                await Task.CompletedTask;
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug($"WS服务主机启动成功，监听地址：{endPoint}。");
             }

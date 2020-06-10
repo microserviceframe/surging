@@ -10,11 +10,11 @@ namespace Surging.Core.EventBusKafka
 
         public static KafkaOptions Options { get; internal set; }
 
-        private static IEnumerable<KeyValuePair<string, object>> _kafkaConsumerConfig;
+        private static IEnumerable<KeyValuePair<string, string>> _kafkaConsumerConfig;
 
-        private static IEnumerable<KeyValuePair<string, object>> _kafkaProducerConfig;
+        private static IEnumerable<KeyValuePair<string, string>> _kafkaProducerConfig;
 
-        public static IEnumerable<KeyValuePair<string, object>> KafkaConsumerConfig
+        public static IEnumerable<KeyValuePair<string, string>> KafkaConsumerConfig
         {
             get
             {
@@ -26,7 +26,7 @@ namespace Surging.Core.EventBusKafka
             }
         }
 
-        public static IEnumerable<KeyValuePair<string, object>> KafkaProducerConfig
+        public static IEnumerable<KeyValuePair<string, string>> KafkaProducerConfig
         {
             get
             {
