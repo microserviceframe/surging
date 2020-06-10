@@ -29,8 +29,7 @@ namespace Surging.Core.Protocol.Http
         private readonly IAuthorizationFilter _authorizationFilter;
         private readonly CPlatformContainer _serviceProvider;
         private readonly ITypeConvertibleService _typeConvertibleService;
-        private readonly ConcurrentDictionary<string,ValueTuple< FastInvokeHandler,object, MethodInfo>> _concurrent =
- new ConcurrentDictionary<string, ValueTuple<FastInvokeHandler, object, MethodInfo>>();
+        private readonly ConcurrentDictionary<string, ValueTuple<FastInvokeHandler, object, MethodInfo>> _concurrent = new ConcurrentDictionary<string, ValueTuple<FastInvokeHandler, object, MethodInfo>>();
         #endregion Field
 
         #region Constructor
@@ -103,22 +102,22 @@ namespace Surging.Core.Protocol.Http
         private async Task<HttpResultMessage<object>> RemoteExecuteAsync(ServiceEntry entry, HttpMessage httpMessage)
         {
             HttpResultMessage<object> resultMessage = new HttpResultMessage<object>();
-                var provider = _concurrent.GetValueOrDefault(httpMessage.RoutePath);
-                var list = new List<object>();
-                if (provider.Item1 == null)
-                {
-                    provider.Item2 = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(httpMessage.ServiceKey, entry.Type);
-                    provider.Item3 = provider.Item2.GetType().GetTypeInfo().DeclaredMethods.Where(p => p.Name == entry.MethodName).FirstOrDefault(); ;
-                    provider.Item1 = FastInvoke.GetMethodInvoker(provider.Item3);
-                    _concurrent.GetOrAdd(httpMessage.RoutePath, ValueTuple.Create<FastInvokeHandler, object, MethodInfo>(provider.Item1, provider.Item2, provider.Item3));
-                }
-                foreach (var parameterInfo in provider.Item3.GetParameters())
-                {
-                    var value = httpMessage.Parameters[parameterInfo.Name];
-                    var parameterType = parameterInfo.ParameterType;
-                    var parameter = _typeConvertibleService.Convert(value, parameterType);
-                    list.Add(parameter);
-                }
+            var provider = _concurrent.GetValueOrDefault(httpMessage.RoutePath);
+            var list = new List<object>();
+            if (provider.Item1 == null)
+            {
+                provider.Item2 = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(httpMessage.ServiceKey, entry.Type);
+                provider.Item3 = provider.Item2.GetType().GetTypeInfo().DeclaredMethods.Where(p => p.Name == entry.MethodName).FirstOrDefault(); ;
+                provider.Item1 = FastInvoke.GetMethodInvoker(provider.Item3);
+                _concurrent.GetOrAdd(httpMessage.RoutePath, ValueTuple.Create<FastInvokeHandler, object, MethodInfo>(provider.Item1, provider.Item2, provider.Item3));
+            }
+            foreach (var parameterInfo in provider.Item3.GetParameters())
+            {
+                var value = httpMessage.Parameters[parameterInfo.Name];
+                var parameterType = parameterInfo.ParameterType;
+                var parameter = _typeConvertibleService.Convert(value, parameterType);
+                list.Add(parameter);
+            }
             try
             {
                 var methodResult = provider.Item1(provider.Item2, list.ToArray());

@@ -43,7 +43,7 @@ namespace DotNetty.Codecs.DNS
             output.Add(new DatagramPacket(buffer, recipient, null));
         }
 
-        private IByteBuffer AllocateBuffer(IChannelHandlerContext ctx, 
+        private IByteBuffer AllocateBuffer(IChannelHandlerContext ctx,
             IAddressedEnvelope<IDnsQuery> message) => ctx.Allocator.Buffer(1024);
 
         private void EncodeHeader(IDnsQuery query, IByteBuffer buffer)

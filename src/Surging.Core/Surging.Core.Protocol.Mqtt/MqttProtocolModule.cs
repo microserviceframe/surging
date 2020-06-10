@@ -7,17 +7,12 @@ using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Mqtt;
 using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Runtime.Server.Implementation;
-using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.Protocol.Mqtt.Diagnostics;
 using Surging.Core.Protocol.Mqtt.Implementation;
-using Surging.Core.Protocol.Mqtt.Internal.Channel;
 using Surging.Core.Protocol.Mqtt.Internal.Runtime;
 using Surging.Core.Protocol.Mqtt.Internal.Runtime.Implementation;
 using Surging.Core.Protocol.Mqtt.Internal.Services;
 using Surging.Core.Protocol.Mqtt.Internal.Services.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Protocol.Mqtt
 {
@@ -86,7 +81,7 @@ namespace Surging.Core.Protocol.Mqtt
             }).SingleInstance();
             builder.Register(provider =>
             {
-                
+
                 var messageListener = provider.Resolve<DotNettyMqttServerMessageListener>();
                 return new DefaultServiceHost(async endPoint =>
                 {
@@ -108,7 +103,7 @@ namespace Surging.Core.Protocol.Mqtt
                      );
             }).SingleInstance();
             builder.Register(provider =>
-            { 
+            {
                 var messageListener = provider.Resolve<DotNettyMqttServerMessageListener>();
                 return new MqttServiceHost(async endPoint =>
                 {

@@ -15,6 +15,6 @@ namespace Surging.Core.Swagger
     {
         public UnknownSwaggerDocument(string documentName)
             : base(string.Format("Unknown Swagger document - {0}", documentName))
-        {}
+        { }
     }
 }

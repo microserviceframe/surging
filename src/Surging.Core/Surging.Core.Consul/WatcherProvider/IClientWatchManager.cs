@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.Consul.WatcherProvider
 {
-    public interface IClientWatchManager
+	public interface IClientWatchManager
     {
         Dictionary<string, HashSet<Watcher>> DataWatches { get; set; }
     }

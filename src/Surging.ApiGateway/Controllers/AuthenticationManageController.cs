@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Surging.ApiGateway.Controllers
 {
-	public class AuthenticationManageController : Controller
+    public class AuthenticationManageController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> EditServiceToken([FromServices]IServiceDiscoveryProvider serviceDiscoveryProvider, string address)
+        public async Task<IActionResult> EditServiceToken([FromServices] IServiceDiscoveryProvider serviceDiscoveryProvider, string address)
         {
             var list = await serviceDiscoveryProvider.GetAddressAsync(address); ;
             return View(list.FirstOrDefault());
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditServiceToken([FromServices]IServiceDiscoveryProvider serviceDiscoveryProvider, IpAddressModel model)
+        public async Task<IActionResult> EditServiceToken([FromServices] IServiceDiscoveryProvider serviceDiscoveryProvider, IpAddressModel model)
         {
-           await serviceDiscoveryProvider.EditServiceToken(model);
+            await serviceDiscoveryProvider.EditServiceToken(model);
             return Json(ServiceResult.Create(true));
         }
     }

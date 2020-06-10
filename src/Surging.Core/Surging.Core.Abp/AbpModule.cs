@@ -15,10 +15,9 @@ using VoloAbpModule = Volo.Abp.Modularity;
 using Volo.Abp.DependencyInjection;
 using VoloAbp = Volo.Abp;
 
-
 namespace Surging.Core.Abp
 {
-	[ExposeServices]
+    [ExposeServices]
     public class AbpModule : KestrelHttpModule
     {
         private ILogger<AbpModule> _logger;

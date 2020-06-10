@@ -21,9 +21,7 @@ namespace Surging.Core.ApiGateWay.OAuth
         private readonly IServiceRouteProvider _serviceRouteProvider;
         private readonly CPlatformContainer _serviceProvider;
         private readonly ICacheProvider _cacheProvider;
-        public AuthorizationServerProvider(IServiceProxyProvider serviceProxyProvider
-           , IServiceRouteProvider serviceRouteProvider
-            , CPlatformContainer serviceProvider)
+        public AuthorizationServerProvider(IServiceProxyProvider serviceProxyProvider, IServiceRouteProvider serviceRouteProvider, CPlatformContainer serviceProvider)
         {
             _serviceProvider = serviceProvider;
             _serviceProxyProvider = serviceProxyProvider;

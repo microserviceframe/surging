@@ -45,8 +45,7 @@ namespace Surging.Core.DotNetty
 
         #region Constructor
 
-        public DotNettyTransportClientFactory(ITransportMessageCodecFactory codecFactory, IHealthCheckService healthCheckService, ILogger<DotNettyTransportClientFactory> logger)
-            : this(codecFactory, healthCheckService, logger, null)
+        public DotNettyTransportClientFactory(ITransportMessageCodecFactory codecFactory, IHealthCheckService healthCheckService, ILogger<DotNettyTransportClientFactory> logger) : this(codecFactory, healthCheckService, logger, null)
         {
         }
 

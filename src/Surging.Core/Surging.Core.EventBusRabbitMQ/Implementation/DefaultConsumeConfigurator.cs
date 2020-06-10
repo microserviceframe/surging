@@ -9,7 +9,7 @@ using Surging.Core.EventBusRabbitMQ.Utilities;
 
 namespace Surging.Core.EventBusRabbitMQ.Implementation
 {
-  public  class DefaultConsumeConfigurator: IConsumeConfigurator
+    public class DefaultConsumeConfigurator : IConsumeConfigurator
     {
         private readonly IEventBus _eventBus;
         private readonly CPlatformContainer _container;
@@ -18,7 +18,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             _eventBus = eventBus;
             _container = container;
         }
-        
+
         public void Configure(List<Type> consumers)
         {
             foreach (var consumer in consumers)
@@ -75,17 +75,13 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             }
         }
 
-        protected void ConsumerTo<TEvent,TConsumer>()
-            where TConsumer : IIntegrationEventHandler<TEvent>
-            where TEvent : class
+        protected void ConsumerTo<TEvent, TConsumer>() where TConsumer : IIntegrationEventHandler<TEvent> where TEvent : class
         {
             _eventBus.Subscribe<TEvent, TConsumer>
               (() => (TConsumer)_container.GetInstances(typeof(TConsumer)));
         }
 
-        protected void RemoveConsumer<TEvent, TConsumer>()
-         where TConsumer : IIntegrationEventHandler<TEvent>
-         where TEvent : class
+        protected void RemoveConsumer<TEvent, TConsumer>() where TConsumer : IIntegrationEventHandler<TEvent> where TEvent : class
         {
             _eventBus.Unsubscribe<TEvent, TConsumer>();
         }

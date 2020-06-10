@@ -1,11 +1,8 @@
 ﻿using Surging.Core.CPlatform.Transport.Codec;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Codec.ProtoBuffer
 {
-   public sealed  class ProtoBufferTransportMessageCodecFactory : ITransportMessageCodecFactory
+	public sealed class ProtoBufferTransportMessageCodecFactory : ITransportMessageCodecFactory
     {
         #region Field
 
@@ -15,12 +12,12 @@ namespace Surging.Core.Codec.ProtoBuffer
         #endregion Field
 
         #region Implementation of ITransportMessageCodecFactory
-        
+
         public ITransportMessageEncoder GetEncoder()
         {
             return _transportMessageEncoder;
         }
-        
+
         public ITransportMessageDecoder GetDecoder()
         {
             return _transportMessageDecoder;

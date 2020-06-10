@@ -1,19 +1,15 @@
-﻿using DotNetty.Codecs.DNS;
-using DotNetty.Codecs.DNS.Records;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Transport;
 using Surging.Core.DNS.Extensions;
 using Surging.Core.DNS.Runtime;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DNS
 {
-   public class DnsServiceExecutor : IServiceExecutor
+    public class DnsServiceExecutor : IServiceExecutor
     {
         #region Field
 
@@ -24,7 +20,7 @@ namespace Surging.Core.DNS
 
         #region Constructor
 
-        public DnsServiceExecutor(IDnsServiceEntryProvider dnsServiceEntryProvider, 
+        public DnsServiceExecutor(IDnsServiceEntryProvider dnsServiceEntryProvider,
             ILogger<DnsServiceExecutor> logger)
         {
             _dnsServiceEntryProvider = dnsServiceEntryProvider;
@@ -73,14 +69,14 @@ namespace Surging.Core.DNS
 
         #region Private Method
 
-    
+
         private async Task<DnsTransportMessage> LocalExecuteAsync(DnsServiceEntry entry, DnsTransportMessage message)
         {
             HttpResultMessage<object> resultMessage = new HttpResultMessage<object>();
             try
             {
                 var dnsQuestion = message.DnsQuestion;
-                message.Address= await entry.Behavior.DomainResolve(dnsQuestion.Name);
+                message.Address = await entry.Behavior.DomainResolve(dnsQuestion.Name);
             }
             catch (Exception exception)
             {

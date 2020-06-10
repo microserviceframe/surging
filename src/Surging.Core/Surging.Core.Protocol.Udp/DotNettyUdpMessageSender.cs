@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Udp
 {
-   public abstract class DotNettyUdpMessageSender
+    public abstract class DotNettyUdpMessageSender
     {
         private readonly ITransportMessageEncoder _transportMessageEncoder;
 
@@ -18,7 +18,7 @@ namespace Surging.Core.Protocol.Udp
 
         protected IByteBuffer GetByteBuffer(TransportMessage message)
         {
-            var data =  message.GetContent<byte []>(); 
+            var data = message.GetContent<byte[]>();
             return Unpooled.WrappedBuffer(data);
         }
     }
@@ -56,8 +56,8 @@ namespace Surging.Core.Protocol.Udp
         public async Task SendAndFlushAsync(TransportMessage message)
         {
             var buffer = GetByteBuffer(message);
-            if( _context.Channel.RemoteAddress !=null)
-            await _context.WriteAndFlushAsync(buffer);
+            if (_context.Channel.RemoteAddress != null)
+                await _context.WriteAndFlushAsync(buffer);
         }
 
         #endregion Implementation of IMessageSender

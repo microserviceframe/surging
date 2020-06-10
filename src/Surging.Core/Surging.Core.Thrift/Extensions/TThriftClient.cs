@@ -17,22 +17,23 @@ using Thrift.Protocol;
 
 namespace Surging.Core.Thrift.Extensions
 {
-   public class TThriftClient : TBaseClient, ITransportClient, IDisposable
+    public class TThriftClient : TBaseClient, ITransportClient, IDisposable
     {
         #region Field
 
-        private readonly IMessageSender _messageSender; 
+        private readonly IMessageSender _messageSender;
         private readonly ILogger _logger;
         private readonly ChannelHandler _channelHandler;
         private readonly DiagnosticListener _diagnosticListener;
         private readonly TProtocol _protocol;
         private readonly ConcurrentDictionary<string, ManualResetValueTaskSource<TransportMessage>> _resultDictionary =
            new ConcurrentDictionary<string, ManualResetValueTaskSource<TransportMessage>>();
+
         #endregion Field
 
         #region Constructor
 
-        public TThriftClient(TProtocol protocol, IMessageSender messageSender, IMessageListener messageListener, ChannelHandler channelHandler, ILogger logger ):base(protocol, protocol)
+        public TThriftClient(TProtocol protocol, IMessageSender messageSender, IMessageListener messageListener, ChannelHandler channelHandler, ILogger logger) : base(protocol, protocol)
         {
 
             _diagnosticListener = new DiagnosticListener(DiagnosticListenerExtensions.DiagnosticListenerName);
@@ -57,11 +58,10 @@ namespace Surging.Core.Thrift.Extensions
                 var callbackTask = RegisterResultCallbackAsync(transportMessage.Id, cancellationToken);
                 try
                 {
-                  
                     //发送
                     await _messageSender.SendAndFlushAsync(transportMessage);
                     await _channelHandler.ChannelRead(_protocol);
-                    
+
                 }
                 catch (Exception exception)
                 {
@@ -104,7 +104,7 @@ namespace Surging.Core.Thrift.Extensions
             }
         }
 
-        private  Task MessageListener_Received(IMessageSender sender, TransportMessage message)
+        private Task MessageListener_Received(IMessageSender sender, TransportMessage message)
         {
             if (_logger.IsEnabled(LogLevel.Trace))
                 _logger.LogTrace("服务消费者接收到消息。");
@@ -182,7 +182,7 @@ namespace Surging.Core.Thrift.Extensions
 
         public new void Dispose()
         {
-            (_messageSender as IDisposable)?.Dispose(); 
+            (_messageSender as IDisposable)?.Dispose();
             foreach (var taskCompletionSource in _resultDictionary.Values)
             {
                 taskCompletionSource.SetCanceled();

@@ -18,7 +18,6 @@
 
 using Surging.Apm.Skywalking.Abstractions.Tracing;
 using Surging.Core.CPlatform.Diagnostics;
-using System;
 
 namespace Surging.Apm.Skywalking.Abstractions.Common.Tracing
 {

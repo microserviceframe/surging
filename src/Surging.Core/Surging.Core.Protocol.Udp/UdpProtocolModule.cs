@@ -6,9 +6,6 @@ using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.Protocol.Udp.Runtime;
 using Surging.Core.Protocol.Udp.Runtime.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Protocol.Udp
 {
@@ -36,11 +33,11 @@ namespace Surging.Core.Protocol.Udp
             }).As(typeof(IUdpServiceEntryProvider)).SingleInstance();
             builder.RegisterType(typeof(UdpServiceExecutor)).As(typeof(IServiceExecutor))
             .Named<IServiceExecutor>(CommunicationProtocol.Udp.ToString()).SingleInstance();
-            if (CPlatform.AppConfig.ServerOptions.Protocol == CommunicationProtocol.Dns)
+            if (AppConfig.ServerOptions.Protocol == CommunicationProtocol.Dns)
             {
                 RegisterDefaultProtocol(builder);
             }
-            else if (CPlatform.AppConfig.ServerOptions.Protocol == CommunicationProtocol.None)
+            else if (AppConfig.ServerOptions.Protocol == CommunicationProtocol.None)
             {
                 RegisterUdpProtocol(builder);
             }

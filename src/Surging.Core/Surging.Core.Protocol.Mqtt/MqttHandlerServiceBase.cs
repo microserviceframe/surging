@@ -1,17 +1,13 @@
 ﻿using DotNetty.Codecs.Mqtt.Packets;
 using DotNetty.Transport.Channels;
-using Surging.Core.CPlatform.Messages;
-using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Protocol.Mqtt
 {
-   public abstract class MqttHandlerServiceBase
+    public abstract class MqttHandlerServiceBase
     {
         protected readonly Action<IChannelHandlerContext, object> _handler;
-        public MqttHandlerServiceBase( Action<IChannelHandlerContext, object> handler)
+        public MqttHandlerServiceBase(Action<IChannelHandlerContext, object> handler)
         {
             _handler = handler;
         }

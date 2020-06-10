@@ -37,7 +37,7 @@ namespace Surging.Apm.Skywalking.Abstractions
             Logger = loggerFactory.CreateLogger(GetType());
         }
 
-        public Task StartAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public Task StartAsync(CancellationToken cancellationToken = default)
         {
             _cancellationTokenSource = new CancellationTokenSource();
             var source = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, cancellationToken);
@@ -46,7 +46,7 @@ namespace Surging.Apm.Skywalking.Abstractions
             return Task.CompletedTask;
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task StopAsync(CancellationToken cancellationToken = default)
         {
             _cancellationTokenSource?.Cancel();
             await Stopping(cancellationToken);

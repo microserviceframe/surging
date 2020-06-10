@@ -1,5 +1,4 @@
-﻿using DotNetty.Buffers;
-using DotNetty.Transport.Bootstrapping;
+﻿using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using Microsoft.Extensions.Logging;
@@ -8,14 +7,12 @@ using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Transport;
 using Surging.Core.CPlatform.Transport.Codec;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Udp
 {
-   public class DotNettyUdpServerMessageListener : IMessageListener, IDisposable
+    public class DotNettyUdpServerMessageListener : IMessageListener, IDisposable
     {
         #region Field
 
@@ -48,14 +45,14 @@ namespace Surging.Core.Protocol.Udp
             bootstrap
                 .Group(group)
                 .Channel<SocketDatagramChannel>()
-                .Option(ChannelOption.SoBacklog, 1024) 
-                .Option(ChannelOption.SoSndbuf, 1024 * 4096*10)
-                .Option(ChannelOption.SoRcvbuf, 1024 * 4096*10) 
+                .Option(ChannelOption.SoBacklog, 1024)
+                .Option(ChannelOption.SoSndbuf, 1024 * 4096 * 10)
+                .Option(ChannelOption.SoRcvbuf, 1024 * 4096 * 10)
                 .Handler(new ServerHandler(async (contenxt, message) =>
-                    {
-                        var sender = new DotNettyUdpServerMessageSender(_transportMessageEncoder, contenxt);
-                        await OnReceived(sender, message);
-                    }, _logger, _serializer)
+                {
+                    var sender = new DotNettyUdpServerMessageSender(_transportMessageEncoder, contenxt);
+                    await OnReceived(sender, message);
+                }, _logger, _serializer)
                 ).Option(ChannelOption.SoBroadcast, true);
             try
             {
@@ -64,7 +61,7 @@ namespace Surging.Core.Protocol.Udp
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug($"Udp服务主机启动成功，监听地址：{endPoint}。");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError($"Udp服务主机启动失败，监听地址：{endPoint}。 ");
             }
@@ -105,8 +102,6 @@ namespace Surging.Core.Protocol.Udp
             private readonly ILogger _logger;
             private readonly ISerializer<string> _serializer;
 
-
-
             public ServerHandler(Action<IChannelHandlerContext, TransportMessage> readAction, ILogger logger, ISerializer<string> serializer)
             {
                 _readAction = readAction;
@@ -116,7 +111,7 @@ namespace Surging.Core.Protocol.Udp
 
             protected override void ChannelRead0(IChannelHandlerContext ctx, DatagramPacket msg)
             {
-               var buff = msg.Content;
+                var buff = msg.Content;
                 byte[] messageBytes = new byte[buff.ReadableBytes];
                 buff.ReadBytes(messageBytes);
                 _readAction(ctx, new TransportMessage(messageBytes));

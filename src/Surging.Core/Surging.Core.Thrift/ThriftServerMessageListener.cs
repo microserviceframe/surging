@@ -42,7 +42,6 @@ namespace Surging.Core.Thrift
             _transportMessageEncoder = codecFactory.GetEncoder();
             _transportMessageDecoder = codecFactory.GetDecoder();
             _entries = thriftServiceEntryProvider.GetEntries().ToList();
-
         }
 
         #endregion Constructor
@@ -76,10 +75,10 @@ namespace Surging.Core.Thrift
                 CancellationToken cancellationToken = new CancellationToken();
                 var ipEndPoint = endPoint as IPEndPoint;
                 TMultiplexedServiceProcessor processor = new TMultiplexedServiceProcessor(_logger, _transportMessageDecoder, _transportMessageEncoder, new ServerHandler(async (contenxt, message) =>
-                  {
-                      var sender = new ThriftServerMessageSender(_transportMessageEncoder, contenxt);
-                      await OnReceived(sender, message);
-                  }, _logger));
+                {
+                    var sender = new ThriftServerMessageSender(_transportMessageEncoder, contenxt);
+                    await OnReceived(sender, message);
+                }, _logger));
                 foreach (var entry in _entries)
                 {
                     var attr = entry.Type.GetCustomAttribute<BindProcessorAttribute>();
@@ -108,8 +107,7 @@ namespace Surging.Core.Thrift
             }
             return Task.CompletedTask;
         }
+
         #endregion Implementation of IMessageListener
-
-
     }
 }

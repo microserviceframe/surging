@@ -20,8 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using Surging.Apm.Skywalking.Abstractions;
-using Surging.Apm.Skywalking.Core.Common;
 using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Apm.Skywalking.Core.Diagnostics
@@ -32,13 +30,11 @@ namespace Surging.Apm.Skywalking.Core.Diagnostics
         private readonly ILoggerFactory _loggerFactory;
         private readonly IEnumerable<ITracingDiagnosticProcessor> _tracingDiagnosticProcessors;
 
-        public TracingDiagnosticProcessorObserver(IEnumerable<ITracingDiagnosticProcessor> tracingDiagnosticProcessors,
-            ILoggerFactory loggerFactory)
+        public TracingDiagnosticProcessorObserver(IEnumerable<ITracingDiagnosticProcessor> tracingDiagnosticProcessors, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger(typeof(TracingDiagnosticProcessorObserver));
             _loggerFactory = loggerFactory;
-            _tracingDiagnosticProcessors = tracingDiagnosticProcessors ??
-                                           throw new ArgumentNullException(nameof(tracingDiagnosticProcessors));
+            _tracingDiagnosticProcessors = tracingDiagnosticProcessors ?? throw new ArgumentNullException(nameof(tracingDiagnosticProcessors));
         }
 
         public void OnCompleted()

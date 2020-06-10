@@ -2,7 +2,7 @@
 
 namespace Surging.ApiGateway.Models
 {
-	public class CacheEndpointParam
+    public class CacheEndpointParam
     {
         public string CacheId { get; set; }
 

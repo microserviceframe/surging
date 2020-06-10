@@ -30,8 +30,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Tracing
         private readonly IUniqueIdParser _uniqueIdParser;
         private readonly IBase64Formatter _base64Formatter;
 
-        public Sw6CarrierFormatter(IUniqueIdParser uniqueIdParser, IBase64Formatter base64Formatter,
-            IConfigAccessor configAccessor)
+        public Sw6CarrierFormatter(IUniqueIdParser uniqueIdParser, IBase64Formatter base64Formatter, IConfigAccessor configAccessor)
         {
             _uniqueIdParser = uniqueIdParser;
             _base64Formatter = base64Formatter;
@@ -65,7 +64,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Tracing
 
             if (!_uniqueIdParser.TryParse(_base64Formatter.Decode(parts[1]), out var traceId))
                 return Defer();
-            
+
             if (!_uniqueIdParser.TryParse(_base64Formatter.Decode(parts[2]), out var segmentId))
                 return Defer();
 
@@ -111,7 +110,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Tracing
                 _base64Formatter.Encode(ConvertStringOrIntValue(carrier.ParentEndpoint)),
                 _base64Formatter.Encode(ConvertStringOrIntValue(carrier.EntryEndpoint)));
         }
-        
+
         private static string ConvertStringOrIntValue(StringOrIntValue value)
         {
             if (value.HasIntValue)

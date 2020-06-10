@@ -26,7 +26,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Tracing
         SegmentContext CreateLocalSegment(string operationName);
 
         SegmentContext CreateExitSegment(string operationName, StringOrIntValue networkAddress);
-        
+
         void Release(SegmentContext segmentContext);
     }
 }

@@ -32,8 +32,7 @@ namespace Surging.Apm.Skywalking.Core.Service
         private readonly ISegmentDispatcher _dispatcher;
 
         public SegmentReportService(IConfigAccessor configAccessor, ISegmentDispatcher dispatcher,
-            IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory)
-            : base(runtimeEnvironment, loggerFactory)
+            IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             _dispatcher = dispatcher;
             _config = configAccessor.Get<TransportConfig>();

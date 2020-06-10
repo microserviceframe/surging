@@ -16,7 +16,6 @@
  *
  */
 
-using Surging.Apm.Skywalking.Abstractions.Tracing;
 using Surging.Apm.Skywalking.Abstractions.Transport;
 using Surging.Core.CPlatform.Diagnostics;
 using System.Collections.Generic;
@@ -48,8 +47,8 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Transport
                 OperationName = segmentContext.Span.OperationName,
                 StartTime = segmentContext.Span.StartTime,
                 EndTime = segmentContext.Span.EndTime,
-                SpanType = (int) segmentContext.Span.SpanType,
-                SpanLayer = (int) segmentContext.Span.SpanLayer,
+                SpanType = (int)segmentContext.Span.SpanType,
+                SpanLayer = (int)segmentContext.Span.SpanLayer,
                 IsError = segmentContext.Span.IsError,
                 Peer = segmentContext.Span.Peer,
                 Component = segmentContext.Span.Component
@@ -64,7 +63,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Transport
                     EntryServiceInstanceId = reference.EntryServiceInstanceId,
                     EntryEndpointName = reference.EntryEndpoint,
                     NetworkAddress = reference.NetworkAddress,
-                    RefType = (int) reference.Reference
+                    RefType = (int)reference.Reference
                 });
 
             foreach (var tag in segmentContext.Span.Tags)
@@ -72,7 +71,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Transport
 
             foreach (var log in segmentContext.Span.Logs)
             {
-                var logData = new LogDataRequest {Timestamp = log.Timestamp};
+                var logData = new LogDataRequest { Timestamp = log.Timestamp };
                 foreach (var data in log.Data)
                     logData.Data.Add(new KeyValuePair<string, string>(data.Key, data.Value));
                 span.Logs.Add(logData);

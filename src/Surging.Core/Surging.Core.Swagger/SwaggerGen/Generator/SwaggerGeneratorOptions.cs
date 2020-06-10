@@ -16,7 +16,7 @@ namespace Surging.Core.SwaggerGen
             DocInclusionPredicate = DefaultDocInclusionPredicate;
             DocInclusionPredicateV2 = DefaultDocInclusionPredicateV2;
             OperationIdSelector = DefaultOperationIdSelector;
-           TagsSelector = DefaultTagsSelector;
+            TagsSelector = DefaultTagsSelector;
             SortKeySelector = DefaultSortKeySelector;
             SecurityDefinitions = new Dictionary<string, SecurityScheme>();
             SecurityRequirements = new List<IDictionary<string, IEnumerable<string>>>();
@@ -65,7 +65,7 @@ namespace Surging.Core.SwaggerGen
             var versions = assembly
                         .GetCustomAttributes(true)
                         .OfType<AssemblyVersionAttribute>();
-            return versions != null; 
+            return versions != null;
         }
 
         private string DefaultOperationIdSelector(ApiDescription apiDescription)

@@ -1,11 +1,9 @@
 ﻿using Surging.Core.CPlatform.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Caching
 {
-   public class CacheContainer
+    public class CacheContainer
     {
         public static T GetInstances<T>(string name) where T : class
         {

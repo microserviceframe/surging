@@ -10,7 +10,6 @@ using Surging.Core.CPlatform.Mqtt;
 using Surging.Core.CPlatform.Mqtt.Implementation;
 using Surging.Core.CPlatform.Runtime.Client;
 using Surging.Core.CPlatform.Serialization;
-using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.CPlatform.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ using System.Threading.Tasks;
 namespace Surging.Core.Consul
 {
     public class ConsulMqttServiceRouteManager : MqttServiceRouteManagerBase, IDisposable
-    { 
+    {
         private readonly ConfigInfo _configInfo;
         private readonly ISerializer<byte[]> _serializer;
         private readonly IMqttServiceFactory _mqttServiceFactory;
@@ -34,7 +33,7 @@ namespace Surging.Core.Consul
 
         public ConsulMqttServiceRouteManager(ConfigInfo configInfo, ISerializer<byte[]> serializer,
        ISerializer<string> stringSerializer, IClientWatchManager manager, IMqttServiceFactory mqttServiceFactory,
-       ILogger<ConsulMqttServiceRouteManager> logger,IServiceHeartbeatManager serviceHeartbeatManager,
+       ILogger<ConsulMqttServiceRouteManager> logger, IServiceHeartbeatManager serviceHeartbeatManager,
        IConsulClientProvider consulClientFactory) : base(stringSerializer)
         {
             _configInfo = configInfo;
@@ -102,7 +101,7 @@ namespace Surging.Core.Consul
                     route.MqttEndpoint = addresses;
                 }
             }
-           
+
             await base.SetRoutesAsync(routes);
         }
 
@@ -129,8 +128,8 @@ namespace Surging.Core.Consul
             try
             {
                 var route = routes.Where(p => p.MqttDescriptor.Topic == topic).SingleOrDefault();
-                if(route !=null)
-                { 
+                if (route != null)
+                {
                     route.MqttEndpoint = route.MqttEndpoint.Except(endpoint);
                     await base.SetRoutesAsync(new MqttServiceRoute[] { route });
                 }
@@ -139,7 +138,7 @@ namespace Surging.Core.Consul
             {
                 throw ex;
             }
-           
+
         }
 
         protected override async Task SetRoutesAsync(IEnumerable<MqttServiceDescriptor> routes)
@@ -235,11 +234,11 @@ namespace Surging.Core.Consul
             MqttServiceRoute result = null;
             var client = await GetConsulClient();
             var watcher = new NodeMonitorWatcher(GetConsulClient, _manager, path,
-                async (oldData, newData) => await NodeChange(oldData, newData),tmpPath=> {
+                async (oldData, newData) => await NodeChange(oldData, newData), tmpPath => {
                     var index = tmpPath.LastIndexOf("/");
                     return _serviceHeartbeatManager.ExistsWhitelist(tmpPath.Substring(index + 1));
-                }); 
-         
+                });
+
             var queryResult = await client.KV.Keys(path);
             if (queryResult.Response != null)
             {
@@ -258,7 +257,7 @@ namespace Surging.Core.Consul
             if (_routes != null && _routes.Length > 0)
                 return;
             Action<string[]> action = null;
-            var client =await GetConsulClient();
+            var client = await GetConsulClient();
             if (_configInfo.EnableChildrenMonitor)
             {
                 var watcher = new ChildrenMonitorWatcher(GetConsulClient, _manager, _configInfo.MqttRoutePath,
@@ -281,7 +280,7 @@ namespace Surging.Core.Consul
                 _routes = new MqttServiceRoute[0];
             }
         }
-         
+
 
         private static bool DataEquals(IReadOnlyList<byte> data1, IReadOnlyList<byte> data2)
         {

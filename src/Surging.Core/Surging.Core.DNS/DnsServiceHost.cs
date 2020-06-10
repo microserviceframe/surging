@@ -1,16 +1,13 @@
-﻿using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.Runtime.Server;
+﻿using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Runtime.Server.Implementation;
 using Surging.Core.CPlatform.Transport;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DNS
 {
-   public class DnsServiceHost : ServiceHostAbstract
+    public class DnsServiceHost : ServiceHostAbstract
     {
         #region Field
 
@@ -55,7 +52,7 @@ namespace Surging.Core.DNS
         {
             if (_serverMessageListener != null)
                 return;
-            _serverMessageListener = await _messageListenerFactory(new IPEndPoint(IPAddress.Parse(ip),53));
+            _serverMessageListener = await _messageListenerFactory(new IPEndPoint(IPAddress.Parse(ip), 53));
             _serverMessageListener.Received += async (sender, message) =>
             {
                 await Task.Run(() =>

@@ -12,7 +12,7 @@ using Surging.Core.KestrelHttpServer.Internal;
 
 namespace Surging.Core.Stage.Filters
 {
-	public class AuthorizationFilterAttribute : IAuthorizationFilter
+    public class AuthorizationFilterAttribute : IAuthorizationFilter
     {
         private readonly IAuthorizationServerProvider _authorizationServerProvider;
         public AuthorizationFilterAttribute()
@@ -56,4 +56,4 @@ namespace Surging.Core.Stage.Filters
         }
     }
 }
- 
+

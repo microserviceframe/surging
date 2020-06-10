@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.DNS.Configurations
 {
-   public class EventBusConfigurationSource : FileConfigurationSource
+    public class EventBusConfigurationSource : FileConfigurationSource
     {
         public string ConfigurationKeyPrefix { get; set; }
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.EventBusRabbitMQ.Utilities
 {
@@ -36,8 +33,8 @@ namespace Surging.Core.EventBusRabbitMQ.Utilities
             if (call == null)
                 throw new ArgumentException("只支持方法调用表达式", "expression");
 
-            MethodInfo method = call.Method; 
-            Action<T> invoker = GetInvoker( () =>
+            MethodInfo method = call.Method;
+            Action<T> invoker = GetInvoker(() =>
             {
                 if (method.IsGenericMethod)
                     return GetGenericMethodFromTypes(method.GetGenericMethodDefinition(), genericTypes);
@@ -46,7 +43,7 @@ namespace Surging.Core.EventBusRabbitMQ.Utilities
             invoker(target);
         }
 
-         MethodInfo GetGenericMethodFromTypes(MethodInfo method, Type[] genericTypes)
+        MethodInfo GetGenericMethodFromTypes(MethodInfo method, Type[] genericTypes)
         {
             if (!method.IsGenericMethod)
                 throw new ArgumentException("不能为非泛型方法指定泛型类型。: " + method.Name);
@@ -60,16 +57,16 @@ namespace Surging.Core.EventBusRabbitMQ.Utilities
             return method;
         }
 
-        Action<T> GetInvoker( Func<MethodInfo> getMethodInfo)
-        { 
-                MethodInfo method = getMethodInfo();
+        Action<T> GetInvoker(Func<MethodInfo> getMethodInfo)
+        {
+            MethodInfo method = getMethodInfo();
 
-                ParameterExpression instanceParameter = Expression.Parameter(typeof(T), "target");
+            ParameterExpression instanceParameter = Expression.Parameter(typeof(T), "target");
 
-                MethodCallExpression call = Expression.Call(instanceParameter, method);
+            MethodCallExpression call = Expression.Call(instanceParameter, method);
 
-                return Expression.Lambda<Action<T>>(call, new[] { instanceParameter }).Compile();
-            
+            return Expression.Lambda<Action<T>>(call, new[] { instanceParameter }).Compile();
+
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.Caching.Models
 {
-    public  class Binding
+    public class Binding
     {
         public string Id { get; set; }
 

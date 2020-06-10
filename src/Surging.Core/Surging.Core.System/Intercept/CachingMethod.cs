@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.System.Intercept
+﻿namespace Surging.Core.System.Intercept
 {
     /// <summary>
     /// 表示用于Caching特性的缓存方式。
@@ -24,5 +20,4 @@ namespace Surging.Core.System.Intercept
         /// </summary>
         Remove
     }
-
 }

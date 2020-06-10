@@ -15,18 +15,15 @@ namespace DotNetty.Codecs.DNS.Records
 
         public byte[] Address => (byte[])address.Clone();
 
-        public DefaultDnsOptEcsRecord(int maxPayloadSize, int extendedRcode, int version,
-            int srcPrefixLength, byte[] address) : base(maxPayloadSize, extendedRcode, version)
+        public DefaultDnsOptEcsRecord(int maxPayloadSize, int extendedRcode, int version, int srcPrefixLength, byte[] address) : base(maxPayloadSize, extendedRcode, version)
         {
             SourcePrefixLength = srcPrefixLength;
             address = VerifyAddress(address);
         }
 
-        public DefaultDnsOptEcsRecord(int maxPayloadSize, int srcPrefixLength, byte[] address)
-            : this(maxPayloadSize, 0, 0, srcPrefixLength, address) { }
+        public DefaultDnsOptEcsRecord(int maxPayloadSize, int srcPrefixLength, byte[] address) : this(maxPayloadSize, 0, 0, srcPrefixLength, address) { }
 
-        public DefaultDnsOptEcsRecord(int maxPayloadSize, IPAddress address)
-            : this(maxPayloadSize, 0, 0, 0, address.GetAddressBytes()) { }
+        public DefaultDnsOptEcsRecord(int maxPayloadSize, IPAddress address) : this(maxPayloadSize, 0, 0, 0, address.GetAddressBytes()) { }
 
         private static byte[] VerifyAddress(byte[] bytes)
         {

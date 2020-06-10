@@ -1,9 +1,7 @@
 ﻿using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Runtime.Client.Address.Resolvers.Implementation.Selectors;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Consul.Internal.Cluster.Implementation.Selectors.Implementation
@@ -28,7 +26,7 @@ namespace Surging.Core.Consul.Internal.Cluster.Implementation.Selectors.Implemen
 
             //  var address = context.Address.ToArray();
             if (context.Address.Count() == 0)
-                throw new ArgumentException("没有任何地址信息。", nameof(context.Address)); 
+                throw new ArgumentException("没有任何地址信息。", nameof(context.Address));
 
             if (context.Address.Count() == 1)
             {

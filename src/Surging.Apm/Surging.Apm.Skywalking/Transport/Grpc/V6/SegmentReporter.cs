@@ -35,8 +35,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
         private readonly ILogger _logger;
         private readonly GrpcConfig _config;
 
-        public SegmentReporter(ConnectionManager connectionManager, IConfigAccessor configAccessor,
-            ILoggerFactory loggerFactory)
+        public SegmentReporter(ConnectionManager connectionManager, IConfigAccessor configAccessor, ILoggerFactory loggerFactory)
         {
             _connectionManager = connectionManager;
             _config = configAccessor.Get<GrpcConfig>();

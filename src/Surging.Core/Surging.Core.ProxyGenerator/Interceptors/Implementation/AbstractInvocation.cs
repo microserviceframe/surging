@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 {
-	public abstract class AbstractInvocation : IInvocation,ICacheInvocation
+    public abstract class AbstractInvocation : IInvocation, ICacheInvocation
     {
         private readonly IDictionary<string, object> _arguments;
         private readonly string _serviceId;

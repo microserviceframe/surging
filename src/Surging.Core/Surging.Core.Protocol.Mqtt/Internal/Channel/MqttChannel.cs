@@ -1,12 +1,10 @@
 ﻿using DotNetty.Common.Utilities;
 using DotNetty.Transport.Channels;
-using Surging.Core.CPlatform;
 using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using Surging.Core.Protocol.Mqtt.Internal.Messages;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Mqtt.Internal.Channel
@@ -24,12 +22,12 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Channel
 
         public bool CleanSession { get; set; }
         public ConcurrentDictionary<int, SendMqttMessage> Messages { get; set; }
-    
+
         public void AddMqttMessage(int messageId, SendMqttMessage msg)
         {
-            Messages.AddOrUpdate(messageId, msg,(id,message)=>msg);
+            Messages.AddOrUpdate(messageId, msg, (id, message) => msg);
         }
-        
+
         public SendMqttMessage GetMqttMessage(int messageId)
         {
             SendMqttMessage mqttMessage = null;
@@ -37,11 +35,10 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Channel
             return mqttMessage;
         }
 
-
         public void RemoveMqttMessage(int messageId)
         {
             SendMqttMessage mqttMessage = null;
-            Messages.Remove(messageId,out mqttMessage);
+            Messages.Remove(messageId, out mqttMessage);
         }
 
         public bool IsLogin()
@@ -50,7 +47,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Channel
             if (Channel != null)
             {
                 AttributeKey<string> _login = AttributeKey<string>.ValueOf("login");
-                result= Channel.Active && Channel.HasAttribute(_login);
+                result = Channel.Active && Channel.HasAttribute(_login);
             }
             return result;
         }
@@ -61,14 +58,13 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Channel
                 await Channel.CloseAsync();
         }
 
-       
         public async Task<bool> IsOnine()
         {
             //如果保持连接的值非零，并且服务端在2倍的保持连接时间内没有收到客户端的报文，需要断开客户端的连接
-            bool isOnline= (DateTime.Now - PingReqTime).TotalSeconds <= (this.KeepAliveInSeconds*2) && SessionStatus== SessionStatus.OPEN;
-            if(!isOnline)
+            bool isOnline = (DateTime.Now - PingReqTime).TotalSeconds <= (this.KeepAliveInSeconds * 2) && SessionStatus == SessionStatus.OPEN;
+            if (!isOnline)
             {
-               await Close();
+                await Close();
             }
             return isOnline;
         }
@@ -77,7 +73,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Channel
         {
             return Channel != null && Channel.Active;
         }
-        
+
         public void AddTopic(params string[] topics)
         {
             Topics.AddRange(topics);

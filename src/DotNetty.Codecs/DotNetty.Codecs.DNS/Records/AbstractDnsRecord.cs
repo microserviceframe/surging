@@ -15,8 +15,7 @@ namespace DotNetty.Codecs.DNS.Records
         public DnsRecordClass DnsClass { get; }
         public long TimeToLive { get; set; }
 
-        protected AbstractDnsRecord(string name, DnsRecordType type, 
-            long timeToLive, DnsRecordClass dnsClass = DnsRecordClass.IN)
+        protected AbstractDnsRecord(string name, DnsRecordType type, long timeToLive, DnsRecordClass dnsClass = DnsRecordClass.IN)
         {
             if (TimeToLive < 0)
                 throw new ArgumentException($"timeToLive: {timeToLive} (expected: >= 0)");
@@ -63,7 +62,7 @@ namespace DotNetty.Codecs.DNS.Records
             if (hashCode != 0)
                 return hashCode;
 
-            return this.hashCode = Name.GetHashCode() * 31 + 
+            return this.hashCode = Name.GetHashCode() * 31 +
                 Type.IntValue * 31 + (int)DnsClass;
 
         }
@@ -96,5 +95,5 @@ namespace DotNetty.Codecs.DNS.Records
         NONE = 0x00fe,
         ANY = 0x00ff
     }
-    
+
 }

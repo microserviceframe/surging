@@ -3,10 +3,8 @@ using Surging.Core.Common.ServicesException;
 using System.Reflection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Surging.Core.System.Module
 {
@@ -44,7 +42,7 @@ namespace Surging.Core.System.Module
         /// 	<para>创建：范亮</para>
         /// 	<para>日期：2015/12/4</para>
         /// </remarks>
-   
+
         public string ModuleName { get; set; }
 
         /// <summary>
@@ -57,7 +55,7 @@ namespace Surging.Core.System.Module
         /// 	<para>创建：范亮</para>
         /// 	<para>日期：2015/12/4</para>
         /// </remarks>
-    
+
         public string TypeName { get; set; }
 
         /// <summary>
@@ -70,7 +68,7 @@ namespace Surging.Core.System.Module
         /// 	<para>创建：范亮</para>
         /// 	<para>日期：2015/12/4</para>
         /// </remarks>
-      
+
         public string Title { get; set; }
 
         /// <summary>
@@ -214,14 +212,13 @@ namespace Surging.Core.System.Module
         /// </remarks>
         public virtual void ValidateModule()
         {
-            if (this.Identifier == Guid.Empty || string.IsNullOrEmpty(this.ModuleName) || string.IsNullOrEmpty(this.TypeName)
-                || string.IsNullOrEmpty(this.Title))
+            if (Identifier == Guid.Empty || string.IsNullOrEmpty(ModuleName) || string.IsNullOrEmpty(TypeName) || string.IsNullOrEmpty(Title))
             {
                 throw new ServiceException("模块属性：Identifier，ModuleName，TypeName，Title 是必须的不能为空！");
             }
 
             Regex regex = new Regex(@"^[a-zA-Z][a-zA-Z0-9_]*$");
-            if (!regex.IsMatch(this.ModuleName))
+            if (!regex.IsMatch(ModuleName))
             {
                 throw new ServiceException("模块属性：ModuleName 必须为字母开头数字或下划线的组合！");
             }

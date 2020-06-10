@@ -1,15 +1,12 @@
 ﻿using Surging.Core.CPlatform.Filters.Implementation;
 using Surging.Core.SwaggerGen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.Swagger.Swagger.Filters
 {
-   public class AddAuthorizationOperationFilter : IOperationFilter
+    public class AddAuthorizationOperationFilter : IOperationFilter
     {
-
         public AddAuthorizationOperationFilter()
         {
         }
@@ -20,7 +17,6 @@ namespace Surging.Core.Swagger.Swagger.Filters
             {
                 operation.Parameters = new List<IParameter>();
             }
-
 
             var attribute =
                  context.ServiceEntry.Attributes.Where(p => p is AuthorizationAttribute)
@@ -38,7 +34,7 @@ namespace Surging.Core.Swagger.Swagger.Filters
                     }
                 });
             }
-            else if( attribute != null && attribute.AuthType == AuthorizationType.AppSecret)
+            else if (attribute != null && attribute.AuthType == AuthorizationType.AppSecret)
             {
                 operation.Parameters.Add(new BodyParameter
                 {

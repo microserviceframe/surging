@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace Surging.Core.Caching.Configurations.Remote
 {
-   public class RemoteConfigurationSource : IConfigurationSource
+    public class RemoteConfigurationSource : IConfigurationSource
     {
         /// <summary>
         /// The uri to call to fetch 

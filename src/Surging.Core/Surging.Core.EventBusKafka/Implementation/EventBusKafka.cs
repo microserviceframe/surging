@@ -21,9 +21,7 @@ namespace Surging.Core.EventBusKafka.Implementation
 
         public event EventHandler OnShutdown;
 
-        public EventBusKafka(ILogger<EventBusKafka> logger,
-            IEventBusSubscriptionsManager subsManager,
-            CPlatformContainer serviceProvider)
+        public EventBusKafka(ILogger<EventBusKafka> logger, IEventBusSubscriptionsManager subsManager, CPlatformContainer serviceProvider)
         {
             _logger = logger;
             _producerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Producer.ToString());
@@ -61,8 +59,7 @@ namespace Surging.Core.EventBusKafka.Implementation
             {
                 _producerConnection.TryConnect();
             }
-            var eventName = @event.GetType()
-                   .Name;
+            var eventName = @event.GetType().Name;
             var body = JsonConvert.SerializeObject(@event);
             var policy = RetryPolicy.Handle<KafkaException>()
                .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>

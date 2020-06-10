@@ -1,7 +1,6 @@
 ﻿using Surging.Core.CPlatform.Messages;
 using System.Runtime.CompilerServices;
 
-
 namespace Surging.Core.DNS.Extensions
 {
     public static class TransportMessageExtensions

@@ -50,7 +50,6 @@ namespace Surging.Core.DotNetty
             }).SingleInstance();
             builder.Register(provider =>
             {
-
                 var serviceExecutor = provider.ResolveKeyed<IServiceExecutor>(CommunicationProtocol.Tcp.ToString());
                 var messageListener = provider.Resolve<DotNettyServerMessageListener>();
                 return new DefaultServiceHost(async endPoint =>

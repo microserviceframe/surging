@@ -2,10 +2,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Linq;
-using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace Surging.Core.Caching.NetCache
@@ -13,7 +11,7 @@ namespace Surging.Core.Caching.NetCache
     public class MemoryCache
     {
         private static readonly ConcurrentDictionary<string, Tuple<string, object, DateTime>> cache = new ConcurrentDictionary<string, Tuple<string, object, DateTime>>();
-        private const  int taskInterval = 5;
+        private const int taskInterval = 5;
 
         static MemoryCache()
         {
@@ -34,7 +32,7 @@ namespace Surging.Core.Caching.NetCache
                 return cache.Count;
             }
         }
-        
+
         /// <summary>
         /// 获得一个Cache对象
         /// </summary>
@@ -76,7 +74,7 @@ namespace Surging.Core.Caching.NetCache
             obj = Get(key);
             return (obj != null);
         }
-        
+
         public static T Get<T>(string key)
         {
             Check.CheckCondition(() => string.IsNullOrEmpty(key), "key");
@@ -130,7 +128,7 @@ namespace Surging.Core.Caching.NetCache
         public static void Remove(string key)
         {
             Tuple<string, object, DateTime> item;
-            cache.TryRemove(key,out item);
+            cache.TryRemove(key, out item);
         }
 
         public static void Dispose()
@@ -158,7 +156,7 @@ namespace Surging.Core.Caching.NetCache
                 }
                 catch
                 {
-                     Dispose();
+                    Dispose();
                     GCThreadProvider.AddThread(new ParameterizedThreadStart(Collect));
                 }
 

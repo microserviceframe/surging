@@ -9,9 +9,6 @@ using Surging.Core.CPlatform.Transport;
 using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.Thrift.Runtime;
 using Surging.Core.Thrift.Runtime.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Thrift
 {

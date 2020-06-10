@@ -28,8 +28,7 @@ namespace Surging.Core.SwaggerGen
             return jsonProperty.HasAttribute<ObsoleteAttribute>();
         }
 
-        internal static bool HasAttribute<T>(this JsonProperty jsonProperty)
-            where T : Attribute
+        internal static bool HasAttribute<T>(this JsonProperty jsonProperty) where T : Attribute
         {
             if (!jsonProperty.TryGetMemberInfo(out MemberInfo memberInfo))
                 return false;

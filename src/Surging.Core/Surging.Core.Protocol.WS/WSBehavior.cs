@@ -11,29 +11,29 @@ using System.Linq;
 
 namespace Surging.Core.Protocol.WS
 {
-   public abstract class WSBehavior : WebSocketBehavior, IServiceBehavior
-    { 
+    public abstract class WSBehavior : WebSocketBehavior, IServiceBehavior
+    {
         public T CreateProxy<T>(string key) where T : class
         {
             return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
         }
-         
+
         public object CreateProxy(Type type)
         {
             return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
         }
-         
+
         public object CreateProxy(string key, Type type)
         {
             return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
         }
-         
+
         public T CreateProxy<T>() where T : class
         {
             return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
         }
 
-        public  T GetService<T>(string key) where T : class
+        public T GetService<T>(string key) where T : class
         {
             if (ServiceLocator.Current.IsRegisteredWithKey<T>(key))
                 return ServiceLocator.GetService<T>(key);
@@ -41,7 +41,7 @@ namespace Surging.Core.Protocol.WS
                 return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
         }
 
-        public   T GetService<T>() where T : class
+        public T GetService<T>() where T : class
         {
             if (ServiceLocator.Current.IsRegistered<T>())
                 return ServiceLocator.GetService<T>();
@@ -50,7 +50,7 @@ namespace Surging.Core.Protocol.WS
 
         }
 
-        public   object GetService(Type type)
+        public object GetService(Type type)
         {
             if (ServiceLocator.Current.IsRegistered(type))
                 return ServiceLocator.GetService(type);
@@ -58,7 +58,7 @@ namespace Surging.Core.Protocol.WS
                 return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
         }
 
-        public   object GetService(string key, Type type)
+        public object GetService(string key, Type type)
         {
             if (ServiceLocator.Current.IsRegisteredWithKey(key, type))
                 return ServiceLocator.GetService(key, type);

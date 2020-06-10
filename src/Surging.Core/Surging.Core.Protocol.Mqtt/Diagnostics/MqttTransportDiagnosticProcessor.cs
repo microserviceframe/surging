@@ -3,14 +3,12 @@ using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Utilities;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Text;
 using SurgingEvents = Surging.Core.CPlatform.Diagnostics.DiagnosticListenerExtensions;
 
 namespace Surging.Core.Protocol.Mqtt.Diagnostics
 {
-     public class MqttTransportDiagnosticProcessor: ITracingDiagnosticProcessor
+    public class MqttTransportDiagnosticProcessor : ITracingDiagnosticProcessor
     {
         private Func<TransportEventData, string> _transportOperationNameResolver;
         public string ListenerName => SurgingEvents.DiagnosticListenerName;

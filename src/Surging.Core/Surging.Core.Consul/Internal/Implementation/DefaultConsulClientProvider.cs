@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Consul;
 using Microsoft.Extensions.Logging;
 using Surging.Core.Consul.Configurations;
 using Surging.Core.Consul.Internal.Cluster.HealthChecks;
 using Surging.Core.Consul.Internal.Cluster.Implementation.Selectors;
-using Surging.Core.Consul.Internal.Cluster.Implementation.Selectors.Implementation;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Exceptions;
@@ -29,8 +26,7 @@ namespace Surging.Core.Consul.Internal.Implementation
         private readonly ConcurrentDictionary<AddressModel, ConsulClient> _consulClients = new
             ConcurrentDictionary<AddressModel, ConsulClient>();
 
-        public DefaultConsulClientProvider(ConfigInfo config, IHealthCheckService healthCheckService, IConsulAddressSelector consulAddressSelector,
-            ILogger<DefaultConsulClientProvider> logger)
+        public DefaultConsulClientProvider(ConfigInfo config, IHealthCheckService healthCheckService, IConsulAddressSelector consulAddressSelector, ILogger<DefaultConsulClientProvider> logger)
         {
             _config = config;
             _healthCheckService = healthCheckService;
@@ -69,9 +65,9 @@ namespace Surging.Core.Consul.Internal.Implementation
             {
                 var ipAddress = addr as IpAddressModel;
                 result = _consulClients.GetOrAdd(ipAddress, new ConsulClient(config =>
-                  {
-                      config.Address = new Uri($"http://{ipAddress.Ip}:{ipAddress.Port}");
-                  }, null, h => { h.UseProxy = false; h.Proxy = null; }));
+                {
+                    config.Address = new Uri($"http://{ipAddress.Ip}:{ipAddress.Port}");
+                }, null, h => { h.UseProxy = false; h.Proxy = null; }));
             }
             return result;
         }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform.Address;
@@ -38,10 +36,10 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime.Implementation
         public async ValueTask<IEnumerable<AddressModel>> GetMqttBrokerAddress(string topic)
         {
             _brokerEntries.TryGetValue(topic, out IEnumerable<AddressModel> addresses);
-            if (addresses==null || !addresses.Any())
+            if (addresses == null || !addresses.Any())
             {
                 var routes = await _mqttServiceRouteManager.GetRoutesAsync();
-                var route=  routes.Where(p => p.MqttDescriptor.Topic == topic).SingleOrDefault();
+                var route = routes.Where(p => p.MqttDescriptor.Topic == topic).SingleOrDefault();
                 if (route != null)
                 {
                     _brokerEntries.TryAdd(topic, route.MqttEndpoint);
@@ -70,15 +68,15 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime.Implementation
         }
 
         private void MqttRouteManager_Removed(object sender, MqttServiceRouteEventArgs e)
-        { 
+        {
             var key = GetCacheKey(e.Route.MqttDescriptor);
             _brokerEntries.TryRemove(key, out IEnumerable<AddressModel> value);
         }
 
         private void MqttRouteManager_Removed(object sender, HealthCheckEventArgs e)
         {
-            if(!e.Health)
-            _mqttServiceRouteManager.RemveAddressAsync(new AddressModel[] { e.Address });
+            if (!e.Health)
+                _mqttServiceRouteManager.RemveAddressAsync(new AddressModel[] { e.Address });
         }
     }
 }

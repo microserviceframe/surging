@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Surging.Core.Consul.WatcherProvider.Implementation
 {
-   public  abstract class WatchRegistration
+    public abstract class WatchRegistration
     {
         private readonly Watcher watcher;
         private readonly string clientPath;
@@ -30,8 +28,8 @@ namespace Surging.Core.Consul.WatcherProvider.Implementation
                     watchers = new HashSet<Watcher>();
                     watches[clientPath] = watchers;
                 }
-               if (!watchers.Any(p => p.GetType() == watcher.GetType()))
-                watchers.Add(watcher);
+                if (!watchers.Any(p => p.GetType() == watcher.GetType()))
+                    watchers.Add(watcher);
             }
         }
     }

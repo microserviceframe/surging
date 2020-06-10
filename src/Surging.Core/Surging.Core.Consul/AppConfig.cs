@@ -2,7 +2,7 @@
 
 namespace Surging.Core.Consul
 {
-	public class AppConfig
+    public class AppConfig
     {
         public static IConfigurationRoot Configuration { get; set; }
     }

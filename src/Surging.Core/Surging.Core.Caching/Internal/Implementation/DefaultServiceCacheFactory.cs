@@ -4,7 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Caching.Internal.Implementation
@@ -15,8 +14,7 @@ namespace Surging.Core.Caching.Internal.Implementation
     public class DefaultServiceCacheFactory : IServiceCacheFactory
     {
         private readonly ISerializer<string> _serializer;
-        private readonly ConcurrentDictionary<string, CacheEndpoint> _addressModel =
-               new ConcurrentDictionary<string, CacheEndpoint>();
+        private readonly ConcurrentDictionary<string, CacheEndpoint> _addressModel = new ConcurrentDictionary<string, CacheEndpoint>();
 
         public DefaultServiceCacheFactory(ISerializer<string> serializer)
         {
@@ -33,13 +31,12 @@ namespace Surging.Core.Caching.Internal.Implementation
 
             routes.AddRange(descriptors.Select(descriptor => new ServiceCache
             {
-                 CacheEndpoint = CreateAddress(descriptor.AddressDescriptors),
-                 CacheDescriptor = descriptor.CacheDescriptor
+                CacheEndpoint = CreateAddress(descriptor.AddressDescriptors),
+                CacheDescriptor = descriptor.CacheDescriptor
             }));
 
             return Task.FromResult(routes.AsEnumerable());
         }
-   
 
         private IEnumerable<CacheEndpoint> CreateAddress(IEnumerable<CacheEndpointDescriptor> descriptors)
         {

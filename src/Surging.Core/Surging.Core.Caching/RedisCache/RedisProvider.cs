@@ -4,9 +4,7 @@ using Surging.Core.Caching.HashAlgorithms;
 using Surging.Core.Caching.Interfaces;
 using Surging.Core.CPlatform.Cache;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Caching.RedisCache
@@ -15,6 +13,7 @@ namespace Surging.Core.Caching.RedisCache
     public class RedisProvider : ICacheProvider
     {
         #region 字段
+
         private readonly Lazy<RedisContext> _context;
         private Lazy<long> _defaultExpireTime;
         private const double ExpireTime = 60D;
@@ -22,6 +21,7 @@ namespace Surging.Core.Caching.RedisCache
         private Lazy<int> _connectTimeout;
         private readonly Lazy<ICacheClient<IDatabase>> _cacheClient;
         private readonly IAddressResolver addressResolver;
+
         #endregion
 
         #region 构造函数
@@ -64,7 +64,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public void Add(string key, object value)
         {
-            this.Add(key, value, TimeSpan.FromSeconds(ExpireTime));
+            Add(key, value, TimeSpan.FromSeconds(ExpireTime));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public void AddAsync(string key, object value)
         {
-            this.AddTaskAsync(key, value, TimeSpan.FromSeconds(ExpireTime));
+            AddTaskAsync(key, value, TimeSpan.FromSeconds(ExpireTime));
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public void Add(string key, object value, bool defaultExpire)
         {
-            this.Add(key, value, TimeSpan.FromSeconds(defaultExpire ? DefaultExpireTime : ExpireTime));
+            Add(key, value, TimeSpan.FromSeconds(defaultExpire ? DefaultExpireTime : ExpireTime));
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public void AddAsync(string key, object value, bool defaultExpire)
         {
-            this.AddTaskAsync(key, value, TimeSpan.FromSeconds(defaultExpire ? DefaultExpireTime : ExpireTime));
+            AddTaskAsync(key, value, TimeSpan.FromSeconds(defaultExpire ? DefaultExpireTime : ExpireTime));
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public void Add(string key, object value, long numOfMinutes)
         {
-            this.Add(key, value, TimeSpan.FromMinutes(numOfMinutes));
+            Add(key, value, TimeSpan.FromMinutes(numOfMinutes));
         }
 
 
@@ -139,7 +139,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public void AddAsync(string key, object value, long numOfMinutes)
         {
-            this.AddTaskAsync(key, value, TimeSpan.FromMinutes(numOfMinutes));
+            AddTaskAsync(key, value, TimeSpan.FromMinutes(numOfMinutes));
         }
 
 
@@ -256,7 +256,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public object Get(string key)
         {
-            var o = this.Get<object>(key);
+            var o = Get<object>(key);
             return o;
         }
 
@@ -267,7 +267,7 @@ namespace Surging.Core.Caching.RedisCache
         /// <returns></returns>
         public async Task<object> GetAsync(string key)
         {
-            var result = await this.GetTaskAsync<object>(key);
+            var result = await GetTaskAsync<object>(key);
             return result;
         }
 
@@ -284,8 +284,7 @@ namespace Surging.Core.Caching.RedisCache
         public T Get<T>(string key)
         {
             var node = GetRedisNode(key);
-            var result = default(T);
-            var redis = GetRedisClient(new RedisEndpoint()
+			var redis = GetRedisClient(new RedisEndpoint()
             {
                 DbIndex = int.Parse(node.Db),
                 Host = node.Host,
@@ -294,8 +293,8 @@ namespace Surging.Core.Caching.RedisCache
                 MinSize = int.Parse(node.MinSize),
                 MaxSize = int.Parse(node.MaxSize),
             });
-            result = redis.Get<T>(GetKeySuffix(key));
-            return result;
+			T result = redis.Get<T>(GetKeySuffix(key));
+			return result;
         }
 
 
@@ -336,8 +335,7 @@ namespace Surging.Core.Caching.RedisCache
         /// </remarks>
         public bool GetCacheTryParse(string key, out object obj)
         {
-            obj = null;
-            var o = this.Get<object>(key);
+            var o = Get<object>(key);
             obj = o;
             return o != null;
         }
@@ -431,29 +429,29 @@ namespace Surging.Core.Caching.RedisCache
         {
             if (addressResolver != null)
             {
-                return addressResolver.Resolver($"{KeySuffix}.{CacheTargetType.Redis.ToString()}", item).Result;
+                return addressResolver.Resolver($"{KeySuffix}.{CacheTargetType.Redis}", item).Result;
             }
             else
             {
                 ConsistentHash<ConsistentHashNode> hash;
                 _context.Value.dicHash.TryGetValue(CacheTargetType.Redis.ToString(), out hash);
-                return hash != null ? hash.GetItemNode(item) : default(ConsistentHashNode);
+                return hash != null ? hash.GetItemNode(item) : default;
             }
         }
 
         private async Task<T> GetTaskAsync<T>(string key)
         {
-            return await Task.Run(() => this.Get<T>(key));
+            return await Task.Run(() => Get<T>(key));
         }
 
         private async void AddTaskAsync(string key, object value, TimeSpan timeSpan)
         {
-            await Task.Run(() => this.Add(key, value, timeSpan));
+            await Task.Run(() => Add(key, value, timeSpan));
         }
 
         private async void RemoveTaskAsync(string key)
         {
-            await Task.Run(() => this.Remove(key));
+            await Task.Run(() => Remove(key));
         }
 
         private string GetKeySuffix(string key)
@@ -469,7 +467,5 @@ namespace Surging.Core.Caching.RedisCache
         }
 
         #endregion
-
-
     }
 }

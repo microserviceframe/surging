@@ -8,9 +8,7 @@ using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.Thrift.Extensions;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Thrift.Protocol;
 using Thrift.Transport;
@@ -18,7 +16,7 @@ using Thrift.Transport.Client;
 
 namespace Surging.Core.Thrift
 {
-   public class ThriftTransportClientFactory : ITransportClientFactory, IDisposable
+    public class ThriftTransportClientFactory : ITransportClientFactory, IDisposable
     {
         #region Field
 
@@ -28,13 +26,12 @@ namespace Surging.Core.Thrift
         private readonly IServiceExecutor _serviceExecutor;
         private readonly IHealthCheckService _healthCheckService;
         private readonly ConcurrentDictionary<EndPoint, Lazy<Task<ITransportClient>>> _clients = new ConcurrentDictionary<EndPoint, Lazy<Task<ITransportClient>>>();
-     
+
         #endregion Field
 
         #region Constructor
 
-        public ThriftTransportClientFactory(ITransportMessageCodecFactory codecFactory, IHealthCheckService healthCheckService, ILogger<ThriftTransportClientFactory> logger)
-            : this(codecFactory, healthCheckService, logger, null)
+        public ThriftTransportClientFactory(ITransportMessageCodecFactory codecFactory, IHealthCheckService healthCheckService, ILogger<ThriftTransportClientFactory> logger) : this(codecFactory, healthCheckService, logger, null)
         {
         }
 
@@ -44,8 +41,8 @@ namespace Surging.Core.Thrift
             _transportMessageDecoder = codecFactory.GetDecoder();
             _logger = logger;
             _healthCheckService = healthCheckService;
-            _serviceExecutor = serviceExecutor; 
-    
+            _serviceExecutor = serviceExecutor;
+
         }
 
         public async Task<ITransportClient> CreateClientAsync(EndPoint endPoint)
@@ -62,16 +59,16 @@ namespace Surging.Core.Thrift
                         var transport = new TSocketTransport(ipEndPoint.Address.ToString(), ipEndPoint.Port);
                         var tran = new TFramedTransport(transport);
                         var protocol = new TBinaryProtocol(tran);
-                          var  mp = new TMultiplexedProtocol(protocol, "thrift.surging"); 
+                        var mp = new TMultiplexedProtocol(protocol, "thrift.surging");
                         var messageListener = new MessageListener();
                         var messageSender = new ThriftMessageClientSender(_transportMessageEncoder, protocol);
-                        var result= new TThriftClient(protocol, messageSender, messageListener, new ChannelHandler( _transportMessageDecoder, messageListener, messageSender,_logger),  _logger);
+                        var result = new TThriftClient(protocol, messageSender, messageListener, new ChannelHandler(_transportMessageDecoder, messageListener, messageSender, _logger), _logger);
                         await result.OpenTransportAsync();
                         return result;
                     }
                     )).Value;//返回实例
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //移除
                 _clients.TryRemove(key, out var value);
@@ -92,6 +89,5 @@ namespace Surging.Core.Thrift
         }
 
         #endregion Constructor
-
     }
 }

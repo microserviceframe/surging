@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.Swagger
+﻿namespace Surging.Core.Swagger
 {
-   public  class AppConfig
+    public class AppConfig
     {
         public static Info SwaggerOptions
         {

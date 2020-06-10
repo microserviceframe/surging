@@ -1,7 +1,4 @@
 ﻿using Surging.Core.CPlatform.Cache;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Caching.HashAlgorithms
 {
@@ -12,7 +9,7 @@ namespace Surging.Core.Caching.HashAlgorithms
     /// 	<para>创建：范亮</para>
     /// 	<para>日期：2016/4/2</para>
     /// </remarks>
-    public class ConsistentHashNode: CacheEndpoint
+    public class ConsistentHashNode : CacheEndpoint
     {
         /// <summary>
         /// 缓存目标类型

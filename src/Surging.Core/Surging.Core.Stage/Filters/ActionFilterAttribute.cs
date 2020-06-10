@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.Stage.Filters
 {
-	public class ActionFilterAttribute : IActionFilter
+    public class ActionFilterAttribute : IActionFilter
     {
         private readonly IAuthorizationServerProvider _authorizationServerProvider;
         public ActionFilterAttribute()
@@ -57,7 +57,7 @@ namespace Surging.Core.Stage.Filters
         {
             bool isSuccess = true;
             DateTime time;
-            result = HttpResultMessage<object>.Create(true,null);
+            result = HttpResultMessage<object>.Create(true, null);
             var author = filterContext.Context.Request.Headers["Authorization"];
             var model = filterContext.Message.Parameters;
             var route = filterContext.Route;
@@ -95,7 +95,7 @@ namespace Surging.Core.Stage.Filters
             return isSuccess;
         }
 
-        public  string GetMD5(string encypStr)
+        public string GetMD5(string encypStr)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Surging.Core.Stage.Filters
                 foreach (byte b in bs)
                 {
                     sb.Append(b.ToString("X2"));
-                } 
+                }
                 return sb.ToString().ToLower();
             }
             catch (Exception e)
@@ -115,4 +115,4 @@ namespace Surging.Core.Stage.Filters
             }
         }
     }
-}}
+}

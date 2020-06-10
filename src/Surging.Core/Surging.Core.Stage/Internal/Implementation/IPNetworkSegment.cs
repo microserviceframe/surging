@@ -2,7 +2,7 @@
 
 namespace Surging.Core.Stage.Internal.Implementation
 {
-	public class IPNetworkSegment
+    public class IPNetworkSegment
     {
         public IPAddress LastUsable { get; set; }
         public long LongLastUsable { get; set; }

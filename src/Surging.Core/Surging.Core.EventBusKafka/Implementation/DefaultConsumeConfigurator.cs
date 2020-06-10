@@ -75,17 +75,13 @@ namespace Surging.Core.EventBusKafka.Implementation
             }
         }
 
-        protected void ConsumerTo<TEvent, TConsumer>()
-            where TConsumer : IIntegrationEventHandler<TEvent>
-            where TEvent : class
+        protected void ConsumerTo<TEvent, TConsumer>() where TConsumer : IIntegrationEventHandler<TEvent> where TEvent : class
         {
             _eventBus.Subscribe<TEvent, TConsumer>
               (() => (TConsumer)_container.GetInstances(typeof(TConsumer)));
         }
 
-        protected void RemoveConsumer<TEvent, TConsumer>()
-  where TConsumer : IIntegrationEventHandler<TEvent>
-  where TEvent : class
+        protected void RemoveConsumer<TEvent, TConsumer>() where TConsumer : IIntegrationEventHandler<TEvent> where TEvent : class
         {
             _eventBus.Unsubscribe<TEvent, TConsumer>();
         }

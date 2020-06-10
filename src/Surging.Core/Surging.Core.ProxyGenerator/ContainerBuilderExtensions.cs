@@ -3,7 +3,7 @@ using Surging.Core.ProxyGenerator.Implementation;
 using Autofac;
 using System;
 using Surging.Core.ProxyGenerator.Interceptors;
-using Surging.Core.ProxyGenerator.Interceptors.Implementation; 
+using Surging.Core.ProxyGenerator.Interceptors.Implementation;
 using Surging.Core.CPlatform.Runtime.Client;
 using Surging.Core.CPlatform.Convertibles;
 using Surging.Core.ProxyGenerator.Diagnostics;
@@ -24,7 +24,7 @@ namespace Surging.Core.ProxyGenerator
             var services = builder.Services;
             services.RegisterType<ServiceProxyGenerater>().As<IServiceProxyGenerater>().SingleInstance();
             services.RegisterType<ServiceProxyProvider>().As<IServiceProxyProvider>().SingleInstance();
-            builder.Services.Register(provider =>new ServiceProxyFactory(
+            builder.Services.Register(provider => new ServiceProxyFactory(
                  provider.Resolve<IRemoteInvokeService>(),
                  provider.Resolve<ITypeConvertibleService>(),
                  provider.Resolve<IServiceProvider>(),
@@ -35,9 +35,9 @@ namespace Surging.Core.ProxyGenerator
             return builder;
         }
 
-        public static IServiceBuilder AddClientIntercepted(this IServiceBuilder builder,params Type[] interceptorServiceTypes )
+        public static IServiceBuilder AddClientIntercepted(this IServiceBuilder builder, params Type[] interceptorServiceTypes)
         {
-            var services = builder.Services; 
+            var services = builder.Services;
             services.RegisterTypes(interceptorServiceTypes).As<IInterceptor>().SingleInstance();
             services.RegisterType<InterceptorProvider>().As<IInterceptorProvider>().SingleInstance();
             return builder;

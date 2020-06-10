@@ -33,7 +33,7 @@ namespace Surging.Apm.Skywalking.Core
         public bool Initialized => ServiceId.HasValue && ServiceInstanceId.HasValue;
 
         public Guid InstanceId { get; } = Guid.NewGuid();
-        
+
         public IEnvironmentProvider Environment { get; set; }
     }
 }

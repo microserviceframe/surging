@@ -3,17 +3,14 @@ using Surging.Core.CPlatform.EventBus.Events;
 using Surging.Core.CPlatform.EventBus.Implementation;
 using Surging.Core.CPlatform.Ioc;
 using Surging.Core.CPlatform.Utilities;
-using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using Surging.Core.Protocol.Mqtt.Internal.Messages;
 using Surging.Core.ProxyGenerator;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Mqtt.Internal.Services
 {
-    public abstract class MqttBehavior: ServiceBase
+    public abstract class MqttBehavior : ServiceBase
     {
         public async Task Publish(string deviceId, MqttWillMessage willMessage)
         {
@@ -66,7 +63,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
 
         public async Task<bool> GetDeviceIsOnine(string deviceId)
         {
-           return  await this.GetService<IChannelService>().GetDeviceIsOnine(deviceId);
+            return await this.GetService<IChannelService>().GetDeviceIsOnine(deviceId);
         }
 
         public abstract Task<bool> Authorized(string username, string password);

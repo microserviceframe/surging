@@ -10,15 +10,12 @@ namespace DotNetty.Codecs.DNS.Messages
         public bool IsRecursionAvailable { get; set; }
         public DnsResponseCode Code { get; set; }
 
-        public DefaultDnsResponse(int id)
-            : this(id, DnsOpCode.QUERY, DnsResponseCode.NOERROR) { }
+        public DefaultDnsResponse(int id) : this(id, DnsOpCode.QUERY, DnsResponseCode.NOERROR) { }
 
-        public DefaultDnsResponse(int id, DnsOpCode opCode)
-            : this(id, opCode, DnsResponseCode.NOERROR) { }
+        public DefaultDnsResponse(int id, DnsOpCode opCode) : this(id, opCode, DnsResponseCode.NOERROR) { }
 
-        public DefaultDnsResponse(int id, DnsOpCode opCode, DnsResponseCode code)
-            : base(id, opCode)
-        {   
+        public DefaultDnsResponse(int id, DnsOpCode opCode, DnsResponseCode code) : base(id, opCode)
+        {
             Code = code ?? throw new ArgumentNullException(nameof(code));
         }
 

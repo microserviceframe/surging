@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.System.MongoProvider
 {
@@ -23,6 +20,7 @@ namespace Surging.Core.System.MongoProvider
                 return _configuration;
             }
         }
+
         public string MongConnectionString
         {
             get

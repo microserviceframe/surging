@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 
 namespace Surging.Core.Protocol.Mqtt.Util
 {
-   public class MessageIdGenerater
+    public class MessageIdGenerater
     {
-
-        private static  int _index;
+        private static int _index;
         private static int _lock;
         public static int GenerateId()
         {
@@ -23,7 +19,7 @@ namespace Surging.Core.Protocol.Mqtt.Util
                     _index++;
                 else
                     _index = 0;
-          
+
                 Interlocked.Exchange(ref _lock, 0);
                 return _index;
             }

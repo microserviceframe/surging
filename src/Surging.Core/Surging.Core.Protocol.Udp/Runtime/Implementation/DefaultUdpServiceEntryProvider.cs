@@ -7,11 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.Protocol.Udp.Runtime.Implementation
 {
-   public class DefaultUdpServiceEntryProvider : IUdpServiceEntryProvider
+    public class DefaultUdpServiceEntryProvider : IUdpServiceEntryProvider
     {
         #region Field
 

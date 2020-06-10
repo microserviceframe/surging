@@ -4,14 +4,12 @@ using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Runtime.Server.Implementation;
 using Surging.Core.CPlatform.Transport;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.KestrelHttpServer
 {
-   public class HttpServiceHost : ServiceHostAbstract
+    public class HttpServiceHost : ServiceHostAbstract
     {
         #region Field
 
@@ -28,7 +26,7 @@ namespace Surging.Core.KestrelHttpServer
             {
                 await Task.Run(async () =>
                 {
-                   await MessageListener.OnReceived(sender, message);
+                    await MessageListener.OnReceived(sender, message);
                 });
             };
         }
@@ -48,12 +46,12 @@ namespace Surging.Core.KestrelHttpServer
         /// <returns>一个任务。</returns>
         public override async Task StartAsync(EndPoint endPoint)
         {
-             await _messageListenerFactory(endPoint); 
+            await _messageListenerFactory(endPoint);
         }
 
         public override async Task StartAsync(string ip, int port)
         {
-            await _messageListenerFactory(new IPEndPoint(IPAddress.Parse(ip), AppConfig.ServerOptions.Ports.HttpPort??0));
+            await _messageListenerFactory(new IPEndPoint(IPAddress.Parse(ip), AppConfig.ServerOptions.Ports.HttpPort ?? 0));
         }
 
         #endregion Overrides of ServiceHostAbstract
@@ -63,4 +61,4 @@ namespace Surging.Core.KestrelHttpServer
             await ServiceExecutor.ExecuteAsync(sender, message);
         }
     }
-} 
+}

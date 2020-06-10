@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Surging.Core.ProxyGenerator.Diagnostics
 {
-	public class RpcTransportCarrierHeaderCollection : ICarrierHeaderCollection
+    public class RpcTransportCarrierHeaderCollection : ICarrierHeaderCollection
     {
         private readonly TracingHeaders _tracingHeaders;
 

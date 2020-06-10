@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Surging.Core.Swagger.SwaggerUI
 {
-   public static class SwaggerUIOptionsExtensions
+    public static class SwaggerUIOptionsExtensions
     {
         /// <summary>
         /// Injects additional CSS stylesheets into the index.html page
@@ -41,16 +41,15 @@ namespace Surging.Core.Swagger.SwaggerUI
         /// <param name="options"></param>
         /// <param name="url">Can be fully qualified or relative to the current host</param>
         /// <param name="name">The description that appears in the document selector drop-down</param>
-        public static void SwaggerEndpoint(this SwaggerUIOptions options, string url, string name,string areaName)
+        public static void SwaggerEndpoint(this SwaggerUIOptions options, string url, string name, string areaName)
         {
             var urls = new List<UrlDescriptor>(options.ConfigObject.Urls ?? Enumerable.Empty<UrlDescriptor>());
             urls.Add(new UrlDescriptor { Url = string.IsNullOrEmpty(areaName) ? url : $"{areaName}{url}", Name = name });
             options.ConfigObject.Urls = urls;
         }
 
-        public static void SwaggerEndpoint(this SwaggerUIOptions options, IEnumerable<ServiceEntry> entries,string areaName)
+        public static void SwaggerEndpoint(this SwaggerUIOptions options, IEnumerable<ServiceEntry> entries, string areaName)
         {
-
             var list = new List<Info>();
             var assemblies = entries.Select(p => p.Type.Assembly).Distinct();
             foreach (var assembly in assemblies)
@@ -77,7 +76,7 @@ namespace Surging.Core.Swagger.SwaggerUI
                     Description = des?.Description,
 
                 };
-                options.SwaggerEndpoint($"../swagger/{info.Title}/swagger.json", info.Title,areaName);
+                options.SwaggerEndpoint($"../swagger/{info.Title}/swagger.json", info.Title, areaName);
             }
         }
 

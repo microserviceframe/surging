@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.Zookeeper.Configurations
+﻿namespace Surging.Core.Zookeeper.Configurations
 {
     public class ZookeeperOption
     {
-
         public string SessionTimeout { get; set; }
 
         public string ConnectionString { get; set; }

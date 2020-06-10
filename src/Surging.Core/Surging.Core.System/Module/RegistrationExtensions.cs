@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace Surging.Core.System.Module
 {
-   public static class RegistrationExtensions
+    public static class RegistrationExtensions
     {
         public static IRegistrationBuilder<T, SimpleActivatorData, SingleRegistrationStyle> Register<T>(this ContainerBuilderWrapper builder, Func<IComponentContext, T> @delegate)
         {

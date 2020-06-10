@@ -5,7 +5,7 @@ using Surging.Core.ProxyGenerator.Interceptors;
 using Surging.Core.ProxyGenerator.Interceptors.Implementation;
 using System.Linq;
 using System.Threading.Tasks;
-using Metadatas =Surging.Core.ProxyGenerator.Interceptors.Implementation.Metadatas;
+using Metadatas = Surging.Core.ProxyGenerator.Interceptors.Implementation.Metadatas;
 namespace Surging.Core.System.Intercept
 {
     /// <summary>
@@ -13,7 +13,7 @@ namespace Surging.Core.System.Intercept
     /// </summary>
     public class CacheProviderInterceptor : IInterceptor
     {
-        private readonly IInterceptorProvider _interceptorProvider; 
+        private readonly IInterceptorProvider _interceptorProvider;
         private readonly IServiceRouteProvider _serviceRouteProvider;
         public CacheProviderInterceptor(IInterceptorProvider interceptorProvider, IServiceRouteProvider serviceRouteProvider)
         {
@@ -21,10 +21,10 @@ namespace Surging.Core.System.Intercept
             _serviceRouteProvider = serviceRouteProvider;
         }
 
-        public  async Task Intercept(IInvocation invocation)
+        public async Task Intercept(IInvocation invocation)
         {
-         
-            var route= await _serviceRouteProvider.Locate(invocation.ServiceId);
+
+            var route = await _serviceRouteProvider.Locate(invocation.ServiceId);
             var cacheMetadata = route.ServiceDescriptor.GetCacheIntercept("Cache");
             if (cacheMetadata != null)
             {
@@ -37,7 +37,7 @@ namespace Surging.Core.System.Intercept
             }
         }
 
-        private async Task CacheIntercept(Metadatas.ServiceCacheIntercept attribute, string key, string[] keyVaules,IInvocation invocation,string l2Key,bool enableL2Cache)
+        private async Task CacheIntercept(Metadatas.ServiceCacheIntercept attribute, string key, string[] keyVaules, IInvocation invocation, string l2Key, bool enableL2Cache)
         {
             ICacheProvider cacheProvider = null;
             switch (attribute.Mode)
@@ -54,11 +54,11 @@ namespace Surging.Core.System.Intercept
                         break;
                     }
             }
-            if (cacheProvider != null && !enableL2Cache) await Invoke(cacheProvider, attribute, key,keyVaules, invocation);
-            else if(cacheProvider != null && enableL2Cache)
+            if (cacheProvider != null && !enableL2Cache) await Invoke(cacheProvider, attribute, key, keyVaules, invocation);
+            else if (cacheProvider != null && enableL2Cache)
             {
                 var l2CacheProvider = CacheContainer.GetService<ICacheProvider>(CacheTargetType.MemoryCache.ToString());
-                if(l2CacheProvider !=null) await Invoke(cacheProvider,l2CacheProvider,l2Key, attribute, key, keyVaules, invocation);
+                if (l2CacheProvider != null) await Invoke(cacheProvider, l2CacheProvider, l2Key, attribute, key, keyVaules, invocation);
             }
         }
 
@@ -80,22 +80,21 @@ namespace Surging.Core.System.Intercept
                 default:
                     {
                         await invocation.Proceed();
-                        var keys = attribute.CorrespondingKeys.Select(correspondingKey => string.Format(correspondingKey,keyVaules)).ToList();
+                        var keys = attribute.CorrespondingKeys.Select(correspondingKey => string.Format(correspondingKey, keyVaules)).ToList();
                         keys.ForEach(cacheProvider.RemoveAsync);
                         break;
                     }
             }
         }
 
-
-        private async Task Invoke(ICacheProvider cacheProvider, ICacheProvider l2cacheProvider,string l2Key, Metadatas.ServiceCacheIntercept attribute, string key, string[] keyVaules, IInvocation invocation)
+        private async Task Invoke(ICacheProvider cacheProvider, ICacheProvider l2cacheProvider, string l2Key, Metadatas.ServiceCacheIntercept attribute, string key, string[] keyVaules, IInvocation invocation)
         {
 
             switch (attribute.Method)
             {
                 case Metadatas.CachingMethod.Get:
                     {
-                        var retrunValue = await cacheProvider.GetFromCacheFirst(l2cacheProvider, l2Key,key, async () =>
+                        var retrunValue = await cacheProvider.GetFromCacheFirst(l2cacheProvider, l2Key, key, async () =>
                         {
                             await invocation.Proceed();
                             return invocation.ReturnValue;

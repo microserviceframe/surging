@@ -6,7 +6,7 @@ using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Core.ProxyGenerator
 {
-	public class ServiceProxyModule: EnginePartModule
+    public class ServiceProxyModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {

@@ -1,5 +1,4 @@
-﻿using Surging.Core.CPlatform;
-using Surging.Core.CPlatform.Support.Implementation;
+﻿using Surging.Core.CPlatform.Support.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,11 +1,7 @@
-﻿using Consul;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Surging.Core.Consul.Configurations;
-using Surging.Core.Consul.Utilitys;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
@@ -14,22 +10,23 @@ namespace Surging.Core.Consul.WatcherProvider.Implementation
 {
     public class ClientWatchManager : IClientWatchManager
     {
-        internal  Dictionary<string, HashSet<Watcher>> dataWatches =
-            new Dictionary<string, HashSet<Watcher>>();
+        internal Dictionary<string, HashSet<Watcher>> dataWatches = new Dictionary<string, HashSet<Watcher>>();
         private readonly Timer _timer;
         private readonly ILogger<ClientWatchManager> _logger;
 
-        public ClientWatchManager(ILogger<ClientWatchManager> logger,ConfigInfo config)
+        public ClientWatchManager(ILogger<ClientWatchManager> logger, ConfigInfo config)
         {
             var timeSpan = TimeSpan.FromSeconds(config.WatchInterval);
             _logger = logger;
             _timer = new Timer(async s =>
             {
-               await Watching();
+                await Watching();
             }, null, timeSpan, timeSpan);
         }
 
-        public Dictionary<string, HashSet<Watcher>> DataWatches { get
+        public Dictionary<string, HashSet<Watcher>> DataWatches
+        {
+            get
             {
                 return dataWatches;
             }

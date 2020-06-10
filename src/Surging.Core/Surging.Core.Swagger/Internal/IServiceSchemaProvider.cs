@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Surging.Core.Swagger.Internal
 {
-   public interface IServiceSchemaProvider
+    public interface IServiceSchemaProvider
     {
         IEnumerable<string> GetSchemaFilesPath();
     }

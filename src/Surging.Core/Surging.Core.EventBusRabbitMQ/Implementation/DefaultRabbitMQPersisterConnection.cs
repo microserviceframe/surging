@@ -4,17 +4,13 @@ using Polly.Retry;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using Surging.Core.CPlatform.EventBus;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
-using System.Text;
 
 namespace Surging.Core.EventBusRabbitMQ.Implementation
 {
-   public class DefaultRabbitMQPersistentConnection
-       : IRabbitMQPersistentConnection
+    public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     {
         private readonly IConnectionFactory _connectionFactory;
         private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
@@ -84,7 +80,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                 {
                     _connection = _connectionFactory
                           .CreateConnection();
-             
+
                 });
 
                 if (IsConnected)

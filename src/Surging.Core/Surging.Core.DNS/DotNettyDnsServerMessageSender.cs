@@ -7,7 +7,6 @@ using DotNetty.Codecs.DNS.Messages;
 using DotNetty.Codecs.DNS.Records;
 using DotNetty.Transport.Channels;
 using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Transport;
 using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.DNS.Extensions;
@@ -27,7 +26,7 @@ namespace Surging.Core.DNS
 
         public async Task SendAndFlushAsync(TransportMessage message)
         {
-            var response=await  WriteResponse(message);
+            var response = await WriteResponse(message);
             await _context.WriteAndFlushAsync(response);
         }
 
@@ -38,11 +37,11 @@ namespace Surging.Core.DNS
         }
 
         private IDnsResponse GetDnsResponse(TransportMessage message)
-        { 
-            if (message.Content !=null && !message.IsDnsResultMessage())
+        {
+            if (message.Content != null && !message.IsDnsResultMessage())
                 return null;
 
-            var transportMessage = message.GetContent<DnsTransportMessage>(); 
+            var transportMessage = message.GetContent<DnsTransportMessage>();
             return transportMessage.DnsResponse;
         }
 
@@ -65,7 +64,7 @@ namespace Surging.Core.DNS
         }
 
         private async Task<IDnsResponse> WriteResponse(TransportMessage message)
-        { 
+        {
             var response = GetDnsResponse(message);
             var dnsQuestion = GetDnsQuestion(message);
             var ipAddr = GetIpAddr(message);
@@ -78,7 +77,7 @@ namespace Surging.Core.DNS
                 }
                 else
                 {
-                    var dnsMessage =await GetDnsMessage(dnsQuestion.Name, dnsQuestion.Type);
+                    var dnsMessage = await GetDnsMessage(dnsQuestion.Name, dnsQuestion.Type);
                     if (dnsMessage != null)
                     {
                         foreach (DnsRecordBase dnsRecord in dnsMessage.AnswerRecords)
@@ -104,7 +103,7 @@ namespace Surging.Core.DNS
 
         public async Task<DnsMessage> GetDnsMessage(string name, DnsRecordType recordType)
         {
-           return await DnsClientProvider.Instance().Resolve(name, recordType);
+            return await DnsClientProvider.Instance().Resolve(name, recordType);
         }
     }
 }

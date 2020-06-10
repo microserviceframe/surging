@@ -22,7 +22,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Tracing
     public interface ISamplingInterceptor
     {
         int Priority { get; }
-        
+
         bool Invoke(SamplingContext samplingContext, Sampler next);
     }
 }

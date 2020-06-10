@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.Swagger.SwaggerUI
 {
-   public class SwaggerUIMiddleware
+    public class SwaggerUIMiddleware
     {
         private const string EmbeddedFileNamespace = "Surging.Core.Swagger.SwaggerUI.node_modules.swagger_ui_dist";
 

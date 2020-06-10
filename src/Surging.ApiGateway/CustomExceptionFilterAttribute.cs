@@ -7,7 +7,7 @@ using Surging.Core.ApiGateWay;
 
 namespace Surging.ApiGateway
 {
-	public class CustomExceptionFilterAttribute : ExceptionFilterAttribute
+    public class CustomExceptionFilterAttribute : ExceptionFilterAttribute
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IModelMetadataProvider _modelMetadataProvider;
@@ -24,7 +24,7 @@ namespace Surging.ApiGateway
             {
                 return;
             }
-            var result =  ServiceResult.Create(false,errorMessage: context.Exception.Message);
+            var result = ServiceResult.Create(false, errorMessage: context.Exception.Message);
             result.StatusCode = 400;
             context.Result = new JsonResult(result);
         }

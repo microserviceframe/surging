@@ -37,7 +37,7 @@ namespace Surging.Core.Consul
             _serviceCacheFactory = serviceCacheFactory;
             _consulClientFactory = consulClientFactory;
             _logger = logger;
-            _manager = manager; 
+            _manager = manager;
             EnterCaches().Wait();
         }
 
@@ -66,7 +66,7 @@ namespace Surging.Core.Consul
         public override async Task SetCachesAsync(IEnumerable<ServiceCache> caches)
         {
             var serviceCaches = await GetCaches(caches.Select(p => $"{ _configInfo.CachePath}{p.CacheDescriptor.Id}"));
-          
+
             await RemoveCachesAsync(caches);
             await base.SetCachesAsync(caches);
         }
@@ -76,7 +76,7 @@ namespace Surging.Core.Consul
             await EnterCaches();
             return _serviceCaches;
         }
-        
+
         public override async Task RemveAddressAsync(IEnumerable<CacheEndpoint> endpoints)
         {
             var caches = await GetCachesAsync();
@@ -110,7 +110,6 @@ namespace Surging.Core.Consul
 
         private async Task<ServiceCache[]> GetCaches(IEnumerable<string> childrens)
         {
-
             childrens = childrens.ToArray();
             var caches = new List<ServiceCache>(childrens.Count());
 
@@ -131,7 +130,7 @@ namespace Surging.Core.Consul
             ServiceCache result = null;
             var client = await GetConsulClient();
             var watcher = new NodeMonitorWatcher(GetConsulClient, _manager, path,
-                 async (oldData, newData) => await NodeChange(oldData, newData),null);
+                 async (oldData, newData) => await NodeChange(oldData, newData), null);
             var queryResult = await client.KV.Keys(path);
             if (queryResult.Response != null)
             {
@@ -157,7 +156,7 @@ namespace Surging.Core.Consul
                 var clients = await _consulClientFactory.GetClients();
                 foreach (var client in clients)
                 {
-                    
+
                     var deletedCacheIds = caches.Select(i => i.CacheDescriptor.Id).ToArray();
                     foreach (var deletedCacheId in deletedCacheIds)
                     {
@@ -172,15 +171,15 @@ namespace Surging.Core.Consul
         {
             if (_serviceCaches != null && _serviceCaches.Length > 0)
                 return;
-            var client =await GetConsulClient();
-             var watcher = new ChildrenMonitorWatcher(GetConsulClient, _manager, _configInfo.CachePath,
-                async (oldChildrens, newChildrens) => await ChildrenChange(oldChildrens, newChildrens),
-                  (result) => ConvertPaths(result).Result);
+            var client = await GetConsulClient();
+            var watcher = new ChildrenMonitorWatcher(GetConsulClient, _manager, _configInfo.CachePath,
+               async (oldChildrens, newChildrens) => await ChildrenChange(oldChildrens, newChildrens),
+                 (result) => ConvertPaths(result).Result);
             if (client.KV.Keys(_configInfo.CachePath).Result.Response?.Count() > 0)
             {
                 var result = await client.GetChildrenAsync(_configInfo.CachePath);
                 var keys = await client.KV.Keys(_configInfo.CachePath);
-                var childrens = result; 
+                var childrens = result;
                 watcher.SetCurrentData(ConvertPaths(childrens).Result.Select(key => $"{_configInfo.CachePath}{key}").ToArray());
                 _serviceCaches = await GetCaches(keys.Response);
             }
@@ -282,9 +281,9 @@ namespace Surging.Core.Consul
             else if (oldCache == null)
                 OnCreated(new ServiceCacheEventArgs(newCache));
 
-            else 
-            //触发缓存变更事件。
-            OnChanged(new ServiceCacheChangedEventArgs(newCache, oldCache));
+            else
+                //触发缓存变更事件。
+                OnChanged(new ServiceCacheChangedEventArgs(newCache, oldCache));
         }
 
         private async Task ChildrenChange(string[] oldChildrens, string[] newChildrens)

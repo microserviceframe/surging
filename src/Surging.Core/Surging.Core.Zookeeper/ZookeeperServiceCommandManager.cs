@@ -19,12 +19,12 @@ using System.Threading.Tasks;
 namespace Surging.Core.Zookeeper
 {
     public class ZookeeperServiceCommandManager : ServiceCommandManagerBase, IDisposable
-    { 
+    {
         private readonly ConfigInfo _configInfo;
         private readonly ISerializer<byte[]> _serializer;
         private readonly ILogger<ZookeeperServiceCommandManager> _logger;
-        private ServiceCommandDescriptor[] _serviceCommands; 
-        private readonly IServiceRouteManager _serviceRouteManager; 
+        private ServiceCommandDescriptor[] _serviceCommands;
+        private readonly IServiceRouteManager _serviceRouteManager;
         private readonly IZookeeperClientProvider _zookeeperClientProvider;
 
         public ZookeeperServiceCommandManager(ConfigInfo configInfo, ISerializer<byte[]> serializer,
@@ -36,7 +36,7 @@ namespace Surging.Core.Zookeeper
             _serviceRouteManager = serviceRouteManager;
             _logger = logger;
             _zookeeperClientProvider = zookeeperClientProvider;
-             EnterServiceCommands().Wait();
+            EnterServiceCommands().Wait();
             _serviceRouteManager.Removed += ServiceRouteManager_Removed;
         }
 
@@ -146,7 +146,7 @@ namespace Surging.Core.Zookeeper
         {
             var commands = await GetServiceCommands(serviceCommands.Select(p => p.ServiceId));
             if (commands.Count() == 0 || _configInfo.ReloadOnChange)
-            { 
+            {
                 await SetServiceCommandsAsync(serviceCommands);
             }
         }
@@ -205,7 +205,7 @@ namespace Surging.Core.Zookeeper
 
         private async Task<ServiceCommandDescriptor> GetServiceCommand(string path)
         {
-            ServiceCommandDescriptor result = null; 
+            ServiceCommandDescriptor result = null;
             var zooKeeper = await GetZooKeeper();
             var watcher = new NodeMonitorWatcher(GetZooKeeper, path,
                   (oldData, newData) => NodeChange(oldData, newData));
@@ -291,8 +291,8 @@ namespace Surging.Core.Zookeeper
                         .Where(i => i.ServiceId != newCommand.ServiceId)
                         .Concat(new[] { newCommand }).ToArray();
             }
-            
-                //触发服务命令变更事件。
+
+            //触发服务命令变更事件。
             OnChanged(new ServiceCommandChangedEventArgs(newCommand, oldCommand));
         }
 
@@ -360,10 +360,9 @@ namespace Surging.Core.Zookeeper
                 _logger.LogInformation("服务命令数据更新成功。");
         }
 
-
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
-        { 
+        {
         }
 
         private async ValueTask<(ManualResetEvent, ZooKeeper)> GetZooKeeper()
@@ -371,6 +370,5 @@ namespace Surging.Core.Zookeeper
             var zooKeeper = await _zookeeperClientProvider.GetZooKeeper();
             return zooKeeper;
         }
-
     }
 }

@@ -42,12 +42,12 @@ namespace Surging.Apm.Skywalking.Transport.Grpc
         {
             return DateTime.UtcNow.AddMilliseconds(config.Timeout);
         }
-        
+
         public static DateTime GetConnectTimeout(this GrpcConfig config)
         {
             return DateTime.UtcNow.AddMilliseconds(config.ConnectTimeout);
         }
-        
+
         public static DateTime GetReportTimeout(this GrpcConfig config)
         {
             return DateTime.UtcNow.AddMilliseconds(config.ReportTimeout);

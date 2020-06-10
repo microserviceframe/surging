@@ -10,19 +10,13 @@ using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Diagnostics;
 using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Transport;
-using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.Protocol.Mqtt.Implementation;
-using Surging.Core.Protocol.Mqtt.Internal.Channel;
-using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using Surging.Core.Protocol.Mqtt.Internal.Runtime;
 using Surging.Core.Protocol.Mqtt.Internal.Services;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Mqtt
@@ -41,7 +35,7 @@ namespace Surging.Core.Protocol.Mqtt
         public event ReceivedDelegate Received;
 
         #region Constructor
-        public DotNettyMqttServerMessageListener(ILogger<DotNettyMqttServerMessageListener> logger, 
+        public DotNettyMqttServerMessageListener(ILogger<DotNettyMqttServerMessageListener> logger,
             IChannelService channelService,
             IMqttBehaviorProvider mqttBehaviorProvider)
         {
@@ -94,10 +88,10 @@ namespace Surging.Core.Protocol.Mqtt
                 IChannelPipeline pipeline = channel.Pipeline;
                 pipeline.AddLast(MqttEncoder.Instance,
                     new MqttDecoder(true, 256 * 1024), new ServerHandler(async (context, packetType, message) =>
-                {
-                    var mqttHandlerService = new ServerMqttHandlerService(_logger, _channelService, _mqttBehaviorProvider);
-                    await ChannelWrite(context, message, packetType, mqttHandlerService);
-                }, _logger, _channelService, _mqttBehaviorProvider));
+                    {
+                        var mqttHandlerService = new ServerMqttHandlerService(_logger, _channelService, _mqttBehaviorProvider);
+                        await ChannelWrite(context, message, packetType, mqttHandlerService);
+                    }, _logger, _channelService, _mqttBehaviorProvider));
             }));
             try
             {
@@ -111,12 +105,12 @@ namespace Surging.Core.Protocol.Mqtt
             }
         }
 
-        public async Task ChannelWrite(IChannelHandlerContext context,object message, PacketType packetType, ServerMqttHandlerService mqttHandlerService)
+        public async Task ChannelWrite(IChannelHandlerContext context, object message, PacketType packetType, ServerMqttHandlerService mqttHandlerService)
         {
             switch (packetType)
             {
                 case PacketType.CONNECT:
-                   await mqttHandlerService.Login(context, message as ConnectPacket);
+                    await mqttHandlerService.Login(context, message as ConnectPacket);
                     break;
                 case PacketType.PUBLISH:
                     await mqttHandlerService.Publish(context, message as PublishPacket);
@@ -160,19 +154,19 @@ namespace Surging.Core.Protocol.Mqtt
         private class ServerHandler : ChannelHandlerAdapter
         {
             private readonly Action<IChannelHandlerContext, PacketType, object> _readAction;
-            private readonly ILogger _logger; 
+            private readonly ILogger _logger;
 
-            public ServerHandler(Action<IChannelHandlerContext,PacketType, object> readAction, 
+            public ServerHandler(Action<IChannelHandlerContext, PacketType, object> readAction,
                 ILogger logger,
                 IChannelService channelService,
-                IMqttBehaviorProvider mqttBehaviorProvider)  
+                IMqttBehaviorProvider mqttBehaviorProvider)
             {
                 _readAction = readAction;
                 _logger = logger;
             }
-             
+
             public override void ChannelRead(IChannelHandlerContext context, object message)
-            { 
+            {
                 var buffer = message as Packet;
                 _readAction(context, buffer.PacketType, buffer);
                 ReferenceCountUtil.Release(message);
@@ -184,8 +178,9 @@ namespace Surging.Core.Protocol.Mqtt
                 base.ChannelInactive(context);
             }
 
-            public override void ExceptionCaught(IChannelHandlerContext context, Exception exception) {
-                _readAction.Invoke(context,PacketType.DISCONNECT,DisconnectPacket.Instance);
+            public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
+            {
+                _readAction.Invoke(context, PacketType.DISCONNECT, DisconnectPacket.Instance);
                 this.SetException(exception);
             }
 

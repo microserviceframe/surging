@@ -6,18 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.Caching.Configurations.Remote
 {
-   public  class JsonConfigurationParser : IConfigurationParser
+    public class JsonConfigurationParser : IConfigurationParser
     {
         private readonly IDictionary<string, string> _data = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly Stack<string> _context = new Stack<string>();
         private string _currentPath;
 
         private JsonTextReader _reader;
-        
+
         public IDictionary<string, string> Parse(Stream input, string initialContext)
         {
             try

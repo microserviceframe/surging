@@ -10,18 +10,17 @@ using Surging.Core.CPlatform.Serialization;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System.Linq;
-using Surging.Core.Zookeeper.WatcherProvider;
 using Surging.Core.Zookeeper.Internal;
 
 namespace Surging.Core.Zookeeper
 {
     public class ZooKeeperServiceSubscribeManager : ServiceSubscribeManagerBase, IDisposable
-    { 
+    {
         private readonly ConfigInfo _configInfo;
         private readonly ISerializer<byte[]> _serializer;
         private readonly IServiceSubscriberFactory _serviceSubscriberFactory;
         private ServiceSubscriber[] _subscribers;
-        private readonly ILogger<ZooKeeperServiceSubscribeManager> _logger; 
+        private readonly ILogger<ZooKeeperServiceSubscribeManager> _logger;
         private readonly IZookeeperClientProvider _zookeeperClientProvider;
 
         public ZooKeeperServiceSubscribeManager(ConfigInfo configInfo, ISerializer<byte[]> serializer,
@@ -35,7 +34,7 @@ namespace Surging.Core.Zookeeper
             _zookeeperClientProvider = zookeeperClientProvider;
             EnterSubscribers().Wait();
         }
-        
+
         /// <summary>
         /// 获取所有可用的服务订阅者信息。
         /// </summary>
@@ -239,7 +238,7 @@ namespace Surging.Core.Zookeeper
             if (_subscribers != null)
                 return;
             var zooKeeper = await GetZooKeeper();
-            zooKeeper.Item1.WaitOne(); 
+            zooKeeper.Item1.WaitOne();
 
             if (await zooKeeper.Item2.existsAsync(_configInfo.SubscriberPath) != null)
             {
@@ -270,7 +269,7 @@ namespace Surging.Core.Zookeeper
         }
 
         public void Dispose()
-        { 
+        {
         }
 
         private async ValueTask<(ManualResetEvent, ZooKeeper)> GetZooKeeper()

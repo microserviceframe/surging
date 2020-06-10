@@ -1,20 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
-using Surging.Core.CPlatform.Ioc;
-using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Transport.Codec;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Thrift;
 using Thrift.Processor;
 using Thrift.Protocol;
 using Thrift.Protocol.Entities;
-using Thrift.Transport;
 
 namespace Surging.Core.Thrift.Extensions
 {
@@ -22,8 +16,7 @@ namespace Surging.Core.Thrift.Extensions
     {
         private const int WAND = 0xcdc;
         private ILogger _logger;
-        private readonly Dictionary<string, ITAsyncProcessor> _serviceProcessorMap =
-       new Dictionary<string, ITAsyncProcessor>();
+        private readonly Dictionary<string, ITAsyncProcessor> _serviceProcessorMap = new Dictionary<string, ITAsyncProcessor>();
         private TProtocolFactory _protocolFactory = new TBinaryProtocol.Factory();
         private readonly ITransportMessageDecoder _transportMessageDecoder;
         private readonly ITransportMessageEncoder _transportMessageEncoder;
@@ -50,11 +43,11 @@ namespace Surging.Core.Thrift.Extensions
             }
 
             try
-            {  
+            {
                 var message = await iprot.ReadMessageBeginAsync(cancellationToken);
-                if (message.Name=="thrift.surging")
-                { 
-                      var TransportMessage = await iprot.ReadBinaryAsync(cancellationToken); 
+                if (message.Name == "thrift.surging")
+                {
+                    var TransportMessage = await iprot.ReadBinaryAsync(cancellationToken);
                     await iprot.ReadMessageEndAsync(cancellationToken);
                     await _serverHandler.ChannelRead(oprot, _transportMessageDecoder.Decode(TransportMessage));
                     return true;
@@ -148,8 +141,6 @@ namespace Surging.Core.Thrift.Extensions
 
                 return _msgBegin;
             }
-
-   
         }
     }
 }

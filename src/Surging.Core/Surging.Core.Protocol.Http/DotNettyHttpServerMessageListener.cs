@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -37,8 +36,8 @@ namespace Surging.Core.Protocol.Http
         #region Constructor
 
         public DotNettyHttpServerMessageListener(ILogger<DotNettyHttpServerMessageListener> logger,
-            ITransportMessageCodecFactory codecFactory, 
-            ISerializer<string> serializer, 
+            ITransportMessageCodecFactory codecFactory,
+            ISerializer<string> serializer,
             IServiceRouteProvider serviceRouteProvider)
         {
             _logger = logger;
@@ -106,7 +105,6 @@ namespace Surging.Core.Protocol.Http
             {
                 _logger.LogError($"Http服务主机启动失败，监听地址：{endPoint}。 ");
             }
-
         }
 
         public void CloseAsync()
@@ -120,7 +118,7 @@ namespace Surging.Core.Protocol.Http
 
         #region Implementation of IDisposable
 
-        
+
         public void Dispose()
         {
             Task.Run(async () =>
@@ -141,8 +139,8 @@ namespace Surging.Core.Protocol.Http
             private readonly ISerializer<string> _serializer;
             private readonly IServiceRouteProvider _serviceRouteProvider;
 
-            public ServerHandler(Action<IChannelHandlerContext, TransportMessage> readAction, 
-                ILogger logger, 
+            public ServerHandler(Action<IChannelHandlerContext, TransportMessage> readAction,
+                ILogger logger,
                 ISerializer<string> serializer,
                 IServiceRouteProvider serviceRouteProvider)
             {
@@ -154,8 +152,8 @@ namespace Surging.Core.Protocol.Http
 
             public bool WaitForCompletion()
             {
-                this.completion.Task.Wait(TimeSpan.FromSeconds(5));
-                return this.completion.Task.Status == TaskStatus.RanToCompletion;
+                completion.Task.Wait(TimeSpan.FromSeconds(5));
+                return completion.Task.Status == TaskStatus.RanToCompletion;
             }
 
             protected override void ChannelRead0(IChannelHandlerContext ctx, IFullHttpRequest msg)
@@ -175,7 +173,7 @@ namespace Surging.Core.Protocol.Http
                         var @params = RouteTemplateSegmenter.Segment(serviceRoute.ServiceDescriptor.RoutePath, path);
                         foreach (var param in @params)
                         {
-                            parameters.Add(param.Key,param.Value);
+                            parameters.Add(param.Key, param.Value);
                         }
                     }
                     if (msg.Method.Name == "POST")
@@ -206,7 +204,7 @@ namespace Surging.Core.Protocol.Http
                 if (len == -1)
                 {
                     routePath = urlSpan.TrimStart("/").ToString().ToLower();
-                    return new  Dictionary<string, object>();
+                    return new Dictionary<string, object>();
                 }
                 routePath = urlSpan.Slice(0, len).TrimStart("/").ToString().ToLower();
                 var paramStr = urlSpan.Slice(len + 1).ToString();

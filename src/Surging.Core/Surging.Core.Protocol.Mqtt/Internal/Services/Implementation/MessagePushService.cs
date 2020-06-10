@@ -7,13 +7,12 @@ using Surging.Core.Protocol.Mqtt.Internal.Messages;
 using Surging.Core.Protocol.Mqtt.Internal.Runtime;
 using Surging.Core.Protocol.Mqtt.Util;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
 {
-   public class MessagePushService:IMessagePushService
+    public class MessagePushService : IMessagePushService
     {
         private readonly ScanRunnable _scanRunnable;
         public MessagePushService(ScanRunnable scanRunnable)
@@ -24,8 +23,8 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
         {
             switch (willMeaasge.Qos)
             {
-                case 0: 
-                    await SendQos0Msg(mqttChannel.Channel, willMeaasge.Topic,  Encoding.Default.GetBytes(willMeaasge.WillMessage));
+                case 0:
+                    await SendQos0Msg(mqttChannel.Channel, willMeaasge.Topic, Encoding.Default.GetBytes(willMeaasge.WillMessage));
                     break;
                 case 1: // qos1
                     await SendQosConfirmMsg(QualityOfService.AtLeastOnce, mqttChannel, willMeaasge.Topic, Encoding.Default.GetBytes(willMeaasge.WillMessage));
@@ -33,8 +32,8 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
                 case 2: // qos2
                     await SendQosConfirmMsg(QualityOfService.ExactlyOnce, mqttChannel, willMeaasge.Topic, Encoding.Default.GetBytes(willMeaasge.WillMessage));
                     break;
-            } 
-             
+            }
+
         }
 
         public async Task SendQosConfirmMsg(QualityOfService qos, MqttChannel mqttChannel, string topic, byte[] bytes)
@@ -48,7 +47,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
                         mqttChannel.AddMqttMessage(messageId, await SendQos1Msg(mqttChannel.Channel, topic, false, bytes, messageId));
                         break;
                     case QualityOfService.ExactlyOnce:
-                        mqttChannel.AddMqttMessage(messageId,await SendQos2Msg(mqttChannel.Channel, topic, false, bytes, messageId));
+                        mqttChannel.AddMqttMessage(messageId, await SendQos2Msg(mqttChannel.Channel, topic, false, bytes, messageId));
                         break;
                 }
             }
@@ -74,7 +73,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
             await channel.WriteAndFlushAsync(mqttPublishMessage);
             return Enqueue(channel, messageId, topic, byteBuf, (int)QualityOfService.ExactlyOnce, ConfirmStatus.PUB);
         }
-        
+
         private async Task SendQos0Msg(IChannel channel, String topic, byte[] byteBuf, int messageId)
         {
             if (channel != null)
@@ -88,10 +87,11 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
 
         public async Task SendPubBack(IChannel channel, int messageId)
         {
-            var mqttPubAckMessage = new PubAckPacket() {
+            var mqttPubAckMessage = new PubAckPacket()
+            {
                 PacketId = messageId
             };
-           await channel.WriteAndFlushAsync(mqttPubAckMessage);
+            await channel.WriteAndFlushAsync(mqttPubAckMessage);
         }
 
         public async Task SendPubRec(MqttChannel mqttChannel, int messageId)
@@ -105,37 +105,36 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
             var sendMqttMessage = Enqueue(channel, messageId, null, null, 1, ConfirmStatus.PUBREC);
             mqttChannel.AddMqttMessage(messageId, sendMqttMessage);
         }
-        
+
         public async Task SendPubRel(IChannel channel, int messageId)
         {
             var mqttPubAckMessage = new PubRelPacket()
             {
                 PacketId = messageId
-            }; 
-           await channel.WriteAndFlushAsync(mqttPubAckMessage); 
+            };
+            await channel.WriteAndFlushAsync(mqttPubAckMessage);
         }
-         
+
         public async Task SendToPubComp(IChannel channel, int messageId)
         {
             var mqttPubAckMessage = new PubCompPacket()
             {
                 PacketId = messageId
             };
-           await channel.WriteAndFlushAsync(mqttPubAckMessage);
+            await channel.WriteAndFlushAsync(mqttPubAckMessage);
         }
-
 
         public async Task SendQos0Msg(IChannel channel, String topic, byte[] byteBuf)
         {
             if (channel != null)
             {
-               await SendQos0Msg(channel, topic, byteBuf, 0);
+                await SendQos0Msg(channel, topic, byteBuf, 0);
             }
         }
 
         private SendMqttMessage Enqueue(IChannel channel, int messageId, String topic, byte[] datas, int mqttQoS, ConfirmStatus confirmStatus)
         {
-            var  message = new SendMqttMessage
+            var message = new SendMqttMessage
             {
                 ByteBuf = datas,
                 Channel = channel,

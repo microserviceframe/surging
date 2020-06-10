@@ -15,10 +15,12 @@ namespace Surging.Core.Caching.HashAlgorithms
     public class ConsistentHash<T>
     {
         #region 字段
+
         private readonly SortedDictionary<int, T> _ring = new SortedDictionary<int, T>();
         private int[] _nodeKeysInRing = null;
         private readonly IHashAlgorithm _hashAlgorithm;
         private readonly int _virtualNodeReplicationFactor = 1000;
+
         #endregion
 
         public ConsistentHash(IHashAlgorithm hashAlgorithm)
@@ -26,8 +28,7 @@ namespace Surging.Core.Caching.HashAlgorithms
             _hashAlgorithm = hashAlgorithm;
         }
 
-        public ConsistentHash(IHashAlgorithm hashAlgorithm, int virtualNodeReplicationFactor)
-            : this(hashAlgorithm)
+        public ConsistentHash(IHashAlgorithm hashAlgorithm, int virtualNodeReplicationFactor) : this(hashAlgorithm)
         {
             _virtualNodeReplicationFactor = virtualNodeReplicationFactor;
         }

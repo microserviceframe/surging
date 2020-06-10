@@ -43,8 +43,7 @@ namespace DotNetty.Codecs.DNS
 
         internal static StringBuilder AppendResponse(this StringBuilder builder, IDnsResponse response)
         {
-            builder.AppendResponseHeader(response)
-                .AppendAllRecords(response);
+            builder.AppendResponseHeader(response).AppendAllRecords(response);
             return builder;
         }
 
@@ -54,22 +53,18 @@ namespace DotNetty.Codecs.DNS
             if (!(response is IAddressedEnvelope<IDnsMessage>))
                 return builder;
 
-            IAddressedEnvelope<IDnsMessage> envelope = (IAddressedEnvelope<IDnsMessage>) response;
+            IAddressedEnvelope<IDnsMessage> envelope = (IAddressedEnvelope<IDnsMessage>)response;
 
             var addr = envelope.Sender;
             if (addr != null)
             {
-                builder.Append("from: ")
-                   .Append(addr)
-                   .Append(", ");
+                builder.Append("from: ").Append(addr).Append(", ");
             }
 
             addr = envelope.Recipient;
             if (addr != null)
             {
-                builder.Append("to: ")
-                   .Append(addr)
-                   .Append(", ");
+                builder.Append("to: ").Append(addr).Append(", ");
             }
 
             return builder;
@@ -132,10 +127,10 @@ namespace DotNetty.Codecs.DNS
 
         private static StringBuilder AppendAllRecords(this StringBuilder builder, IDnsMessage msg)
         {
-           return builder.AppendRecords(msg, DnsSection.QUESTION)
-                .AppendRecords(msg, DnsSection.ANSWER)
-                .AppendRecords(msg, DnsSection.AUTHORITY)
-                .AppendRecords(msg, DnsSection.ADDITIONAL);
+            return builder.AppendRecords(msg, DnsSection.QUESTION)
+                 .AppendRecords(msg, DnsSection.ANSWER)
+                 .AppendRecords(msg, DnsSection.AUTHORITY)
+                 .AppendRecords(msg, DnsSection.ADDITIONAL);
         }
 
         private static StringBuilder AppendRecords(this StringBuilder builder, IDnsMessage message, DnsSection section)

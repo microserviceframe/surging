@@ -34,8 +34,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
         private readonly GrpcConfig _config;
         private readonly IRuntimeEnvironment _runtimeEnvironment;
 
-        public CLRStatsReporter(ConnectionManager connectionManager, ILoggerFactory loggerFactory,
-            IConfigAccessor configAccessor, IRuntimeEnvironment runtimeEnvironment)
+        public CLRStatsReporter(ConnectionManager connectionManager, ILoggerFactory loggerFactory, IConfigAccessor configAccessor, IRuntimeEnvironment runtimeEnvironment)
         {
             _connectionManager = connectionManager;
             _logger = loggerFactory.CreateLogger(typeof(CLRStatsReporter));
@@ -43,8 +42,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
             _runtimeEnvironment = runtimeEnvironment;
         }
 
-        public async Task ReportAsync(CLRStatsRequest statsRequest,
-            CancellationToken cancellationToken = default(CancellationToken))
+        public async Task ReportAsync(CLRStatsRequest statsRequest, CancellationToken cancellationToken = default)
         {
             if (!_connectionManager.Ready)
             {

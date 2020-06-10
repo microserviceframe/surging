@@ -2,11 +2,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Surging.Core.Caching.Interfaces;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
 
 namespace Surging.Core.Caching.HealthChecks.Implementation
@@ -17,10 +14,8 @@ namespace Surging.Core.Caching.HealthChecks.Implementation
     public class DefaultHealthCheckService : IHealthCheckService, IDisposable
     {
         private readonly Timer _timer;
-        private readonly ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry> _dictionary =
-    new ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry>();
+        private readonly ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry> _dictionary = new ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry>();
         private readonly IServiceCacheManager _serviceCacheManager;
-
 
         public DefaultHealthCheckService(IServiceCacheManager serviceCacheManager)
         {
@@ -85,8 +80,7 @@ namespace Surging.Core.Caching.HealthChecks.Implementation
 
         private async Task<bool> Check(CacheEndpoint address, string id)
         {
-            return await CacheContainer.GetService<ICacheProvider>(id)
-            .ConnectionAsync(address);
+            return await CacheContainer.GetService<ICacheProvider>(id).ConnectionAsync(address);
         }
 
         private async Task Check(IEnumerable<MonitorEntry> entrys)
@@ -127,7 +121,6 @@ namespace Surging.Core.Caching.HealthChecks.Implementation
 
                     _dictionary.TryRemove(new ValueTuple<string, int>(p.Host, p.Port), out MonitorEntry value);
                 });
-
             }
         }
 

@@ -43,7 +43,7 @@ namespace Surging.Apm.Skywalking.Core.Tracing
             if (Interlocked.CompareExchange(ref state, 1, 0) == 0)
             {
                 var samplers = _sampledInterceptors.OrderBy(x => x.Priority).Select(interceptor =>
-                    (Func<Sampler, Sampler>) (next => ctx => interceptor.Invoke(ctx, next))).ToList();
+                    (Func<Sampler, Sampler>)(next => ctx => interceptor.Invoke(ctx, next))).ToList();
 
                 Sampler sampler = ctx => true;
                 foreach (var next in samplers)

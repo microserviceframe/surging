@@ -18,7 +18,7 @@ namespace DotNetty.Codecs.DNS
             return new DefaultDnsQuestion(name, type, recordClass);
         }
 
-        public IDnsRecord DecodeRecord(IByteBuffer inputBuffer) 
+        public IDnsRecord DecodeRecord(IByteBuffer inputBuffer)
         {
             int startOffset = inputBuffer.ReaderIndex;
             string name = DecodeName(inputBuffer);
@@ -69,7 +69,7 @@ namespace DotNetty.Codecs.DNS
             var name = new StringBuilder(readable << 1);
             while (inputBuffer.IsReadable())
             {
-                int len = inputBuffer.ReadByte() & 0xff; 
+                int len = inputBuffer.ReadByte() & 0xff;
                 bool pointer = (len & 0xc0) == 0xc0;
 
                 if (pointer)

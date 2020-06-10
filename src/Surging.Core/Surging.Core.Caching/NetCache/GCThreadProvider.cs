@@ -1,8 +1,6 @@
 ﻿using Surging.Core.Caching.Utilities;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Surging.Core.Caching.NetCache
@@ -15,7 +13,7 @@ namespace Surging.Core.Caching.NetCache
         /// </summary>
         private static readonly ConcurrentStack<ParameterizedThreadStart> _globalThread = new ConcurrentStack<ParameterizedThreadStart>();
         #endregion
-        
+
         /// <summary>
         /// 添加垃圾线程方法
         /// </summary>

@@ -2,30 +2,28 @@
 using Surging.Core.Caching.HashAlgorithms;
 using Surging.Core.Caching.HealthChecks;
 using Surging.Core.Caching.RedisCache;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
 using Surging.Core.CPlatform.Cache.Implementation;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Caching.AddressResolvers.Implementation
 {
-    /// <summary>
-    /// 默认地址解析程序
-    /// </summary>
-    public class DefaultAddressResolver : IAddressResolver
+	/// <summary>
+	/// 默认地址解析程序
+	/// </summary>
+	public class DefaultAddressResolver : IAddressResolver
     {
 
-        #region Field  
+        #region Field 
+        
         private readonly ILogger<DefaultAddressResolver> _logger;
         private readonly IHealthCheckService _healthCheckService;
         private readonly IServiceCacheManager _serviceCacheManager;
-        private readonly ConcurrentDictionary<string, ServiceCache> _concurrent =
-new ConcurrentDictionary<string, ServiceCache>();
+        private readonly ConcurrentDictionary<string, ServiceCache> _concurrent = new ConcurrentDictionary<string, ServiceCache>();
+
         #endregion
 
         public DefaultAddressResolver(IHealthCheckService healthCheckService, ILogger<DefaultAddressResolver> logger, IServiceCacheManager serviceCacheManager)
@@ -105,8 +103,8 @@ new ConcurrentDictionary<string, ServiceCache>();
                 if (hash != null)
                     foreach (var node in e.Cache.CacheEndpoint)
                     {
-              
-                         var hashNode = node as ConsistentHashNode;
+
+                        var hashNode = node as ConsistentHashNode;
                         var addr = string.Format("{0}:{1}", hashNode.Host, hashNode.Port);
                         hash.Remove(addr);
                         hash.Add(hashNode, addr);

@@ -5,14 +5,12 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Mqtt.Implementation
 {
     public class DefaultMqttServiceFactory : IMqttServiceFactory
     {
-
         private readonly ISerializer<string> _serializer;
         private readonly ConcurrentDictionary<string, AddressModel> _addressModel =
                new ConcurrentDictionary<string, AddressModel>();

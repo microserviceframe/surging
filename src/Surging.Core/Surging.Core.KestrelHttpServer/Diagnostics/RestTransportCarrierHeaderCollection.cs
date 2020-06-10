@@ -1,12 +1,10 @@
 ﻿using Surging.Core.CPlatform.Diagnostics;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.KestrelHttpServer.Diagnostics
 {
-   public class RestTransportCarrierHeaderCollection : ICarrierHeaderCollection
+    public class RestTransportCarrierHeaderCollection : ICarrierHeaderCollection
     {
         private readonly TracingHeaders _tracingHeaders;
 
@@ -28,6 +26,6 @@ namespace Surging.Core.KestrelHttpServer.Diagnostics
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _tracingHeaders.GetEnumerator();
-        } 
+        }
     }
 }

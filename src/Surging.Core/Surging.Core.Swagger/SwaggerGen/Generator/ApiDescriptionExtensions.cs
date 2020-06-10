@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Surging.Core.SwaggerGen
 {
-   public static class ApiDescriptionExtensions
+    public static class ApiDescriptionExtensions
     {
         [Obsolete("Deprecated: Use TryGetMethodInfo")]
         public static IEnumerable<object> ControllerAttributes(this ApiDescription apiDescription)

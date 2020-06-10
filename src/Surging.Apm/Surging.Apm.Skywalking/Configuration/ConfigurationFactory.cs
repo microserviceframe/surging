@@ -33,8 +33,7 @@ namespace Surging.Apm.Skywalking.Configuration
         private readonly IEnvironmentProvider _environmentProvider;
         private readonly IEnumerable<IAdditionalConfigurationSource> _additionalConfigurations;
 
-        public ConfigurationFactory(IEnvironmentProvider environmentProvider,
-            IEnumerable<IAdditionalConfigurationSource> additionalConfigurations)
+        public ConfigurationFactory(IEnvironmentProvider environmentProvider, IEnumerable<IAdditionalConfigurationSource> additionalConfigurations)
         {
             _environmentProvider = environmentProvider;
             _additionalConfigurations = additionalConfigurations;

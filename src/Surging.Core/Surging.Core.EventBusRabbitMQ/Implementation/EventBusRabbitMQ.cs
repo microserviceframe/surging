@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
-using Polly.Retry;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
@@ -10,7 +9,6 @@ using Surging.Core.CPlatform.DependencyResolution;
 using Surging.Core.CPlatform.EventBus;
 using Surging.Core.CPlatform.EventBus.Events;
 using Surging.Core.CPlatform.EventBus.Implementation;
-using Surging.Core.CPlatform.Utilities;
 using Surging.Core.EventBusRabbitMQ.Attributes;
 using System;
 using System.Collections.Generic;
@@ -35,7 +33,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly IDictionary<QueueConsumerMode, string> _exchanges;
 
-        private IDictionary<Tuple<string,QueueConsumerMode>, IModel> _consumerChannels;
+        private IDictionary<Tuple<string, QueueConsumerMode>, IModel> _consumerChannels;
 
         public event EventHandler OnShutdown;
 
@@ -46,11 +44,11 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             _retryCount = AppConfig.RetryCount;
             _prefetchCount = AppConfig.PrefetchCount;
             _rollbackCount = AppConfig.FailCount;
-            _consumerChannels = new Dictionary<Tuple<string,QueueConsumerMode>, IModel>();
+            _consumerChannels = new Dictionary<Tuple<string, QueueConsumerMode>, IModel>();
             _exchanges = new Dictionary<QueueConsumerMode, string>();
             _exchanges.Add(QueueConsumerMode.Normal, BROKER_NAME);
-            _exchanges.Add(QueueConsumerMode.Retry, $"{BROKER_NAME}@{QueueConsumerMode.Retry.ToString()}");
-            _exchanges.Add(QueueConsumerMode.Fail, $"{BROKER_NAME}@{QueueConsumerMode.Fail.ToString()}");
+            _exchanges.Add(QueueConsumerMode.Retry, $"{BROKER_NAME}@{QueueConsumerMode.Retry}");
+            _exchanges.Add(QueueConsumerMode.Fail, $"{BROKER_NAME}@{QueueConsumerMode.Fail}");
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
@@ -80,7 +78,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                 _persistentConnection.TryConnect();
             }
 
-            var policy = RetryPolicy.Handle<BrokerUnreachableException>()
+            var policy = Policy.Handle<BrokerUnreachableException>()
                 .Or<SocketException>()
                 .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                 {
@@ -109,8 +107,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             }
         }
 
-        public void Subscribe<T, TH>(Func<TH> handler)
-            where TH : IIntegrationEventHandler<T>
+        public void Subscribe<T, TH>(Func<TH> handler) where TH : IIntegrationEventHandler<T>
         {
             var eventName = typeof(T).Name;
             var queueConsumerAttr = typeof(TH).GetCustomAttribute<QueueConsumerAttribute>();
@@ -134,7 +131,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                         string queueName = "";
 
                         if (mode != QueueConsumerMode.Normal)
-                            queueName = $"{queueConsumerAttr.QueueName}@{mode.ToString()}";
+                            queueName = $"{queueConsumerAttr.QueueName}@{mode}";
                         else
                             queueName = queueConsumerAttr.QueueName;
                         var key = new Tuple<string, QueueConsumerMode>(queueName, mode);
@@ -147,7 +144,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                             CreateConsumerChannel(queueConsumerAttr, eventName, mode));
                         channel.QueueBind(queue: queueName,
                                           exchange: _exchanges[mode],
-                                          routingKey: eventName); 
+                                          routingKey: eventName);
                     }
                 }
             }
@@ -264,7 +261,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             {
                 _persistentConnection.TryConnect();
             }
-            IDictionary<String, Object> arguments = new Dictionary<String, Object>();
+            IDictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add("x-dead-letter-exchange", _exchanges[QueueConsumerMode.Fail].ToString());
             arguments.Add("x-message-ttl", _messageTTL);
             arguments.Add("x-dead-letter-routing-key", routeKey);
@@ -277,7 +274,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             consumer.Received += async (model, ea) =>
             {
                 var eventName = ea.RoutingKey;
-                await ProcessEvent(eventName, ea.Body, mode,ea.BasicProperties);
+                await ProcessEvent(eventName, ea.Body, mode, ea.BasicProperties);
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             if (bindConsumer)
@@ -287,11 +284,11 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                                       autoAck: false,
                                      consumer: consumer);
                 channel.CallbackException += (sender, ea) =>
-              {
-                  var key = new Tuple<string, QueueConsumerMode>(queueName, mode);
-                  _consumerChannels[key].Dispose();
-                  _consumerChannels[key] = CreateRetryConsumerChannel(queueName, routeKey, bindConsumer);
-              };
+                {
+                    var key = new Tuple<string, QueueConsumerMode>(queueName, mode);
+                    _consumerChannels[key].Dispose();
+                    _consumerChannels[key] = CreateRetryConsumerChannel(queueName, routeKey, bindConsumer);
+                };
             }
             else
                 channel.Close();
@@ -346,11 +343,11 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                 var eventType = _subsManager.GetEventTypeByName(eventName);
                 var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
                 var handlers = _subsManager.GetHandlersForEvent(eventName);
-                 var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
                 foreach (var handlerfactory in handlers)
                 {
                     var handler = handlerfactory.DynamicInvoke();
-                    long retryCount = 1; 
+                    long retryCount = 1;
                     try
                     {
                         var fastInvoker = GetHandler($"{concreteType.FullName}.Handle", concreteType.GetMethod("Handle"));
@@ -371,7 +368,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                                 var rollbackCount = retryCount - _retryCount;
                                 if (rollbackCount < _rollbackCount)
                                 {
-                                    IDictionary<String, Object> headers = new Dictionary<String, Object>();
+                                    IDictionary<string, object> headers = new Dictionary<string, object>();
                                     if (!headers.ContainsKey("x-orig-routing-key"))
                                         headers.Add("x-orig-routing-key", GetOrigRoutingKey(properties, eventName));
                                     retryCount = rollbackCount;
@@ -381,25 +378,25 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                             }
                             else
                             {
-                                IDictionary<String, Object> headers = properties.Headers;
+                                IDictionary<string, object> headers = properties.Headers;
                                 if (headers == null)
                                 {
-                                    headers = new Dictionary<String, Object>();
+                                    headers = new Dictionary<string, object>();
                                 }
                                 if (!headers.ContainsKey("x-orig-routing-key"))
-                                    headers.Add("x-orig-routing-key", GetOrigRoutingKey(properties, eventName)); 
+                                    headers.Add("x-orig-routing-key", GetOrigRoutingKey(properties, eventName));
                                 channel.BasicPublish(_exchanges[QueueConsumerMode.Retry], eventName, CreateOverrideProperties(properties, headers), body);
                             }
                         }
                     }
                     finally
                     {
-                        var baseConcreteType = typeof(BaseIntegrationEventHandler<>).MakeGenericType(eventType); 
-                       if (handler.GetType().BaseType== baseConcreteType)
-                        { 
+                        var baseConcreteType = typeof(BaseIntegrationEventHandler<>).MakeGenericType(eventType);
+                        if (handler.GetType().BaseType == baseConcreteType)
+                        {
                             var context = new EventContext()
                             {
-                                Content= integrationEvent,
+                                Content = integrationEvent,
                                 Count = retryCount,
                                 Type = mode.ToString()
                             };
@@ -411,8 +408,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             }
         }
 
-        private IBasicProperties CreateOverrideProperties(IBasicProperties properties,
-    IDictionary<String, Object> headers)
+        private IBasicProperties CreateOverrideProperties(IBasicProperties properties, IDictionary<string, object> headers)
         {
             IBasicProperties newProperties = new BasicProperties();
             newProperties.ContentType = properties.ContentType ?? "";
@@ -429,13 +425,13 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             return newProperties;
         }
 
-        private String GetOrigRoutingKey(IBasicProperties properties,
-          String defaultValue)
+        private string GetOrigRoutingKey(IBasicProperties properties,
+          string defaultValue)
         {
-            String routingKey = defaultValue;
+            string routingKey = defaultValue;
             if (properties != null)
             {
-                IDictionary<String, Object> headers = properties.Headers;
+                IDictionary<string, object> headers = properties.Headers;
                 if (headers != null && headers.Count > 0)
                 {
                     if (headers.ContainsKey("x-orig-routing-key"))
@@ -455,12 +451,12 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                 if (properties != null)
                 {
 
-                    IDictionary<String, Object> headers = properties.Headers;
+                    IDictionary<string, object> headers = properties.Headers;
                     if (headers != null)
                     {
                         if (headers.ContainsKey("x-death"))
                         {
-                            retryCount= GetRetryCount(properties, headers);
+                            retryCount = GetRetryCount(properties, headers);
                         }
                         else
                         {
@@ -475,7 +471,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             return retryCount;
         }
 
-       private  long GetRetryCount(IBasicProperties properties, IDictionary<String, Object> headers)
+        private long GetRetryCount(IBasicProperties properties, IDictionary<string, object> headers)
         {
             var retryCount = 1L;
             if (headers["x-death"] is List<object>)
@@ -483,14 +479,14 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
                 var deaths = (List<object>)headers["x-death"];
                 if (deaths.Count > 0)
                 {
-                    IDictionary<String, Object> death = deaths[0] as Dictionary<String, Object>;
+                    IDictionary<string, object> death = deaths[0] as Dictionary<string, object>;
                     retryCount = (long)death["count"];
                     death["count"] = ++retryCount;
                 }
             }
             else
             {
-                Dictionary<String, Object> death = (Dictionary<String, Object>)headers["x-death"];
+                Dictionary<string, object> death = (Dictionary<string, object>)headers["x-death"];
                 if (death != null)
                 {
                     retryCount = (long)death["count"];
@@ -506,7 +502,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
             var objInstance = ServiceResolver.Current.GetService(null, key);
             if (objInstance == null)
             {
-                objInstance = FastInvoke.GetMethodInvoker(method);
+                objInstance = GetMethodInvoker(method);
                 ServiceResolver.Current.Register(key, objInstance, null);
             }
             return objInstance as FastInvokeHandler;
@@ -514,7 +510,7 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
 
         private void PersistentConnection_OnEventShutDown(object sender, ShutdownEventArgs reason)
         {
-            OnShutdown(this,new EventArgs());
+            OnShutdown(this, new EventArgs());
         }
     }
 }

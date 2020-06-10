@@ -55,7 +55,7 @@ namespace DotNetty.Codecs.DNS
                 throw new CorruptedFrameException("not a query");
 
             IDnsQuery query = new DatagramDnsQuery(
-                packet.Sender, packet.Recipient, id, 
+                packet.Sender, packet.Recipient, id,
                 DnsOpCode.From((byte)(flags >> 11 & 0xf)));
 
             query.IsRecursionDesired = (flags >> 8 & 1) == 1;

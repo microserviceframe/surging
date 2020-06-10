@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Surging.Core.System.Module.Attributes
 {
@@ -17,20 +14,20 @@ namespace Surging.Core.System.Module.Attributes
         /// </summary>
         public IEnumerable<Type> TargetTypes { get; private set; }
 
-       /// <summary>
+        /// <summary>
         /// 初始化一个新的 <see cref="ModelBinderTypeAttribute"/> 类实例。
-       /// </summary>
-       /// <param name="targetTypes">目标类型列表</param>
+        /// </summary>
+        /// <param name="targetTypes">目标类型列表</param>
         public ModelBinderTypeAttribute(params Type[] targetTypes)
         {
             if (targetTypes == null) throw new ArgumentNullException("targetTypes");
             TargetTypes = targetTypes;
         }
 
-       /// <summary>
+        /// <summary>
         /// 初始化一个新的 <see cref="ModelBinderTypeAttribute"/> 类实例。
-       /// </summary>
-       /// <param name="targetType">目标类型</param>
+        /// </summary>
+        /// <param name="targetType">目标类型</param>
         public ModelBinderTypeAttribute(Type targetType)
         {
             if (targetType == null) throw new ArgumentNullException("targetType");

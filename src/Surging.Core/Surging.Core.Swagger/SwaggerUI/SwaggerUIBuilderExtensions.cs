@@ -3,7 +3,7 @@ using System;
 
 namespace Surging.Core.Swagger.SwaggerUI
 {
-    public static  class SwaggerUIBuilderExtensions
+    public static class SwaggerUIBuilderExtensions
     {
         public static IApplicationBuilder UseSwaggerUI(
            this IApplicationBuilder app,

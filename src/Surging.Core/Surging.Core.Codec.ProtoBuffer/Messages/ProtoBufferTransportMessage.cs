@@ -2,12 +2,10 @@
 using Surging.Core.Codec.ProtoBuffer.Utilities;
 using Surging.Core.CPlatform.Messages;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Codec.ProtoBuffer.Messages
 {
-    [ProtoContract]
+	[ProtoContract]
     public class ProtoBufferTransportMessage
     {
         public ProtoBufferTransportMessage(TransportMessage transportMessage)
@@ -35,17 +33,17 @@ namespace Surging.Core.Codec.ProtoBuffer.Messages
         public ProtoBufferTransportMessage()
         {
         }
-        
+
         [ProtoMember(1)]
         public string Id { get; set; }
-        
+
         [ProtoMember(2)]
         public byte[] Content { get; set; }
 
         [ProtoMember(3)]
         public string ContentType { get; set; }
 
-    
+
         public bool IsInvokeMessage()
         {
             return ContentType == MessagePackTransportMessageType.remoteInvokeMessageTypeName;

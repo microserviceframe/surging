@@ -3,9 +3,7 @@ using Surging.Core.Caching.Models;
 using Surging.Core.Caching.RedisCache;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Caching.Internal.Implementation
 {

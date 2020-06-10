@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.Stage.Filters
 {
-	public class IPFilterAttribute : IActionFilter
+    public class IPFilterAttribute : IActionFilter
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IIPChecker _ipChecker;

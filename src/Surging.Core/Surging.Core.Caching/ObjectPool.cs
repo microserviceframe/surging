@@ -1,7 +1,6 @@
 ﻿using Surging.Core.Caching.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Surging.Core.Caching
@@ -9,6 +8,7 @@ namespace Surging.Core.Caching
     public class ObjectPool<T>
     {
         #region 
+
         private int isTaked = 0;
         private Queue<T> queue = new Queue<T>();
         private Func<T> func = null;
@@ -16,6 +16,7 @@ namespace Surging.Core.Caching
         private int tryNewObject = 0;
         private readonly int minSize = 1;
         private readonly int maxSize = 50;
+
         #endregion
 
         #region private methods
@@ -48,10 +49,10 @@ namespace Surging.Core.Caching
                 this.maxSize = maxSize;
             for (var i = 0; i < this.minSize; i++)
             {
-                this.queue.Enqueue(func());
+                queue.Enqueue(func());
             }
-            this.currentResource = this.minSize;
-            this.tryNewObject = this.minSize;
+            currentResource = this.minSize;
+            tryNewObject = this.minSize;
             this.func = func;
         }
 
@@ -63,7 +64,7 @@ namespace Surging.Core.Caching
             var t = default(T);
             try
             {
-                if (this.tryNewObject < this.maxSize)
+                if (tryNewObject < this.maxSize)
                 {
                     Interlocked.Increment(ref this.tryNewObject);
                     t = func();
@@ -71,18 +72,18 @@ namespace Surging.Core.Caching
                 }
                 else
                 {
-                    this.Enter();
-                    t = this.queue.Dequeue();
-                    this.Leave();
+                    Enter();
+                    t = queue.Dequeue();
+                    Leave();
                     Interlocked.Decrement(ref this.currentResource);
                 }
                 return t;
             }
             finally
             {
-                this.Enter();
-                this.queue.Enqueue(t);
-                this.Leave();
+                Enter();
+                queue.Enqueue(t);
+                Leave();
                 Interlocked.Increment(ref currentResource);
             }
         }

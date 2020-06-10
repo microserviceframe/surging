@@ -28,7 +28,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
         private readonly IServiceRouteProvider _serviceRouteProvider;
         private readonly IServiceCommandProvider _commandProvider;
         private readonly IBreakeRemoteInvokeService _breakeRemoteInvokeService;
-        private readonly IEnumerable<IInterceptor> _interceptors; 
+        private readonly IEnumerable<IInterceptor> _interceptors;
         #endregion Field
 
         #region Constructor
@@ -45,8 +45,8 @@ namespace Surging.Core.ProxyGenerator.Implementation
             _serviceRouteProvider = serviceRouteProvider;
             _interceptors = new List<IInterceptor>();
             if (serviceProvider.Current.IsRegistered<IInterceptor>())
-            { 
-                _interceptors = serviceProvider.GetInstances<IEnumerable<IInterceptor>>(); 
+            {
+                _interceptors = serviceProvider.GetInstances<IEnumerable<IInterceptor>>();
             }
         }
         #endregion Constructor
@@ -62,13 +62,13 @@ namespace Surging.Core.ProxyGenerator.Implementation
         protected async Task<T> Invoke<T>(IDictionary<string, object> parameters, string serviceId)
         {
             object result = default(T);
-            var vt = _commandProvider.GetCommand(serviceId); 
+            var vt = _commandProvider.GetCommand(serviceId);
             var command = vt.IsCompletedSuccessfully ? vt.Result : await vt;
             RemoteInvokeResultMessage message = null;
             var decodeJOject = typeof(T) == UtilityType.ObjectType;
             IInvocation invocation = null;
-            var serviceRoute =await _serviceRouteProvider.Locate(serviceId);
-            if ((serviceRoute ==null || !serviceRoute.ServiceDescriptor.ExistIntercept()) ||decodeJOject)
+            var serviceRoute = await _serviceRouteProvider.Locate(serviceId);
+            if ((serviceRoute == null || !serviceRoute.ServiceDescriptor.ExistIntercept()) || decodeJOject)
             {
                 message = await _breakeRemoteInvokeService.InvokeAsync(parameters, serviceId, _serviceKey, decodeJOject);
                 if (message == null)
@@ -98,7 +98,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
             if (message != null)
             {
                 if (message.Result == null) result = message.Result;
-                else  result = _typeConvertibleService.Convert(message.Result, typeof(T));
+                else result = _typeConvertibleService.Convert(message.Result, typeof(T));
             }
             return (T)result;
         }
@@ -113,7 +113,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
                    type == typeof(Task) ? false : true);
             if (message == null)
             {
-                var vt =  _commandProvider.GetCommand(serviceId); 
+                var vt = _commandProvider.GetCommand(serviceId);
                 var command = vt.IsCompletedSuccessfully ? vt.Result : await vt;
                 if (command.FallBackName != null && _serviceProvider.IsRegistered<IFallbackInvoker>(command.FallBackName) && command.Strategy == StrategyType.FallBack)
                 {
@@ -154,7 +154,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
             }
             if (message == null)
             {
-                var vt =   _commandProvider.GetCommand(serviceId);
+                var vt = _commandProvider.GetCommand(serviceId);
                 var command = vt.IsCompletedSuccessfully ? vt.Result : await vt;
                 if (command.FallBackName != null && _serviceProvider.IsRegistered<IFallbackInvoker>(command.FallBackName) && command.Strategy == StrategyType.FallBack)
                 {
@@ -176,7 +176,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
              ? invocation.ReturnValue as RemoteInvokeResultMessage : null;
             return new Tuple<RemoteInvokeResultMessage, object>(message, invocation.ReturnValue);
         }
-        
+
         private IInvocation GetInvocation(IDictionary<string, object> parameters, string serviceId, Type returnType)
         {
             var invocation = _serviceProvider.GetInstances<IInterceptorProvider>();

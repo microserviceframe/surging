@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.XPath;
 using System.Reflection;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Surging.Core.Swagger;
 using Surging.Core.CPlatform.Runtime.Server;
@@ -45,9 +45,9 @@ namespace Surging.Core.SwaggerGen
                 ApplyResponsesXmlToResponses(operation.Responses, methodNode.Select(ResponsesXPath));
             }
 
-            if(context.ApiDescription !=null)
-            // Special handling for parameters that are bound to model properties
-            ApplyPropertiesXmlToPropertyParameters(operation.Parameters, context.ApiDescription);
+            if (context.ApiDescription != null)
+                // Special handling for parameters that are bound to model properties
+                ApplyPropertiesXmlToPropertyParameters(operation.Parameters, context.ApiDescription);
             else
                 ApplyPropertiesXmlToPropertyParameters(operation.Parameters, context.ServiceEntry);
         }
@@ -64,7 +64,6 @@ namespace Surging.Core.SwaggerGen
                     return (m.Name == constructedTypeMethod.Name)
                         && (m.GetParameters().Length == constructedTypeMethod.GetParameters().Length);
                 });
-
 
             // If inconclusive, just return null
             return (candidateMethods.Count() == 1) ? candidateMethods.First() : null;
@@ -164,19 +163,17 @@ namespace Surging.Core.SwaggerGen
             }
         }
 
-        private void ApplyPropertiesXmlToPropertyParameters(
-    IList<IParameter> parameters,
-    ServiceEntry serviceEntry)
+        private void ApplyPropertiesXmlToPropertyParameters(IList<IParameter> parameters, ServiceEntry serviceEntry)
         {
             if (parameters == null) return;
 
             foreach (var parameter in parameters)
             {
                 var methodInfo = serviceEntry.Type.GetTypeInfo().DeclaredMethods.Where(p => p.Name == serviceEntry.MethodName).FirstOrDefault();
-                var propertyParam = methodInfo.GetParameters() 
+                var propertyParam = methodInfo.GetParameters()
                  .FirstOrDefault(p => parameter.Name.Equals(p.Name, StringComparison.OrdinalIgnoreCase));
-                if (propertyParam == null) continue; 
-                var memberInfo = propertyParam.Member  ;
+                if (propertyParam == null) continue;
+                var memberInfo = propertyParam.Member;
                 if (memberInfo == null) continue;
 
                 var memberName = XmlCommentsMemberNameHelper.GetMemberNameForMember(memberInfo);

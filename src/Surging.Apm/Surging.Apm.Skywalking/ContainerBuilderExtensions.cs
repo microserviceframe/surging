@@ -17,13 +17,10 @@ using Surging.Apm.Skywalking.Transport.Grpc.V5;
 using Surging.Apm.Skywalking.Transport.Grpc.V6;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Diagnostics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Apm.Skywalking
 {
-   public static class ContainerBuilderExtensions
+    public static class ContainerBuilderExtensions
     {
         public static IServiceBuilder UseSkywalking(this IServiceBuilder builder)
         {
@@ -34,12 +31,12 @@ namespace Surging.Apm.Skywalking
             services.RegisterType<ServiceDiscoveryV5Service>().As<IExecutionService>().SingleInstance();
             services.RegisterType<SegmentReportService>().As<IExecutionService>().SingleInstance();
             services.RegisterType<InstrumentStartup>().As<IInstrumentStartup>().SingleInstance();
-            services.Register<IRuntimeEnvironment>(p => RuntimeEnvironment.Instance).SingleInstance();
+            services.Register(p => RuntimeEnvironment.Instance).SingleInstance();
             services.RegisterType<TracingDiagnosticProcessorObserver>().SingleInstance();
             services.RegisterType<ConfigAccessor>().As<IConfigAccessor>().SingleInstance();
             services.RegisterType<ConfigurationFactory>().As<IConfigurationFactory>().SingleInstance();
             services.RegisterType<HostingEnvironmentProvider>().As<IEnvironmentProvider>().SingleInstance();
-           return  AddTracing(builder).AddSampling().AddGrpcTransport();
+            return AddTracing(builder).AddSampling().AddGrpcTransport();
         }
 
         private static IServiceBuilder AddTracing(this IServiceBuilder builder)
@@ -61,7 +58,7 @@ namespace Surging.Apm.Skywalking
             return builder;
         }
 
-        private static  IServiceBuilder AddSampling(this IServiceBuilder builder)
+        private static IServiceBuilder AddSampling(this IServiceBuilder builder)
         {
             var services = builder.Services;
             services.RegisterType<SimpleCountSamplingInterceptor>().SingleInstance();

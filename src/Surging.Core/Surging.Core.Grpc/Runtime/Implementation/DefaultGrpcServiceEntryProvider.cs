@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Surging.Core.Grpc.Runtime.Implementation
 {
-	public class DefaultGrpcServiceEntryProvider : IGrpcServiceEntryProvider
+    public class DefaultGrpcServiceEntryProvider : IGrpcServiceEntryProvider
     {
         #region Field
 

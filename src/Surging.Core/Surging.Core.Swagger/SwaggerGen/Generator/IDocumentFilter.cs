@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Surging.Core.Swagger;
 using System;
 using System.Collections.Generic;

@@ -1,12 +1,9 @@
 ﻿using org.apache.zookeeper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Zookeeper.WatcherProvider
 {
-   public abstract class WatcherBase : Watcher
+    public abstract class WatcherBase : Watcher
     {
         protected string Path { get; }
 

@@ -24,13 +24,11 @@ using System.Threading.Tasks;
 
 namespace Surging.Apm.Skywalking.Transport.Grpc.V6
 {
-    public class ConnectService: ExecutionService
+    public class ConnectService : ExecutionService
     {
         private readonly ConnectionManager _connectionManager;
 
-        public ConnectService(ConnectionManager connectionManager,
-            IRuntimeEnvironment runtimeEnvironment,
-            ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
+        public ConnectService(ConnectionManager connectionManager, IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             _connectionManager = connectionManager;
         }

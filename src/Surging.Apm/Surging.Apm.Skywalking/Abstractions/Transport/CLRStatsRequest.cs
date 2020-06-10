@@ -21,9 +21,9 @@ namespace Surging.Apm.Skywalking.Abstractions.Transport
     public class CLRStatsRequest
     {
         public CPUStatsRequest CPU { get; set; }
-        
+
         public GCStatsRequest GC { get; set; }
-        
+
         public ThreadStatsRequest Thread { get; set; }
     }
 
@@ -46,11 +46,11 @@ namespace Surging.Apm.Skywalking.Abstractions.Transport
     public class ThreadStatsRequest
     {
         public int AvailableCompletionPortThreads { get; set; }
-        
+
         public int AvailableWorkerThreads { get; set; }
-        
+
         public int MaxCompletionPortThreads { get; set; }
-        
+
         public int MaxWorkerThreads { get; set; }
     }
 }

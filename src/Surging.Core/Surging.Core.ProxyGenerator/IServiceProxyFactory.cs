@@ -40,6 +40,6 @@ namespace Surging.Core.ProxyGenerator
             return (T)serviceProxyFactory.CreateProxy(proxyType);
         }
 
-       
+
     }
 }

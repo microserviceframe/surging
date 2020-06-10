@@ -4,18 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks; 
-
+using System.Threading.Tasks;
 
 namespace Surging.Core.System.MongoProvider.Repositories
 {
-    public class MongoRepository<T> : IMongoRepository<T>
-            where T : IEntity
+    public class MongoRepository<T> : IMongoRepository<T> where T : IEntity
     {
         private readonly IMongoCollection<T> _collection;
 
-        public MongoRepository()
-            : this(Util.GetDefaultConnectionString())
+        public MongoRepository() : this(Util.GetDefaultConnectionString())
         {
         }
 
@@ -213,16 +210,15 @@ namespace Surging.Core.System.MongoProvider.Repositories
             return result;
         }
 
-
         public long Count(FilterDefinition<T> filter)
         {
-            var result = _collection.Count(filter);
+            var result = _collection.CountDocuments(filter);
             return result;
         }
 
         public async Task<long> CountAsync(FilterDefinition<T> filter)
         {
-            var result = await _collection.CountAsync(filter);
+            var result = await _collection.CountDocumentsAsync(filter);
             return result;
         }
 

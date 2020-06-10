@@ -5,28 +5,21 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Engines;
 using Surging.Core.CPlatform.Module;
-using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Serialization;
 using Surging.Core.KestrelHttpServer.Extensions;
-using Surging.Core.KestrelHttpServer.Internal; 
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.Routing;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Surging.Core.KestrelHttpServer.Filters;
-using Surging.Core.CPlatform.Messages;
 using System.Diagnostics;
 using Surging.Core.CPlatform.Configurations;
 using Surging.Core.CPlatform.Diagnostics;
-using Surging.Core.CPlatform.Utilities;
 
 namespace Surging.Core.KestrelHttpServer
 {
@@ -43,7 +36,7 @@ namespace Surging.Core.KestrelHttpServer
         private readonly DiagnosticListener _diagnosticListener;
 
         public KestrelHttpMessageListener(ILogger<KestrelHttpMessageListener> logger,
-            ISerializer<string> serializer, 
+            ISerializer<string> serializer,
             IServiceEngineLifetime lifetime,
             IModuleProvider moduleProvider,
             IServiceRouteProvider serviceRouteProvider,
@@ -58,8 +51,8 @@ namespace Surging.Core.KestrelHttpServer
             _diagnosticListener = new DiagnosticListener(DiagnosticListenerExtensions.DiagnosticListenerName);
         }
 
-        public async Task StartAsync(IPAddress address,int? port)
-        { 
+        public async Task StartAsync(IPAddress address, int? port)
+        {
             try
             {
                 if (AppConfig.ServerOptions.DockerDeployMode == DockerDeployMode.Swarm)
@@ -69,7 +62,7 @@ namespace Surging.Core.KestrelHttpServer
 
                 var hostBuilder = new WebHostBuilder()
                   .UseContentRoot(Directory.GetCurrentDirectory())
-                  .UseKestrel((context,options) =>
+                  .UseKestrel((context, options) =>
                   {
                       options.Limits.MinRequestBodyDataRate = null;
                       options.Limits.MinResponseDataRate = null;
@@ -107,25 +100,25 @@ namespace Surging.Core.KestrelHttpServer
 
         }
 
-        public void ConfigureHost(WebHostBuilderContext context, KestrelServerOptions options,IPAddress ipAddress)
+        public void ConfigureHost(WebHostBuilderContext context, KestrelServerOptions options, IPAddress ipAddress)
         {
             _moduleProvider.ConfigureHost(new WebHostContext(context, options, ipAddress));
         }
 
         public void ConfigureServices(IServiceCollection services)
-        { 
+        {
             var builder = new ContainerBuilder();
             services.AddMvc();
             _moduleProvider.ConfigureServices(new ConfigurationContext(services,
                 _moduleProvider.Modules,
                 _moduleProvider.VirtualPaths,
                 AppConfig.Configuration));
-            builder.Populate(services); 
+            builder.Populate(services);
             builder.Update(_container.Current.ComponentRegistry);
         }
 
         private void AppResolve(IApplicationBuilder app)
-        { 
+        {
             app.UseStaticFiles();
             app.UseMvc();
             _moduleProvider.Initialize(new ApplicationInitializationContext(app, _moduleProvider.Modules,
@@ -134,7 +127,7 @@ namespace Surging.Core.KestrelHttpServer
             app.Run(async (context) =>
             {
                 var messageId = Guid.NewGuid().ToString("N");
-                var sender = new HttpServerMessageSender(_serializer, context,_diagnosticListener);
+                var sender = new HttpServerMessageSender(_serializer, context, _diagnosticListener);
                 try
                 {
                     var filters = app.ApplicationServices.GetServices<IAuthorizationFilter>();
@@ -154,7 +147,7 @@ namespace Surging.Core.KestrelHttpServer
             });
         }
 
-        private void WirteDiagnosticError(string messageId,Exception ex)
+        private void WirteDiagnosticError(string messageId, Exception ex)
         {
             _diagnosticListener.WriteTransportError(CPlatform.Diagnostics.TransportType.Rest, new TransportErrorEventData(new DiagnosticMessage
             {

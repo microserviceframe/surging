@@ -19,7 +19,7 @@
 using Surging.Apm.Skywalking.Abstractions.Tracing;
 using Surging.Core.CPlatform.Diagnostics;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 
 namespace Surging.Apm.Skywalking.Core.Tracing
 {
@@ -28,8 +28,7 @@ namespace Surging.Apm.Skywalking.Core.Tracing
         private readonly IEnumerable<ICarrierFormatter> _carrierFormatters;
         private readonly ISegmentContextFactory _segmentContextFactory;
 
-        public CarrierPropagator(IEnumerable<ICarrierFormatter> carrierFormatters,
-            ISegmentContextFactory segmentContextFactory)
+        public CarrierPropagator(IEnumerable<ICarrierFormatter> carrierFormatters, ISegmentContextFactory segmentContextFactory)
         {
             _carrierFormatters = carrierFormatters;
             _segmentContextFactory = segmentContextFactory;
@@ -68,7 +67,7 @@ namespace Surging.Apm.Skywalking.Core.Tracing
                 {
                     continue;
                 }
-                
+
                 foreach (var header in headerCollection)
                 {
                     if (formatter.Key == header.Key)

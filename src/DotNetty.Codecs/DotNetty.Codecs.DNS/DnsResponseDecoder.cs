@@ -1,13 +1,11 @@
 ﻿using DotNetty.Buffers;
 using DotNetty.Codecs.DNS.Messages;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace DotNetty.Codecs.DNS
 {
-    public  class DnsResponseDecoder<T> where T : EndPoint
+	public  class DnsResponseDecoder<T> where T : EndPoint
     {
         private readonly IDnsRecordDecoder recordDecoder;
 

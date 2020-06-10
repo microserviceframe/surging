@@ -26,7 +26,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Transport
     {
         bool Dispatch(SegmentContext segmentContext);
 
-        Task Flush(CancellationToken token = default(CancellationToken));
+        Task Flush(CancellationToken token = default);
 
         void Close();
     }

@@ -1,8 +1,4 @@
-﻿using ARSoft.Tools.Net;
-using ARSoft.Tools.Net.Dns;
-using DotNetty.Buffers;
-using DotNetty.Codecs;
-using DotNetty.Codecs.DNS;
+﻿using DotNetty.Codecs.DNS;
 using DotNetty.Codecs.DNS.Messages;
 using DotNetty.Codecs.DNS.Records;
 using DotNetty.Transport.Bootstrapping;
@@ -10,13 +6,10 @@ using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Transport;
 using Surging.Core.CPlatform.Transport.Codec;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.DNS
@@ -118,7 +111,7 @@ namespace Surging.Core.DNS
             public ServerHandler(Action<IChannelHandlerContext, TransportMessage> readAction, ILogger logger)
             {
                 _readAction = readAction;
-                _logger = logger; 
+                _logger = logger;
             }
 
             protected override void ChannelRead0(IChannelHandlerContext ctx, DatagramDnsQuery query)
@@ -136,7 +129,7 @@ namespace Surging.Core.DNS
 
             public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
             {
-                 context.CloseAsync();
+                context.CloseAsync();
                 if (_logger.IsEnabled(LogLevel.Error))
                     _logger.LogError(exception, $"与服务器：{context.Channel.RemoteAddress}通信时发送了错误。");
             }

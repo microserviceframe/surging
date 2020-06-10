@@ -3,9 +3,7 @@ using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Runtime.Server.Implementation;
 using Surging.Core.CPlatform.Transport;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Http
@@ -13,7 +11,7 @@ namespace Surging.Core.Protocol.Http
     /// <summary>
     /// HTTP服务主机
     /// </summary>
-   public class HttpServiceHost : ServiceHostAbstract
+    public class HttpServiceHost : ServiceHostAbstract
     {
         #region Field
 
@@ -54,11 +52,11 @@ namespace Surging.Core.Protocol.Http
             };
         }
 
-        public override async Task StartAsync(string ip,int port)
+        public override async Task StartAsync(string ip, int port)
         {
             if (_serverMessageListener != null)
                 return;
-            _serverMessageListener = await _messageListenerFactory(new IPEndPoint(IPAddress.Parse(ip), AppConfig.ServerOptions.Ports.HttpPort??0));
+            _serverMessageListener = await _messageListenerFactory(new IPEndPoint(IPAddress.Parse(ip), AppConfig.ServerOptions.Ports.HttpPort ?? 0));
             _serverMessageListener.Received += async (sender, message) =>
             {
                 await Task.Run(() =>

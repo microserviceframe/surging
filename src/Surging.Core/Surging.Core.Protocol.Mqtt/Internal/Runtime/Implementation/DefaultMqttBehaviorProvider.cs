@@ -17,7 +17,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime.Implementation
 
         #region Constructor
 
-        public DefaultMqttBehaviorProvider(IServiceEntryProvider serviceEntryProvider,  CPlatformContainer serviceProvider)
+        public DefaultMqttBehaviorProvider(IServiceEntryProvider serviceEntryProvider, CPlatformContainer serviceProvider)
         {
             _serviceEntryProvider = serviceEntryProvider;
             _serviceProvider = serviceProvider;
@@ -29,8 +29,8 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime.Implementation
         {
             if (_mqttBehavior == null)
             {
-                 _mqttBehavior = _serviceEntryProvider.GetTypes()
-                    .Select(type=> _serviceProvider.GetInstances(type) as MqttBehavior ).Where(p=>p!=null).FirstOrDefault(); 
+                _mqttBehavior = _serviceEntryProvider.GetTypes()
+                   .Select(type => _serviceProvider.GetInstances(type) as MqttBehavior).Where(p => p != null).FirstOrDefault();
             }
             return _mqttBehavior;
         }

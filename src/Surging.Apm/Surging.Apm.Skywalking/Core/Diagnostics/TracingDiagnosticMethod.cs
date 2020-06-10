@@ -20,8 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AspectCore.Extensions.Reflection;
-using Surging.Apm.Skywalking.Abstractions;
-using Surging.Apm.Skywalking.Core.Diagnostics;
 using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Apm.Skywalking.Core.Diagnostics
@@ -33,8 +31,7 @@ namespace Surging.Apm.Skywalking.Core.Diagnostics
         private readonly IParameterResolver[] _parameterResolvers;
         private readonly MethodReflector _reflector;
 
-        public TracingDiagnosticMethod(ITracingDiagnosticProcessor tracingDiagnosticProcessor, MethodInfo method,
-            string diagnosticName)
+        public TracingDiagnosticMethod(ITracingDiagnosticProcessor tracingDiagnosticProcessor, MethodInfo method, string diagnosticName)
         {
             _tracingDiagnosticProcessor = tracingDiagnosticProcessor;
             _reflector = method.GetReflector();
@@ -65,14 +62,14 @@ namespace Surging.Apm.Skywalking.Core.Diagnostics
                 var binder = parameter.GetCustomAttribute<ParameterBinder>();
                 if (binder != null)
                 {
-                    if(binder is ObjectAttribute objectBinder)
+                    if (binder is ObjectAttribute objectBinder)
                     {
                         if (objectBinder.TargetType == null)
                         {
                             objectBinder.TargetType = parameter.ParameterType;
                         }
                     }
-                    if(binder is PropertyAttribute propertyBinder)
+                    if (binder is PropertyAttribute propertyBinder)
                     {
                         if (propertyBinder.Name == null)
                         {

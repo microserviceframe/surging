@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Runtime.Server;
-using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Transport.Codec;
 using Surging.Core.DNS.Configurations;
 using Surging.Core.DNS.Runtime;
@@ -12,7 +11,7 @@ using Surging.Core.DNS.Runtime.Implementation;
 
 namespace Surging.Core.DNS
 {
-   public class DnsProtocolModule : EnginePartModule
+    public class DnsProtocolModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -72,7 +71,6 @@ namespace Surging.Core.DNS
 
         private static void RegisterDnsProtocol(ContainerBuilderWrapper builder)
         {
-
             builder.Register(provider =>
             {
                 return new DotNettyDnsServerMessageListener(provider.Resolve<ILogger<DotNettyDnsServerMessageListener>>(),

@@ -8,16 +8,16 @@ using System;
 
 namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
 {
-	public class InterceptorProvider : IInterceptorProvider
+    public class InterceptorProvider : IInterceptorProvider
     {
         private readonly IServiceEntryManager _serviceEntryManager;
-        ConcurrentDictionary<Tuple<Type, Type>,bool> _derivedTypes = new ConcurrentDictionary<Tuple<Type, Type>, bool>();
+        ConcurrentDictionary<Tuple<Type, Type>, bool> _derivedTypes = new ConcurrentDictionary<Tuple<Type, Type>, bool>();
         public InterceptorProvider(IServiceEntryManager serviceEntryManager)
         {
             _serviceEntryManager = serviceEntryManager;
         }
         public IInvocation GetInvocation(object proxy, IDictionary<string, object> parameters,
-            string serviceId,Type returnType)
+            string serviceId, Type returnType)
         {
             var constructor = InvocationMethods.CompositionInvocationConstructor;
             return constructor.Invoke(new object[]{
@@ -76,13 +76,13 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation
             return reuslt;
         }
 
-        private bool IsKeyAttributeDerivedType(Type baseType,Type derivedType)
+        private bool IsKeyAttributeDerivedType(Type baseType, Type derivedType)
         {
             bool result = false;
             var key = Tuple.Create(baseType, derivedType);
             if (!_derivedTypes.ContainsKey(key))
             {
-                result =_derivedTypes.GetOrAdd(key, derivedType.IsSubclassOf(baseType) || derivedType == baseType);
+                result = _derivedTypes.GetOrAdd(key, derivedType.IsSubclassOf(baseType) || derivedType == baseType);
             }
             else
             {

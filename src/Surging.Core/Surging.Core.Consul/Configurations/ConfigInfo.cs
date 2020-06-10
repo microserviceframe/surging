@@ -15,13 +15,13 @@ namespace Surging.Core.Consul.Configurations
         /// <param name="routePath">路由路径配置路径</param>
         /// <param name="subscriberPath">订阅者配置路径</param>
         /// <param name="cachePath">缓存中心配置路径</param>
-        public ConfigInfo(string connectionString,string routePath = "services/serviceRoutes/",
+        public ConfigInfo(string connectionString, string routePath = "services/serviceRoutes/",
              string subscriberPath = "services/serviceSubscribers/",
             string commandPath = "services/serviceCommands/",
-            string cachePath="services/serviceCaches/",
+            string cachePath = "services/serviceCaches/",
             string mqttRoutePath = "services/mqttServiceRoutes/",
-            bool reloadOnChange=false, bool enableChildrenMonitor = false) :
-            this(connectionString, TimeSpan.FromSeconds(20), 0, routePath, subscriberPath,commandPath, cachePath, mqttRoutePath, reloadOnChange, enableChildrenMonitor)
+            bool reloadOnChange = false, bool enableChildrenMonitor = false) :
+            this(connectionString, TimeSpan.FromSeconds(20), 0, routePath, subscriberPath, commandPath, cachePath, mqttRoutePath, reloadOnChange, enableChildrenMonitor)
         {
         }
 
@@ -39,9 +39,9 @@ namespace Surging.Core.Consul.Configurations
             string routePath = "services/serviceRoutes/",
              string subscriberPath = "services/serviceSubscribers/",
             string commandPath = "services/serviceCommands/",
-            string cachePath= "services/serviceCaches/",
-            string mqttRoutePath= "services/mqttServiceRoutes/",
-            bool reloadOnChange=false, bool enableChildrenMonitor = false)
+            string cachePath = "services/serviceCaches/",
+            string mqttRoutePath = "services/mqttServiceRoutes/",
+            bool reloadOnChange = false, bool enableChildrenMonitor = false)
         {
             CachePath = cachePath;
             ReloadOnChange = reloadOnChange;
@@ -62,9 +62,9 @@ namespace Surging.Core.Consul.Configurations
                 else
                 {
                     var address = ConvertAddressModel(connectionString);
-                    if (address !=null)
-                    { 
-                        var ipAddress=address as IpAddressModel;
+                    if (address != null)
+                    {
+                        var ipAddress = address as IpAddressModel;
                         Host = ipAddress.Ip;
                         Port = ipAddress.Port;
                     }

@@ -8,8 +8,7 @@ namespace DotNetty.Codecs.DNS.Records
     {
         public string HostName { get; }
 
-        public DefaultDnsPtrRecord(string name, DnsRecordClass dnsClass, long timeToLive, string hostname)
-            : base(name, DnsRecordType.PTR, timeToLive, dnsClass)
+        public DefaultDnsPtrRecord(string name, DnsRecordClass dnsClass, long timeToLive, string hostname) : base(name, DnsRecordType.PTR, timeToLive, dnsClass)
         {
             if (string.IsNullOrWhiteSpace(hostname))
                 throw new ArgumentNullException(hostname);

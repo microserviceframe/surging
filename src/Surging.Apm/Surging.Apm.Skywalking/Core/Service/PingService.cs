@@ -33,8 +33,7 @@ namespace Surging.Apm.Skywalking.Core.Service
 
         public PingService(IConfigAccessor configAccessor, IPingCaller pingCaller,
             IRuntimeEnvironment runtimeEnvironment,
-            ILoggerFactory loggerFactory) : base(
-            runtimeEnvironment, loggerFactory)
+            ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             _pingCaller = pingCaller;
             _transportConfig = configAccessor.Get<TransportConfig>();

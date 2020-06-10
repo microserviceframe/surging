@@ -131,12 +131,12 @@ namespace DotNetty.Codecs.DNS.Records
                 expected.Append(type.Name)
                     .Append('(')
                     .Append(type.IntValue)
-                    .Append("), ");                
+                    .Append("), ");
             }
 
             expected.Length = expected.Length - 2;
             expected.Append(')');
-            EXPECTED = expected.ToString(); 
+            EXPECTED = expected.ToString();
         }
 
         public static DnsRecordType From(int intValue)

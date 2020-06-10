@@ -4,7 +4,6 @@ using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Mqtt;
 using Surging.Core.CPlatform.Mqtt.Implementation;
 using Surging.Core.CPlatform.Serialization;
-using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.Zookeeper.Configurations;
 using Surging.Core.Zookeeper.Internal;
@@ -18,8 +17,8 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.Zookeeper
 {
-   public class ZooKeeperMqttServiceRouteManager : MqttServiceRouteManagerBase, IDisposable
-    { 
+    public class ZooKeeperMqttServiceRouteManager : MqttServiceRouteManagerBase, IDisposable
+    {
         private readonly ConfigInfo _configInfo;
         private readonly ISerializer<byte[]> _serializer;
         private readonly IMqttServiceFactory _mqttServiceFactory;
@@ -264,7 +263,7 @@ namespace Surging.Core.Zookeeper
 
         private async Task<MqttServiceRoute[]> GetRoutes(IEnumerable<string> childrens)
         {
-            var rootPath = _configInfo.MqttRoutePath; 
+            var rootPath = _configInfo.MqttRoutePath;
 
             childrens = childrens.ToArray();
             var routes = new List<MqttServiceRoute>(childrens.Count());
@@ -288,7 +287,7 @@ namespace Surging.Core.Zookeeper
             if (_routes != null)
                 return;
             var zooKeeper = await GetZooKeeper();
-            zooKeeper.Item1.WaitOne(); 
+            zooKeeper.Item1.WaitOne();
             var watcher = new ChildrenMonitorWatcher(GetZooKeeper, _configInfo.MqttRoutePath,
              async (oldChildrens, newChildrens) => await ChildrenChange(oldChildrens, newChildrens));
             if (await zooKeeper.Item2.existsAsync(_configInfo.MqttRoutePath, watcher) != null)
@@ -388,7 +387,7 @@ namespace Surging.Core.Zookeeper
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
-        { 
+        {
         }
 
         private async ValueTask<(ManualResetEvent, ZooKeeper)> GetZooKeeper()
@@ -396,6 +395,5 @@ namespace Surging.Core.Zookeeper
             var zooKeeper = await _zookeeperClientProvider.GetZooKeeper();
             return zooKeeper;
         }
-
     }
 }

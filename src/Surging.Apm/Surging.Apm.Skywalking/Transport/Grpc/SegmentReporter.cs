@@ -22,8 +22,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Surging.Apm.Skywalking.Abstractions.Config;
 using Surging.Apm.Skywalking.Abstractions.Transport;
-using SegmentReporterV5 = Surging.Apm.Skywalking.Transport.Grpc.V5.SegmentReporter;
-using SegmentReporterV6 = Surging.Apm.Skywalking.Transport.Grpc.V6.SegmentReporter;
 
 namespace Surging.Apm.Skywalking.Transport.Grpc
 {
@@ -33,16 +31,14 @@ namespace Surging.Apm.Skywalking.Transport.Grpc
         private readonly ISegmentReporter _segmentReporterV6;
         private readonly TransportConfig _transportConfig;
 
-        public SegmentReporter(ConnectionManager connectionManager, IConfigAccessor configAccessor,
-            ILoggerFactory loggerFactory)
+        public SegmentReporter(ConnectionManager connectionManager, IConfigAccessor configAccessor, ILoggerFactory loggerFactory)
         {
             _transportConfig = configAccessor.Get<TransportConfig>();
             _segmentReporterV5 = new V5.SegmentReporter(connectionManager, configAccessor, loggerFactory);
             _segmentReporterV6 = new V6.SegmentReporter(connectionManager, configAccessor, loggerFactory);
         }
 
-        public async Task ReportAsync(IReadOnlyCollection<SegmentRequest> segmentRequests,
-            CancellationToken cancellationToken = default(CancellationToken))
+        public async Task ReportAsync(IReadOnlyCollection<SegmentRequest> segmentRequests, CancellationToken cancellationToken = default)
         {
             if (_transportConfig.ProtocolVersion == ProtocolVersions.V6)
                 await _segmentReporterV6.ReportAsync(segmentRequests, cancellationToken);

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace Surging.Core.System.Module.Attributes
 {
     [AttributeUsage(AttributeTargets.Assembly, Inherited = false), ComVisible(true)]
-    public sealed class  AssemblyModuleTypeAttribute:Attribute
+    public sealed class AssemblyModuleTypeAttribute : Attribute
     {
         #region 属性
 
@@ -42,7 +42,6 @@ namespace Surging.Core.System.Module.Attributes
             Type = type;
             SerialNumber = serialNumber;
         }
-
 
         public AssemblyModuleTypeAttribute(ModuleType type)
         {

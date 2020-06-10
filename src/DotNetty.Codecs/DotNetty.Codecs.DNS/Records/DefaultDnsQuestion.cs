@@ -5,15 +5,12 @@ namespace DotNetty.Codecs.DNS.Records
 {
     public class DefaultDnsQuestion : AbstractDnsRecord, IDnsQuestion
     {
-        public DefaultDnsQuestion(string name,
-            DnsRecordType type, long timeToLive,
-            DnsRecordClass dnsClass = DnsRecordClass.IN)
-            : base(name, type, timeToLive, dnsClass) { }
+        public DefaultDnsQuestion(string name, DnsRecordType type, long timeToLive, DnsRecordClass dnsClass = DnsRecordClass.IN) : base(name, type, timeToLive, dnsClass)
+        { }
 
         public DefaultDnsQuestion(string name, DnsRecordType type) : base(name, type, 0) { }
 
-        public DefaultDnsQuestion(string name, DnsRecordType type, DnsRecordClass dnsClass) : 
-            base(name, type, 0, dnsClass){ }
+        public DefaultDnsQuestion(string name, DnsRecordType type, DnsRecordClass dnsClass) : base(name, type, 0, dnsClass) { }
 
         public override string ToString()
         {

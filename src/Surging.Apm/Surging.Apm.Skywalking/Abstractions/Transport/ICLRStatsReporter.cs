@@ -23,7 +23,6 @@ namespace Surging.Apm.Skywalking.Abstractions.Transport
 {
     public interface ICLRStatsReporter
     {
-        Task ReportAsync(CLRStatsRequest statsRequest,
-            CancellationToken cancellationToken = default(CancellationToken));
+        Task ReportAsync(CLRStatsRequest statsRequest, CancellationToken cancellationToken = default);
     }
 }

@@ -64,8 +64,8 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.Common
                 ParentSpanId = request.ParentSpanId,
                 StartTime = request.StartTime,
                 EndTime = request.EndTime,
-                SpanType = (SpanType) request.SpanType,
-                SpanLayer = (SpanLayer) request.SpanLayer,
+                SpanType = (SpanType)request.SpanType,
+                SpanLayer = (SpanLayer)request.SpanLayer,
                 IsError = request.IsError
             };
 
@@ -73,7 +73,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.Common
             ReadStringOrIntValue(spanObject, request.OperationName, OperationNameReader, OperationNameIdReader);
             ReadStringOrIntValue(spanObject, request.Peer, PeerReader, PeerIdReader);
 
-            spanObject.Tags.Add(request.Tags.Select(x => new KeyStringValuePair {Key = x.Key, Value = x.Value}));
+            spanObject.Tags.Add(request.Tags.Select(x => new KeyStringValuePair { Key = x.Key, Value = x.Value }));
             spanObject.Refs.AddRange(request.References.Select(MapToSegmentReference).ToArray());
             spanObject.Logs.AddRange(request.Logs.Select(MapToLogMessage).ToArray());
 
@@ -87,7 +87,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.Common
                 ParentServiceInstanceId = referenceRequest.ParentServiceInstanceId,
                 EntryServiceInstanceId = referenceRequest.EntryServiceInstanceId,
                 ParentSpanId = referenceRequest.ParentSpanId,
-                RefType = (RefType) referenceRequest.RefType,
+                RefType = (RefType)referenceRequest.RefType,
                 ParentTraceSegmentId = MapToUniqueId(referenceRequest.ParentSegmentId)
             };
 
@@ -103,8 +103,8 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.Common
 
         private static Log MapToLogMessage(LogDataRequest request)
         {
-            var logMessage = new Log {Time = request.Timestamp};
-            logMessage.Data.AddRange(request.Data.Select(x => new KeyStringValuePair {Key = x.Key, Value = x.Value})
+            var logMessage = new Log { Time = request.Timestamp };
+            logMessage.Data.AddRange(request.Data.Select(x => new KeyStringValuePair { Key = x.Key, Value = x.Value })
                 .ToArray());
             return logMessage;
         }

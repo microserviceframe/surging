@@ -7,10 +7,10 @@ namespace Surging.Core.SwaggerGen
 {
     public static class ApiParameterDescriptionExtensions
     {
-          internal static bool TryGetParameterInfo(
-            this ApiParameterDescription apiParameterDescription,
-            ApiDescription apiDescription,
-            out ParameterInfo parameterInfo)
+        internal static bool TryGetParameterInfo(
+          this ApiParameterDescription apiParameterDescription,
+          ApiDescription apiDescription,
+          out ParameterInfo parameterInfo)
         {
             var controllerParameterDescriptor = apiDescription.ActionDescriptor.Parameters
                 .OfType<ControllerParameterDescriptor>()

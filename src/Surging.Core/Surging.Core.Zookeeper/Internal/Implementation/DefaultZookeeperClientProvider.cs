@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -18,18 +17,15 @@ using Level = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Surging.Core.Zookeeper.Internal.Implementation
 {
-    public class DefaultZookeeperClientProvider : IZookeeperClientProvider
+	public class DefaultZookeeperClientProvider : IZookeeperClientProvider
     {
         private ConfigInfo _config;
         private readonly IHealthCheckService _healthCheckService;
         private readonly IZookeeperAddressSelector _zookeeperAddressSelector;
         private readonly ILogger<DefaultZookeeperClientProvider> _logger;
-        private readonly ConcurrentDictionary<string, IAddressSelector> _addressSelectors = new
-            ConcurrentDictionary<string, IAddressSelector>();
-        private readonly ConcurrentDictionary<AddressModel,ValueTuple<ManualResetEvent, ZooKeeper>> _zookeeperClients = new
-           ConcurrentDictionary<AddressModel, ValueTuple<ManualResetEvent, ZooKeeper>>();
-        public DefaultZookeeperClientProvider(ConfigInfo config, IHealthCheckService healthCheckService, IZookeeperAddressSelector zookeeperAddressSelector,
-      ILogger<DefaultZookeeperClientProvider> logger)
+        private readonly ConcurrentDictionary<string, IAddressSelector> _addressSelectors = new ConcurrentDictionary<string, IAddressSelector>();
+        private readonly ConcurrentDictionary<AddressModel, ValueTuple<ManualResetEvent, ZooKeeper>> _zookeeperClients = new ConcurrentDictionary<AddressModel, ValueTuple<ManualResetEvent, ZooKeeper>>();
+        public DefaultZookeeperClientProvider(ConfigInfo config, IHealthCheckService healthCheckService, IZookeeperAddressSelector zookeeperAddressSelector, ILogger<DefaultZookeeperClientProvider> logger)
         {
             _config = config;
             _healthCheckService = healthCheckService;
@@ -49,7 +45,6 @@ namespace Surging.Core.Zookeeper.Internal.Implementation
 
         public async ValueTask<(ManualResetEvent, ZooKeeper)> GetZooKeeper()
         {
-
             (ManualResetEvent, ZooKeeper) result = new ValueTuple<ManualResetEvent, ZooKeeper>();
             var address = new List<AddressModel>();
             foreach (var addressModel in _config.Addresses)
@@ -66,7 +61,7 @@ namespace Surging.Core.Zookeeper.Internal.Implementation
             {
                 if (_logger.IsEnabled(Level.Warning))
                     _logger.LogWarning($"找不到可用的注册中心地址。");
-                return default(ValueTuple<ManualResetEvent, ZooKeeper>);
+                return default;
             }
 
             var vt = _zookeeperAddressSelector.SelectAsync(new AddressSelectContext
@@ -102,13 +97,13 @@ namespace Surging.Core.Zookeeper.Internal.Implementation
                       {
                           connectionWait.Reset();
                           if (_zookeeperClients.TryRemove(ipAddress, out (ManualResetEvent, ZooKeeper) value))
-                          { 
+                          {
                               await value.Item2.closeAsync();
                               value.Item1.Close();
                           }
                           CreateZooKeeper(ipAddress);
                       })));
-                _zookeeperClients.AddOrUpdate(ipAddress, result,(k,v)=> result);
+                _zookeeperClients.AddOrUpdate(ipAddress, result, (k, v) => result);
             }
             return result;
         }

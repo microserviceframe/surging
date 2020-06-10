@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Surging.Core.ProxyGenerator.Utilitys
 {
-	class AttributeFactory
+    class AttributeFactory
     {
         public AttributeFactory(CustomAttributeData data)
         {

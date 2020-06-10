@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using DotNetty.Common.Utilities;
 using DotNetty.Transport.Channels;
 using Surging.Core.Protocol.Mqtt.Internal.Channel;
 using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using Surging.Core.Protocol.Mqtt.Internal.Messages;
-using System.Collections;
 using System.Linq;
 using DotNetty.Codecs.Mqtt.Packets;
 using System.Threading.Tasks;
 using Surging.Core.Protocol.Mqtt.Internal.Runtime;
-using System.Net;
-using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.CPlatform.Messages;
@@ -28,7 +24,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
         private readonly IMessagePushService _messagePushService;
         private readonly ConcurrentDictionary<string, IEnumerable<MqttChannel>> _topics = new ConcurrentDictionary<string, IEnumerable<MqttChannel>>();
         private readonly ConcurrentDictionary<string, MqttChannel> _mqttChannels = new ConcurrentDictionary<String, MqttChannel>();
-        protected readonly  ConcurrentDictionary<String, ConcurrentQueue<RetainMessage>> _retain = new ConcurrentDictionary<String, ConcurrentQueue<RetainMessage>>();
+        protected readonly ConcurrentDictionary<String, ConcurrentQueue<RetainMessage>> _retain = new ConcurrentDictionary<String, ConcurrentQueue<RetainMessage>>();
         private readonly IMqttBrokerEntryManger _mqttBrokerEntryManger;
         private readonly IMqttRemoteInvokeService _mqttRemoteInvokeService;
         private readonly string _publishServiceId;
@@ -42,10 +38,13 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
             _messagePushService = messagePushService;
             _mqttBrokerEntryManger = mqttBrokerEntryManger;
             _mqttRemoteInvokeService = mqttRemoteInvokeService;
-            _publishServiceId= serviceIdGenerator.GenerateServiceId(typeof(IMqttRomtePublishService).GetMethod("Publish"));
+            _publishServiceId = serviceIdGenerator.GenerateServiceId(typeof(IMqttRomtePublishService).GetMethod("Publish"));
         }
 
-        public ConcurrentDictionary<string, MqttChannel> MqttChannels { get {
+        public ConcurrentDictionary<string, MqttChannel> MqttChannels
+        {
+            get
+            {
                 return _mqttChannels;
             }
         }
@@ -104,7 +103,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
         {
             string deviceId = null;
             if (channel != null)
-            { 
+            {
                 deviceId = channel.GetAttribute<string>(DeviceIdAttrKey).Get();
             }
             return await new ValueTask<string>(deviceId);
@@ -116,10 +115,10 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
             if (!string.IsNullOrEmpty(topic) && mqttChannel != null)
             {
                 _topics.TryGetValue(topic, out IEnumerable<MqttChannel> mqttChannels);
-                var channels = mqttChannels==null ? new List<MqttChannel>(): mqttChannels.ToList();
+                var channels = mqttChannels == null ? new List<MqttChannel>() : mqttChannels.ToList();
                 channels.Add(mqttChannel);
                 _topics.AddOrUpdate(topic, channels, (key, value) => channels);
-                result = true; 
+                result = true;
             }
             return result;
         }
@@ -138,11 +137,11 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
         {
             var addresses = await _mqttBrokerEntryManger.GetMqttBrokerAddress(topic);
             var host = NetUtils.GetHostAddress();
-            if (addresses==null || !addresses.Any(p => p.ToString() == host.ToString()))
+            if (addresses == null || !addresses.Any(p => p.ToString() == host.ToString()))
                 await _mqttBrokerEntryManger.Register(topic, host);
         }
 
-        protected async Task  BrokerCancellationReg(string topic)
+        protected async Task BrokerCancellationReg(string topic)
         {
             if (Topics.ContainsKey(topic))
             {
@@ -195,7 +194,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services
             if (!string.IsNullOrEmpty(deviceId))
             {
                 MqttChannels.TryGetValue(deviceId, out MqttChannel mqttChannel);
-                result = mqttChannel==null?false: await mqttChannel.IsOnine();
+                result = mqttChannel == null ? false : await mqttChannel.IsOnine();
             }
             return result;
         }

@@ -1,18 +1,16 @@
-﻿using Surging.Core.CPlatform.Engines;
-using Surging.Core.CPlatform.Runtime.Server;
+﻿using Surging.Core.CPlatform.Runtime.Server;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.Swagger.Internal
 {
-   public class DefaultServiceSchemaProvider : IServiceSchemaProvider
+    public class DefaultServiceSchemaProvider : IServiceSchemaProvider
     {
         private readonly IServiceEntryProvider _serviceEntryProvider;
 
-        public DefaultServiceSchemaProvider( IServiceEntryProvider serviceEntryProvider)
+        public DefaultServiceSchemaProvider(IServiceEntryProvider serviceEntryProvider)
         {
             _serviceEntryProvider = serviceEntryProvider;
         }

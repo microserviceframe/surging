@@ -2,7 +2,7 @@
 
 namespace Surging.Core.Stage.Internal
 {
-	public interface IIPChecker
+    public interface IIPChecker
     {
         bool IsBlackIp(IPAddress ip, string routePath);
     }

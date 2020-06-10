@@ -10,16 +10,13 @@ namespace DotNetty.Codecs.DNS.Messages
 
         public EndPoint Recipient { get; }
 
-        public DatagramDnsResponse Content=>this ;
+        public DatagramDnsResponse Content => this;
 
-        public DatagramDnsResponse(EndPoint sender, EndPoint recipient, int id)
-            : this(sender, recipient, id, DnsOpCode.QUERY, DnsResponseCode.NOERROR) { }
+        public DatagramDnsResponse(EndPoint sender, EndPoint recipient, int id) : this(sender, recipient, id, DnsOpCode.QUERY, DnsResponseCode.NOERROR) { }
 
-        public DatagramDnsResponse(EndPoint sender, EndPoint recipient, int id, DnsOpCode opCode)
-            : this(sender, recipient, id, opCode, DnsResponseCode.NOERROR) { }
+        public DatagramDnsResponse(EndPoint sender, EndPoint recipient, int id, DnsOpCode opCode) : this(sender, recipient, id, opCode, DnsResponseCode.NOERROR) { }
 
-        public DatagramDnsResponse(EndPoint sender, EndPoint recipient, int id, DnsOpCode opCode, DnsResponseCode responseCode)
-            : base(id, opCode, responseCode)
+        public DatagramDnsResponse(EndPoint sender, EndPoint recipient, int id, DnsOpCode opCode, DnsResponseCode responseCode) : base(id, opCode, responseCode)
         {
             Sender = sender ?? throw new ArgumentNullException(nameof(sender));
             Recipient = recipient ?? throw new ArgumentNullException(nameof(recipient));

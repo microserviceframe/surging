@@ -30,13 +30,12 @@ namespace Surging.Core.SwaggerGen
 
         public IDictionary<string, Schema> Definitions { get; private set; }
 
-        public Schema GetOrRegister(Type type)
-       => GetOrRegister(null, type);
+        public Schema GetOrRegister(Type type) => GetOrRegister(null, type);
 
         public Schema GetOrRegister(string paramName, Type type)
         {
             var referencedTypes = new Queue<Type>();
-            var schema = CreateSchema(paramName,type, referencedTypes);
+            var schema = CreateSchema(paramName, type, referencedTypes);
 
             // Ensure all referenced types have a corresponding definition
             while (referencedTypes.Any())
@@ -55,9 +54,8 @@ namespace Surging.Core.SwaggerGen
             return schema;
         }
 
-        private Schema CreateSchema(Type type, Queue<Type> referencedTypes) =>
-            CreateSchema(null, type, referencedTypes);
-      
+        private Schema CreateSchema(Type type, Queue<Type> referencedTypes) => CreateSchema(null, type, referencedTypes);
+
 
         private Schema CreateSchema(string paramName, Type type, Queue<Type> referencedTypes)
         {
@@ -103,7 +101,7 @@ namespace Surging.Core.SwaggerGen
                 if (jsonContract is JsonPrimitiveContract)
                     schema = CreatePrimitiveSchema((JsonPrimitiveContract)jsonContract);
                 else if (jsonContract is JsonDictionaryContract)
-                    schema = CreateDictionarySchema(paramName,(JsonDictionaryContract)jsonContract, referencedTypes);
+                    schema = CreateDictionarySchema(paramName, (JsonDictionaryContract)jsonContract, referencedTypes);
                 else if (jsonContract is JsonArrayContract)
                     schema = CreateArraySchema((JsonArrayContract)jsonContract, referencedTypes);
                 else if (jsonContract is JsonObjectContract && type != typeof(object))
@@ -194,14 +192,14 @@ namespace Surging.Core.SwaggerGen
                     )
                 };
             }
-            else if(!string.IsNullOrEmpty(paramName))
+            else if (!string.IsNullOrEmpty(paramName))
             {
                 return new Schema
                 {
                     Type = "object",
                     Properties = new Dictionary<string, Schema> { {paramName,
                        CreateSchema(valueType, referencedTypes) } }
-                
+
                 };
             }
             else

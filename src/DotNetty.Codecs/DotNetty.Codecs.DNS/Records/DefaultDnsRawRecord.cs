@@ -12,8 +12,7 @@ namespace DotNetty.Codecs.DNS.Records
 
         public int ReferenceCount { get; }
 
-        public DefaultDnsRawRecord(string name, DnsRecordType type, long timeToLive,
-            IByteBuffer content) : this(name, type, DnsRecordClass.IN, timeToLive, content)
+        public DefaultDnsRawRecord(string name, DnsRecordType type, long timeToLive, IByteBuffer content) : this(name, type, DnsRecordClass.IN, timeToLive, content)
         {
         }
 
@@ -66,7 +65,7 @@ namespace DotNetty.Codecs.DNS.Records
             Content.Touch(hint);
             return this;
         }
-         
+
 
         public override string ToString()
         {

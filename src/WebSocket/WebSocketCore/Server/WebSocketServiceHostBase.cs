@@ -38,16 +38,16 @@ using WebSocketCore.Net.WebSockets;
 
 namespace WebSocketCore.Server
 {
-  /// <summary>
-  /// Exposes the methods and properties used to access the information in
-  /// a WebSocket service provided by the <see cref="WebSocketServer"/> or
-  /// <see cref="HttpServer"/>.
-  /// </summary>
-  /// <remarks>
-  /// This class is an abstract class.
-  /// </remarks>
-  public abstract class WebSocketServiceHostBase
-  {
+    /// <summary>
+    /// Exposes the methods and properties used to access the information in
+    /// a WebSocket service provided by the <see cref="WebSocketServer"/> or
+    /// <see cref="HttpServer"/>.
+    /// </summary>
+    /// <remarks>
+    /// This class is an abstract class.
+    /// </remarks>
+    public abstract class WebSocketServiceHostBase
+    {
         #region Private Fields
 
         private Logger _log;

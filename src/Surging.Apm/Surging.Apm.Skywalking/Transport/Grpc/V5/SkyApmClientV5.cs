@@ -34,8 +34,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V5
         private readonly ILogger _logger;
         private readonly GrpcConfig _config;
 
-        public SkyApmClientV5(ConnectionManager connectionManager, IConfigAccessor configAccessor,
-            ILoggerFactory loggerFactory)
+        public SkyApmClientV5(ConnectionManager connectionManager, IConfigAccessor configAccessor, ILoggerFactory loggerFactory)
         {
             _connectionManager = connectionManager;
             _config = configAccessor.Get<GrpcConfig>();
@@ -55,20 +54,18 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V5
             var client = new ApplicationRegisterService.ApplicationRegisterServiceClient(connection);
 
             return await new Call(_logger, _connectionManager).Execute(async () =>
-                {
-                    var applicationMapping = await client.applicationCodeRegisterAsync(
-                        new Application {ApplicationCode = applicationCode},
-                        _config.GetMeta(), _config.GetTimeout(), cancellationToken);
+            {
+                var applicationMapping = await client.applicationCodeRegisterAsync(
+                    new Application { ApplicationCode = applicationCode },
+                    _config.GetMeta(), _config.GetTimeout(), cancellationToken);
 
-                    return new NullableValue(applicationMapping?.Application?.Value ?? 0);
-                },
+                return new NullableValue(applicationMapping?.Application?.Value ?? 0);
+            },
                 () => NullableValue.Null,
                 () => ExceptionHelpers.RegisterApplicationError);
         }
 
-        public async Task<NullableValue> RegisterApplicationInstanceAsync(int applicationId, Guid agentUUID,
-            long registerTime, AgentOsInfoRequest osInfoRequest,
-            CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<NullableValue> RegisterApplicationInstanceAsync(int applicationId, Guid agentUUID, long registerTime, AgentOsInfoRequest osInfoRequest, CancellationToken cancellationToken = default)
         {
             if (!_connectionManager.Ready)
             {
@@ -95,17 +92,16 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V5
             applicationInstance.Osinfo.Ipv4S.AddRange(osInfoRequest.IpAddress);
 
             return await new Call(_logger, _connectionManager).Execute(async () =>
-                {
-                    var applicationInstanceMapping = await client.registerInstanceAsync(applicationInstance, null,
-                        _config.GetTimeout(), cancellationToken);
-                    return new NullableValue(applicationInstanceMapping?.ApplicationInstanceId ?? 0);
-                },
+            {
+                var applicationInstanceMapping = await client.registerInstanceAsync(applicationInstance, null,
+                    _config.GetTimeout(), cancellationToken);
+                return new NullableValue(applicationInstanceMapping?.ApplicationInstanceId ?? 0);
+            },
                 () => NullableValue.Null,
                 () => ExceptionHelpers.RegisterApplicationInstanceError);
         }
 
-        public async Task HeartbeatAsync(int applicationInstance, long heartbeatTime,
-            CancellationToken cancellationToken = default(CancellationToken))
+        public async Task HeartbeatAsync(int applicationInstance, long heartbeatTime, CancellationToken cancellationToken = default)
         {
             if (!_connectionManager.Ready)
             {

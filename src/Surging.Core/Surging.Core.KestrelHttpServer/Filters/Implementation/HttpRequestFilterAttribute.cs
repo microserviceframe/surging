@@ -1,11 +1,8 @@
 ﻿using Surging.Core.CPlatform.Routing;
 using Surging.Core.CPlatform.Runtime.Server;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
-using Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.Attributes;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Utilities;
@@ -13,7 +10,7 @@ using Autofac;
 
 namespace Surging.Core.KestrelHttpServer.Filters.Implementation
 {
-   public class HttpRequestFilterAttribute : IActionFilter
+    public class HttpRequestFilterAttribute : IActionFilter
     {
         internal const string Http405EndpointDisplayName = "405 HTTP Method Not Supported";
         internal const int Http405EndpointStatusCode = 405;
@@ -29,13 +26,13 @@ namespace Surging.Core.KestrelHttpServer.Filters.Implementation
             return Task.CompletedTask;
         }
 
-        public  async Task OnActionExecuting(ActionExecutingContext filterContext)
-        { 
-            var serviceEntry= _serviceEntryLocate.Locate(filterContext.Message);
+        public async Task OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var serviceEntry = _serviceEntryLocate.Locate(filterContext.Message);
             if (serviceEntry != null)
             {
                 var httpMethods = serviceEntry.Methods;
-                if (httpMethods.Count()>0 && !httpMethods.Any(p => String.Compare(p, filterContext.Context.Request.Method, true) == 0))
+                if (httpMethods.Count() > 0 && !httpMethods.Any(p => String.Compare(p, filterContext.Context.Request.Method, true) == 0))
                 {
                     filterContext.Result = new HttpResultMessage<object>
                     {

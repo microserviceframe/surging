@@ -16,7 +16,6 @@ namespace Surging.Core.EventBusRabbitMQ
 {
     public static class ContainerBuilderExtensions
     {
-
         /// <summary>
         /// 使用RabbitMQ进行传输。
         /// </summary>

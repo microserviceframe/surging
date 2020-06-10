@@ -1,12 +1,10 @@
 ﻿using ProtoBuf;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Surging.Core.Codec.ProtoBuffer.Utilities
 {
-    public static class SerializerUtilitys
+	public static class SerializerUtilitys
     {
         public static byte[] Serialize(object instance)
         {

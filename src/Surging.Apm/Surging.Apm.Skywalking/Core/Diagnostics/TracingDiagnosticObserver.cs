@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using Surging.Apm.Skywalking.Abstractions;
 using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Apm.Skywalking.Core.Diagnostics
@@ -29,8 +28,7 @@ namespace Surging.Apm.Skywalking.Core.Diagnostics
         private readonly TracingDiagnosticMethodCollection _methodCollection;
         private readonly ILogger _logger;
 
-        public TracingDiagnosticObserver(ITracingDiagnosticProcessor tracingDiagnosticProcessor,
-            ILoggerFactory loggerFactory)
+        public TracingDiagnosticObserver(ITracingDiagnosticProcessor tracingDiagnosticProcessor, ILoggerFactory loggerFactory)
         {
             _methodCollection = new TracingDiagnosticMethodCollection(tracingDiagnosticProcessor);
             _logger = loggerFactory.CreateLogger(typeof(TracingDiagnosticObserver));

@@ -1,4 +1,4 @@
-using System; 
+using System;
 
 namespace WebSocketCore.Server
 {
@@ -13,8 +13,7 @@ namespace WebSocketCore.Server
             }
         }
 
-        internal WebSocketServiceHost(string path, WebSocketBehavior webSocketBehavior, Logger log)
-                : base(path, log)
+        internal WebSocketServiceHost(string path, WebSocketBehavior webSocketBehavior, Logger log) : base(path, log)
         {
             _webSocketBehavior = webSocketBehavior;
         }
@@ -26,4 +25,4 @@ namespace WebSocketCore.Server
 
 
     }
-} 
+}

@@ -39,7 +39,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Config
     public static class ProtocolVersions
     {
         public static string V5 { get; } = "v5";
-        
+
         public static string V6 { get; } = "v6";
     }
 }

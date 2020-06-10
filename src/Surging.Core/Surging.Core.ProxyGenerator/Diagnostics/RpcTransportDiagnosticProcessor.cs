@@ -69,7 +69,7 @@ namespace Surging.Core.ProxyGenerator.Diagnostics
         [DiagnosticName(SurgingEvents.SurgingErrorTransport, TransportType.Rpc)]
         public void TransportError([Object] TransportErrorEventData eventData)
         {
-              _resultDictionary.TryRemove(eventData.OperationId.ToString(),out SegmentContext context);
+            _resultDictionary.TryRemove(eventData.OperationId.ToString(), out SegmentContext context);
             if (context != null)
             {
                 context.Span.ErrorOccurred(eventData.Exception);

@@ -1,13 +1,8 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Surging.Core.System.Module
 {
-   public class ContainerBuilderWrapper
+    public class ContainerBuilderWrapper
     {
         /// <summary>
         /// 获取内部容器构建对象。

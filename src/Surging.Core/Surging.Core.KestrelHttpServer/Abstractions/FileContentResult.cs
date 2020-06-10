@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic; 
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Net.Http.Headers;
 using System.IO;
@@ -9,13 +6,12 @@ using Surging.Core.KestrelHttpServer.Internal;
 
 namespace Surging.Core.KestrelHttpServer
 {
-   public class FileContentResult : FileResult
+    public class FileContentResult : FileResult
     {
         private byte[] _fileContents;
         protected const int BufferSize = 64 * 1024;
 
-        public FileContentResult(byte[] fileContents, string contentType)
-            : this(fileContents, MediaTypeHeaderValue.Parse(contentType))
+        public FileContentResult(byte[] fileContents, string contentType) : this(fileContents, MediaTypeHeaderValue.Parse(contentType))
         {
             if (fileContents == null)
             {
@@ -23,8 +19,7 @@ namespace Surging.Core.KestrelHttpServer
             }
         }
 
-        public FileContentResult(byte[] fileContents, string contentType,string fileDownloadName)
-      : this(fileContents, MediaTypeHeaderValue.Parse(contentType))
+        public FileContentResult(byte[] fileContents, string contentType, string fileDownloadName) : this(fileContents, MediaTypeHeaderValue.Parse(contentType))
         {
             if (fileContents == null)
             {
@@ -34,11 +29,10 @@ namespace Surging.Core.KestrelHttpServer
             {
                 throw new ArgumentNullException(nameof(fileDownloadName));
             }
-            this.FileDownloadName = fileDownloadName;
+            FileDownloadName = fileDownloadName;
         }
 
-        public FileContentResult(byte[] fileContents, MediaTypeHeaderValue contentType)
-            : base(contentType?.ToString())
+        public FileContentResult(byte[] fileContents, MediaTypeHeaderValue contentType) : base(contentType?.ToString())
         {
             if (fileContents == null)
             {
@@ -47,7 +41,7 @@ namespace Surging.Core.KestrelHttpServer
 
             FileContents = fileContents;
         }
-        
+
         public byte[] FileContents
         {
             get => _fileContents;

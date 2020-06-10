@@ -41,8 +41,7 @@ namespace Surging.Apm.Skywalking.Core.Service
         protected override TimeSpan Period { get; } = TimeSpan.FromSeconds(30);
 
         public ServiceDiscoveryV5Service(IConfigAccessor configAccessor, ISkyApmClientV5 skyApmClient,
-            IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory)
-            : base(runtimeEnvironment, loggerFactory)
+            IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             _config = configAccessor.Get<InstrumentConfig>();
             _transportConfig = configAccessor.Get<TransportConfig>();
@@ -64,7 +63,7 @@ namespace Surging.Apm.Skywalking.Core.Service
             if (!RuntimeEnvironment.ServiceId.HasValue)
             {
                 var value = await Polling(3,
-                    () => skyApmClient.RegisterApplicationAsync(_config.ServiceName ?? _config.ApplicationCode, cancellationToken),
+                    () => skyApmClient.RegisterApplicationAsync(_config.ServiceName ?? _config.ServiceName, cancellationToken),
                     cancellationToken);
                 if (value.HasValue && RuntimeEnvironment is RuntimeEnvironment environment)
                 {

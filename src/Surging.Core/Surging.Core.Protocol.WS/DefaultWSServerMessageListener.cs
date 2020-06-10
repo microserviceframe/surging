@@ -1,5 +1,4 @@
 ﻿using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Transport;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace Surging.Core.Protocol.WS
     public class DefaultWSServerMessageListener : IMessageListener, IDisposable
     {
         private readonly List<WSServiceEntry> _entries;
-        private  WebSocketServer _wssv;
+        private WebSocketServer _wssv;
         private readonly ILogger<DefaultWSServerMessageListener> _logger;
         private readonly WebSocketOptions _options;
 
@@ -36,9 +35,9 @@ namespace Surging.Core.Protocol.WS
                 foreach (var entry in _entries)
                     _wssv.AddWebSocketService(entry.Path, entry.FuncBehavior);
                 _wssv.KeepClean = _options.KeepClean;
-                _wssv.WaitTime = TimeSpan.FromSeconds(_options.WaitTime); 
+                _wssv.WaitTime = TimeSpan.FromSeconds(_options.WaitTime);
                 //允许转发请求
-                _wssv.AllowForwardedRequest = true;  
+                _wssv.AllowForwardedRequest = true;
                 _wssv.Start();
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug($"WS服务主机启动成功，监听地址：{endPoint}。");
@@ -47,10 +46,10 @@ namespace Surging.Core.Protocol.WS
             {
                 _logger.LogError($"WS服务主机启动失败，监听地址：{endPoint}。 ");
             }
-         
+
         }
 
-        public WebSocketServer  Server
+        public WebSocketServer Server
         {
             get
             {

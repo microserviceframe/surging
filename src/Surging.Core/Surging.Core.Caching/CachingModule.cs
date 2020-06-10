@@ -10,7 +10,6 @@ using Surging.Core.Caching.HealthChecks.Implementation;
 using Surging.Core.Caching.Interfaces;
 using Surging.Core.Caching.Internal.Implementation;
 using Surging.Core.Caching.Models;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
 using Surging.Core.CPlatform.Module;
 using System;

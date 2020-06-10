@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Protocol.WS.Configurations
 {
@@ -26,7 +24,7 @@ namespace Surging.Core.Protocol.WS.Configurations
         /// The value specified for a set operation is zero or less.
         /// </exception>
         public int WaitTime { get; set; } = 1;
-        
+
         public bool KeepClean
         {
             get;

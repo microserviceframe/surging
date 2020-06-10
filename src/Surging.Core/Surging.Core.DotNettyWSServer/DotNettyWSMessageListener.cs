@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.DotNettyWSServer
 {
-	public class DotNettyWSMessageListener : IMessageListener, IDisposable
+    public class DotNettyWSMessageListener : IMessageListener, IDisposable
     {
         #region Field
 
@@ -91,7 +91,7 @@ namespace Surging.Core.DotNettyWSServer
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug($"WS服务主机启动成功，监听地址：{endPoint}。");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _logger.LogError($"WS服务主机启动失败，监听地址：{endPoint}。 ");
             }
@@ -126,7 +126,6 @@ namespace Surging.Core.DotNettyWSServer
 
         public class WebSocketFrameDecoder : MessageToMessageDecoder<WebSocketFrame>
         {
-
             protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<Object> output)
             {
                 var buff = msg.Content;

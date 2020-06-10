@@ -54,10 +54,10 @@ namespace DotNetty.Codecs.DNS
             if (flags >> 15 == 0) throw new CorruptedFrameException("not a response");
 
             IDnsResponse response = new DatagramDnsResponse(
-                packet.Sender, 
-                packet.Recipient, 
-                id, 
-                DnsOpCode.From((byte)(flags >> 1 & 0xf)), 
+                packet.Sender,
+                packet.Recipient,
+                id,
+                DnsOpCode.From((byte)(flags >> 1 & 0xf)),
                 DnsResponseCode.From((byte)(flags & 0xf)));
             return response;
         }

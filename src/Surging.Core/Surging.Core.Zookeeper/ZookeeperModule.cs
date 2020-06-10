@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Mqtt;
@@ -104,16 +103,16 @@ namespace Surging.Core.Zookeeper
         public ZookeeperModule UseZooKeeperMqttRouteManager(ContainerBuilderWrapper builder, ConfigInfo configInfo)
         {
             UseMqttRouteManager(builder, provider =>
-          {
-              var result = new ZooKeeperMqttServiceRouteManager(
-                   GetConfigInfo(configInfo),
-                 provider.GetRequiredService<ISerializer<byte[]>>(),
-                   provider.GetRequiredService<ISerializer<string>>(),
-                   provider.GetRequiredService<IMqttServiceFactory>(),
-                   provider.GetRequiredService<ILogger<ZooKeeperMqttServiceRouteManager>>(),
-                  provider.GetRequiredService<IZookeeperClientProvider>());
-              return result;
-          });
+            {
+                var result = new ZooKeeperMqttServiceRouteManager(
+                     GetConfigInfo(configInfo),
+                   provider.GetRequiredService<ISerializer<byte[]>>(),
+                     provider.GetRequiredService<ISerializer<string>>(),
+                     provider.GetRequiredService<IMqttServiceFactory>(),
+                     provider.GetRequiredService<ILogger<ZooKeeperMqttServiceRouteManager>>(),
+                    provider.GetRequiredService<IZookeeperClientProvider>());
+                return result;
+            });
             return this;
         }
 
@@ -127,23 +126,23 @@ namespace Surging.Core.Zookeeper
         public ZookeeperModule UseZooKeeperCommandManager(ContainerBuilderWrapper builder, ConfigInfo configInfo)
         {
             UseCommandManager(builder, provider =>
-           {
-               var result = new ZookeeperServiceCommandManager(
-                   GetConfigInfo(configInfo),
-                 provider.GetRequiredService<ISerializer<byte[]>>(),
-                   provider.GetRequiredService<ISerializer<string>>(),
-                 provider.GetRequiredService<IServiceRouteManager>(),
-                   provider.GetRequiredService<IServiceEntryManager>(),
-                   provider.GetRequiredService<ILogger<ZookeeperServiceCommandManager>>(),
-                  provider.GetRequiredService<IZookeeperClientProvider>());
-               return result;
-           });
+            {
+                var result = new ZookeeperServiceCommandManager(
+                    GetConfigInfo(configInfo),
+                  provider.GetRequiredService<ISerializer<byte[]>>(),
+                    provider.GetRequiredService<ISerializer<string>>(),
+                  provider.GetRequiredService<IServiceRouteManager>(),
+                    provider.GetRequiredService<IServiceEntryManager>(),
+                    provider.GetRequiredService<ILogger<ZookeeperServiceCommandManager>>(),
+                   provider.GetRequiredService<IZookeeperClientProvider>());
+                return result;
+            });
             return this;
         }
 
         public ZookeeperModule UseZooKeeperServiceSubscribeManager(ContainerBuilderWrapper builder, ConfigInfo configInfo)
         {
-             UseSubscribeManager(builder,provider =>
+            UseSubscribeManager(builder, provider =>
             {
                 var result = new ZooKeeperServiceSubscribeManager(
                     GetConfigInfo(configInfo),
@@ -204,7 +203,7 @@ namespace Surging.Core.Zookeeper
             if (option != null)
             {
                 var sessionTimeout = config.SessionTimeout.TotalSeconds;
-                Double.TryParse(option.SessionTimeout, out sessionTimeout);
+                double.TryParse(option.SessionTimeout, out sessionTimeout);
                 config = new ConfigInfo(
                     option.ConnectionString,
                     TimeSpan.FromSeconds(sessionTimeout),

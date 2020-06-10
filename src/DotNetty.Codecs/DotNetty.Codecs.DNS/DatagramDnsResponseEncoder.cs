@@ -44,7 +44,7 @@ namespace DotNetty.Codecs.DNS
                         buffer.Release();
                 }
 
-                output.Add(new DatagramPacket(buffer,null, recipient));
+                output.Add(new DatagramPacket(buffer, null, recipient));
             }
         }
 
@@ -95,6 +95,6 @@ namespace DotNetty.Codecs.DNS
             }
         }
 
-        
+
     }
 }

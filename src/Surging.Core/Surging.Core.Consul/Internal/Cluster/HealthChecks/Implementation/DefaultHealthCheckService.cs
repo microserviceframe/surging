@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.Address;
 
 namespace Surging.Core.Consul.Internal.Cluster.HealthChecks.Implementation
 {
-    public class DefaultHealthCheckService : IHealthCheckService,IDisposable
+    public class DefaultHealthCheckService : IHealthCheckService, IDisposable
     {
         private readonly int _timeout = 30000;
         private readonly Timer _timer;
-        private readonly ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry> _dictionary =
-    new ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry>();
+        private readonly ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry> _dictionary = new ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry>();
 
         #region Implementation of IHealthCheckService
         public DefaultHealthCheckService()
@@ -104,7 +102,6 @@ namespace Surging.Core.Consul.Internal.Cluster.HealthChecks.Implementation
             {
                 EndPoint = addressModel.CreateEndPoint();
                 Health = health;
-
             }
 
             public int UnhealthyTimes { get; set; }

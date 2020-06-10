@@ -1,6 +1,7 @@
 ﻿using Surging.Core.Swagger;
 using System;
 using System.Collections.Generic;
+
 namespace Surging.Core.SwaggerGen
 {
     public interface ISchemaRegistry

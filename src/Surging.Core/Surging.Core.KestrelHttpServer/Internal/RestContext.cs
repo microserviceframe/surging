@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http; 
+﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,15 +8,14 @@ using System.Linq;
 
 namespace Surging.Core.KestrelHttpServer.Internal
 {
-   public class RestContext
+    public class RestContext
     {
-     
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetAttachment(string key, object value)
         {
             Check.NotNull(serviceProvider, "serviceProvider");
             var htpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
-            htpContextAccessor.HttpContext.Items.Add(key,value);
+            htpContextAccessor.HttpContext.Items.Add(key, value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -29,7 +27,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             return value;
         }
 
-        public  void RemoveContextParameters(string key)
+        public void RemoveContextParameters(string key)
         {
             Check.NotNull(serviceProvider, "serviceProvider");
             var htpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
@@ -43,7 +41,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             Check.NotNull(serviceProvider, "serviceProvider");
             var htpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
             return htpContextAccessor.HttpContext.Items.ToDictionary(p => p.Key.ToString(), m => m.Value);
-            
+
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -51,14 +49,14 @@ namespace Surging.Core.KestrelHttpServer.Internal
         {
             Check.NotNull(serviceProvider, "serviceProvider");
             var htpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
-            htpContextAccessor.HttpContext.Items= contextParameters;
+            htpContextAccessor.HttpContext.Items = contextParameters;
         }
 
         private static IServiceProvider serviceProvider;
 
         internal void Initialize(IServiceProvider provider)
         {
-            serviceProvider= provider;
+            serviceProvider = provider;
         }
 
         public static RestContext GetContext()
@@ -72,9 +70,9 @@ namespace Surging.Core.KestrelHttpServer.Internal
             Check.NotNull(serviceProvider, "serviceProvider");
             var htpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
             htpContextAccessor.HttpContext.Items.Clear();
-            
+
         }
 
-   
+
     }
 }

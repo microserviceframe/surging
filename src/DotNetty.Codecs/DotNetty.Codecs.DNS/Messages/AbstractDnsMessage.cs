@@ -172,14 +172,14 @@ namespace DotNetty.Codecs.DNS.Messages
         {
             object records = SectionAt(section);
             if (records == null)
-                return default(TRecord);
+                return default;
 
             if (records is IDnsRecord)
                 return (TRecord)records;
 
             List<IDnsRecord> recordList = (List<IDnsRecord>)records;
             if (recordList.Count == 0)
-                return default(TRecord);
+                return default;
 
             return (TRecord)recordList[0];
         }
@@ -289,7 +289,7 @@ namespace DotNetty.Codecs.DNS.Messages
         {
             Clear();
             if (leak != null)
-                leak.Close(this); 
+                leak.Close(this);
         }
 
         public override bool Equals(object obj)

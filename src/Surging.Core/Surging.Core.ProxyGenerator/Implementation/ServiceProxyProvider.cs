@@ -10,16 +10,16 @@ namespace Surging.Core.ProxyGenerator.Implementation
     {
         private readonly IServiceRouteProvider _serviceRouteProvider;
         private readonly CPlatformContainer _serviceProvider;
-        public ServiceProxyProvider( IServiceRouteProvider serviceRouteProvider
+        public ServiceProxyProvider(IServiceRouteProvider serviceRouteProvider
             , CPlatformContainer serviceProvider)
         {
             _serviceRouteProvider = serviceRouteProvider;
             _serviceProvider = serviceProvider;
         }
 
-        public  async Task<T> Invoke<T>(IDictionary<string, object> parameters, string routePath)
+        public async Task<T> Invoke<T>(IDictionary<string, object> parameters, string routePath)
         {
-           var serviceRoute= await _serviceRouteProvider.GetRouteByPath(routePath.ToLower());
+            var serviceRoute = await _serviceRouteProvider.GetRouteByPath(routePath.ToLower());
             T result = default(T);
             if (parameters.ContainsKey("serviceKey"))
             {
@@ -27,18 +27,18 @@ namespace Surging.Core.ProxyGenerator.Implementation
                 var proxy = ServiceResolver.Current.GetService<RemoteServiceProxy>(serviceKey);
                 if (proxy == null)
                 {
-                     proxy = new RemoteServiceProxy(serviceKey.ToString(), _serviceProvider);
+                    proxy = new RemoteServiceProxy(serviceKey.ToString(), _serviceProvider);
                     ServiceResolver.Current.Register(serviceKey.ToString(), proxy);
                 }
                 result = await proxy.Invoke<T>(parameters, serviceRoute.ServiceDescriptor.Id);
-                    
+
             }
             else
             {
                 var proxy = ServiceResolver.Current.GetService<RemoteServiceProxy>();
                 if (proxy == null)
                 {
-                     proxy = new RemoteServiceProxy(null, _serviceProvider);
+                    proxy = new RemoteServiceProxy(null, _serviceProvider);
                     ServiceResolver.Current.Register(null, proxy);
                 }
                 result = await proxy.Invoke<T>(parameters, serviceRoute.ServiceDescriptor.Id);

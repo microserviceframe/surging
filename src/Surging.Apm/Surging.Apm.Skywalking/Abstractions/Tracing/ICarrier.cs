@@ -24,7 +24,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Tracing
     public interface ICarrier
     {
         bool HasValue { get; }
-        
+
         bool? Sampled { get; }
 
         UniqueId TraceId { get; }
@@ -34,13 +34,13 @@ namespace Surging.Apm.Skywalking.Abstractions.Tracing
         int ParentSpanId { get; }
 
         int ParentServiceInstanceId { get; }
-        
+
         int EntryServiceInstanceId { get; }
-        
+
         StringOrIntValue NetworkAddress { get; }
-        
+
         StringOrIntValue EntryEndpoint { get; }
-        
+
         StringOrIntValue ParentEndpoint { get; }
     }
 }

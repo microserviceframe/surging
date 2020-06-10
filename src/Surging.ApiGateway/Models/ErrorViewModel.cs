@@ -1,5 +1,3 @@
-using System;
-
 namespace Surging.ApiGateway.Models
 {
     public class ErrorViewModel

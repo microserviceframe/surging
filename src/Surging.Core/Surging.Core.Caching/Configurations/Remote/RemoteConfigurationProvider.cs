@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Surging.Core.Caching.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 
 namespace Surging.Core.Caching.Configurations.Remote
 {
@@ -16,13 +14,13 @@ namespace Surging.Core.Caching.Configurations.Remote
             if (!string.IsNullOrEmpty(source.ConfigurationKeyPrefix))
             {
                 Check.CheckCondition(() => source.ConfigurationKeyPrefix.Trim().StartsWith(":"), CachingResources.InvalidStartCharacter, "source.ConfigurationKeyPrefix", ":");
-                Check.CheckCondition(() => source.ConfigurationKeyPrefix.Trim().EndsWith(":"), CachingResources.InvalidEndCharacter, "source.ConfigurationKeyPrefix",":");
+                Check.CheckCondition(() => source.ConfigurationKeyPrefix.Trim().EndsWith(":"), CachingResources.InvalidEndCharacter, "source.ConfigurationKeyPrefix", ":");
             }
             Source = source;
             Backchannel = new HttpClient(source.BackchannelHttpHandler ?? new HttpClientHandler());
             Backchannel.DefaultRequestHeaders.UserAgent.ParseAdd("获取CacheConfiugration信息");
             Backchannel.Timeout = source.BackchannelTimeout;
-            Backchannel.MaxResponseContentBufferSize = 1024 * 1024 * 10; 
+            Backchannel.MaxResponseContentBufferSize = 1024 * 1024 * 10;
             Parser = source.Parser ?? new JsonConfigurationParser();
         }
 
@@ -31,7 +29,7 @@ namespace Surging.Core.Caching.Configurations.Remote
         public IConfigurationParser Parser { get; }
 
         public HttpClient Backchannel { get; }
-        
+
         public override void Load()
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, Source.ConfigurationUri);

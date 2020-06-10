@@ -4,13 +4,11 @@ using Surging.Core.CPlatform.Address;
 using Surging.Core.CPlatform.Routing;
 using Surging.Core.CPlatform.Routing.Implementation;
 using Surging.Core.CPlatform.Serialization;
-using Surging.Core.CPlatform.Transport.Implementation;
 using Surging.Core.CPlatform.Utilities;
 using Surging.Core.Zookeeper.Configurations;
 using Surging.Core.Zookeeper.Internal;
 using Surging.Core.Zookeeper.WatcherProvider;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +18,7 @@ using System.Threading.Tasks;
 namespace Surging.Core.Zookeeper
 {
     public class ZooKeeperServiceRouteManager : ServiceRouteManagerBase, IDisposable
-    { 
+    {
         private readonly ConfigInfo _configInfo;
         private readonly ISerializer<byte[]> _serializer;
         private readonly IServiceRouteFactory _serviceRouteFactory;
@@ -36,7 +34,7 @@ namespace Surging.Core.Zookeeper
             _serializer = serializer;
             _serviceRouteFactory = serviceRouteFactory;
             _logger = logger;
-            _zookeeperClientProvider = zookeeperClientProvider; 
+            _zookeeperClientProvider = zookeeperClientProvider;
             EnterRoutes().Wait();
         }
 
@@ -107,7 +105,7 @@ namespace Surging.Core.Zookeeper
             var zooKeepers = await _zookeeperClientProvider.GetZooKeepers();
             foreach (var zooKeeper in zooKeepers)
             {
-                await CreateSubdirectory(zooKeeper,_configInfo.RoutePath);
+                await CreateSubdirectory(zooKeeper, _configInfo.RoutePath);
 
                 var path = _configInfo.RoutePath;
                 if (!path.EndsWith("/"))
@@ -205,7 +203,7 @@ namespace Surging.Core.Zookeeper
             }
         }
 
-        private async Task CreateSubdirectory((ManualResetEvent, ZooKeeper) zooKeeper,  string path)
+        private async Task CreateSubdirectory((ManualResetEvent, ZooKeeper) zooKeeper, string path)
         {
             zooKeeper.Item1.WaitOne();
             if (await zooKeeper.Item2.existsAsync(path) != null)
@@ -281,7 +279,7 @@ namespace Surging.Core.Zookeeper
         private async Task EnterRoutes()
         {
             if (_routes != null)
-                return; 
+                return;
             var zooKeeper = await GetZooKeeper();
             zooKeeper.Item1.WaitOne();
             var watcher = new ChildrenMonitorWatcher(GetZooKeeper, _configInfo.RoutePath,
@@ -380,7 +378,6 @@ namespace Surging.Core.Zookeeper
                 _logger.LogInformation("路由数据更新成功。");
         }
 
-
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {
@@ -391,6 +388,5 @@ namespace Surging.Core.Zookeeper
             var zooKeeper = await _zookeeperClientProvider.GetZooKeeper();
             return zooKeeper;
         }
-
     }
 }

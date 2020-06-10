@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.Protocol.Mqtt.Internal.Enums
+﻿namespace Surging.Core.Protocol.Mqtt.Internal.Enums
 {
-    public  class ConnectMessage:MqttMessage
+    public class ConnectMessage : MqttMessage
     {
         public override MessageType MessageType => MessageType.CONNECT;
         public string ProtocolName { get; set; }

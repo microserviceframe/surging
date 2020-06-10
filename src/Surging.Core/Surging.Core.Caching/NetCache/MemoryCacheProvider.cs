@@ -1,10 +1,8 @@
-﻿using Surging.Core.Caching.Interfaces;
-using Surging.Core.Caching.RedisCache;
+﻿using Surging.Core.Caching.RedisCache;
 using Surging.Core.CPlatform.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Caching.NetCache
@@ -79,12 +77,12 @@ namespace Surging.Core.Caching.NetCache
 
         public void Add(string key, object value, long numOfMinutes)
         {
-            MemoryCache.Set(GetKeySuffix(key), value, numOfMinutes*60);
+            MemoryCache.Set(GetKeySuffix(key), value, numOfMinutes * 60);
         }
 
         public async void AddAsync(string key, object value, long numOfMinutes)
         {
-            await Task.Run(() => MemoryCache.Set(GetKeySuffix(key), value, numOfMinutes*60));
+            await Task.Run(() => MemoryCache.Set(GetKeySuffix(key), value, numOfMinutes * 60));
         }
 
         public void Add(string key, object value, TimeSpan timeSpan)
@@ -193,6 +191,7 @@ namespace Surging.Core.Caching.NetCache
         {
             return string.IsNullOrEmpty(KeySuffix) ? key : string.Format("_{0}_{1}", KeySuffix, key);
         }
+
         #endregion
 
     }

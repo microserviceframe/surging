@@ -1,13 +1,11 @@
 ﻿using ProtoBuf;
 using Surging.Core.CPlatform.Messages;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.Codec.ProtoBuffer.Messages
 {
-    [ProtoContract]
+	[ProtoContract]
     public class ParameterItem
     {
         #region Constructor
@@ -36,7 +34,7 @@ namespace Surging.Core.Codec.ProtoBuffer.Messages
     {
         public ProtoBufferRemoteInvokeMessage(RemoteInvokeMessage message)
         {
-            ServiceId = message.ServiceId; 
+            ServiceId = message.ServiceId;
             DecodeJOject = message.DecodeJOject;
             ServiceKey = message.ServiceKey;
             Parameters = message.Parameters?.Select(i => new ParameterItem(i)).ToArray();
@@ -55,7 +53,7 @@ namespace Surging.Core.Codec.ProtoBuffer.Messages
         public string Token { get; set; }
 
         [ProtoMember(3)]
-        public bool DecodeJOject{ get; set; }
+        public bool DecodeJOject { get; set; }
 
         [ProtoMember(4)]
         public string ServiceKey { get; set; }
@@ -66,7 +64,6 @@ namespace Surging.Core.Codec.ProtoBuffer.Messages
         [ProtoMember(6)]
         public ParameterItem[] Attachments { get; set; }
 
-
         public RemoteInvokeMessage GetRemoteInvokeMessage()
         {
             return new RemoteInvokeMessage
@@ -75,7 +72,7 @@ namespace Surging.Core.Codec.ProtoBuffer.Messages
                 Attachments = Attachments?.ToDictionary(i => i.Key, i => i.Value?.Get()),
                 ServiceId = ServiceId,
                 DecodeJOject = DecodeJOject,
-                ServiceKey = ServiceKey, 
+                ServiceKey = ServiceKey,
             };
         }
     }

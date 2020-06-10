@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
- 
 using MongoDB.Driver;
 
 namespace Surging.Core.System.MongoProvider.Repositories
 {
-   public  interface IMongoRepository<T> where T : IEntity
+    public interface IMongoRepository<T> where T : IEntity
     {
         IMongoCollection<T> Collection { get; }
         T GetById(string id);

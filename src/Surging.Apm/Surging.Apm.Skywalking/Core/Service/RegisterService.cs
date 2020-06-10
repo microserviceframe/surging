@@ -36,8 +36,7 @@ namespace Surging.Apm.Skywalking.Core.Service
         private readonly TransportConfig _transportConfig;
 
         public RegisterService(IConfigAccessor configAccessor, IServiceRegister serviceRegister,
-            IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment,
-            loggerFactory)
+            IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             _serviceRegister = serviceRegister;
             _config = configAccessor.Get<InstrumentConfig>();
@@ -63,7 +62,7 @@ namespace Surging.Apm.Skywalking.Core.Service
             {
                 var request = new ServiceRequest
                 {
-                    ServiceName = _config.ServiceName ?? _config.ApplicationCode
+                    ServiceName = _config.ServiceName ?? _config.ServiceName
                 };
                 var value = await Polling(3,
                     () => _serviceRegister.RegisterServiceAsync(request, cancellationToken),

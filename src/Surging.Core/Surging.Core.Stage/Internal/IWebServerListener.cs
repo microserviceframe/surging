@@ -2,7 +2,7 @@
 
 namespace Surging.Core.Stage.Internal
 {
-	public interface IWebServerListener
+    public interface IWebServerListener
     {
         void Listen(WebHostContext context);
     }

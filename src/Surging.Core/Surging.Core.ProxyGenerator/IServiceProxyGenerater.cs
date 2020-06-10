@@ -15,7 +15,7 @@ namespace Surging.Core.ProxyGenerator
         /// <param name="interfacTypes">需要被代理的接口类型。</param>
         /// <param name="interfacTypes">引用的命名空间。</param>
         /// <returns>服务代理实现。</returns>
-        IEnumerable<Type> GenerateProxys(IEnumerable<Type> interfacTypes,IEnumerable<string> namespaces);
+        IEnumerable<Type> GenerateProxys(IEnumerable<Type> interfacTypes, IEnumerable<string> namespaces);
 
         /// <summary>
         /// 生成服务代理代码树。

@@ -14,7 +14,7 @@ using System;
 
 namespace Surging.Core.Stage
 {
-	public class StageModule : KestrelHttpModule
+    public class StageModule : KestrelHttpModule
     {
         private IWebServerListener _listener;
         public override void Initialize(AppModuleContext context)
@@ -65,12 +65,12 @@ namespace Surging.Core.Stage
                 if (AppConfig.Options.IsCamelCaseResolver)
                 {
                     JsonConvert.DefaultSettings = new Func<JsonSerializerSettings>(() =>
-                     {
-                         JsonSerializerSettings setting = new Newtonsoft.Json.JsonSerializerSettings();
-                         setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                         setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                         return setting;
-                     });
+                    {
+                        JsonSerializerSettings setting = new Newtonsoft.Json.JsonSerializerSettings();
+                        setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                        setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                        return setting;
+                    });
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 }
                 else

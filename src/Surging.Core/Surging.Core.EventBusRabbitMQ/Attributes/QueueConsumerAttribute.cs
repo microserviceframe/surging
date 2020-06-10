@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Surging.Core.EventBusRabbitMQ.Attributes
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
     public class QueueConsumerAttribute : Attribute
     {
         public string QueueName

@@ -16,8 +16,6 @@
  *
  */
 
-using Surging.Apm.Skywalking.Abstractions;
-using Surging.Apm.Skywalking.Core.Diagnostics;
 using Surging.Core.CPlatform.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +23,7 @@ using System.Reflection;
 
 namespace Surging.Apm.Skywalking.Core.Diagnostics
 {
-    internal class TracingDiagnosticMethodCollection : IEnumerable<TracingDiagnosticMethod>
+	internal class TracingDiagnosticMethodCollection : IEnumerable<TracingDiagnosticMethod>
     {
         private readonly List<TracingDiagnosticMethod> _methods;
 
@@ -35,12 +33,12 @@ namespace Surging.Apm.Skywalking.Core.Diagnostics
             foreach (var method in tracingDiagnosticProcessor.GetType().GetMethods())
             {
                 var diagnosticName = method.GetCustomAttribute<DiagnosticName>();
-                if(diagnosticName==null)
+                if (diagnosticName == null)
                     continue;
                 _methods.Add(new TracingDiagnosticMethod(tracingDiagnosticProcessor, method, diagnosticName.Name));
             }
         }
-        
+
         public IEnumerator<TracingDiagnosticMethod> GetEnumerator()
         {
             return _methods.GetEnumerator();

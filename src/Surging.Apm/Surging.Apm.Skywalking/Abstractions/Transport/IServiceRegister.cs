@@ -16,20 +16,16 @@
  *
  */
 
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Surging.Apm.Skywalking.Abstractions.Common;
-using Surging.Apm.Skywalking.Abstractions.Transport;
 
 namespace Surging.Apm.Skywalking.Abstractions.Transport
 {
     public interface IServiceRegister
     {
-        Task<NullableValue> RegisterServiceAsync(ServiceRequest serviceRequest,
-            CancellationToken cancellationToken = default(CancellationToken));
-        
-        Task<NullableValue> RegisterServiceInstanceAsync(ServiceInstanceRequest serviceInstanceRequest,
-            CancellationToken cancellationToken = default(CancellationToken));
+        Task<NullableValue> RegisterServiceAsync(ServiceRequest serviceRequest, CancellationToken cancellationToken = default);
+
+        Task<NullableValue> RegisterServiceInstanceAsync(ServiceInstanceRequest serviceInstanceRequest, CancellationToken cancellationToken = default);
     }
 }

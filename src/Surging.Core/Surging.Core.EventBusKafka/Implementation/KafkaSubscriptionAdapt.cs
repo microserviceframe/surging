@@ -26,6 +26,7 @@ namespace Surging.Core.EventBusKafka.Implementation
         }
 
         #region 私有方法
+
         private List<Type> GetQueueConsumers()
         {
             var result = new List<Type>();
@@ -36,6 +37,7 @@ namespace Surging.Core.EventBusKafka.Implementation
             }
             return result;
         }
+
         #endregion
     }
 }

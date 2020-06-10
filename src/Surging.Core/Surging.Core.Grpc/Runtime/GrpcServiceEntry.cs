@@ -3,7 +3,7 @@ using System;
 
 namespace Surging.Core.Grpc.Runtime
 {
-	public class GrpcServiceEntry
+    public class GrpcServiceEntry
     {
         public Type Type { get; set; }
 

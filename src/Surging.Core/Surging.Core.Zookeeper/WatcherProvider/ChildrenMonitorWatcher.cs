@@ -1,7 +1,5 @@
 ﻿using org.apache.zookeeper;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,8 +11,7 @@ namespace Surging.Core.Zookeeper.WatcherProvider
         private readonly Action<string[], string[]> _action;
         private string[] _currentData = new string[0];
 
-        public ChildrenMonitorWatcher(Func<ValueTask<(ManualResetEvent, ZooKeeper)>> zooKeeperCall, string path, Action<string[], string[]> action)
-                : base(path)
+        public ChildrenMonitorWatcher(Func<ValueTask<(ManualResetEvent, ZooKeeper)>> zooKeeperCall, string path, Action<string[], string[]> action) : base(path)
         {
             _zooKeeperCall = zooKeeperCall;
             _action = action;
@@ -32,7 +29,7 @@ namespace Surging.Core.Zookeeper.WatcherProvider
         protected override async Task ProcessImpl(WatchedEvent watchedEvent)
         {
             var path = Path;
-            var zooKeeper =await _zooKeeperCall();
+            var zooKeeper = await _zooKeeperCall();
             Func<ChildrenMonitorWatcher> getWatcher = () => new ChildrenMonitorWatcher(_zooKeeperCall, path, _action);
             switch (watchedEvent.get_Type())
             {

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Surging.Core.Zookeeper
 {
     public class ZookeeperServiceCacheManager : ServiceCacheManagerBase, IDisposable
-    { 
+    {
         private readonly ConfigInfo _configInfo;
         private readonly ISerializer<byte[]> _serializer;
         private readonly ILogger<ZookeeperServiceCacheManager> _logger;
@@ -81,14 +81,14 @@ namespace Surging.Core.Zookeeper
         public void Dispose()
         {
         }
-        
+
         public override async Task SetCachesAsync(IEnumerable<ServiceCache> caches)
         {
             var serviceCaches = await GetCaches(caches.Select(p => p.CacheDescriptor.Id));
             await RemoveCachesAsync(caches);
             await base.SetCachesAsync(caches);
         }
-        
+
         public override async Task<IEnumerable<ServiceCache>> GetCachesAsync()
         {
             await EnterCaches();
@@ -199,7 +199,7 @@ namespace Surging.Core.Zookeeper
 
         private async Task<ServiceCache> GetCache(string path)
         {
-            ServiceCache result = null; 
+            ServiceCache result = null;
             var zooKeeper = await GetZooKeeper();
             var watcher = new NodeMonitorWatcher(GetZooKeeper, path,
                  async (oldData, newData) => await NodeChange(oldData, newData));
@@ -335,17 +335,17 @@ namespace Surging.Core.Zookeeper
                         .Where(i => i.CacheDescriptor.Id != newCache.CacheDescriptor.Id)
                         .Concat(new[] { newCache }).ToArray();
             }
-            
+
             //触发缓存变更事件。
-             OnChanged(new ServiceCacheChangedEventArgs(newCache, oldCache));
+            OnChanged(new ServiceCacheChangedEventArgs(newCache, oldCache));
         }
 
         private async Task ChildrenChange(string[] oldChildrens, string[] newChildrens)
         {
-            if (_logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+            if (_logger.IsEnabled(LogLevel.Debug))
                 _logger.LogDebug($"最新的节点信息：{string.Join(",", newChildrens)}");
 
-            if (_logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+            if (_logger.IsEnabled(LogLevel.Debug))
                 _logger.LogDebug($"旧的节点信息：{string.Join(",", oldChildrens)}");
 
             //计算出已被删除的节点。
@@ -379,7 +379,7 @@ namespace Surging.Core.Zookeeper
             //触发缓存被创建事件。
             OnCreated(newCaches.Select(cache => new ServiceCacheEventArgs(cache)).ToArray());
 
-            if (_logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Information))
+            if (_logger.IsEnabled(LogLevel.Information))
                 _logger.LogInformation("缓存数据更新成功。");
         }
 

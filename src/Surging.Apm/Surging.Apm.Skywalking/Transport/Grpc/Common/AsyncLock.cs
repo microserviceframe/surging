@@ -41,7 +41,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.Common
             return wait.IsCompleted
                 ? _releaseTask
                 : wait.ContinueWith(
-                    (_, state) => ((AsyncLock) state)._release,
+                    (_, state) => ((AsyncLock)state)._release,
                     this, CancellationToken.None,
                     TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.Consul.Configurations
+﻿namespace Surging.Core.Consul.Configurations
 {
-   public class ConsulOption
+    public class ConsulOption
     {
         public string SessionTimeout { get; set; }
 

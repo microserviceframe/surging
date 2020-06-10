@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ServiceHosting.Startup.Implementation
 {
-	public abstract class StartupBase : IStartup
+    public abstract class StartupBase : IStartup
     {
         public abstract void Configure(IContainer app);
 

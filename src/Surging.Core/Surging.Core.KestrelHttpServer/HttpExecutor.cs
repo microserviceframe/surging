@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Convertibles;
 using Surging.Core.CPlatform.Filters;
@@ -7,14 +6,10 @@ using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Routing;
 using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.CPlatform.Transport;
-using Surging.Core.CPlatform.Utilities;
 using Surging.Core.ProxyGenerator;
 using System;
-using System.Linq;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using static Surging.Core.CPlatform.Utilities.FastInvoke;
 using System.Diagnostics;
@@ -25,7 +20,7 @@ using Surging.Core.KestrelHttpServer.Internal;
 
 namespace Surging.Core.KestrelHttpServer
 {
-    public  class HttpExecutor : IServiceExecutor
+    public class HttpExecutor : IServiceExecutor
     {
         #region Field
         private readonly IServiceEntryLocate _serviceEntryLocate;
@@ -86,7 +81,7 @@ namespace Surging.Core.KestrelHttpServer
 
             HttpResultMessage<object> httpResultMessage = new HttpResultMessage<object>() { };
 
-            if (entry!=null && _serviceProvider.IsRegisteredWithKey(httpMessage.ServiceKey, entry.Type))
+            if (entry != null && _serviceProvider.IsRegisteredWithKey(httpMessage.ServiceKey, entry.Type))
             {
                 //执行本地代码。
                 httpResultMessage = await LocalExecuteAsync(entry, httpMessage);
@@ -95,9 +90,9 @@ namespace Surging.Core.KestrelHttpServer
             {
                 httpResultMessage = await RemoteExecuteAsync(httpMessage);
             }
-            await SendRemoteInvokeResult(sender,message.Id, httpResultMessage);
+            await SendRemoteInvokeResult(sender, message.Id, httpResultMessage);
         }
-        
+
 
         #endregion Implementation of IServiceExecutor
 
@@ -106,8 +101,9 @@ namespace Surging.Core.KestrelHttpServer
         private async Task<HttpResultMessage<object>> RemoteExecuteAsync(HttpMessage httpMessage)
         {
             HttpResultMessage<object> resultMessage = new HttpResultMessage<object>();
-            try {
-                resultMessage.Entity=await _serviceProxyProvider.Invoke<object>(httpMessage.Parameters, httpMessage.RoutePath, httpMessage.ServiceKey);
+            try
+            {
+                resultMessage.Entity = await _serviceProxyProvider.Invoke<object>(httpMessage.Parameters, httpMessage.RoutePath, httpMessage.ServiceKey);
                 resultMessage.IsSucceed = resultMessage.Entity != default;
                 resultMessage.StatusCode = resultMessage.IsSucceed ? (int)StatusCode.Success : (int)StatusCode.RequestError;
             }
@@ -142,7 +138,7 @@ namespace Surging.Core.KestrelHttpServer
 
                 resultMessage.IsSucceed = resultMessage.Entity != null;
                 resultMessage.StatusCode =
-                    resultMessage.IsSucceed ? (int) StatusCode.Success : (int) StatusCode.RequestError;
+                    resultMessage.IsSucceed ? (int)StatusCode.Success : (int)StatusCode.RequestError;
             }
             catch (ValidateException validateException)
             {
@@ -162,14 +158,14 @@ namespace Surging.Core.KestrelHttpServer
             return resultMessage;
         }
 
-        private async Task SendRemoteInvokeResult(IMessageSender sender,string messageId, HttpResultMessage resultMessage)
+        private async Task SendRemoteInvokeResult(IMessageSender sender, string messageId, HttpResultMessage resultMessage)
         {
             try
             {
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug("准备发送响应消息。");
 
-                await sender.SendAndFlushAsync(new TransportMessage(messageId,resultMessage));
+                await sender.SendAndFlushAsync(new TransportMessage(messageId, resultMessage));
                 if (_logger.IsEnabled(LogLevel.Debug))
                     _logger.LogDebug("响应消息发送成功。");
             }
@@ -211,7 +207,7 @@ namespace Surging.Core.KestrelHttpServer
             }
             else
             {
-                var parameters = RpcContext.GetContext().GetContextParameters(); 
+                var parameters = RpcContext.GetContext().GetContextParameters();
                 RpcContext.GetContext().SetContextParameters(parameters);
             }
 

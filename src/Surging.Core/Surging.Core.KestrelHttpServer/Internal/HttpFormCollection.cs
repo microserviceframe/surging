@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.KestrelHttpServer.Internal
 {
@@ -40,7 +39,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
 
         private Dictionary<string, StringValues> Store { get; set; }
 
-      
+
         public StringValues this[string key]
         {
             get
@@ -59,7 +58,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             }
         }
 
-        
+
         public int Count
         {
             get
@@ -80,7 +79,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             }
         }
 
-      
+
         public bool ContainsKey(string key)
         {
             if (Store == null)
@@ -89,7 +88,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             }
             return Store.ContainsKey(key);
         }
-        
+
         public bool TryGetValue(string key, out StringValues value)
         {
             if (Store == null)
@@ -108,7 +107,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             }
             return new Enumerator(Store.GetEnumerator());
         }
-        
+
         IEnumerator<KeyValuePair<string, StringValues>> IEnumerable<KeyValuePair<string, StringValues>>.GetEnumerator()
         {
             if (Store == null || Store.Count == 0)
@@ -117,7 +116,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             }
             return Store.GetEnumerator();
         }
-        
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             if (Store == null || Store.Count == 0)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using DotNetty.Codecs.Mqtt.Packets;
 using DotNetty.Transport.Channels;
 using Microsoft.Extensions.Logging;
@@ -16,7 +14,7 @@ using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Core.Protocol.Mqtt.Implementation
 {
-    public  class ServerMqttHandlerService
+	public class ServerMqttHandlerService
     {
         private readonly ILogger _logger;
         private readonly IChannelService _channelService;
@@ -34,18 +32,17 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
 
         public async Task ConnAck(IChannelHandlerContext context, ConnAckPacket packet)
         {
-           await context.WriteAndFlushAsync(packet);
+            await context.WriteAndFlushAsync(packet);
         }
 
         public async Task Login(IChannelHandlerContext context, ConnectPacket packet)
         {
-
             string deviceId = packet.ClientId;
-            var message = TransportMessage.CreateInvokeMessage(new RemoteInvokeMessage() { ServiceId = $"Connect", Parameters = new Dictionary<string, object> { { "packet", packet} } });
-            WirteDiagnosticBefore(message,context.Channel.RemoteAddress.ToString(),  deviceId, packet.PacketType);
+            var message = TransportMessage.CreateInvokeMessage(new RemoteInvokeMessage() { ServiceId = $"Connect", Parameters = new Dictionary<string, object> { { "packet", packet } } });
+            WirteDiagnosticBefore(message, context.Channel.RemoteAddress.ToString(), deviceId, packet.PacketType);
             if (string.IsNullOrEmpty(deviceId))
             {
-               await ConnAck(context, new ConnAckPacket
+                await ConnAck(context, new ConnAckPacket
                 {
                     ReturnCode = ConnectReturnCode.RefusedIdentifierRejected
                 });
@@ -67,7 +64,7 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
                             bytes = new byte[packet.WillMessage.ReadableBytes];
                             packet.WillMessage.ReadBytes(bytes);
                         }
-                       await _channelService.Login(context.Channel, deviceId, new ConnectMessage
+                        await _channelService.Login(context.Channel, deviceId, new ConnectMessage
                         {
                             CleanSession = packet.CleanSession,
                             ClientId = packet.ClientId,
@@ -92,7 +89,7 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
                 }
                 else
                 {
-                  await  ConnAck(context, new ConnAckPacket
+                    await ConnAck(context, new ConnAckPacket
                     {
                         ReturnCode = ConnectReturnCode.RefusedBadUsernameOrPassword
                     });
@@ -100,7 +97,7 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
             }
             else
             {
-               await ConnAck(context, new ConnAckPacket
+                await ConnAck(context, new ConnAckPacket
                 {
                     ReturnCode = ConnectReturnCode.RefusedServerUnavailable
                 });
@@ -112,13 +109,13 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
         {
             var deviceId = await _channelService.GetDeviceId(context.Channel);
             var message = TransportMessage.CreateInvokeMessage(new RemoteInvokeMessage() { ServiceId = $"Disconnect", Parameters = new Dictionary<string, object> { { "packet", packet } } });
-            WirteDiagnosticBefore(message,context.Channel.RemoteAddress.ToString(), deviceId, packet.PacketType);
+            WirteDiagnosticBefore(message, context.Channel.RemoteAddress.ToString(), deviceId, packet.PacketType);
             await _channelService.Close(deviceId, true);
             WirteDiagnosticAfter(message);
 
         }
 
-        public async Task  PingReq(IChannelHandlerContext context, PingReqPacket packet)
+        public async Task PingReq(IChannelHandlerContext context, PingReqPacket packet)
         {
             var channel = context.Channel;
             if (channel.Open && channel.Active && channel.IsWritable)
@@ -132,7 +129,7 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
 
         public async Task PingResp(IChannelHandlerContext context, PingRespPacket packet)
         {
-           await context.WriteAndFlushAsync(packet);
+            await context.WriteAndFlushAsync(packet);
         }
 
         public async Task PubAck(IChannelHandlerContext context, PubAckPacket packet)
@@ -168,7 +165,7 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
         {
             int messageId = packet.PacketId;
             var mqttChannel = _channelService.GetMqttChannel(await _channelService.GetDeviceId(context.Channel));
-             var message= mqttChannel.GetMqttMessage(messageId);
+            var message = mqttChannel.GetMqttMessage(messageId);
             if (message != null)
             {
                 message.ConfirmStatus = ConfirmStatus.PUBREC;
@@ -190,40 +187,40 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
 
         public async Task SubAck(IChannelHandlerContext context, SubAckPacket packet)
         {
-           await  context.WriteAndFlushAsync(packet);
+            await context.WriteAndFlushAsync(packet);
         }
 
         public async Task Subscribe(IChannelHandlerContext context, SubscribePacket packet)
         {
             if (packet != null)
             {
-               var deviceId= await _channelService.GetDeviceId(context.Channel);
+                var deviceId = await _channelService.GetDeviceId(context.Channel);
                 var topics = packet.Requests.Select(p => p.TopicFilter).ToArray();
-                var message = TransportMessage.CreateInvokeMessage(new RemoteInvokeMessage() { ServiceId = $"Subscribe", Parameters=new Dictionary<string, object> { { "packet", packet } } });
-                WirteDiagnosticBefore(message,context.Channel.RemoteAddress.ToString(), deviceId, packet.PacketType); 
+                var message = TransportMessage.CreateInvokeMessage(new RemoteInvokeMessage() { ServiceId = $"Subscribe", Parameters = new Dictionary<string, object> { { "packet", packet } } });
+                WirteDiagnosticBefore(message, context.Channel.RemoteAddress.ToString(), deviceId, packet.PacketType);
                 await _channelService.Suscribe(deviceId, topics);
                 await SubAck(context, SubAckPacket.InResponseTo(packet, QualityOfService.ExactlyOnce));
                 WirteDiagnosticAfter(message);
             }
         }
 
-        public  async Task UnsubAck(IChannelHandlerContext context, UnsubAckPacket packet)
+        public async Task UnsubAck(IChannelHandlerContext context, UnsubAckPacket packet)
         {
-           await context.WriteAndFlushAsync(packet);
+            await context.WriteAndFlushAsync(packet);
         }
 
-        public  async Task Unsubscribe(IChannelHandlerContext context, UnsubscribePacket packet)
+        public async Task Unsubscribe(IChannelHandlerContext context, UnsubscribePacket packet)
         {
-            string [] topics = packet.TopicFilters.ToArray();
+            string[] topics = packet.TopicFilters.ToArray();
             var deviceId = await _channelService.GetDeviceId(context.Channel);
             var message = TransportMessage.CreateInvokeMessage(new RemoteInvokeMessage() { ServiceId = $"Unsubscribe", Parameters = new Dictionary<string, object> { { "packet", packet } } });
             WirteDiagnosticBefore(message, context.Channel.RemoteAddress.ToString(), deviceId, packet.PacketType);
             await _channelService.UnSubscribe(deviceId, topics);
-            await  UnsubAck(context, UnsubAckPacket.InResponseTo(packet));
+            await UnsubAck(context, UnsubAckPacket.InResponseTo(packet));
             WirteDiagnosticAfter(message);
         }
 
-        private void WirteDiagnosticBefore(TransportMessage message,string address, string traceId, PacketType packetType)
+        private void WirteDiagnosticBefore(TransportMessage message, string address, string traceId, PacketType packetType)
         {
             if (!AppConfig.ServerOptions.DisableDiagnostic)
             {
@@ -235,7 +232,7 @@ namespace Surging.Core.Protocol.Mqtt.Implementation
                     Id = message.Id,
                     MessageName = remoteInvokeMessage.ServiceId
                 }, packetType.ToString(),
-                traceId,address ));
+                traceId, address));
             }
         }
 

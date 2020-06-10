@@ -15,15 +15,15 @@ namespace Surging.Core.SwaggerGen
         public OperationFilterContext(
             ApiDescription apiDescription,
             ISchemaRegistry schemaRegistry,
-            MethodInfo methodInfo):this(apiDescription,schemaRegistry,methodInfo,null)
+            MethodInfo methodInfo) : this(apiDescription, schemaRegistry, methodInfo, null)
         {
-             
+
         }
 
         public OperationFilterContext(
        ApiDescription apiDescription,
        ISchemaRegistry schemaRegistry,
-       MethodInfo methodInfo,ServiceEntry serviceEntry)
+       MethodInfo methodInfo, ServiceEntry serviceEntry)
         {
             ApiDescription = apiDescription;
             SchemaRegistry = schemaRegistry;

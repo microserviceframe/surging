@@ -3,7 +3,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.Caching.DependencyResolution
 {
@@ -17,9 +16,10 @@ namespace Surging.Core.Caching.DependencyResolution
     public class ServiceResolver : IDependencyResolver
     {
         #region 字段
+
         private static readonly ServiceResolver _defaultInstance = new ServiceResolver();
-        private readonly ConcurrentDictionary<Tuple<Type, string>, object> _initializers =
-            new ConcurrentDictionary<Tuple<Type, string>, object>();
+        private readonly ConcurrentDictionary<Tuple<Type, string>, object> _initializers = new ConcurrentDictionary<Tuple<Type, string>, object>();
+
         #endregion
 
         #region 公共方法
@@ -88,6 +88,7 @@ namespace Surging.Core.Caching.DependencyResolution
         {
             return this.GetServiceAsServices(type, key);
         }
+
         #endregion
     }
 

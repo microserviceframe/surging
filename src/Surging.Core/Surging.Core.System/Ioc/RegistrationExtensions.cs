@@ -12,15 +12,14 @@ using System.Linq;
 using System.Reflection;
 using Autofac.Core.Registration;
 using Surging.Core.Common.ServicesException;
-using Surging.Core.System.Intercept;
 using Surging.Core.CPlatform.EventBus.Events;
 
 namespace Surging.Core.System.Ioc
 {
-    /// <summary>
-    /// 注册扩展程序
-    /// </summary>
-    [Obsolete]
+	/// <summary>
+	/// 注册扩展程序
+	/// </summary>
+	[Obsolete]
     public static class RegistrationExtensions
     {
         private static readonly IEnumerable<Service> EmptyServices = new Service[0];
@@ -120,8 +119,8 @@ namespace Surging.Core.System.Ioc
             {
                 result = builder.RegisterAssemblyTypes(domainAssembly)
               .Where(t => t.Name.EndsWith("Service") && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).AsImplementedInterfaces();
-              //  result = builder.RegisterAssemblyTypes(domainAssembly)
-              //.Where(t => t.Name.EndsWith("Service") && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).EnableClassInterceptors();
+                //  result = builder.RegisterAssemblyTypes(domainAssembly)
+                //.Where(t => t.Name.EndsWith("Service") && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).EnableClassInterceptors();
                 var types = domainAssembly.GetTypes().Where(t => t.Name.EndsWith("Service") && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() != null);
                 foreach (var type in types)
                 {
@@ -161,17 +160,15 @@ namespace Surging.Core.System.Ioc
             }
             return result;
         }
+
         /// <summary>
         ///依赖注入仓储模块程序集
         /// </summary>
         /// <param name="builder">IOC容器</param>
         /// <returns>返回注册模块信息</returns>
         [Obsolete]
-        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterRepositories
-            (
-            this ContainerBuilder builder)
+        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterRepositories(this ContainerBuilder builder)
         {
-
             var referenceAssemblies = builder.GetReferenceAssembly();
             IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> result = null;
             if (builder == null) throw new ArgumentNullException("builder");
@@ -188,8 +185,7 @@ namespace Surging.Core.System.Ioc
         }
 
         [Obsolete]
-        public static IModuleRegistrar RegisterModules(
-            this ContainerBuilder builder)
+        public static IModuleRegistrar RegisterModules(this ContainerBuilder builder)
         {
             var referenceAssemblies = builder.GetReferenceAssembly();
             IModuleRegistrar result = default(IModuleRegistrar);
@@ -206,8 +202,7 @@ namespace Surging.Core.System.Ioc
         }
 
         [Obsolete]
-        private static IModuleRegistrar RegisterModules(
-            this ContainerBuilder builder, Assembly assembly)
+        private static IModuleRegistrar RegisterModules(this ContainerBuilder builder, Assembly assembly)
         {
             IModuleRegistrar result = default(IModuleRegistrar);
 
@@ -220,8 +215,7 @@ namespace Surging.Core.System.Ioc
         }
 
         [Obsolete]
-        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle>
-            RegisterBusinessModules(this ContainerBuilder builder)
+        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterBusinessModules(this ContainerBuilder builder)
         {
             var referenceAssemblies = builder.GetReferenceAssembly();
             IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> result = null;
@@ -266,8 +260,7 @@ namespace Surging.Core.System.Ioc
                     GetTypeCustomAttribute<ModuleDescriptionAttribute>(moduleType);
                 if (moduleDescriptionAttribute == null)
                 {
-                    throw new ServiceException(string.Format("{0} 模块没有定义 ModuleDescriptor 特性",
-                                                             moduleType.AssemblyQualifiedName));
+                    throw new ServiceException(string.Format("{0} 模块没有定义 ModuleDescriptor 特性", moduleType.AssemblyQualifiedName));
                 }
 
                 #endregion
@@ -287,7 +280,7 @@ namespace Surging.Core.System.Ioc
           p.GetCustomAttribute<AssemblyModuleTypeAttribute>().Type == ModuleType.InterFaceService ||
           p.GetCustomAttribute<AssemblyModuleTypeAttribute>().Type == ModuleType.SystemModule).ToList();
             var types = new List<Type>();
-            interfaceAssemblies.ForEach(p => 
+            interfaceAssemblies.ForEach(p =>
             {
                 types.AddRange(p.GetTypes().Where(t => t.Name.StartsWith("I")).Where(t => t.Name.EndsWith("Service")));
             });

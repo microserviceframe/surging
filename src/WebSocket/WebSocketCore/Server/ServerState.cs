@@ -30,11 +30,11 @@ using System;
 
 namespace WebSocketCore.Server
 {
-  internal enum ServerState
-  {
-    Ready,
-    Start,
-    ShuttingDown,
-    Stop
-  }
+    internal enum ServerState
+    {
+        Ready,
+        Start,
+        ShuttingDown,
+        Stop
+    }
 }

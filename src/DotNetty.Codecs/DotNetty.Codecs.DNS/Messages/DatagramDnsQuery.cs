@@ -18,7 +18,7 @@ namespace DotNetty.Codecs.DNS.Messages
         {
             if (recipient == null && sender == null)
                 throw new ArgumentNullException("recipient and sender");
-            
+
             Sender = sender;
             Recipient = recipient;
         }

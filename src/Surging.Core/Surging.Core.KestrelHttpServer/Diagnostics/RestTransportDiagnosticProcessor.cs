@@ -9,7 +9,7 @@ using SurgingEvents = Surging.Core.CPlatform.Diagnostics.DiagnosticListenerExten
 
 namespace Surging.Core.KestrelHttpServer.Diagnostics
 {
-   public class RestTransportDiagnosticProcessor : ITracingDiagnosticProcessor
+    public class RestTransportDiagnosticProcessor : ITracingDiagnosticProcessor
     {
         private Func<TransportEventData, string> _transportOperationNameResolver;
         public string ListenerName => SurgingEvents.DiagnosticListenerName;
@@ -32,7 +32,7 @@ namespace Surging.Core.KestrelHttpServer.Diagnostics
                 value ?? throw new ArgumentNullException(nameof(TransportOperationNameResolver));
         }
 
-        public RestTransportDiagnosticProcessor(ITracingContext tracingContext,ISerializer<string> serializer)
+        public RestTransportDiagnosticProcessor(ITracingContext tracingContext, ISerializer<string> serializer)
         {
             _tracingContext = tracingContext;
             _serializer = serializer;

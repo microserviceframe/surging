@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Surging.Core.KestrelHttpServer.Filters;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.KestrelHttpServer.Extensions
 {

@@ -37,13 +37,12 @@
  */
 #endregion
 
-using System;
 
 namespace WebSocketCore.Net
 {
-  internal enum InputState
-  {
-    RequestLine,
-    Headers
-  }
+	internal enum InputState
+    {
+        RequestLine,
+        Headers
+    }
 }

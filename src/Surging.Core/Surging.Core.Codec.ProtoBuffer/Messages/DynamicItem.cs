@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ProtoBuf;
 using Surging.Core.Codec.ProtoBuffer.Utilities;
 using Surging.Core.CPlatform.Utilities;
 using System;
-using System.Reflection;
 
 namespace Surging.Core.Codec.ProtoBuffer.Messages
 {
-    [ProtoContract]
+	[ProtoContract]
     public class DynamicItem
     {
         #region Constructor
@@ -60,7 +58,7 @@ namespace Surging.Core.Codec.ProtoBuffer.Messages
             {
                 return SerializerUtilitys.Deserialize(Content, typeName);
             }
-            
+
         }
         #endregion Public Method
     }

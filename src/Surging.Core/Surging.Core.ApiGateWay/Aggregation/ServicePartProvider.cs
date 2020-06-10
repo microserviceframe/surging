@@ -14,8 +14,8 @@ namespace Surging.Core.ApiGateWay.Aggregation
     public class ServicePartProvider : IServicePartProvider
     {
         private readonly IServiceProxyProvider _serviceProxyProvider;
-        private readonly ConcurrentDictionary<string, ServicePartType> _servicePartTypes =
-            new ConcurrentDictionary<string, ServicePartType>();
+        private readonly ConcurrentDictionary<string, ServicePartType> _servicePartTypes = new ConcurrentDictionary<string, ServicePartType>();
+
         public ServicePartProvider(IServiceProxyProvider serviceProxyProvider)
         {
             _serviceProxyProvider = serviceProxyProvider;

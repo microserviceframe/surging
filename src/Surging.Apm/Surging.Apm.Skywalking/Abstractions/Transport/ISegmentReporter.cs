@@ -24,7 +24,6 @@ namespace Surging.Apm.Skywalking.Abstractions.Transport
 {
     public interface ISegmentReporter
     {
-        Task ReportAsync(IReadOnlyCollection<SegmentRequest> segmentRequests,
-            CancellationToken cancellationToken = default(CancellationToken));
+        Task ReportAsync(IReadOnlyCollection<SegmentRequest> segmentRequests, CancellationToken cancellationToken = default);
     }
 }

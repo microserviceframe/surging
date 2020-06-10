@@ -19,7 +19,6 @@
 using Surging.Apm.Skywalking.Abstractions.Config;
 using Surging.Apm.Skywalking.Abstractions.Tracing;
 using Surging.Apm.Skywalking.Core.Common;
-using Surging.Apm.Skywalking.Abstractions.Common;
 using System.Linq;
 using Surging.Core.CPlatform.Diagnostics;
 

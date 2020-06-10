@@ -7,18 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.DNS.Runtime.Implementation
 {
-   public class DefaultDnsServiceEntryProvider:IDnsServiceEntryProvider
+    public class DefaultDnsServiceEntryProvider : IDnsServiceEntryProvider
     {
         #region Field
 
         private readonly IEnumerable<Type> _types;
         private readonly ILogger<DefaultDnsServiceEntryProvider> _logger;
         private readonly CPlatformContainer _serviceProvider;
-        private  DnsServiceEntry _dnsServiceEntry;
+        private DnsServiceEntry _dnsServiceEntry;
 
         #endregion Field
 
@@ -30,7 +29,7 @@ namespace Surging.Core.DNS.Runtime.Implementation
         {
             _types = serviceEntryProvider.GetTypes();
             _logger = logger;
-            _serviceProvider = serviceProvider; 
+            _serviceProvider = serviceProvider;
         }
 
         #endregion Constructor
@@ -46,7 +45,7 @@ namespace Surging.Core.DNS.Runtime.Implementation
             var services = _types.ToArray();
             if (_dnsServiceEntry == null)
             {
-                _dnsServiceEntry =new DnsServiceEntry();
+                _dnsServiceEntry = new DnsServiceEntry();
                 foreach (var service in services)
                 {
                     var entry = CreateServiceEntry(service);

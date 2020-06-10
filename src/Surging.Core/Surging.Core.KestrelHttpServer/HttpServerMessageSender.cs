@@ -3,9 +3,7 @@ using Surging.Core.CPlatform.Diagnostics;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Serialization;
 using Surging.Core.CPlatform.Transport;
-using Surging.Core.CPlatform.Transport.Implementation;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +15,7 @@ namespace Surging.Core.KestrelHttpServer
         private readonly ISerializer<string> _serializer;
         private readonly HttpContext _context;
         private readonly DiagnosticListener _diagnosticListener;
-        public  HttpServerMessageSender(ISerializer<string> serializer,HttpContext httpContext)
+        public HttpServerMessageSender(ISerializer<string> serializer, HttpContext httpContext)
         {
             _serializer = serializer;
             _context = httpContext;
@@ -32,9 +30,9 @@ namespace Surging.Core.KestrelHttpServer
         }
 
         public async Task SendAndFlushAsync(TransportMessage message)
-        { 
+        {
             var httpMessage = message.GetContent<HttpResultMessage<Object>>();
-            var actionResult= httpMessage.Entity as IActionResult;
+            var actionResult = httpMessage.Entity as IActionResult;
             WirteDiagnostic(message);
             if (actionResult == null)
             {
@@ -57,14 +55,14 @@ namespace Surging.Core.KestrelHttpServer
 
         public async Task SendAsync(TransportMessage message)
         {
-           await this.SendAndFlushAsync(message);
+            await SendAndFlushAsync(message);
         }
 
         private void WirteDiagnostic(TransportMessage message)
         {
             if (!CPlatform.AppConfig.ServerOptions.DisableDiagnostic)
             {
-            
+
                 var remoteInvokeResultMessage = message.GetContent<HttpResultMessage>();
                 if (remoteInvokeResultMessage.IsSucceed)
                 {
@@ -86,6 +84,5 @@ namespace Surging.Core.KestrelHttpServer
                 }
             }
         }
-          
     }
 }

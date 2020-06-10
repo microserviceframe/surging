@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Buffers;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Surging.Core.KestrelHttpServer.Internal
 {
-   internal class StreamCopyOperation
+    internal class StreamCopyOperation
     {
         private const int DefaultBufferSize = 1024 * 16;
 
@@ -25,13 +23,11 @@ namespace Surging.Core.KestrelHttpServer.Internal
         private long? _bytesRemaining;
         private CancellationToken _cancel;
 
-        internal StreamCopyOperation(Stream source, Stream destination, long? bytesRemaining, CancellationToken cancel)
-            : this(source, destination, bytesRemaining, DefaultBufferSize, cancel)
+        internal StreamCopyOperation(Stream source, Stream destination, long? bytesRemaining, CancellationToken cancel) : this(source, destination, bytesRemaining, DefaultBufferSize, cancel)
         {
         }
 
-        internal StreamCopyOperation(Stream source, Stream destination, long? bytesRemaining, int bufferSize, CancellationToken cancel)
-            : this(source, destination, bytesRemaining, new byte[bufferSize], cancel)
+        internal StreamCopyOperation(Stream source, Stream destination, long? bytesRemaining, int bufferSize, CancellationToken cancel) : this(source, destination, bytesRemaining, new byte[bufferSize], cancel)
         {
         }
 
@@ -85,7 +81,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
                     {
                         bytesRemaining -= read;
                     }
-                    
+
                     if (read <= 0)
                     {
                         return;
@@ -190,7 +186,7 @@ namespace Surging.Core.KestrelHttpServer.Internal
             {
                 _bytesRemaining -= count;
             }
-             
+
             if (count == 0)
             {
                 Complete();

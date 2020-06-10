@@ -1,11 +1,7 @@
-﻿using Surging.Core.CPlatform.Messages;
-using Surging.Core.CPlatform.Routing;
+﻿using Surging.Core.CPlatform.Routing;
 using Surging.Core.ProxyGenerator.Interceptors;
 using Surging.Core.ProxyGenerator.Interceptors.Implementation;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.System.Intercept
@@ -15,6 +11,7 @@ namespace Surging.Core.System.Intercept
         private readonly IInterceptorProvider _interceptorProvider;
 
         private readonly IServiceRouteProvider _serviceRouteProvider;
+
         public LogProviderInterceptor(IInterceptorProvider interceptorProvider, IServiceRouteProvider serviceRouteProvider)
         {
             _interceptorProvider = interceptorProvider;

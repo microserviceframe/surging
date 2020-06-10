@@ -1,8 +1,6 @@
 ﻿using Surging.Core.CPlatform.Diagnostics;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Protocol.Mqtt.Diagnostics
 {

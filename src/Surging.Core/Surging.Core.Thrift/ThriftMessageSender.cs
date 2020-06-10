@@ -2,8 +2,6 @@
 using Surging.Core.CPlatform.Transport;
 using Surging.Core.CPlatform.Transport.Codec;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Thrift.Protocol;
 using Thrift.Protocol.Entities;
@@ -34,12 +32,11 @@ namespace Surging.Core.Thrift
             _protocol = context;
         }
 
-
         #region Implementation of IDisposable
-         
+
         public void Dispose()
-        { 
-             _protocol.Dispose(); 
+        {
+            _protocol.Dispose();
         }
 
         #endregion Implementation of IDisposable
@@ -84,18 +81,18 @@ namespace Surging.Core.Thrift
         {
             _protocol = context;
         }
-          
+
         public async Task SendAsync(TransportMessage message)
         {
             await _protocol.WriteMessageBeginAsync(new TMessage("thrift.surging", TMessageType.Call, 0));
             var buffer = GetBinary(message);
             await _protocol.WriteBinaryAsync(buffer);
             await _protocol.WriteMessageEndAsync();
-        } 
+        }
 
         public async Task SendAndFlushAsync(TransportMessage message)
         {
-            await _protocol.WriteMessageBeginAsync(new TMessage("thrift.surging", TMessageType.Call,0));
+            await _protocol.WriteMessageBeginAsync(new TMessage("thrift.surging", TMessageType.Call, 0));
             var binary = GetBinary(message);
             await _protocol.WriteBinaryAsync(binary);
             await _protocol.WriteMessageEndAsync();

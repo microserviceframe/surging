@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Caching
 {
@@ -9,7 +7,7 @@ namespace Surging.Core.Caching
     {
         public IdentifyCacheAttribute(CacheTargetType name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public CacheTargetType Name { get; set; }

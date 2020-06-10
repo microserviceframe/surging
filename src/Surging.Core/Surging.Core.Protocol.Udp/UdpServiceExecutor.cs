@@ -5,13 +5,11 @@ using Surging.Core.CPlatform.Transport;
 using Surging.Core.Protocol.Udp.Extensions;
 using Surging.Core.Protocol.Udp.Runtime;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Udp
 {
-   public class UdpServiceExecutor : IServiceExecutor
+    public class UdpServiceExecutor : IServiceExecutor
     {
         #region Field
 
@@ -64,7 +62,7 @@ namespace Surging.Core.Protocol.Udp
             }
             if (udpMessage != null)
                 await LocalExecuteAsync(entry, udpMessage);
-           
+
             await SendRemoteInvokeResult(sender, udpMessage);
         }
 
@@ -73,18 +71,18 @@ namespace Surging.Core.Protocol.Udp
         #region Private Method
 
 
-        private async Task LocalExecuteAsync(UdpServiceEntry entry, byte [] bytes)
+        private async Task LocalExecuteAsync(UdpServiceEntry entry, byte[] bytes)
         {
             HttpResultMessage<object> resultMessage = new HttpResultMessage<object>();
             try
-            { 
-                 await entry.Behavior.Dispatch(bytes);
+            {
+                await entry.Behavior.Dispatch(bytes);
             }
             catch (Exception exception)
             {
                 if (_logger.IsEnabled(LogLevel.Error))
                     _logger.LogError(exception, "执行本地逻辑时候发生了错误。");
-            } 
+            }
         }
 
         private async Task SendRemoteInvokeResult(IMessageSender sender, byte[] resultMessage)

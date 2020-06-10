@@ -1,6 +1,5 @@
 using MessagePack;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Surging.Core.Codec.MessagePack.Utilities;
 using Surging.Core.CPlatform.Utilities;
 using System;
@@ -26,14 +25,14 @@ namespace Surging.Core.Codec.MessagePack.Messages
             var valueType = value.GetType();
             var code = Type.GetTypeCode(valueType);
 
-            if (code != TypeCode.Object && valueType.BaseType!=typeof(Enum))
+            if (code != TypeCode.Object && valueType.BaseType != typeof(Enum))
                 TypeName = valueType.FullName;
             else
                 TypeName = valueType.AssemblyQualifiedName;
 
             if (valueType == UtilityType.JObjectType || valueType == UtilityType.JArrayType)
                 Content = SerializerUtilitys.Serialize(value.ToString());
-            else if(valueType != typeof(CancellationToken))
+            else if (valueType != typeof(CancellationToken))
                 Content = SerializerUtilitys.Serialize(value);
         }
 

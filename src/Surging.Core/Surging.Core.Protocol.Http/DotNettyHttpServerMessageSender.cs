@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Http
 {
-    public class DotNettyHttpServerMessageSender: DotNettyMessageSender, IMessageSender
+    public class DotNettyHttpServerMessageSender : DotNettyMessageSender, IMessageSender
     {
         private readonly IChannelHandlerContext _context;
         private readonly ISerializer<string> _serializer;

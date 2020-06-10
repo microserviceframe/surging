@@ -142,18 +142,15 @@ namespace Surging.Core.Zookeeper
             return builder;
         }
 
-
         public static IServiceBuilder UseZookeeperClientProvider(this IServiceBuilder builder, ConfigInfo configInfo)
         {
-            builder.Services.Register(provider =>
-       new DefaultZookeeperClientProvider(
+            builder.Services.Register(provider => new DefaultZookeeperClientProvider(
            GetConfigInfo(configInfo),
         provider.Resolve<IHealthCheckService>(),
           provider.Resolve<IZookeeperAddressSelector>(),
           provider.Resolve<ILogger<DefaultZookeeperClientProvider>>())).As<IZookeeperClientProvider>().SingleInstance();
             return builder;
         }
-
 
         private static ConfigInfo GetConfigInfo(ConfigInfo config)
         {
@@ -166,7 +163,7 @@ namespace Surging.Core.Zookeeper
             if (option != null)
             {
                 var sessionTimeout = config.SessionTimeout.TotalSeconds;
-                Double.TryParse(option.SessionTimeout, out sessionTimeout);
+                double.TryParse(option.SessionTimeout, out sessionTimeout);
                 config = new ConfigInfo(
                     option.ConnectionString,
                     TimeSpan.FromSeconds(sessionTimeout),

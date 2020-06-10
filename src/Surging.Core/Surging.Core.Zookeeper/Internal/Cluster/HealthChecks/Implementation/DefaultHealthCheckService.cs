@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Surging.Core.CPlatform.Address;
@@ -15,8 +14,7 @@ namespace Surging.Core.Zookeeper.Internal.Cluster.HealthChecks.Implementation
     {
         private readonly int _timeout = 30000;
         private readonly Timer _timer;
-        private readonly ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry> _dictionary =
-    new ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry>();
+        private readonly ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry> _dictionary = new ConcurrentDictionary<ValueTuple<string, int>, MonitorEntry>();
 
         #region Implementation of IHealthCheckService
         public DefaultHealthCheckService()
@@ -49,6 +47,7 @@ namespace Surging.Core.Zookeeper.Internal.Cluster.HealthChecks.Implementation
         {
             _timer.Dispose();
         }
+
         #endregion
 
         #endregion Implementation of IDisposable

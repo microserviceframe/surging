@@ -26,7 +26,7 @@ using Surging.Core.CPlatform.Routing;
 
 namespace Surging.Core.ProxyGenerator.Implementation
 {
-    public class ServiceProxyGenerater : IServiceProxyGenerater,IDisposable
+    public class ServiceProxyGenerater : IServiceProxyGenerater, IDisposable
     {
         #region Field
 
@@ -65,7 +65,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
             {
                 assemblys = assemblys.Append(t.Assembly);
             }
-            var trees = interfacTypes.Select(p=>GenerateProxyTree(p,namespaces)).ToList();
+            var trees = interfacTypes.Select(p => GenerateProxyTree(p, namespaces)).ToList();
             var stream = CompilationUtilitys.CompileClientProxy(trees,
                 assemblys
                     .Select(a => MetadataReference.CreateFromFile(a.Location))
@@ -82,7 +82,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
 #else
                 var assembly = AssemblyLoadContext.Default.LoadFromStream(stream);
 #endif
-               return assembly.GetExportedTypes();
+                return assembly.GetExportedTypes();
             }
         }
 
@@ -161,7 +161,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
         private static SyntaxList<UsingDirectiveSyntax> GetUsings(IEnumerable<string> namespaces)
         {
             var directives = new List<UsingDirectiveSyntax>();
-           foreach(var name in namespaces)
+            foreach (var name in namespaces)
             {
                 directives.Add(UsingDirective(GetQualifiedNameSyntax(name)));
             }
@@ -243,7 +243,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
         private IEnumerable<MemberDeclarationSyntax> GenerateMethodDeclarations(IEnumerable<MethodInfo> methods)
         {
             var array = methods.ToArray();
-            return array.Select(p=>GenerateMethodDeclaration(p)).ToArray();
+            return array.Select(p => GenerateMethodDeclaration(p)).ToArray();
         }
 
         private static TypeSyntax GetTypeSyntax(Type type)
@@ -296,7 +296,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
 
                 }
                 parameterDeclarationList.Add(Token(SyntaxKind.CommaToken));
-               
+
                 parameterList.Add(InitializerExpression(
                     SyntaxKind.ComplexElementInitializerExpression,
                     SeparatedList<ExpressionSyntax>(
@@ -384,7 +384,7 @@ namespace Surging.Core.ProxyGenerator.Implementation
         }
 
         public void Dispose()
-        { 
+        {
             GC.SuppressFinalize(this);
         }
 

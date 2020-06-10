@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.EventBusRabbitMQ
 {
@@ -9,10 +6,9 @@ namespace Surging.Core.EventBusRabbitMQ
     {
         public static IConfigurationRoot Configuration { get; set; }
 
-
         public static string BrokerName { get; internal set; }
 
-        public static ushort PrefetchCount { get; set; } 
+        public static ushort PrefetchCount { get; set; }
 
         public static int RetryCount { get; internal set; } = 3;
 

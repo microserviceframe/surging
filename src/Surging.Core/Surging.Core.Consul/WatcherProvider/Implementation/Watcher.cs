@@ -1,8 +1,4 @@
-﻿using Consul;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Surging.Core.Consul.WatcherProvider
 {
@@ -11,7 +7,7 @@ namespace Surging.Core.Consul.WatcherProvider
         protected Watcher()
         {
         }
-        
+
         public abstract Task Process();
 
         public static class Event

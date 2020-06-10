@@ -9,7 +9,6 @@ using System.Linq;
 using System.Collections.Concurrent;
 using DotNetty.Codecs.Mqtt.Packets;
 using Microsoft.Extensions.Logging;
-using DotNetty.Buffers;
 using System.Threading.Tasks;
 using Surging.Core.Protocol.Mqtt.Internal.Runtime;
 using Surging.Core.CPlatform.Ids;
@@ -271,7 +270,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
                     }
                 }
             }
-        } 
+        }
 
         public override async Task Suscribe(string deviceId, params string[] topics)
         {
@@ -284,9 +283,9 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
                 {
                     foreach (var topic in topics)
                     {
-                        this.AddChannel(topic, mqttChannel);
+                        AddChannel(topic, mqttChannel);
                         await RegisterMqttBroker(topic);
-                        await this.SendRetain(topic, mqttChannel);
+                        await SendRetain(topic, mqttChannel);
                     }
                 }
             }
@@ -301,7 +300,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
                     RemoveChannel(topic, mqttChannel);
                     await BrokerCancellationReg(topic);
                 }
-            } 
+            }
         }
 
         public async Task SendRetain(string topic, MqttChannel mqttChannel)
@@ -321,13 +320,13 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
         private void SaveRetain(String topic, RetainMessage retainMessage, bool isClean)
         {
             Retain.TryGetValue(topic, out ConcurrentQueue<RetainMessage> retainMessages);
-            if (retainMessages == null) retainMessages=new ConcurrentQueue<RetainMessage>();
+            if (retainMessages == null) retainMessages = new ConcurrentQueue<RetainMessage>();
             if (!retainMessages.IsEmpty && isClean)
             {
                 retainMessages.Clear();
-            } 
+            }
             retainMessages.Enqueue(retainMessage);
-            Retain.AddOrUpdate(topic, retainMessages,(key,value)=> retainMessages);
+            Retain.AddOrUpdate(topic, retainMessages, (key, value) => retainMessages);
         }
 
         public IEnumerable<String> RemoveSubTopic(MqttChannel mqttChannel)
@@ -342,25 +341,25 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
             return topics;
         }
 
-        private async Task SendMessage(MqttChannel mqttChannel,int qos, string topic,byte [] byteBuf)
+        private async Task SendMessage(MqttChannel mqttChannel, int qos, string topic, byte[] byteBuf)
         {
             switch (qos)
             {
                 case 0:
-                   await _messagePushService.SendQos0Msg(mqttChannel.Channel, topic, byteBuf);
+                    await _messagePushService.SendQos0Msg(mqttChannel.Channel, topic, byteBuf);
                     break;
                 case 1:
-                   await _messagePushService.SendQosConfirmMsg(QualityOfService.AtLeastOnce, mqttChannel, topic, byteBuf);
+                    await _messagePushService.SendQosConfirmMsg(QualityOfService.AtLeastOnce, mqttChannel, topic, byteBuf);
                     break;
                 case 2:
-                  await  _messagePushService.SendQosConfirmMsg(QualityOfService.ExactlyOnce, mqttChannel, topic, byteBuf);
+                    await _messagePushService.SendQosConfirmMsg(QualityOfService.ExactlyOnce, mqttChannel, topic, byteBuf);
                     break;
             }
         }
 
         private async Task Init(IChannel channel, ConnectMessage mqttConnectMessage)
         {
-            String deviceId = await GetDeviceId(channel);
+            string deviceId = await GetDeviceId(channel);
             MqttChannel mqttChannel = new MqttChannel()
             {
                 Channel = channel,
@@ -407,7 +406,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Services.Implementation
                 {
                     ReturnCode = ConnectReturnCode.Accepted,
                     SessionPresent = !mqttConnectMessage.CleanSession
-                }); 
+                });
                 var sessionMessages = _clientSessionService.GetMessages(mqttConnectMessage.ClientId);
                 if (sessionMessages != null && !sessionMessages.IsEmpty)
                 {

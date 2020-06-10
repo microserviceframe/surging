@@ -5,11 +5,10 @@ using Surging.Core.CPlatform.Runtime.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.Thrift.Runtime.Implementation
 {
-   public  class DefaultThriftServiceEntryProvider : IThriftServiceEntryProvider
+    public class DefaultThriftServiceEntryProvider : IThriftServiceEntryProvider
     {
         #region Field
 
@@ -74,6 +73,7 @@ namespace Surging.Core.Thrift.Runtime.Implementation
                 };
             return result;
         }
+
         #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Surging.Core.Stage.Configurations
 {
-	public class AccessPolicyOption
+    public class AccessPolicyOption
     {
         public string[] Origins { get; set; }
 

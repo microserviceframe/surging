@@ -8,7 +8,7 @@ using Surging.Core.Log4net;
 namespace Surging.Core.Kestrel.Log4net
 {
 
-	public class KestrelLog4netModule : KestrelHttpModule
+    public class KestrelLog4netModule : KestrelHttpModule
     {
         private string log4NetConfigFile = "${LogPath}|log4net.config";
         public override void Initialize(AppModuleContext context)

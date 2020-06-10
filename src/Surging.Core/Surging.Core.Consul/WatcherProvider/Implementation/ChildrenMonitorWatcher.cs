@@ -10,15 +10,14 @@ namespace Surging.Core.Consul.WatcherProvider
     public class ChildrenMonitorWatcher : WatcherBase
     {
         private readonly Action<string[], string[]> _action;
-        private readonly IClientWatchManager _manager; 
+        private readonly IClientWatchManager _manager;
         private readonly string _path;
         private readonly Func<string[], string[]> _func;
         private string[] _currentData = new string[0];
         private readonly Func<ValueTask<ConsulClient>> _clientCall;
-        public ChildrenMonitorWatcher(Func<ValueTask<ConsulClient>> clientCall, IClientWatchManager manager, string path,
-            Action<string[], string[]> action, Func<string[], string[]> func)
+        public ChildrenMonitorWatcher(Func<ValueTask<ConsulClient>> clientCall, IClientWatchManager manager, string path, Action<string[], string[]> action, Func<string[], string[]> func)
         {
-            this._action = action;
+            _action = action;
             _manager = manager;
             _clientCall = clientCall;
             _path = path;
@@ -35,13 +34,13 @@ namespace Surging.Core.Consul.WatcherProvider
         protected override async Task ProcessImpl()
         {
             RegisterWatch(this);
-            var client =await _clientCall();
+            var client = await _clientCall();
             var result = await client.GetChildrenAsync(_path);
             if (result != null)
             {
                 var convertResult = _func.Invoke(result).Select(key => $"{_path}{key}").ToArray();
                 _action(_currentData, convertResult);
-                this.SetCurrentData(convertResult);
+                SetCurrentData(convertResult);
             }
         }
 

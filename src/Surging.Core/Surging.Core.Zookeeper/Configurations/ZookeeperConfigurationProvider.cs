@@ -11,7 +11,7 @@ namespace Surging.Core.Zookeeper.Configurations
         public override void Load(Stream stream)
         {
             var parser = new JsonConfigurationParser();
-            this.Data = parser.Parse(stream, null);
+            Data = parser.Parse(stream, null);
         }
     }
 }

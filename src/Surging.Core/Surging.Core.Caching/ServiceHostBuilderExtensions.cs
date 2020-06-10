@@ -1,12 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using Surging.Core.Caching.Models;
-using Surging.Core.ServiceHosting.Internal;
-using System;
-using System.Collections.Generic;
+﻿using Surging.Core.ServiceHosting.Internal;
 using System.Linq;
 using Autofac;
-using System.Reflection;
-using Surging.Core.Caching.Interfaces;
 using Surging.Core.CPlatform.Cache;
 using Surging.Core.Caching.Configurations;
 
@@ -24,6 +18,6 @@ namespace Surging.Core.Caching
                 mapper.Resolve<IConfigurationWatchProvider>();
             });
         }
-        
+
     }
 }

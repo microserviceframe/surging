@@ -1,6 +1,5 @@
 ﻿using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using Surging.Core.Protocol.Mqtt.Internal.Messages;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -11,12 +10,12 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime
         private ConcurrentQueue<SendMqttMessage> _queue = new ConcurrentQueue<SendMqttMessage>();
         public void Enqueue(SendMqttMessage t)
         {
-             _queue.Enqueue(t);
+            _queue.Enqueue(t);
         }
 
         public void Enqueue(List<SendMqttMessage> ts)
         {
-            ts.ForEach(message=> _queue.Enqueue(message));
+            ts.ForEach(message => _queue.Enqueue(message));
         }
 
         public override void Run()

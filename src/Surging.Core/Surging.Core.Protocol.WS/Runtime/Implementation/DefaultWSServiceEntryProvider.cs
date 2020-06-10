@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Routing.Template;
 using Surging.Core.CPlatform.Runtime.Server;
@@ -10,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using WebSocketCore.Server;
 
 namespace Surging.Core.Protocol.WS.Runtime.Implementation
@@ -29,7 +27,7 @@ namespace Surging.Core.Protocol.WS.Runtime.Implementation
 
         #region Constructor
 
-        public DefaultWSServiceEntryProvider(IServiceEntryProvider  serviceEntryProvider,
+        public DefaultWSServiceEntryProvider(IServiceEntryProvider serviceEntryProvider,
             ILogger<DefaultWSServiceEntryProvider> logger,
             CPlatformContainer serviceProvider,
             WebSocketOptions options)
@@ -79,7 +77,7 @@ namespace Surging.Core.Protocol.WS.Runtime.Implementation
             var objInstance = _serviceProvider.GetInstances(service);
             var behavior = objInstance as WebSocketBehavior;
             var path = RoutePatternParser.Parse(routeTemplate.RouteTemplate, service.Name);
-            if (path.Length>0 && path[0] != '/')
+            if (path.Length > 0 && path[0] != '/')
                 path = $"/{path}";
             if (behavior != null)
                 result = new WSServiceEntry
@@ -95,7 +93,7 @@ namespace Surging.Core.Protocol.WS.Runtime.Implementation
             return result;
         }
 
-        private WebSocketBehavior GetWebSocketBehavior(Type service,BehaviorOption option, BehaviorContractAttribute contractAttribute)
+        private WebSocketBehavior GetWebSocketBehavior(Type service, BehaviorOption option, BehaviorContractAttribute contractAttribute)
         {
             var wsBehavior = _serviceProvider.GetInstances(service) as WebSocketBehavior;
             if (option != null)
@@ -109,7 +107,7 @@ namespace Surging.Core.Protocol.WS.Runtime.Implementation
                 wsBehavior.IgnoreExtensions = contractAttribute.IgnoreExtensions;
                 wsBehavior.Protocol = contractAttribute.Protocol;
                 wsBehavior.EmitOnPing = contractAttribute.EmitOnPing;
-            } 
+            }
             return wsBehavior;
         }
     }

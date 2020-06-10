@@ -2,13 +2,10 @@
 using Surging.Core.Codec.ProtoBuffer.Utilities;
 using Surging.Core.CPlatform.Messages;
 using Surging.Core.CPlatform.Transport.Codec;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Codec.ProtoBuffer
 {
-   public sealed class ProtoBufferTransportMessageDecoder : ITransportMessageDecoder
+    public sealed class ProtoBufferTransportMessageDecoder : ITransportMessageDecoder
     {
         #region Implementation of ITransportMessageDecoder
 
@@ -20,4 +17,4 @@ namespace Surging.Core.Codec.ProtoBuffer
 
         #endregion Implementation of ITransportMessageDecoder
     }
-} 
+}

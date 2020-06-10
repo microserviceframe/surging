@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Module;
 using Surging.Core.CPlatform.Runtime.Server;
 using Surging.Core.KestrelHttpServer;
@@ -9,18 +7,15 @@ using Surging.Core.Swagger.Builder;
 using Surging.Core.Swagger.Internal;
 using Surging.Core.Swagger.Swagger.Filters;
 using Surging.Core.Swagger.SwaggerUI;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.Swagger
 {
-    public class SwaggerModule: KestrelHttpModule
+    public class SwaggerModule : KestrelHttpModule
     {
-        private  IServiceSchemaProvider _serviceSchemaProvider; 
-        private  IServiceEntryProvider _serviceEntryProvider;
+        private IServiceSchemaProvider _serviceSchemaProvider;
+        private IServiceEntryProvider _serviceEntryProvider;
 
         public override void Initialize(AppModuleContext context)
         {
@@ -31,8 +26,7 @@ namespace Surging.Core.Swagger
 
         public override void Initialize(ApplicationInitializationContext context)
         {
-            var info = AppConfig.SwaggerConfig.Info == null
-          ? AppConfig.SwaggerOptions : AppConfig.SwaggerConfig.Info;
+            var info = AppConfig.SwaggerConfig.Info == null ? AppConfig.SwaggerOptions : AppConfig.SwaggerConfig.Info;
             if (info != null)
             {
                 context.Builder.UseSwagger();
@@ -48,8 +42,7 @@ namespace Surging.Core.Swagger
         public override void RegisterBuilder(ConfigurationContext context)
         {
             var serviceCollection = context.Services;
-            var info = AppConfig.SwaggerConfig.Info == null
-                     ? AppConfig.SwaggerOptions : AppConfig.SwaggerConfig.Info;
+            var info = AppConfig.SwaggerConfig.Info == null ? AppConfig.SwaggerOptions : AppConfig.SwaggerConfig.Info;
             var swaggerOptions = AppConfig.SwaggerConfig.Options;
             if (info != null)
             {

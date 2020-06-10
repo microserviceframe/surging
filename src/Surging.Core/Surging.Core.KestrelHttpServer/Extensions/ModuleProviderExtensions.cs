@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Surging.Core.CPlatform.Module;
+﻿using Surging.Core.CPlatform.Module;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.KestrelHttpServer.Extensions
 {
-   public static  class ModuleProviderExtensions
+    public static class ModuleProviderExtensions
     {
         public static void Initialize(this IModuleProvider moduleProvider, ApplicationInitializationContext builder)
         {

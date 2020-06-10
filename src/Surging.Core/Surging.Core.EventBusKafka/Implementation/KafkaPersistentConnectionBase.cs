@@ -13,8 +13,7 @@ namespace Surging.Core.EventBusKafka.Implementation
         private readonly IEnumerable<KeyValuePair<string, object>> _config;
         object sync_root = new object();
 
-        public KafkaPersistentConnectionBase(ILogger<KafkaPersistentConnectionBase> logger,
-            IEnumerable<KeyValuePair<string, object>> config)
+        public KafkaPersistentConnectionBase(ILogger<KafkaPersistentConnectionBase> logger, IEnumerable<KeyValuePair<string, object>> config)
         {
             _logger = logger;
             _config = config;

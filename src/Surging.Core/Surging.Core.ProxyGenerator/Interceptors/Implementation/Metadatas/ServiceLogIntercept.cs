@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ProxyGenerator.Interceptors.Implementation.Metadatas
 {
-	public class ServiceLogIntercept : ServiceIntercept
+    public class ServiceLogIntercept : ServiceIntercept
     {
         protected override string MetadataId { get; set; } = "Log";
 
@@ -10,7 +10,7 @@ namespace Surging.Core.ProxyGenerator.Interceptors.Implementation.Metadatas
         /// <summary>
         ///  初始化一个新的<c>InterceptMethodAttribute</c>类型。
         /// </summary>
-        public ServiceLogIntercept() 
+        public ServiceLogIntercept()
         {
 
         }

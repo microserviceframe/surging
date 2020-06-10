@@ -4,14 +4,11 @@ using DotNetty.Transport.Channels;
 using Surging.Core.Protocol.Mqtt.Internal.Enums;
 using Surging.Core.Protocol.Mqtt.Internal.Messages;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Protocol.Mqtt.Internal.Runtime
 {
-    public class SacnScheduled: ScanRunnable
+    public class SacnScheduled : ScanRunnable
     {
-
         public SacnScheduled()
         {
         }
@@ -20,12 +17,12 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime
         {
             return DateTime.Now.Millisecond - time >= 10 * 1000;
         }
-         
+
         public override void Execute(SendMqttMessage poll)
         {
             if (CheckTime(poll.Time) && poll.Channel.Active)
             {
-                poll.Time=DateTime.Now.Ticks / 10000;
+                poll.Time = DateTime.Now.Ticks / 10000;
                 switch (poll.ConfirmStatus)
                 {
                     case ConfirmStatus.PUB:
@@ -52,7 +49,7 @@ namespace Surging.Core.Protocol.Mqtt.Internal.Runtime
             channel.WriteAndFlushAsync(mqttPublishMessage);
         }
 
-        protected void PubRelAck( SendMqttMessage mqttMessage)
+        protected void PubRelAck(SendMqttMessage mqttMessage)
         {
             PubRelPacket mqttPubAckMessage = new PubRelPacket()
             {

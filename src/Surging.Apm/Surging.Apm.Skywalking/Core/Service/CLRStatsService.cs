@@ -17,7 +17,6 @@
  */
 
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -31,9 +30,7 @@ namespace Surging.Apm.Skywalking.Core.Service
     {
         private readonly ICLRStatsReporter _reporter;
 
-        public CLRStatsService(ICLRStatsReporter reporter, IRuntimeEnvironment runtimeEnvironment,
-            ILoggerFactory loggerFactory)
-            : base(runtimeEnvironment, loggerFactory)
+        public CLRStatsService(ICLRStatsReporter reporter, IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             _reporter = reporter;
         }

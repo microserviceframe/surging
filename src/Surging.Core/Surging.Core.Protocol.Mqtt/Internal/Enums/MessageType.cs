@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Surging.Core.Protocol.Mqtt.Internal.Enums
+﻿namespace Surging.Core.Protocol.Mqtt.Internal.Enums
 {
-   public enum MessageType
+    public enum MessageType
     {
         CONNECT = 1,
         CONNACK = 2,

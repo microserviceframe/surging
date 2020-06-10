@@ -40,8 +40,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
         private readonly ILogger _logger;
         private readonly GrpcConfig _config;
 
-        public ServiceRegister(ConnectionManager connectionManager, IConfigAccessor configAccessor,
-            ILoggerFactory loggerFactory)
+        public ServiceRegister(ConnectionManager connectionManager, IConfigAccessor configAccessor, ILoggerFactory loggerFactory)
         {
             _connectionManager = connectionManager;
             _config = configAccessor.Get<GrpcConfig>();
@@ -58,26 +57,25 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
 
             var connection = _connectionManager.GetConnection();
             return await new Call(_logger, _connectionManager).Execute(async () =>
+            {
+                var client = new Register.RegisterClient(connection);
+                var services = new Services();
+                services.Services_.Add(new Service
                 {
-                    var client = new Register.RegisterClient(connection);
-                    var services = new Services();
-                    services.Services_.Add(new Service
-                    {
-                        ServiceName = serviceRequest.ServiceName
-                    });
-                    var mapping = await client.doServiceRegisterAsync(services,
-                        _config.GetMeta(), _config.GetTimeout(), cancellationToken);
-                    foreach (var service in mapping.Services)
-                        if (service.Key == serviceRequest.ServiceName)
-                            return new NullableValue(service.Value);
-                    return NullableValue.Null;
-                },
+                    ServiceName = serviceRequest.ServiceName
+                });
+                var mapping = await client.doServiceRegisterAsync(services,
+                    _config.GetMeta(), _config.GetTimeout(), cancellationToken);
+                foreach (var service in mapping.Services)
+                    if (service.Key == serviceRequest.ServiceName)
+                        return new NullableValue(service.Value);
+                return NullableValue.Null;
+            },
                 () => NullableValue.Null,
                 () => ExceptionHelpers.RegisterServiceError);
         }
 
-        public async Task<NullableValue> RegisterServiceInstanceAsync(ServiceInstanceRequest serviceInstanceRequest,
-            CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<NullableValue> RegisterServiceInstanceAsync(ServiceInstanceRequest serviceInstanceRequest, CancellationToken cancellationToken = default)
         {
             if (!_connectionManager.Ready)
             {
@@ -86,36 +84,36 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
 
             var connection = _connectionManager.GetConnection();
             return await new Call(_logger, _connectionManager).Execute(async () =>
+            {
+                var client = new Register.RegisterClient(connection);
+                var instance = new ServiceInstance
                 {
-                    var client = new Register.RegisterClient(connection);
-                    var instance = new ServiceInstance
-                    {
-                        ServiceId = serviceInstanceRequest.ServiceId,
-                        InstanceUUID = serviceInstanceRequest.InstanceUUID,
-                        Time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                    };
+                    ServiceId = serviceInstanceRequest.ServiceId,
+                    InstanceUUID = serviceInstanceRequest.InstanceUUID,
+                    Time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                };
 
+                instance.Properties.Add(new KeyStringValuePair
+                { Key = OS_NAME, Value = serviceInstanceRequest.Properties.OsName });
+                instance.Properties.Add(new KeyStringValuePair
+                { Key = HOST_NAME, Value = serviceInstanceRequest.Properties.HostName });
+                instance.Properties.Add(new KeyStringValuePair
+                { Key = PROCESS_NO, Value = serviceInstanceRequest.Properties.ProcessNo.ToString() });
+                instance.Properties.Add(new KeyStringValuePair
+                { Key = LANGUAGE, Value = serviceInstanceRequest.Properties.Language });
+                foreach (var ip in serviceInstanceRequest.Properties.IpAddress)
                     instance.Properties.Add(new KeyStringValuePair
-                        {Key = OS_NAME, Value = serviceInstanceRequest.Properties.OsName});
-                    instance.Properties.Add(new KeyStringValuePair
-                        {Key = HOST_NAME, Value = serviceInstanceRequest.Properties.HostName});
-                    instance.Properties.Add(new KeyStringValuePair
-                        {Key = PROCESS_NO, Value = serviceInstanceRequest.Properties.ProcessNo.ToString()});
-                    instance.Properties.Add(new KeyStringValuePair
-                        {Key = LANGUAGE, Value = serviceInstanceRequest.Properties.Language});
-                    foreach (var ip in serviceInstanceRequest.Properties.IpAddress)
-                        instance.Properties.Add(new KeyStringValuePair
-                            {Key = IPV4, Value = ip});
+                    { Key = IPV4, Value = ip });
 
-                    var serviceInstances = new ServiceInstances();
-                    serviceInstances.Instances.Add(instance);
-                    var mapping = await client.doServiceInstanceRegisterAsync(serviceInstances,
-                        _config.GetMeta(), _config.GetTimeout(), cancellationToken);
-                    foreach (var serviceInstance in mapping.ServiceInstances)
-                        if (serviceInstance.Key == serviceInstanceRequest.InstanceUUID)
-                            return new NullableValue(serviceInstance.Value);
-                    return NullableValue.Null;
-                },
+                var serviceInstances = new ServiceInstances();
+                serviceInstances.Instances.Add(instance);
+                var mapping = await client.doServiceInstanceRegisterAsync(serviceInstances,
+                    _config.GetMeta(), _config.GetTimeout(), cancellationToken);
+                foreach (var serviceInstance in mapping.ServiceInstances)
+                    if (serviceInstance.Key == serviceInstanceRequest.InstanceUUID)
+                        return new NullableValue(serviceInstance.Value);
+                return NullableValue.Null;
+            },
                 () => NullableValue.Null,
                 () => ExceptionHelpers.RegisterServiceInstanceError);
         }

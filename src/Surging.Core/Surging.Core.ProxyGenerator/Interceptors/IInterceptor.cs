@@ -2,7 +2,7 @@
 
 namespace Surging.Core.ProxyGenerator.Interceptors
 {
-	public interface IInterceptor
+    public interface IInterceptor
     {
         Task Intercept(IInvocation invocation);
     }

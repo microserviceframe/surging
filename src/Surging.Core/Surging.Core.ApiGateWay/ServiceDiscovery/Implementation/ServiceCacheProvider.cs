@@ -52,7 +52,6 @@ namespace Surging.Core.ApiGateWay.ServiceDiscovery.Implementation
             await ServiceLocator.GetService<IServiceCacheManager>().SetCachesAsync(descriptors);
         }
 
-
         public async Task DelCacheEndpointAsync(string cacheId, string endpoint)
         {
             var model = await ServiceLocator.GetService<IServiceCacheManager>().GetAsync(cacheId);

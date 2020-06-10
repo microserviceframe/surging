@@ -15,15 +15,12 @@ using Surging.Apm.Skywalking.Core.Diagnostics;
 using Surging.Apm.Skywalking.Abstractions.Config;
 using Surging.Apm.Skywalking.Configuration;
 using Surging.Apm.Skywalking.Core.Common;
-using System.Collections.Generic;
-using System;
 using Surging.Apm.Skywalking.Transport.Grpc.V5;
-using System.Threading.Tasks;
 using Surging.Core.CPlatform.Diagnostics;
 
 namespace Surging.Apm.Skywalking
 {
-   public class SkywalkingModule : EnginePartModule
+    public class SkywalkingModule : EnginePartModule
     {
         public override void Initialize(AppModuleContext context)
         {
@@ -52,7 +49,7 @@ namespace Surging.Apm.Skywalking
             AddTracing(builder).AddSampling(builder).AddGrpcTransport(builder);
         }
 
-        private   SkywalkingModule AddTracing(ContainerBuilderWrapper builder)
+        private SkywalkingModule AddTracing(ContainerBuilderWrapper builder)
         {
             builder.RegisterType<TracingContext>().As<ITracingContext>().SingleInstance();
             builder.RegisterType<CarrierPropagator>().As<ICarrierPropagator>().SingleInstance();
@@ -87,7 +84,7 @@ namespace Surging.Apm.Skywalking
             builder.RegisterType<PingCaller>().As<IPingCaller>().SingleInstance();
             builder.RegisterType<ServiceRegister>().As<IServiceRegister>().SingleInstance();
             builder.RegisterType<ConnectService>().As<IExecutionService>().SingleInstance();
-            return this; 
+            return this;
         }
     }
 }

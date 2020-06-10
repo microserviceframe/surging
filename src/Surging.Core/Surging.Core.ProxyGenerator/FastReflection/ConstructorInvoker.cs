@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Surging.Core.ProxyGenerator.FastReflection
 {
-	public interface IConstructorInvoker
+    public interface IConstructorInvoker
     {
         object Invoke(params object[] parameters);
     }

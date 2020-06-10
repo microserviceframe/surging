@@ -12,12 +12,10 @@ using Surging.Core.Caching.Internal.Implementation;
 using Surging.Core.Caching.Models;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.Cache;
-using Surging.Core.ServiceHosting.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.Caching
 {

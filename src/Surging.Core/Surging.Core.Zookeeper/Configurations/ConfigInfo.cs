@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Surging.Core.Zookeeper.Configurations
 {
@@ -78,7 +77,7 @@ namespace Surging.Core.Zookeeper.Configurations
                     if (address != null)
                     {
                         var ipAddress = address as IpAddressModel;
-                        Addresses = new IpAddressModel[] { ipAddress};
+                        Addresses = new IpAddressModel[] { ipAddress };
                     }
                 }
             }
@@ -118,14 +117,12 @@ namespace Surging.Core.Zookeeper.Configurations
         /// </summary>
         public string ChRoot { get; set; }
 
-
         public IEnumerable<AddressModel> Addresses { get; set; }
 
         /// <summary>
         /// 缓存中心配置中心
         /// </summary>
         public string CachePath { get; set; }
-
 
         /// <summary>
         /// Mqtt路由配置路径。

@@ -18,12 +18,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Surging.Apm.Skywalking.Abstractions.Transport;
 
 namespace Surging.Apm.Skywalking.Abstractions.Transport
 {
     public interface IPingCaller
     {
-        Task PingAsync(PingRequest request, CancellationToken cancellationToken = default(CancellationToken));
+        Task PingAsync(PingRequest request, CancellationToken cancellationToken = default);
     }
 }

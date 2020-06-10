@@ -23,8 +23,8 @@ namespace Surging.Apm.Skywalking.Abstractions
 {
     public interface IInstrumentStartup
     {
-        Task StartAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task StartAsync(CancellationToken cancellationToken = default);
 
-        Task StopAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task StopAsync(CancellationToken cancellationToken = default);
     }
 }

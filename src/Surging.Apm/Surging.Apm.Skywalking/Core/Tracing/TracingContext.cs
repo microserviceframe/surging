@@ -66,7 +66,7 @@ namespace Surging.Apm.Skywalking.Abstractions.Common.Tracing
             {
                 return;
             }
-            
+
             _segmentContextFactory.Release(segmentContext);
             if (segmentContext.Sampled)
                 _segmentDispatcher.Dispatch(segmentContext);

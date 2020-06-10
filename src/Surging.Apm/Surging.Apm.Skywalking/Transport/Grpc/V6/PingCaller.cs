@@ -33,8 +33,7 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
         private readonly ILogger _logger;
         private readonly GrpcConfig _config;
 
-        public PingCaller(ConnectionManager connectionManager, ILoggerFactory loggerFactory,
-            IConfigAccessor configAccessor)
+        public PingCaller(ConnectionManager connectionManager, ILoggerFactory loggerFactory, IConfigAccessor configAccessor)
         {
             _connectionManager = connectionManager;
             _config = configAccessor.Get<GrpcConfig>();
@@ -50,15 +49,15 @@ namespace Surging.Apm.Skywalking.Transport.Grpc.V6
 
             var connection = _connectionManager.GetConnection();
             return new Call(_logger, _connectionManager).Execute(async () =>
+            {
+                var client = new ServiceInstancePing.ServiceInstancePingClient(connection);
+                await client.doPingAsync(new ServiceInstancePingPkg
                 {
-                    var client = new ServiceInstancePing.ServiceInstancePingClient(connection);
-                    await client.doPingAsync(new ServiceInstancePingPkg
-                    {
-                        ServiceInstanceId = request.ServiceInstanceId,
-                        ServiceInstanceUUID = request.InstanceId,
-                        Time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                    }, _config.GetMeta(), _config.GetTimeout(), cancellationToken);
-                },
+                    ServiceInstanceId = request.ServiceInstanceId,
+                    ServiceInstanceUUID = request.InstanceId,
+                    Time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                }, _config.GetMeta(), _config.GetTimeout(), cancellationToken);
+            },
                 () => ExceptionHelpers.PingError);
         }
     }

@@ -1,9 +1,4 @@
-﻿using Surging.Core.Caching.Interfaces;
-using Surging.Core.CPlatform.Cache;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using Surging.Core.CPlatform.Cache;
 
 namespace Surging.Core.Caching.RedisCache
 {
@@ -75,11 +70,9 @@ namespace Surging.Core.Caching.RedisCache
             set;
         }
 
-
         public override string ToString()
         {
-            return string.Concat(new string[] { Host, ":", Port.ToString(),"::" ,DbIndex.ToString()});
+            return string.Concat(new string[] { Host, ":", Port.ToString(), "::", DbIndex.ToString() });
         }
- 
     }
 }

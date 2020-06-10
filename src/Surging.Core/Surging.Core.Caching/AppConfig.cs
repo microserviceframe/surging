@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Surging.Core.Caching
 {
@@ -56,7 +55,7 @@ namespace Surging.Core.Caching
 
         private void RegisterLocalInstance(string typeName)
         {
-            var types = this.GetType().GetTypeInfo().Assembly.GetTypes().Where(p => p.GetTypeInfo().GetInterface(typeName) != null);
+            var types = GetType().GetTypeInfo().Assembly.GetTypes().Where(p => p.GetTypeInfo().GetInterface(typeName) != null);
             foreach (var t in types)
             {
                 var attribute = t.GetTypeInfo().GetCustomAttribute<IdentifyCacheAttribute>();
@@ -71,7 +70,7 @@ namespace Surging.Core.Caching
             try
             {
                 var types =
-                    this.GetType().GetTypeInfo()
+                    GetType().GetTypeInfo()
                         .Assembly.GetTypes()
                         .Where(
                             p => p.GetTypeInfo().GetInterface("ICacheProvider") != null);
@@ -149,7 +148,7 @@ namespace Surging.Core.Caching
                 var bindingInstance =
                     ServiceResolver.Current.GetService(Type.GetType(setting.Class, throwOnError: true),
                         setting.Id);
-                bindingInstance.GetType().GetMethod(setting.InitMethod, System.Reflection.BindingFlags.InvokeMethod).Invoke(bindingInstance, new object[] { });
+                bindingInstance.GetType().GetMethod(setting.InitMethod, BindingFlags.InvokeMethod).Invoke(bindingInstance, new object[] { });
             }
         }
     }

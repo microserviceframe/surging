@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.Caching.Utilities
 {
@@ -44,7 +42,7 @@ namespace Surging.Core.Caching.Utilities
             }
         }
 
-        public static void CheckCondition(Func<bool> condition,string formatErrorText, params string [] parameters)
+        public static void CheckCondition(Func<bool> condition, string formatErrorText, params string[] parameters)
         {
             if (condition.Invoke())
             {

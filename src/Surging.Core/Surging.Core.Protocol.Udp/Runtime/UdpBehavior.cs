@@ -6,7 +6,6 @@ using Surging.Core.CPlatform.Utilities;
 using Surging.Core.ProxyGenerator;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Surging.Core.Protocol.Udp.Runtime

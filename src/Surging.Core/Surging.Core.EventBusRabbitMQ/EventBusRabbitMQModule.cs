@@ -26,9 +26,9 @@ namespace Surging.Core.EventBusRabbitMQ
             {
                 var subscriptionAdapt = serviceProvider.GetInstances<ISubscriptionAdapt>();
                 serviceProvider.GetInstances<IEventBus>().OnShutdown += (sender, args) =>
-                 {
-                     subscriptionAdapt.Unsubscribe();
-                 };
+                {
+                    subscriptionAdapt.Unsubscribe();
+                };
                 serviceProvider.GetInstances<ISubscriptionAdapt>().SubscribeAt();
             });
         }

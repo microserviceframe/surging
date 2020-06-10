@@ -1,14 +1,10 @@
-﻿using Autofac;
-using Surging.Core.CPlatform.Utilities;
+﻿using Surging.Core.CPlatform.Utilities;
 using Surging.Core.ProxyGenerator;
-using Surging.Core.ProxyGenerator.Utilitys;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Surging.Core.System
 {
-    public  abstract class ServiceBase
+    public abstract class ServiceBase
     {
         public T CreateProxy<T>(string key) where T : class
         {

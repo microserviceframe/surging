@@ -33,8 +33,7 @@ namespace Surging.Apm.Skywalking.Core.Sampling
         private readonly int _samplePer3Secs;
         private readonly AtomicInteger _idx = new AtomicInteger();
 
-        public SimpleCountSamplingInterceptor(IConfigAccessor configAccessor,IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) :
-            base(runtimeEnvironment, loggerFactory)
+        public SimpleCountSamplingInterceptor(IConfigAccessor configAccessor, IRuntimeEnvironment runtimeEnvironment, ILoggerFactory loggerFactory) : base(runtimeEnvironment, loggerFactory)
         {
             var samplingConfig = configAccessor.Get<SamplingConfig>();
             _samplePer3Secs = samplingConfig.SamplePer3Secs;
@@ -60,7 +59,7 @@ namespace Surging.Apm.Skywalking.Core.Sampling
             Reset();
             return Task.CompletedTask;
         }
-        
+
         private void Reset()
         {
             _idx.Value = 0;
