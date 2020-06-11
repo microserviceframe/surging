@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿//using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Logging;
 using Surging.Core.CPlatform;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Volo.Abp.Configuration;
+//using Volo.Abp.Configuration;
 using VoloAbpModule = Volo.Abp.Modularity;
 using Volo.Abp.DependencyInjection;
 using VoloAbp = Volo.Abp;
@@ -40,7 +40,8 @@ namespace Surging.Core.Abp
 
         public override void RegisterBuilder(ConfigurationContext context)
         {
-            context.Services.AddSingleton<IConfigurationAccessor>(new DefaultConfigurationAccessor(context.Configuration));
+            //context.Services.AddSingleton<IConfigurationAccessor>(new DefaultServiceScopeFactory(context.Configuration) DefaultConfigurationAccessor(context.Configuration));
+            //context.Services.AddSingleton<IConfigurationAccessor>(new DefaultConfigurationAccessor(context.Configuration));
             var referenceAssemblies = GetAssemblies(context.VirtualPaths).Concat(GetAssemblies());
             foreach (var moduleAssembly in referenceAssemblies)
             {

@@ -25,7 +25,7 @@ namespace Surging.Core.KestrelHttpServer
         public event ReceivedDelegate Received;
         private readonly ILogger<HttpMessageListener> _logger;
         private readonly ISerializer<string> _serializer;
-        private event RequestDelegate Requested;
+        //private event RequestDelegate Requested;
         private readonly IServiceRouteProvider _serviceRouteProvider;
         private readonly string[] _serviceKeys = { "serviceKey", "servicekey" };
 

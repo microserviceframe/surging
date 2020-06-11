@@ -144,8 +144,8 @@ namespace Surging.Core.SwaggerGen
 
             if (_options.DescribeAllEnumsAsStrings || stringEnumConverter != null)
             {
-                var camelCase = _options.DescribeStringEnumsInCamelCase
-                    || (stringEnumConverter != null && stringEnumConverter.CamelCaseText);
+                var camelCase = _options.DescribeStringEnumsInCamelCase || (stringEnumConverter != null && stringEnumConverter.NamingStrategy == new CamelCaseNamingStrategy());
+                //var camelCase = _options.DescribeStringEnumsInCamelCase || (stringEnumConverter != null && stringEnumConverter.CamelCaseText);
 
                 var enumNames = type.GetFields(BindingFlags.Public | BindingFlags.Static)
                     .Select(f =>

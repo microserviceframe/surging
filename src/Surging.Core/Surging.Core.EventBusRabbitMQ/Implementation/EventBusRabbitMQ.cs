@@ -410,7 +410,8 @@ namespace Surging.Core.EventBusRabbitMQ.Implementation
 
         private IBasicProperties CreateOverrideProperties(IBasicProperties properties, IDictionary<string, object> headers)
         {
-            IBasicProperties newProperties = new BasicProperties();
+            //IBasicProperties newProperties = new BasicProperties();
+            IBasicProperties newProperties = properties;
             newProperties.ContentType = properties.ContentType ?? "";
             newProperties.ContentEncoding = properties.ContentEncoding ?? "";
             newProperties.Headers = properties.Headers;

@@ -1,7 +1,6 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Polly;
-using Polly.Retry;
 using System;
 using System.Collections.Generic;
 
@@ -10,10 +9,10 @@ namespace Surging.Core.EventBusKafka.Implementation
     public abstract class KafkaPersistentConnectionBase : IKafkaPersisterConnection
     {
         private readonly ILogger<KafkaPersistentConnectionBase> _logger;
-        private readonly IEnumerable<KeyValuePair<string, object>> _config;
+        private readonly IEnumerable<KeyValuePair<string, string>> _config;
         object sync_root = new object();
 
-        public KafkaPersistentConnectionBase(ILogger<KafkaPersistentConnectionBase> logger, IEnumerable<KeyValuePair<string, object>> config)
+        public KafkaPersistentConnectionBase(ILogger<KafkaPersistentConnectionBase> logger, IEnumerable<KeyValuePair<string, string>> config)
         {
             _logger = logger;
             _config = config;
@@ -28,7 +27,7 @@ namespace Surging.Core.EventBusKafka.Implementation
 
             lock (sync_root)
             {
-                var policy = RetryPolicy.Handle<KafkaException>()
+                var policy = Policy.Handle<KafkaException>()
                     .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                     {
                         _logger.LogWarning(ex.ToString());
@@ -52,7 +51,7 @@ namespace Surging.Core.EventBusKafka.Implementation
             }
         }
 
-        public abstract Action Connection(IEnumerable<KeyValuePair<string, object>> options);
+        public abstract Action Connection(IEnumerable<KeyValuePair<string, string>> options);
         public abstract object CreateConnect();
         public abstract void Dispose();
     }

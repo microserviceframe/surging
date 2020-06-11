@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Surging.Core.Swagger;
-using System;
 using System.Collections.Generic;
 
 namespace Surging.Core.SwaggerGen
@@ -12,18 +11,23 @@ namespace Surging.Core.SwaggerGen
 
     public class DocumentFilterContext
     {
-        public DocumentFilterContext(
-            ApiDescriptionGroupCollection apiDescriptionsGroups,
-            IEnumerable<ApiDescription> apiDescriptions,
-            ISchemaRegistry schemaRegistry)
+        public DocumentFilterContext(IEnumerable<ApiDescription> apiDescriptions, ISchemaRegistry schemaRegistry)
         {
-            ApiDescriptionsGroups = apiDescriptionsGroups;
             ApiDescriptions = apiDescriptions;
             SchemaRegistry = schemaRegistry;
         }
+        //public DocumentFilterContext(
+        //    ApiDescriptionGroupCollection apiDescriptionsGroups,
+        //    IEnumerable<ApiDescription> apiDescriptions,
+        //    ISchemaRegistry schemaRegistry)
+        //{
+        //    ApiDescriptionsGroups = apiDescriptionsGroups;
+        //    ApiDescriptions = apiDescriptions;
+        //    SchemaRegistry = schemaRegistry;
+        //}
 
-        [Obsolete("Deprecated: Use ApiDescriptions")]
-        public ApiDescriptionGroupCollection ApiDescriptionsGroups { get; private set; }
+        //[Obsolete("Deprecated: Use ApiDescriptions")]
+        //public ApiDescriptionGroupCollection ApiDescriptionsGroups { get; private set; }
 
         public IEnumerable<ApiDescription> ApiDescriptions { get; private set; }
 

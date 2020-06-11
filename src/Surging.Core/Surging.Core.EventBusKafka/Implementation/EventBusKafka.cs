@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
-using Polly.Retry;
 using Surging.Core.CPlatform;
 using Surging.Core.CPlatform.EventBus;
 using Surging.Core.CPlatform.EventBus.Events;
@@ -15,18 +14,18 @@ namespace Surging.Core.EventBusKafka.Implementation
     public class EventBusKafka : IEventBus, IDisposable
     {
         private readonly ILogger<EventBusKafka> _logger;
-        private readonly IEventBusSubscriptionsManager _subsManager;
-        private readonly IKafkaPersisterConnection _producerConnection;
-        private readonly IKafkaPersisterConnection _consumerConnection;
+		private readonly IEventBusSubscriptionsManager _subsManager;
+		private readonly IKafkaPersisterConnection _producerConnection;
+		private readonly IKafkaPersisterConnection _consumerConnection;
 
-        public event EventHandler OnShutdown;
+		public event EventHandler OnShutdown;
 
         public EventBusKafka(ILogger<EventBusKafka> logger, IEventBusSubscriptionsManager subsManager, CPlatformContainer serviceProvider)
         {
             _logger = logger;
-            _producerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Producer.ToString());
-            _consumerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Consumer.ToString());
-            _subsManager = subsManager;
+			_producerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Producer.ToString());
+			_consumerConnection = serviceProvider.GetInstances<IKafkaPersisterConnection>(KafkaConnectionType.Consumer.ToString());
+			_subsManager = subsManager;
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
@@ -37,7 +36,7 @@ namespace Surging.Core.EventBusKafka.Implementation
                 _consumerConnection.TryConnect();
             }
 
-            using (var channel = _consumerConnection.CreateConnect() as Consumer<Null, string>)
+            using (var channel = _consumerConnection.CreateConnect() as IConsumer<string, string>)
             {
                 channel.Unsubscribe();
                 if (_subsManager.IsEmpty)
@@ -61,16 +60,19 @@ namespace Surging.Core.EventBusKafka.Implementation
             }
             var eventName = @event.GetType().Name;
             var body = JsonConvert.SerializeObject(@event);
-            var policy = RetryPolicy.Handle<KafkaException>()
+            var policy = Policy.Handle<KafkaException>()
                .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                {
                    _logger.LogWarning(ex.ToString());
                });
 
-            var conn = _producerConnection.CreateConnect() as Producer<Null, string>;
+            var conn = _producerConnection.CreateConnect() as IProducer<string, string>;
             policy.Execute(() =>
             {
-                conn.ProduceAsync(eventName, null, body).GetAwaiter().GetResult();
+                //ValueTuple<string, Message<Null, string>> msg = (eventName, new Message<Null, string>() { Key = null, Value = body });
+                var msg = new Message<string, string>() { Key = eventName, Value = body };
+                
+                conn.ProduceAsync(eventName, msg).GetAwaiter().GetResult();
             });
         }
 
@@ -80,8 +82,12 @@ namespace Surging.Core.EventBusKafka.Implementation
             var containsKey = _subsManager.HasSubscriptionsForEvent<T>();
             if (!containsKey)
             {
-                var channel = _consumerConnection.CreateConnect() as Consumer<Null, string>;
-                channel.OnMessage += ConsumerClient_OnMessage;
+                //_subsManager.GetHandlersForEvent(eventName).Append(ConsumerClient_OnMessage);
+                //新增
+                //_subsManager.AddSubscription<T, TH>(handler, eventName);
+                var channel = _consumerConnection.CreateConnect() as IConsumer<string, string>;                
+                //channel.MemberId = eventName;
+                //channel.OnMessage += ConsumerClient_OnMessage;
                 channel.Subscribe(eventName);
             }
             _subsManager.AddSubscription<T, TH>(handler, null);
@@ -92,10 +98,14 @@ namespace Surging.Core.EventBusKafka.Implementation
             _subsManager.RemoveSubscription<T, TH>();
         }
 
-        private void ConsumerClient_OnMessage(object sender, Message<Null, string> e)
+        private void ConsumerClient_OnMessage(object sender, Message<string, string> e)
         {
-            ProcessEvent(e.Topic, e.Value).Wait();
+            ProcessEvent(e.Key, e.Value).Wait();
         }
+        //private void ConsumerClient_OnMessage(object sender, Message<Null, string> e)
+        //{
+        //    ProcessEvent(e.Topic, e.Value).Wait();
+        //}
 
         private async Task ProcessEvent(string eventName, string message)
         {

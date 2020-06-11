@@ -17,7 +17,6 @@ namespace Surging.Core.DotNetty
         /// </summary>
         /// <param name="builder">服务构建者。</param>
         /// <returns>服务构建者。</returns>
-
         [Obsolete]
         public static IServiceBuilder UseDotNettyTransport(this IServiceBuilder builder)
         {

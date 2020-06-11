@@ -27,7 +27,7 @@ namespace Surging.Core.KestrelHttpServer
     {
         private readonly ILogger<KestrelHttpMessageListener> _logger;
         private IWebHost _host;
-        private bool _isCompleted;
+        //private bool _isCompleted;
         private readonly ISerializer<string> _serializer;
         private readonly IServiceEngineLifetime _lifetime;
         private readonly IModuleProvider _moduleProvider;
@@ -90,7 +90,8 @@ namespace Surging.Core.KestrelHttpServer
                 {
                     await _host.RunAsync();
                 });
-
+                //新增
+                await Task.CompletedTask;
             }
             catch
             {

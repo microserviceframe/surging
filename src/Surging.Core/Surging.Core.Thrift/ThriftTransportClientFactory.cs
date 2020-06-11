@@ -68,7 +68,7 @@ namespace Surging.Core.Thrift
                     }
                     )).Value;//返回实例
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //移除
                 _clients.TryRemove(key, out var value);

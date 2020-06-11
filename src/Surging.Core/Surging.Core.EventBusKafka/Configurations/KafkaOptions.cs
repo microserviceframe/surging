@@ -32,28 +32,28 @@ namespace Surging.Core.EventBusKafka.Configurations
 
         public KafkaOptions Value => this;
 
-        public IEnumerable<KeyValuePair<string, object>> GetConsumerConfig()
+        public IEnumerable<KeyValuePair<string, string>> GetConsumerConfig()
         {
-            var configs = new List<KeyValuePair<string, object>>();
-            configs.Add(new KeyValuePair<string, object>("bootstrap.servers", Servers));
-            configs.Add(new KeyValuePair<string, object>("queue.buffering.max.ms", MaxQueueBuffering.ToString()));
-            configs.Add(new KeyValuePair<string, object>("socket.blocking.max.ms", MaxSocketBlocking.ToString()));
-            configs.Add(new KeyValuePair<string, object>("enable.auto.commit", EnableAutoCommit.ToString()));
-            configs.Add(new KeyValuePair<string, object>("log.connection.close", LogConnectionClose.ToString()));
-            configs.Add(new KeyValuePair<string, object>("auto.commit.interval.ms", CommitInterval));
-            configs.Add(new KeyValuePair<string, object>("auto.offset.reset", OffsetReset.ToString().ToLower()));
-            configs.Add(new KeyValuePair<string, object>("session.timeout.ms", SessionTimeout));
-            configs.Add(new KeyValuePair<string, object>("group.id", GroupID));
+            var configs = new List<KeyValuePair<string, string>>();
+            configs.Add(new KeyValuePair<string, string>("bootstrap.servers", Servers));
+            configs.Add(new KeyValuePair<string, string>("queue.buffering.max.ms", MaxQueueBuffering.ToString()));
+            configs.Add(new KeyValuePair<string, string>("socket.blocking.max.ms", MaxSocketBlocking.ToString()));
+            configs.Add(new KeyValuePair<string, string>("enable.auto.commit", EnableAutoCommit.ToString()));
+            configs.Add(new KeyValuePair<string, string>("log.connection.close", LogConnectionClose.ToString()));
+            configs.Add(new KeyValuePair<string, string>("auto.commit.interval.ms", CommitInterval.ToString()));
+            configs.Add(new KeyValuePair<string, string>("auto.offset.reset", OffsetReset.ToString().ToLower()));
+            configs.Add(new KeyValuePair<string, string>("session.timeout.ms", SessionTimeout.ToString()));
+            configs.Add(new KeyValuePair<string, string>("group.id", GroupID));
             return configs;
         }
 
-        public IEnumerable<KeyValuePair<string, object>> GetProducerConfig()
+        public IEnumerable<KeyValuePair<string, string>> GetProducerConfig()
         {
-            var configs = new List<KeyValuePair<string, object>>();
-            configs.Add(new KeyValuePair<string, object>("bootstrap.servers", Servers));
-            configs.Add(new KeyValuePair<string, object>("acks", Acks));
-            configs.Add(new KeyValuePair<string, object>("retries", Retries));
-            configs.Add(new KeyValuePair<string, object>("linger.ms", Linger));
+            var configs = new List<KeyValuePair<string, string>>();
+            configs.Add(new KeyValuePair<string, string>("bootstrap.servers", Servers));
+            configs.Add(new KeyValuePair<string, string>("acks", Acks));
+            configs.Add(new KeyValuePair<string, string>("retries", Retries.ToString()));
+            configs.Add(new KeyValuePair<string, string>("linger.ms", Linger.ToString()));
             return configs;
         }
     }

@@ -48,7 +48,7 @@ namespace Surging.Core.AutoMapper
                                 var profile = Activator.CreateInstance(profileType) as Profile;
                                 profiles.Add(profile);
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
                                 if (logger.IsEnabled(LogLevel.Warning))
                                     logger.LogWarning($"构建profile失败,profile类型为{profileType.FullName}");
