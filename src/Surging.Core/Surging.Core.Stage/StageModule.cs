@@ -66,12 +66,13 @@ namespace Surging.Core.Stage
                 {
                     JsonConvert.DefaultSettings = new Func<JsonSerializerSettings>(() =>
                     {
-                        JsonSerializerSettings setting = new Newtonsoft.Json.JsonSerializerSettings();
+                        JsonSerializerSettings setting = new JsonSerializerSettings();
                         setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                         setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
                         return setting;
                     });
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 }
                 else
                 {
