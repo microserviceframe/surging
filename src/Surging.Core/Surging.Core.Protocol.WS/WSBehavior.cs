@@ -13,26 +13,6 @@ namespace Surging.Core.Protocol.WS
 {
     public abstract class WSBehavior : WebSocketBehavior, IServiceBehavior
     {
-        public T CreateProxy<T>(string key) where T : class
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
-        }
-
-        public object CreateProxy(Type type)
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
-        }
-
-        public object CreateProxy(string key, Type type)
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
-        }
-
-        public T CreateProxy<T>() where T : class
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
-        }
-
         public T GetService<T>(string key) where T : class
         {
             if (ServiceLocator.Current.IsRegisteredWithKey<T>(key))
@@ -72,9 +52,11 @@ namespace Surging.Core.Protocol.WS
             WebSocketSessionManager result = null;
             var server = ServiceLocator.GetService<DefaultWSServerMessageListener>().Server;
             var entries = ServiceLocator.GetService<IWSServiceEntryProvider>().GetEntries();
-            var entry = entries.Where(p => p.Type == this.GetType()).FirstOrDefault();
+            var entry = entries.Where(p => p.Type == GetType()).FirstOrDefault();
             if (server.WebSocketServices.TryGetServiceHost(entry.Path, out WebSocketServiceHostBase webSocketServiceHost))
+			{
                 result = webSocketServiceHost.Sessions;
+            }
             return result;
         }
 

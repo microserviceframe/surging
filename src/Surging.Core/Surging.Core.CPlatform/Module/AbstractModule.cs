@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace Surging.Core.CPlatform.Module
 {
+    /// <summary>
+    /// 抽象模块
+    /// </summary>
     public abstract class AbstractModule : Autofac.Module, IDisposable
     {
         #region 实例属性

@@ -12,7 +12,7 @@ namespace Surging.Services.Server
         public Startup(IConfigurationBuilder config)
         {
           ConfigureEventBus(config);
-          //  ConfigureCache(config);
+          //ConfigureCache(config);
         }
 
         public IContainer ConfigureServices(ContainerBuilder builder)
@@ -30,6 +30,7 @@ namespace Surging.Services.Server
         }
 
         #region 私有方法
+
         /// <summary>
         /// 配置日志服务
         /// </summary>
@@ -51,6 +52,7 @@ namespace Surging.Services.Server
         {
             build.AddCacheFile("cacheSettings.json", optional: false);
         }
+
         #endregion
 
     }

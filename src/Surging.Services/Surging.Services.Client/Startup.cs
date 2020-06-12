@@ -2,10 +2,6 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Surging.Apm.Skywalking.Abstractions.Common.Tracing;
-using Surging.Apm.Skywalking.Abstractions.Tracing;
 using Surging.Core.Caching.Configurations;
 using Surging.Core.CPlatform.Diagnostics;
 using Surging.Core.CPlatform.Transport.Implementation;
@@ -22,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Surging.Services.Client
 {
-    public class Startup
+	public class Startup
     {
         private ContainerBuilder _builder;
 
@@ -47,28 +43,7 @@ namespace Surging.Services.Client
            
         }
 
-        #region 私有方法
-        /// <summary>
-        /// 配置日志服务
-        /// </summary>
-        /// <param name="services"></param>
-        private void ConfigureLogging(IServiceCollection services)
-        {
-            services.AddLogging();
-        }
-
-        private static void ConfigureEventBus(IConfigurationBuilder build)
-        {
-            build.AddEventBusFile("eventBusSettings.json", optional: false);
-        }
-
-        /// <summary>
-        /// 配置缓存服务
-        /// </summary>
-        private void ConfigureCache(IConfigurationBuilder build)
-        {
-            build.AddCacheFile("cacheSettings.json", optional: false);
-        }
+        #region 测试
 
         /// <summary>
         /// 测试
@@ -76,15 +51,15 @@ namespace Surging.Services.Client
         /// <param name="serviceProxyFactory"></param>
         public static void Test(IServiceProxyFactory serviceProxyFactory)
         {
-            var tracingContext =  ServiceLocator.GetService<ITracingContext>();
+            var tracingContext = ServiceLocator.GetService<ITracingContext>();
             Task.Run(async () =>
             {
-                RpcContext.GetContext().SetAttachment("xid",124);
+                RpcContext.GetContext().SetAttachment("xid", 124);
 
                 var userProxy = serviceProxyFactory.CreateProxy<IUserService>("User");
 
                 var asyncProxy = serviceProxyFactory.CreateProxy<IAsyncService>();
-                var result= await  asyncProxy.AddAsync(1, 2);
+                var result = await asyncProxy.AddAsync(1, 2);
                 var user = userProxy.GetUser(new UserModel
                 {
                     UserId = 1,
@@ -160,9 +135,9 @@ namespace Surging.Services.Client
                     var result1 = await proxy.SayHelloAsync();
                     var result2 = await proxy1.SayHelloAsync();
                     Console.WriteLine("正在循环 1w次调用 GetUser.....");
-                    
+
                     var watch = Stopwatch.StartNew();
-                    
+
                     for (var i = 0; i < 10000; i++)
                     {
                         try
@@ -189,10 +164,10 @@ namespace Surging.Services.Client
         public static void TestForRoutePath(IServiceProxyProvider serviceProxyProvider)
         {
             Dictionary<string, object> model = new Dictionary<string, object>();
-            model.Add("user",new UserModel
+            model.Add("user", new UserModel
             {
                 Name = "fanly",
-                Age =12,
+                Age = 12,
                 UserId = 2,
                 Sex = Sex.Woman
             });
@@ -204,6 +179,34 @@ namespace Surging.Services.Client
             Console.WriteLine("Press any key to exit...");
             Console.ReadLine();
         }
+
+        #endregion
+
+
+        #region 私有方法
+
+        /// <summary>
+        /// 配置日志服务
+        /// </summary>
+        /// <param name="services"></param>
+        private void ConfigureLogging(IServiceCollection services)
+        {
+            services.AddLogging();
+        }
+
+        private static void ConfigureEventBus(IConfigurationBuilder build)
+        {
+            build.AddEventBusFile("eventBusSettings.json", optional: false);
+        }
+
+        /// <summary>
+        /// 配置缓存服务
+        /// </summary>
+        private void ConfigureCache(IConfigurationBuilder build)
+        {
+            build.AddCacheFile("cacheSettings.json", optional: false);
+        }        
+
         #endregion
 
     }

@@ -8,57 +8,17 @@ using Surging.Core.CPlatform.DependencyResolution;
 
 namespace Surging.Core.ProxyGenerator
 {
+    /// <summary>
+    /// 基础代理服务
+    /// </summary>
     public abstract class ProxyServiceBase : ServiceBase
     {
-        [Obsolete("This method is Obsolete, use GetService")]
-        public T CreateProxy<T>(string key) where T : class
-        {
-            // return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
-            var result = ServiceResolver.Current.GetService<T>(key);
-            if (result == null)
-            {
-                result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
-                ServiceResolver.Current.Register(key, result);
-            }
-            return result;
-        }
-
-        [Obsolete("This method is Obsolete, use GetService")]
-        public object CreateProxy(Type type)
-        {
-            var result = ServiceResolver.Current.GetService(type);
-            if (result == null)
-            {
-                result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
-                ServiceResolver.Current.Register(null, result);
-            }
-            return result;
-        }
-
-        [Obsolete("This method is Obsolete, use GetService")]
-        public object CreateProxy(string key, Type type)
-        {
-            var result = ServiceResolver.Current.GetService(type, key);
-            if (result == null)
-            {
-                result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
-                ServiceResolver.Current.Register(key, result);
-            }
-            return result;
-        }
-
-        [Obsolete("This method is Obsolete, use GetService")]
-        public T CreateProxy<T>() where T : class
-        {
-            var result = ServiceResolver.Current.GetService<T>();
-            if (result == null)
-            {
-                result = ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
-                ServiceResolver.Current.Register(null, result);
-            }
-            return result;
-        }
-
+        /// <summary>
+        /// 获取服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public override T GetService<T>(string key)
         {
             if (ServiceLocator.Current.IsRegisteredWithKey<T>(key))
@@ -121,9 +81,12 @@ namespace Surging.Core.ProxyGenerator
                 }
                 return result;
             }
-
         }
 
+        /// <summary>
+        /// 发布事件
+        /// </summary>
+        /// <param name="event"></param>
         public void Publish(IntegrationEvent @event)
         {
             GetService<IEventBus>().Publish(@event);

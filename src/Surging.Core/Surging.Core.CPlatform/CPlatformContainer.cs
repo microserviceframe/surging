@@ -23,6 +23,10 @@ namespace Surging.Core.CPlatform
             }
         }
 
+        /// <summary>
+        /// 平台容器构造器
+        /// </summary>
+        /// <param name="container"></param>
         public CPlatformContainer(IComponentContext container)
         {
             _container = container;

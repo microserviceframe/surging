@@ -3,8 +3,14 @@ using System;
 
 namespace Surging.Core.CPlatform.Utilities
 {
+    /// <summary>
+    /// 服务定位器
+    /// </summary>
     public class ServiceLocator
     {
+        /// <summary>
+        /// 当前容器
+        /// </summary>
         public static IContainer Current { get; set; }
 
         public static T GetService<T>()

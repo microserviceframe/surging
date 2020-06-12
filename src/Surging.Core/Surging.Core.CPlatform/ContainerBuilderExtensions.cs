@@ -405,6 +405,12 @@ namespace Surging.Core.CPlatform
             return builder;
         }
 
+        /// <summary>
+        /// 添加服务引擎服务
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="engine"></param>
+        /// <returns></returns>
         public static IServiceBuilder AddServiceEngine(this IServiceBuilder builder, Type engine)
         {
             var services = builder.Services;
@@ -481,6 +487,12 @@ namespace Surging.Core.CPlatform
                 .UseJsonCodec();
         }
 
+        /// <summary>
+        /// 根据约束参数注册服务
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="virtualPaths"></param>
+        /// <returns></returns>
         public static IServiceBuilder RegisterInstanceByConstraint(this IServiceBuilder builder, params string[] virtualPaths)
         {
             var services = builder.Services;
@@ -488,11 +500,9 @@ namespace Surging.Core.CPlatform
 
             foreach (var assembly in referenceAssemblies)
             {
-                services.RegisterAssemblyTypes(assembly)
-                 .Where(t => typeof(ISingletonDependency).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().AsSelf().SingleInstance();
+                services.RegisterAssemblyTypes(assembly).Where(t => typeof(ISingletonDependency).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().AsSelf().SingleInstance();
 
-                services.RegisterAssemblyTypes(assembly)
-                .Where(t => typeof(ITransientDependency).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().AsSelf().InstancePerDependency();
+                services.RegisterAssemblyTypes(assembly).Where(t => typeof(ITransientDependency).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().AsSelf().InstancePerDependency();
             }
             return builder;
         }
@@ -545,26 +555,24 @@ namespace Surging.Core.CPlatform
                 foreach (var assembly in referenceAssemblies)
                 {
                     services.RegisterAssemblyTypes(assembly)
-                       //注入继承IServiceKey接口的所有接口
-                       .Where(t => typeof(IServiceKey).GetTypeInfo().IsAssignableFrom(t) && t.IsInterface)
-                       .AsImplementedInterfaces();
-                    services.RegisterAssemblyTypes(assembly)
-                 //注入实现IServiceBehavior接口并ModuleName为空的类，作为接口实现类
-                 .Where(t => !typeof(ISingleInstance).GetTypeInfo().IsAssignableFrom(t) &&
-                 typeof(IServiceBehavior).GetTypeInfo().IsAssignableFrom(t) && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).AsImplementedInterfaces();
+                        //注入继承IServiceKey接口的所有接口
+                        .Where(t => typeof(IServiceKey).GetTypeInfo().IsAssignableFrom(t) && t.IsInterface)
+                        .AsImplementedInterfaces();
 
                     services.RegisterAssemblyTypes(assembly)
-             //注入实现IServiceBehavior接口并ModuleName为空的类，作为接口实现类
-             .Where(t => typeof(ISingleInstance).GetTypeInfo().IsAssignableFrom(t) &&
-             typeof(IServiceBehavior).GetTypeInfo().IsAssignableFrom(t) && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).SingleInstance().AsImplementedInterfaces();
+                        //注入实现IServiceBehavior接口并ModuleName为空的类，作为接口实现类
+                        .Where(t => !typeof(ISingleInstance).GetTypeInfo().IsAssignableFrom(t) && typeof(IServiceBehavior).GetTypeInfo().IsAssignableFrom(t) && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).AsImplementedInterfaces();
+
+                    services.RegisterAssemblyTypes(assembly)
+                        //注入实现IServiceBehavior接口并ModuleName为空的类，作为接口实现类
+                        .Where(t => typeof(ISingleInstance).GetTypeInfo().IsAssignableFrom(t) && typeof(IServiceBehavior).GetTypeInfo().IsAssignableFrom(t) && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() == null).SingleInstance().AsImplementedInterfaces();
 
                     var types = assembly.GetTypes().Where(t => typeof(IServiceBehavior).GetTypeInfo().IsAssignableFrom(t) && t.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>() != null);
                     foreach (var type in types)
                     {
                         var module = type.GetTypeInfo().GetCustomAttribute<ModuleNameAttribute>();
                         //对ModuleName不为空的对象，找到第一个继承IServiceKey的接口并注入接口及实现
-                        var interfaceObj = type.GetInterfaces()
-                            .FirstOrDefault(t => typeof(IServiceKey).GetTypeInfo().IsAssignableFrom(t));
+                        var interfaceObj = type.GetInterfaces().FirstOrDefault(t => typeof(IServiceKey).GetTypeInfo().IsAssignableFrom(t));
                         if (interfaceObj != null)
                         {
                             services.RegisterType(type).AsImplementedInterfaces().Named(module.ModuleName, interfaceObj);
@@ -593,18 +601,15 @@ namespace Surging.Core.CPlatform
         /// <param name="builder"></param>
         /// <param name="virtualPaths"></param>
         /// <returns>返回注册模块信息</returns>
-        public static IServiceBuilder RegisterServiceBus
-            (this IServiceBuilder builder, params string[] virtualPaths)
+        public static IServiceBuilder RegisterServiceBus(this IServiceBuilder builder, params string[] virtualPaths)
         {
             var services = builder.Services;
             var referenceAssemblies = GetAssemblies(virtualPaths);
 
             foreach (var assembly in referenceAssemblies)
             {
-                services.RegisterAssemblyTypes(assembly)
-                 .Where(t => typeof(IIntegrationEventHandler).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().SingleInstance();
-                services.RegisterAssemblyTypes(assembly)
-                 .Where(t => typeof(IIntegrationEventHandler).IsAssignableFrom(t)).SingleInstance();
+                services.RegisterAssemblyTypes(assembly).Where(t => typeof(IIntegrationEventHandler).GetTypeInfo().IsAssignableFrom(t)).AsImplementedInterfaces().SingleInstance();
+                services.RegisterAssemblyTypes(assembly).Where(t => typeof(IIntegrationEventHandler).IsAssignableFrom(t)).SingleInstance();
             }
             return builder;
         }
@@ -622,8 +627,7 @@ namespace Surging.Core.CPlatform
 
             foreach (var assembly in referenceAssemblies)
             {
-                services.RegisterAssemblyTypes(assembly)
-                    .Where(t => typeof(BaseRepository).GetTypeInfo().IsAssignableFrom(t));
+                services.RegisterAssemblyTypes(assembly).Where(t => typeof(BaseRepository).GetTypeInfo().IsAssignableFrom(t));
             }
             return builder;
         }
@@ -700,13 +704,20 @@ namespace Surging.Core.CPlatform
             return result;
         }
 
+        /// <summary>
+        /// 获取引用程序集
+        /// </summary>
+        /// <param name="virtualPaths"></param>
+        /// <returns></returns>
         private static List<Assembly> GetReferenceAssembly(params string[] virtualPaths)
         {
             var refAssemblies = new List<Assembly>();
             var rootPath = AppContext.BaseDirectory;
             var existsPath = virtualPaths.Any();
             if (existsPath && !string.IsNullOrEmpty(AppConfig.ServerOptions.RootPath))
+			{
                 rootPath = AppConfig.ServerOptions.RootPath;
+            }
             var result = _referenceAssembly;
             if (!result.Any() || existsPath)
             {
@@ -729,6 +740,10 @@ namespace Surging.Core.CPlatform
             return result;
         }
 
+        /// <summary>
+        /// 获取系统模块
+        /// </summary>
+        /// <returns></returns>
         private static List<Assembly> GetSystemModules()
         {
             var assemblies = new List<Assembly>();
@@ -744,6 +759,11 @@ namespace Surging.Core.CPlatform
             return assemblies;
         }
 
+        /// <summary>
+        /// 获取程序集
+        /// </summary>
+        /// <param name="virtualPaths"></param>
+        /// <returns></returns>
         private static List<Assembly> GetAssemblies(params string[] virtualPaths)
         {
             var referenceAssemblies = new List<Assembly>();
@@ -753,11 +773,12 @@ namespace Surging.Core.CPlatform
             }
             else
             {
-                string[] assemblyNames = DependencyContext
-                    .Default.GetDefaultAssemblyNames().Select(p => p.Name).ToArray();
+                string[] assemblyNames = DependencyContext.Default.GetDefaultAssemblyNames().Select(p => p.Name).ToArray();
                 assemblyNames = GetFilterAssemblies(assemblyNames);
                 foreach (var name in assemblyNames)
+				{
                     referenceAssemblies.Add(Assembly.Load(name));
+                }
                 _referenceAssembly.AddRange(referenceAssemblies.Except(_referenceAssembly));
             }
             return referenceAssemblies;
@@ -771,9 +792,7 @@ namespace Surging.Core.CPlatform
         private static List<AbstractModule> GetAbstractModules(Assembly assembly)
         {
             var abstractModules = new List<AbstractModule>();
-            Type[] arrayModule =
-                assembly.GetTypes().Where(
-                    t => t.IsSubclassOf(typeof(AbstractModule))).ToArray();
+            Type[] arrayModule = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(AbstractModule))).ToArray();
             foreach (var moduleType in arrayModule)
             {
                 var abstractModule = (AbstractModule)Activator.CreateInstance(moduleType);
@@ -782,47 +801,47 @@ namespace Surging.Core.CPlatform
             return abstractModules;
         }
 
+        /// <summary>
+        /// 获取过滤器程序集
+        /// </summary>
+        /// <param name="assemblyNames"></param>
+        /// <returns></returns>
         private static string[] GetFilterAssemblies(string[] assemblyNames)
         {
             var notRelatedFile = AppConfig.ServerOptions.NotRelatedAssemblyFiles;
             var relatedFile = AppConfig.ServerOptions.RelatedAssemblyFiles;
-            var pattern = string.Format("^Microsoft.\\w*|^System.\\w*|^DotNetty.\\w*|^runtime.\\w*|^ZooKeeperNetEx\\w*|^StackExchange.Redis\\w*|^Consul\\w*|^Newtonsoft.Json.\\w*|^Autofac.\\w*{0}",
-               string.IsNullOrEmpty(notRelatedFile) ? "" : $"|{notRelatedFile}");
+            var pattern = string.Format("^Microsoft.\\w*|^System.\\w*|^DotNetty.\\w*|^runtime.\\w*|^ZooKeeperNetEx\\w*|^StackExchange.Redis\\w*|^Consul\\w*|^Newtonsoft.Json.\\w*|^Autofac.\\w*{0}", string.IsNullOrEmpty(notRelatedFile) ? "" : $"|{notRelatedFile}");
             Regex notRelatedRegex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Regex relatedRegex = new Regex(relatedFile, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
             if (!string.IsNullOrEmpty(relatedFile))
             {
-                return
-                    assemblyNames.Where(
-                        name => !notRelatedRegex.IsMatch(name) && relatedRegex.IsMatch(name)).ToArray();
+                return assemblyNames.Where(name => !notRelatedRegex.IsMatch(name) && relatedRegex.IsMatch(name)).ToArray();
             }
             else
             {
-                return
-                    assemblyNames.Where(
-                        name => !notRelatedRegex.IsMatch(name)).ToArray();
+                return assemblyNames.Where(name => !notRelatedRegex.IsMatch(name)).ToArray();
             }
         }
 
+        /// <summary>
+        /// 获取所有程序及文件
+        /// </summary>
+        /// <param name="parentDir"></param>
+        /// <returns></returns>
         private static List<string> GetAllAssemblyFiles(string parentDir)
         {
             var notRelatedFile = AppConfig.ServerOptions.NotRelatedAssemblyFiles;
             var relatedFile = AppConfig.ServerOptions.RelatedAssemblyFiles;
-            var pattern = string.Format("^Microsoft.\\w*|^System.\\w*|^Netty.\\w*|^Autofac.\\w*{0}",
-               string.IsNullOrEmpty(notRelatedFile) ? "" : $"|{notRelatedFile}");
+            var pattern = string.Format("^Microsoft.\\w*|^System.\\w*|^Netty.\\w*|^Autofac.\\w*{0}", string.IsNullOrEmpty(notRelatedFile) ? "" : $"|{notRelatedFile}");
             Regex notRelatedRegex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Regex relatedRegex = new Regex(relatedFile, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
             if (!string.IsNullOrEmpty(relatedFile))
             {
-                return
-                    Directory.GetFiles(parentDir, "*.dll").Select(Path.GetFullPath).Where(
-                        a => !notRelatedRegex.IsMatch(a) && relatedRegex.IsMatch(a)).ToList();
+                return Directory.GetFiles(parentDir, "*.dll").Select(Path.GetFullPath).Where(a => !notRelatedRegex.IsMatch(a) && relatedRegex.IsMatch(a)).ToList();
             }
             else
             {
-                return
-                    Directory.GetFiles(parentDir, "*.dll").Select(Path.GetFullPath).Where(
-                        a => !notRelatedRegex.IsMatch(Path.GetFileName(a))).ToList();
+                return Directory.GetFiles(parentDir, "*.dll").Select(Path.GetFullPath).Where(a => !notRelatedRegex.IsMatch(Path.GetFileName(a))).ToList();
             }
         }
     }

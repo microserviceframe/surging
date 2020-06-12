@@ -55,7 +55,7 @@ namespace Surging.Modules.Common.Domain
         {
             if (_token.IsCancellationRequested)
             {
-                await base.StartAsync(_token);
+                await StartAsync(_token);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Surging.Modules.Common.Domain
         {
             if (!_token.IsCancellationRequested)
             {
-                await base.StopAsync(_token);
+                await StopAsync(_token);
             }
         }
     }

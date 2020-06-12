@@ -22,6 +22,7 @@ namespace Surging.Modules.Common.Domain
         #region Implementation of IUserService
 
         private readonly UserRepository _repository;
+
         public UserService(UserRepository repository)
         {
             _repository = repository;

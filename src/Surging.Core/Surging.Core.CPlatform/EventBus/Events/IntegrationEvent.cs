@@ -2,6 +2,9 @@
 
 namespace Surging.Core.CPlatform.EventBus.Events
 {
+    /// <summary>
+    /// 集成事件
+    /// </summary>
 	public class IntegrationEvent
     {
         public IntegrationEvent()

@@ -10,31 +10,20 @@ using System.Threading.Tasks;
 
 namespace Surging.Core.ServiceHosting.Extensions.Runtime
 {
+    /// <summary>
+    /// 抽象后台服务
+    /// </summary>
     public abstract class BackgroundServiceBehavior : IServiceBehavior, IDisposable
     {
         private Task _executingTask;
         private CancellationTokenSource _stoppingCts = new CancellationTokenSource();
 
-        public T CreateProxy<T>(string key) where T : class
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>(key);
-        }
-
-        public object CreateProxy(Type type)
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(type);
-        }
-
-        public object CreateProxy(string key, Type type)
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy(key, type);
-        }
-
-        public T CreateProxy<T>() where T : class
-        {
-            return ServiceLocator.GetService<IServiceProxyFactory>().CreateProxy<T>();
-        }
-
+        /// <summary>
+        /// 获取服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public T GetService<T>(string key) where T : class
         {
             if (ServiceLocator.Current.IsRegisteredWithKey<T>(key))
@@ -69,6 +58,10 @@ namespace Surging.Core.ServiceHosting.Extensions.Runtime
 
         }
 
+        /// <summary>
+        /// 发布事件
+        /// </summary>
+        /// <param name="event"></param>
         public void Publish(IntegrationEvent @event)
         {
             GetService<IEventBus>().Publish(@event);

@@ -13,8 +13,15 @@ namespace Surging.Core.CPlatform.Runtime.Server.Implementation.ServiceDiscovery.
             RouteTemplate = routeTemplate;
             IsPrefix = isPrefix;
         }
+
+        /// <summary>
+        /// 路由模板
+        /// </summary>
         public string RouteTemplate { get; }
 
+        /// <summary>
+        /// 是否作为前缀
+        /// </summary>
         public bool IsPrefix { get; }
     }
 }

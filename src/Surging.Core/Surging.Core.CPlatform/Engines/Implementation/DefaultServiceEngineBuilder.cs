@@ -13,6 +13,7 @@ namespace Surging.Core.CPlatform.Engines.Implementation
         private readonly ILogger<DefaultServiceEngineBuilder> _logger;
         private readonly Dictionary<string, DateTime> _dic = new Dictionary<string, DateTime>();
         private DateTime _lastBuildTime = DateTime.Now;
+
         public DefaultServiceEngineBuilder(IServiceEngine serviceEngine, ILogger<DefaultServiceEngineBuilder> logger)
         {
             _serviceEngine = serviceEngine as VirtualPathProviderServiceEngine;
@@ -90,8 +91,7 @@ namespace Surging.Core.CPlatform.Engines.Implementation
         private string[] GetPaths(params string[] virtualPaths)
         {
             var directories = new List<string>(virtualPaths.Where(p => !string.IsNullOrEmpty(p)));
-            string rootPath = string.IsNullOrEmpty(AppConfig.ServerOptions.RootPath) ?
-                AppContext.BaseDirectory : AppConfig.ServerOptions.RootPath;
+            string rootPath = string.IsNullOrEmpty(AppConfig.ServerOptions.RootPath) ? AppContext.BaseDirectory : AppConfig.ServerOptions.RootPath;
             var virPaths = virtualPaths;
             foreach (var virtualPath in virtualPaths)
             {

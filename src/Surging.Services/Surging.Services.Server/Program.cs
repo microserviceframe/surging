@@ -35,7 +35,7 @@ namespace Surging.Services.Server
                 })
                 .ConfigureLogging(logger =>
                 {
-                    logger.AddConfiguration(Core.CPlatform.AppConfig.GetSection("Logging"));
+                    logger.AddConfiguration(AppConfig.GetSection("Logging"));
                 })
                 .UseServer(options => { })
                 .UseConsoleLifetime()

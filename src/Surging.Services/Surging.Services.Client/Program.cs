@@ -80,7 +80,9 @@ namespace Surging.Services.Client
             Parallel.For(0, connectionCount / 6000, new ParallelOptions() { MaxDegreeOfParallelism = 50 }, async u =>
                {
                    for (var i = 0; i < 6000; i++)
+				   {
                        await Test(userProxy, connectionCount);
+                   }
                });
         }
 

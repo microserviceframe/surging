@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Surging.Modules.Common.IntegrationEvents.EventHandling
 {
+    /// <summary>
+    /// 用户退出时间更改事件处理器
+    /// </summary>
     [QueueConsumer("UserLogoutDateChangeHandler")]
     public class UserLogoutDataChangeHandler : IIntegrationEventHandler<LogoutEvent>
     {

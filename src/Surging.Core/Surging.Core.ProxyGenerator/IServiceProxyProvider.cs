@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Surging.Core.ProxyGenerator
 {
 	/// <summary>
-	/// 代理服务接口
+	/// 服务代理提供者接口
 	/// </summary>
 	public interface IServiceProxyProvider
 	{

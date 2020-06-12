@@ -3,6 +3,9 @@ using System;
 
 namespace Surging.Core.CPlatform.Support.Attributes
 {
+    /// <summary>
+    /// 指令特性
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class CommandAttribute : Attribute
     {

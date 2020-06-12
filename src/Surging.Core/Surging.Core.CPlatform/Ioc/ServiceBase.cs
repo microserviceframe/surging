@@ -3,6 +3,9 @@ using System;
 
 namespace Surging.Core.CPlatform.Ioc
 {
+    /// <summary>
+    /// 基础服务
+    /// </summary>
     public abstract class ServiceBase : IServiceBehavior
     {
         public virtual T GetService<T>() where T : class
