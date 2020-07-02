@@ -4,14 +4,15 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<PackageId>surging</PackageId>
-		<Authors>fanly</Authors>
-		<PackageLicenseUrl>https://github.com/dotnetcore/surging/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/dotnetcore/surging</PackageProjectUrl>
-		<PackageTags>MicroService surging</PackageTags>
+		<Version>1.0.0</Version>
+		<Authors>Surging</Authors>
+		<Company>Surging</Company>
+		<Product>Surging Micro Service Framework</Product>
 		<PackageReleaseNotes>
 			1.multiple register center cluster
 			2. fix bug
 		</PackageReleaseNotes>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -5,10 +5,14 @@
 		<Description>$(Product) gRPC data transmitter.</Description>
 		<AssemblyTitle>$(PackagePrefix).Transport.Grpc.Protocol</AssemblyTitle>
 		<AssemblyName>SkyApm.Transport.Grpc.Protocol</AssemblyName>
-		<PackageId>$(PackagePrefix).Transport.Grpc.Protocol</PackageId>
-		<PackageTags>SkyWalking;Grpc</PackageTags>
+		<PackageId>SkyApm.Transport.Grpc.Protocol</PackageId>
+		<PackageTags></PackageTags>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<RootNamespace>SkyApm.Transport.Grpc.Protocol</RootNamespace>
+		<Version>1.0.0</Version>
+		<Authors>Surging</Authors>
+		<Company>Surging</Company>
+		<Product>Surging Micro Service Framework</Product>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -24,5 +28,6 @@
 	<PropertyGroup>
 		<Protobuf_NoWarnMissingExpected>true</Protobuf_NoWarnMissingExpected>
 		<Protobuf_TouchMissingExpected>true</Protobuf_TouchMissingExpected>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 </Project>

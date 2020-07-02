@@ -107,7 +107,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Surging.Core.Serilog", "Sur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Surging.Core.Configuration.Apollo", "Surging.Core\Surging.Core.Configuration.Apollo\Surging.Core.Configuration.Apollo.csproj", "{FA1216E9-867C-4CAC-BFB5-0BDE8BC6CD2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surging.Core.Thrift", "Surging.Core\Surging.Core.Thrift\Surging.Core.Thrift.csproj", "{734B6128-C5E7-4746-B8B9-58B9798F9174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Surging.Core.Thrift", "Surging.Core\Surging.Core.Thrift\Surging.Core.Thrift.csproj", "{734B6128-C5E7-4746-B8B9-58B9798F9174}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

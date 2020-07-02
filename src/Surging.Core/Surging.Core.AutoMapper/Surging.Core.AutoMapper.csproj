@@ -3,7 +3,11 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<Description>通过AutoMapper组件实现Dto对象和实体对象之间的相互转换</Description>
-
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>1.0.0</Version>
+		<Authors>Surging</Authors>
+		<Company>Surging</Company>
+		<Product>Surging Micro Service Framework</Product>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Attributes" Version="6.0.1" />

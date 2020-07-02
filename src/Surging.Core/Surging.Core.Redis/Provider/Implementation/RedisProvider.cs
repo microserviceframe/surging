@@ -71,7 +71,7 @@ namespace Surging.Core.Redis.Provider.Implementation
         /// </remarks>
         public void Add(string key, object value, bool defaultExpire)
         {
-            this.Add(key, value, TimeSpan.FromMinutes(defaultExpire ? DefaultExpireTime : ExpireTime));
+            this.Add(key, value, TimeSpan.FromMinutes(defaultExpire ? DefaultExpireTime : DefaultExpireTime));
         }
 
         /// <summary>
@@ -359,5 +359,25 @@ namespace Surging.Core.Redis.Provider.Implementation
         {
             return string.IsNullOrEmpty(KeySuffix) ? key : string.Format("_{0}_{1}", KeySuffix, key);
         }
-    }
+
+		public Task<bool> ConnectionAsync(CacheEndpoint endpoint)
+		{
+			throw new NotImplementedException();
+		}
+
+		void ICacheProvider.AddAsync(string key, object value)
+		{
+			throw new NotImplementedException();
+		}
+
+		void ICacheProvider.AddAsync(string key, object value, bool defaultExpire)
+		{
+			throw new NotImplementedException();
+		}
+
+		void ICacheProvider.AddAsync(string key, object value, long numOfMinutes)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
