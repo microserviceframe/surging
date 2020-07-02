@@ -7,16 +7,14 @@
 		<AssemblyName>SkyApm.Transport.Grpc.Protocol</AssemblyName>
 		<PackageId>$(PackagePrefix).Transport.Grpc.Protocol</PackageId>
 		<PackageTags>SkyWalking;Grpc</PackageTags>
-		<PackageReleaseNotes>
-		</PackageReleaseNotes>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>netstandard2.1</TargetFramework>
 		<RootNamespace>SkyApm.Transport.Grpc.Protocol</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.12.3" />
-		<PackageReference Include="Grpc" Version="2.29.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.29.0" PrivateAssets="All" />
+		<PackageReference Include="Grpc" Version="2.30.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.30.0" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
