@@ -30,7 +30,7 @@
 	<ItemGroup>
 		<PackageReference Include="Autofac" Version="5.2.0" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
-		<PackageReference Include="Volo.Abp.EventBus" Version="3.0.2" />
+		<PackageReference Include="Volo.Abp.EventBus" Version="3.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>

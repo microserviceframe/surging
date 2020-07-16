@@ -8,10 +8,10 @@ namespace Surging.Core.CPlatform.Ioc
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ModuleNameAttribute : Attribute
     {
-        public string ModuleName { get; set; }
-
-        public string Version { get; set; }
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="moduleName"></param>
         public ModuleNameAttribute()
         {
 
@@ -20,5 +20,9 @@ namespace Surging.Core.CPlatform.Ioc
         {
             ModuleName = moduleName;
         }
+
+        public string ModuleName { get; set; }
+
+        public string Version { get; set; }
     }
 }
